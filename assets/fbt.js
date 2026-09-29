@@ -72,6 +72,9 @@
     return (n % 10 === 1 && n % 100 !== 11) ? one : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? few : many);
   };
 
+  // Тестовый режим: показываем подписи «заглушка» на фото
+  if (C.testMode) document.documentElement.classList.add('is-test');
+
   document.addEventListener('DOMContentLoaded', function () {
     bindLinks(document);
     var y = document.querySelector('[data-year]');

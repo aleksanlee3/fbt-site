@@ -168,7 +168,8 @@
   .radar-card { max-width: 520px; width: 100%; align-self: center; }
   .qwrap { flex-direction: column; align-items: stretch; }
   .qpanel { flex-basis: auto; max-width: none; }
-  .radar-card.live { display: none; }
+  .radar-card.live { max-width: 440px; padding: 18px 18px 16px; }
+  .radar-card.live svg { margin-top: 6px; }
   .res-grid { flex-direction: column; }
   .res-radar { flex-basis: auto; max-width: none; }
   .send { flex-direction: column; gap: 32px; }
@@ -187,6 +188,8 @@
   .scr { padding: 28px 0 48px; }
   .intro-go { align-self: stretch; }
   .radar-card { padding: 20px; }
+  .radar-card.live { max-width: 340px; padding: 14px 10px 12px; }
+  .radar-card.live p { font-size: 13px; }
   .panel, .qpanel { padding: 24px 20px; border-radius: 20px; }
   .opts .opt { font-size: 16px; min-height: 58px; }
   .qtext { margin-top: 28px; min-height: 96px; }
@@ -218,3 +221,12 @@
   .tasks-send { padding: 22px; }
   .sent-3 { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Фото на стр. 3 */
+.next-card { overflow: hidden; }
+.next-ph { flex: 0 0 240px; align-self: stretch; min-height: 160px; margin: -36px 0 -36px -40px; border-radius: 0; }
+@media (max-width: 900px) { .next-ph { flex-basis: auto; height: 190px; margin: -36px -40px 0; } }
+@media (max-width: 640px) { .next-ph { margin: -28px -22px 0; } }
+.intro-ph { height: 170px; margin-bottom: 28px; }
+.intro-ph img { object-position: 50% 42%; }
+@media (max-width: 640px) { .intro-ph { height: 130px; margin-bottom: 20px; border-radius: 16px; } }

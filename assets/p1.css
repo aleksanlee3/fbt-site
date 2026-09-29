@@ -131,3 +131,16 @@
   .phrase b { font-size: 21px; }
   .bigquote { padding: 28px; }
 }
+
+/* Фото на стр. 1 */
+.player-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+.player-cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(17,17,19,.55) 0%, rgba(17,17,19,.15) 55%, rgba(17,17,19,.35) 100%); }
+.player-who { z-index: 2; }
+.story-photo { padding: 0; border: 0; display: block; }
+.stage-card { overflow: hidden; }
+.stage-img { margin: -36px -36px 24px; height: 190px; border-radius: 0; }
+.stage-img img { object-position: 50% 30%; }
+@media (max-width: 900px) { .stage-img { margin: -28px -28px 20px; } }
+@media (max-width: 640px) { .stage-img { margin: -24px -24px 18px; height: 170px; } }
+.stage-card .h3 { margin-top: 20px; }
+@media (max-width: 640px) { .story-photo { flex: none; height: 240px; } }

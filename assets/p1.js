@@ -1,8 +1,10 @@
 /* Стр. 1 · Видеоурок: плеер, отсчёт до карты, состояния кнопок */
 (function () {
   var C = FBT.cfg, V = C.video || {};
-  var TOTAL = Math.max(60, Number(V.length) || 1800);
-  var UNLOCK = Math.max(30, Math.min(TOTAL, Number(V.unlockAt) || 1770));
+  var TEST = !!C.testMode;
+  // Тестовый режим: 30 секунд вместо 30 минут, кнопки открываются в конце
+  var TOTAL = TEST ? 30 : Math.max(60, Number(V.length) || 1800);
+  var UNLOCK = TEST ? 30 : Math.max(30, Math.min(TOTAL, Number(V.unlockAt) || 1770));
   var qs = new URLSearchParams(location.search);
   var demoSpeed = Math.max(1, Math.min(600, Number(qs.get('demo')) || 1));
   if (qs.has('reset')) { FBT.store.set('fbt_p1', {}); FBT.store.set('fbt_map', 0); }
@@ -60,8 +62,11 @@
   // ── Плеер ───────────────────────────────────────────────
   var type = V.type === 'youtube' && V.src ? 'youtube' : (V.type === 'file' && V.src ? 'file' : 'demo');
 
+  if (TEST) type = 'demo';
   if (type === 'demo') {
-    document.querySelector('[data-demo-note]').hidden = false;
+    var note = document.querySelector('[data-demo-note]');
+    note.hidden = false;
+    if (TEST) note.innerHTML = '<b class="acc">Тестовый режим:</b> видео длится 30 секунд, карта и кнопки открываются в конце. Сбросить прогресс — добавьте к адресу <span class="mono">?reset</span>.';
     setInterval(function () {
       if (!st.playing) return;
       st.pos = Math.min(TOTAL, st.pos + demoSpeed);
