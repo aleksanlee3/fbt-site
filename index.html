@@ -49,7 +49,7 @@
       <div class="step is-now route-full" aria-current="step"><span class="dot">1</span>Посмотреть видео<span class="tag">Вы здесь</span></div>
       <i class="route-line route-full"></i>
       <div class="step route-full" data-show="locked"><span class="dot">2</span>Забрать карту действий<span class="tag--timer"><svg width="15" height="15" class="acc"><use href="#i-clock"/></svg>в конце видео · <b data-text-of="timeLeft">29:30</b></span></div>
-      <a class="step is-open route-full" data-show="unlocked" data-bot="map" data-getmap hidden><span class="dot">2</span><span class="u">Забрать карту в боте</span><span class="tag tag--ok">Доступ открыт</span></a>
+      <a class="step is-open route-full" data-show="unlocked" href="karta.html" hidden><span class="dot">2</span><span class="u">Перейти и забрать карту действий</span><span class="tag tag--ok">Доступ открыт</span></a>
       <div class="step route-full" data-show="got" hidden><span class="dot" style="background:var(--ok);border-color:var(--ok);color:#111113"><svg><use href="#i-check"/></svg></span>Карта в боте</div>
       <i class="route-line route-full"></i>
       <div class="step is-muted route-full" data-show="notGot"><span class="dot">3</span>Пройти онлайн-диагностику</div>
@@ -60,7 +60,7 @@
         <div class="rc-top">
           <span class="rc-t">ВЫ НА ЭТАПЕ 1 ИЗ 3</span>
           <span class="rc-badge" data-show="locked">карта в конце видео · <b data-text-of="timeLeft">29:30</b></span>
-          <a class="rc-badge rc-badge--ok" data-show="unlocked" data-bot="map" data-getmap hidden>Карта открыта →</a>
+          <a class="rc-badge rc-badge--ok" data-show="unlocked" href="karta.html" hidden>К карте действий →</a>
           <a class="rc-badge rc-badge--acc" data-show="got" href="diagnostika.html" hidden>К диагностике →</a>
         </div>
         <div class="rc-line"><i class="now">1</i><b></b><i data-step2>2</i><b></b><i>3</i></div>
@@ -119,12 +119,12 @@
           <div class="unlock-txt">
             <div class="okline"><svg><use href="#i-check"/></svg>ДОСТУП ОТКРЫТ</div>
             <div class="unlock-h">Ваша карта действий готова</div>
-            <p class="muted">Нажмите кнопку: бот FBT в Telegram сразу пришлёт карту и подскажет следующий шаг — бесплатную онлайн-диагностику.</p>
+            <p class="muted">Перейдите на следующую страницу: там подробно о карте — что внутри, как с ней работать, — и кнопка, по которой бот FBT в Telegram сразу пришлёт PDF.</p>
           </div>
           <div class="unlock-act">
             <div class="push">
               <div class="nudge" aria-hidden="true"><span>Жми сюда!</span><svg><use href="#i-arrow-hand"/></svg></div>
-              <span class="ringed"><a class="btn btn--primary btn--lg" data-bot="map" data-getmap><svg><use href="#i-send"/></svg>Забрать карту в боте</a></span>
+              <span class="ringed"><a class="btn btn--primary btn--lg" href="karta.html">Перейти и забрать карту действий<svg><use href="#i-right"/></svg></a></span>
             </div>
             <a class="link-arrow" href="programma.html">Уже готовы? Записаться в поток<svg><use href="#i-right"/></svg></a>
           </div>
@@ -238,7 +238,7 @@
           <div class="mini-map"><div><b>Карта действий</b><span class="mono">FBT ONLINE</span></div><i style="width:82%"></i><i style="width:64%"></i><i style="width:72%"></i></div>
           <div class="grow"></div>
           <div class="btn btn--sm btn--block btn--locked" data-show="locked"><svg><use href="#i-lock"/></svg>Откроется в конце видео</div>
-          <a class="btn btn--sm btn--block btn--primary" data-show="unlocked" data-bot="map" data-getmap hidden>Забрать карту в боте</a>
+          <a class="btn btn--sm btn--block btn--primary" data-show="unlocked" href="karta.html" hidden>Перейти и забрать карту<svg><use href="#i-right"/></svg></a>
           <a class="btn btn--sm btn--block btn--soft" data-show="got" data-bot="map" data-getmap hidden>Открыть бот ещё раз</a>
         </div>
         <div class="card stepcard">
