@@ -90,11 +90,46 @@
     { id: 'zpWKM2sYcxQ', name: 'Выпускница FBT', place: '' }
   ];
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  // Позиция просмотра каждого ролика — чтобы «на весь экран» продолжал с того же места
+  var rvTime = {};
+  window.addEventListener('message', function (e) {
+    if (!/youtube/.test(e.origin || '')) return;
+    var d; try { d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch (x) { return; }
+    if (!d || !d.info || typeof d.info.currentTime !== 'number') return;
+    document.querySelectorAll('.rv iframe').forEach(function (f) {
+      if (f.contentWindow === e.source) rvTime[f.getAttribute('data-id')] = d.info.currentTime;
+    });
+  });
+  function ytSrc(id, start) {
+    return 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1&modestbranding=1&enablejsapi=1' +
+      (start ? '&start=' + Math.floor(start) : '') + '&origin=' + encodeURIComponent(location.origin);
+  }
+  function stopInline(except) {
+    document.querySelectorAll('.rv.is-on').forEach(function (rv) {
+      if (rv === except) return;
+      var f = rv.querySelector('iframe'); if (f) f.remove();
+      rv.classList.remove('is-on');
+    });
+  }
+  function playInline(rv) {
+    var id = rv.getAttribute('data-rv'); if (rv.classList.contains('is-on')) return;
+    stopInline(rv);
+    var f = document.createElement('iframe');
+    f.setAttribute('data-id', id);
+    f.src = ytSrc(id, rvTime[id]);
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.setAttribute('allowfullscreen', ''); f.title = 'Видеоотзыв';
+    f.addEventListener('load', function () { try { f.contentWindow.postMessage('{"event":"listening","id":"' + id + '"}', '*'); } catch (x) {} });
+    rv.querySelector('.rv-cover').appendChild(f);
+    rv.classList.add('is-on');
+  }
   function openReview(id) {
+    var start = rvTime[id] || 0;
+    stopInline();
     var m = document.createElement('div');
     m.className = 'rv-modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-label', 'Видеоотзыв');
     m.innerHTML = '<div class="rv-box"><button type="button" class="rv-x" aria-label="Закрыть">×</button>' +
-      '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Видеоотзыв"></iframe></div>';
+      '<iframe src="' + ytSrc(id, start) + '" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Видеоотзыв"></iframe></div>';
     function close() { m.remove(); document.removeEventListener('keydown', onKey); document.documentElement.classList.remove('rv-open'); }
     function onKey(e) { if (e.key === 'Escape') close(); }
     m.addEventListener('click', function (e) { if (e.target === m || e.target.closest('.rv-x')) close(); });
@@ -102,21 +137,46 @@
     document.documentElement.classList.add('rv-open');
     document.body.appendChild(m);
   }
+  var FULL_ICO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5"/><path d="M20 9V4h-5"/><path d="M4 15v5h5"/><path d="M20 15v5h-5"/></svg>';
   FBT.renderReviews = function () {
     document.querySelectorAll('[data-reviews]').forEach(function (box) {
       var lim = parseInt(box.getAttribute('data-limit'), 10) || FBT.REVIEWS.length;
       box.innerHTML = FBT.REVIEWS.slice(0, lim).map(function (r) {
-        return '<button type="button" class="rv" data-rv="' + r.id + '" aria-label="Смотреть отзыв: ' + esc(r.name) + '">' +
-          '<span class="rv-cover"><img src="assets/img/rev/' + r.id + '.jpg" alt="" loading="lazy"><span class="rv-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span></span>' +
-          '<span class="rv-t"><b>' + esc(r.name) + '</b>' + (r.place ? '<span>' + esc(r.place) + '</span>' : '') + '</span></button>';
+        return '<div class="rv" data-rv="' + r.id + '">' +
+          '<span class="rv-cover"><img src="assets/img/rev/' + r.id + '.jpg" alt="" loading="lazy">' +
+          '<button type="button" class="rv-play" data-rv-play aria-label="Смотреть отзыв: ' + esc(r.name) + '"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>' +
+          '<button type="button" class="rv-full" data-rv-full aria-label="На весь экран">' + FULL_ICO + '</button></span>' +
+          '<span class="rv-t"><b>' + esc(r.name) + '</b>' + (r.place ? '<span>' + esc(r.place) + '</span>' : '') + '</span></div>';
       }).join('');
+      // Карусель прокрутили — ролик, ушедший из вида, останавливаем
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (en) {
+            if (en.isIntersecting || !en.target.classList.contains('is-on')) return;
+            var f = en.target.querySelector('iframe'); if (f) f.remove();
+            en.target.classList.remove('is-on');
+          });
+        }, { threshold: 0.35 });
+        box.querySelectorAll('.rv').forEach(function (rv) { io.observe(rv); });
+      }
     });
     var all = document.querySelector('[data-reviews-all]');
     if (all && C.reviewsUrl) { all.href = C.reviewsUrl; all.hidden = false; }
   };
   document.addEventListener('click', function (e) {
-    var b = e.target.closest && e.target.closest('[data-rv]');
-    if (b) { openReview(b.getAttribute('data-rv')); if (FBT.event) try { FBT.event('review_open', { id: b.getAttribute('data-rv') }); } catch (x) {} }
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var full = t.closest('[data-rv-full]');
+    var rv = t.closest('.rv');
+    if (full && rv) {
+      e.preventDefault(); openReview(rv.getAttribute('data-rv'));
+      if (FBT.event) try { FBT.event('review_full', { id: rv.getAttribute('data-rv') }); } catch (x) {}
+      return;
+    }
+    if (rv && t.closest('.rv-cover') && !rv.classList.contains('is-on')) {
+      playInline(rv);
+      if (FBT.event) try { FBT.event('review_open', { id: rv.getAttribute('data-rv') }); } catch (x) {}
+    }
   });
 
   // Тестовый режим: показываем подписи «заглушка» на фото

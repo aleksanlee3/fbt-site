@@ -402,3 +402,66 @@ html.rv-open { overflow: hidden; }
   .rv { flex: 0 0 62%; scroll-snap-align: start; }
   .rv-x { top: 6px; right: 6px; }
 }
+
+/* ───────── v2.6 · цветовое правило блоков ─────────
+   ИСТОРИЯ (Люба, ARTICON, её слова)  → терракота: метка .tag-story, коробка .storybox, цитата .lquote
+   МЕТОДОЛОГИЯ (как устроен бизнес)   → мёд + орех: метка .tag-method
+   ДЕЙСТВИЕ (кнопки, следующий шаг)   → красная кнопка / зелёный «готово»                     */
+.tag-tone { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; line-height: 1.2; }
+.tag-tone::before { content: ''; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: currentColor; }
+.tag-story { background: rgba(196,67,45,.1); color: var(--accent-text); }
+.tag-method { background: rgba(242,196,109,.28); color: #7A4F0A; }
+.theme-dark .tag-story { background: rgba(242,154,133,.12); }
+.theme-dark .tag-method { background: rgba(242,196,109,.14); color: var(--honey); }
+.tag-tone + .h1, .tag-tone + .h2 { margin-top: 20px; }
+
+/* Коробка истории */
+.storybox { position: relative; padding: 40px 44px 44px; border-radius: 28px; background: #FBEDE4; border: 1px solid #F0D5C6; box-shadow: inset 5px 0 0 var(--accent); }
+.storybox .wrong-h { margin-top: 20px; max-width: 720px; }
+.wrong-steps { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; counter-reset: none; }
+.wrong-steps li { position: relative; display: flex; align-items: center; gap: 14px; padding: 18px 18px 18px 16px; border-radius: 18px; background: #FFFDF9; border: 1px solid #F0D5C6; }
+.wrong-steps i { width: 34px; height: 34px; flex-shrink: 0; border-radius: 50%; background: #F6DCCF; color: var(--accent-text); font-style: normal; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+.wrong-steps li > span { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex-grow: 1; }
+.wrong-steps small { font-size: 14px; color: var(--dim); }
+.wrong-steps b { font-size: 19px; line-height: 1.25; font-weight: 600; color: var(--text); text-decoration: line-through; text-decoration-color: rgba(196,67,45,.55); text-decoration-thickness: 2px; }
+.wrong-steps s { text-decoration: none; flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: rgba(196,67,45,.12); color: var(--accent-text); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.storybox .wrong-ph { border-radius: 20px; overflow: hidden; margin-top: 24px; }
+.storybox .wrong-foot { margin-top: 32px; padding-top: 0; border-top: 0; }
+.wrong-pre { font-size: 17px; font-weight: 600; color: var(--accent-text); }
+.storybox .wrong-big { font-size: clamp(40px, 6.4vw, 84px); }
+.wrong-next { margin-top: 32px; }
+
+/* Цитата Любы */
+.lquote { position: relative; max-width: 920px; padding: 36px 40px; border-radius: 28px; background: #FBEDE4; border: 1px solid #F0D5C6; box-shadow: inset 5px 0 0 var(--accent); }
+.lquote blockquote { position: relative; margin-top: 22px; }
+.lquote .quote-ico { width: 44px; height: 36px; fill: var(--accent); opacity: .22; display: block; margin-bottom: 10px; }
+.lquote-main { font-size: clamp(24px, 2.6vw, 32px); line-height: 1.3; font-weight: 700; letter-spacing: -.015em; color: var(--text-strong); }
+.lquote-sub { margin-top: 14px; font-size: clamp(18px, 1.8vw, 21px); line-height: 1.5; color: var(--muted); }
+.lquote-foot { margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(196,67,45,.18); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px 24px; }
+.lquote-who { display: inline-flex; align-items: center; gap: 12px; }
+.lquote-who img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; object-position: 50% 25%; border: 2px solid var(--accent); }
+.lquote-who > span { display: flex; flex-direction: column; line-height: 1.25; }
+.lquote-who b { font-size: 17px; font-weight: 700; color: var(--text); }
+.lquote-who small { font-size: 14px; color: var(--dim); }
+.theme-dark .lquote, .theme-dark .storybox { background: linear-gradient(135deg, #2E1D17, #241915); border-color: #4A2E24; }
+.theme-dark .lquote-foot { border-top-color: rgba(242,154,133,.18); }
+.tone-story.bigquote { box-shadow: inset 5px 0 0 var(--accent); }
+
+@media (max-width: 900px) { .wrong-steps { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) {
+  .storybox { padding: 26px 20px 28px 24px; border-radius: 22px; }
+  .lquote { padding: 26px 20px 26px 24px; border-radius: 22px; }
+  .lquote-foot .btn { width: 100%; white-space: normal; height: auto; min-height: 56px; padding: 12px 18px; }
+  .wrong-steps b { font-size: 18px; }
+}
+
+/* ───────── v2.6 · отзывы: играют прямо в карусели + «на весь экран» ───────── */
+.rv { cursor: default; }
+.rv-cover { cursor: pointer; }
+.rv-cover iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; z-index: 2; }
+.rv.is-on .rv-cover::after, .rv.is-on .rv-play, .rv.is-on .rv-cover img { display: none; }
+.rv-play { border: 0; padding: 0; cursor: pointer; }
+.rv-full { position: absolute; z-index: 3; top: 10px; right: 10px; width: 38px; height: 38px; border: 0; border-radius: 12px; background: rgba(28,20,15,.62); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.rv-full svg { width: 20px; height: 20px; }
+.rv-full:hover { background: rgba(28,20,15,.82); }
+@media (max-width: 640px) { .revs { scroll-padding-inline: var(--gutter); } }
