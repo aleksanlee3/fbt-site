@@ -233,3 +233,135 @@
   .fam-real-big { grid-column: span 2; grid-row: auto; min-height: 240px !important; }
   .fam-real-grid figure { min-height: 150px; }
 }
+
+/* ── v2.8 · общие блоки (как на стр. 4) ── */
+/* «Не подойдёт» — ярко-красный блок */
+.nofit-red { display: flex; gap: 16px; align-items: flex-start; padding: 22px 24px; border-radius: 18px; background: #FBE3DD; border: 2px solid var(--accent); color: #5A1D12; }
+.nofit-red.nofit4 { grid-column: 1 / -1; border-style: solid; font-size: 16px; }
+.nofit-ico { width: 44px; height: 44px; flex-shrink: 0; border-radius: 999px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; }
+.nofit-ico svg { width: 26px; height: 26px; }
+.nofit-red b { display: block; font-size: 18px; color: #A93824; letter-spacing: -.005em; }
+.nofit-red ul { margin: 10px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.nofit-red li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.4; font-weight: 600; color: #5A1D12; }
+.nofit-red li svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 3px; color: var(--accent); }
+
+
+/* ── v2.8 · живые списки на стр. 5 ── */
+/* Симптомы */
+.symp2 div { align-items: center; gap: 16px; padding: 16px 18px; border-left-width: 4px; }
+.symp2 p { margin: 0; font-size: 17px; line-height: 1.45; color: var(--text-2); }
+.symp2 p b { color: var(--text); }
+.sy-ico { width: 48px; height: 48px; flex-shrink: 0; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; }
+.sy-ico svg { width: 26px; height: 26px; }
+.symp2 .s1 { border-left-color: #8B6CF6; } .symp2 .s1 .sy-ico { background: #ECE6FD; color: #6A4FD6; }
+.symp2 .s2 { border-left-color: var(--accent); } .symp2 .s2 .sy-ico { background: #FBE3DD; color: var(--accent); }
+.symp2 .s3 { border-left-color: #E9B23F; } .symp2 .s3 .sy-ico { background: #FCEFD2; color: #8A5D0E; }
+.symp2 .s4 { border-left-color: #3F95D6; } .symp2 .s4 .sy-ico { background: #DDEBF7; color: #2F72A8; }
+
+/* Если без вас останавливаются */
+.stop { background: var(--forest); border-color: var(--forest); color: #FFF8EE; }
+.stop-h { color: #fff; font-size: 20px; }
+.stop2 span { background: rgba(255,255,255,.07); border: 1px solid #5E4636; color: #FFF8EE; font-size: 17px; font-weight: 600; padding: 14px; }
+.stop2 span::before { display: none; }
+.stop2 svg { width: 22px; height: 22px; color: #F6A48E; flex-shrink: 0; }
+.stop .stop-f { color: #E4D2BC; font-size: 17px; }
+
+/* Что выстраиваете */
+.sys2 div { padding: 14px 16px; gap: 14px; background: var(--card); }
+.sys2 p { margin: 0; display: flex; flex-direction: column; }
+.sys2 p b { font-size: 18px; }
+.sys2 p span { font-size: 15px; color: var(--muted); font-weight: 400; }
+.sys-ico { width: 46px; height: 46px; flex-shrink: 0; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; }
+.sys2 .sys-ico svg { width: 24px; height: 24px; color: inherit; }
+.sys2 .c1 .sys-ico { background: #FBE3DD; color: #C4432D; }
+.sys2 .c2 .sys-ico { background: #FCEFD2; color: #8A5D0E; }
+.sys2 .c3 .sys-ico { background: #D8F0EC; color: #1E7D6E; }
+.sys2 .c4 .sys-ico { background: #DDEBF7; color: #2F72A8; }
+
+/* Роли */
+.roles2 .role { grid-template-columns: 56px minmax(0, 1fr); align-items: start; border-left: 5px solid; }
+.role-ico { width: 56px; height: 56px; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; }
+.role-ico svg { width: 28px; height: 28px; }
+.roles2 .role > div { display: flex; flex-direction: column; gap: 4px; }
+.role-k { font-size: 12px !important; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.roles2 .role b { font-size: 19px; line-height: 1.3; }
+.roles2 .r-fam { border-left-color: #6DBB87; } .r-fam .role-ico { background: #DDF1E4; color: #2A6E43; } .r-fam .role-k { color: #2A6E43 !important; }
+.roles2 .r-biz { border-left-color: #C4432D; } .r-biz .role-ico { background: #FBE3DD; color: #C4432D; } .r-biz .role-k { color: #A93824 !important; }
+.roles2 .r-own { border-left-color: #E9B23F; } .r-own .role-ico { background: #FCEFD2; color: #8A5D0E; } .r-own .role-k { color: #8A5D0E !important; }
+@media (max-width: 640px) { .roles2 .role { grid-template-columns: 48px minmax(0, 1fr); gap: 14px; } .role-ico { width: 48px; height: 48px; } }
+
+/* Фразы-«речевые пузыри» */
+.mix-q div { position: relative; padding-top: 42px; }
+.mix-q div::before { content: "“"; position: absolute; top: 4px; left: 20px; font-size: 56px; line-height: 1; color: var(--accent); font-family: Georgia, serif; }
+
+/* Уроки трека */
+.track2 .tr { padding-top: 0; overflow: hidden; border-top: 0; }
+.track2 .tr::before { content: ""; display: block; height: 8px; margin: 0 -28px 18px; background: var(--tc, var(--honey)); }
+.tr-ico { width: 52px; height: 52px; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; background: var(--tb); color: var(--tc); }
+.tr-ico svg { width: 28px; height: 28px; }
+.track2 .t-fin { --tc: #2BA592; --tb: #D8F0EC; }
+.track2 .t-time { --tc: #8B6CF6; --tb: #ECE6FD; }
+.track2 .t-ppl { --tc: #3F95D6; --tb: #DDEBF7; }
+.track2 .t-own { --tc: #E9B23F; --tb: #FCEFD2; }
+.track2 .t-succ { --tc: #C4432D; --tb: #FBE3DD; }
+.track2 .t-gen { --tc: #6DBB87; --tb: #DDF1E4; }
+.track2 .tr .res { margin-top: auto; padding: 12px 14px; border-top: 0; border-radius: 12px; background: var(--tb); color: var(--text); font-weight: 600; }
+.track2 .tr .res::before { color: var(--text); }
+.is-test .track2 .tr:has(.concept) { padding-top: 0; }
+.track2 .concept { top: 16px; }
+
+/* Кому подойдёт */
+.fit2 > div { align-items: flex-start; border-top: 5px solid var(--fc); }
+.fit-ico { width: 56px; height: 56px; flex-shrink: 0; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: var(--fb); color: var(--fc); }
+.fit-ico svg { width: 28px; height: 28px; }
+.fit2 .f1 { --fc: #C4432D; --fb: #FBE3DD; }
+.fit2 .f2 { --fc: #8A5D0E; --fb: #FCEFD2; }
+.fit2 .f3 { --fc: #2A6E43; --fb: #DDF1E4; }
+.fit2 .f4 { --fc: #2F72A8; --fb: #DDEBF7; }
+.fit2 b { font-size: 19px; }
+.nofit-red { margin-top: 18px; }
+
+/* Фундамент для детей */
+.ready2 div { align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: var(--card); border: 1px solid var(--line-2); font-weight: 600; color: var(--text); }
+.rd-ico { width: 38px; height: 38px; flex-shrink: 0; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; }
+.ready2 .rd-ico svg { width: 20px; height: 20px; margin: 0; color: inherit; }
+.rc1 { background: #FCEFD2; color: #8A5D0E; } .rc2 { background: #D8F0EC; color: #1E7D6E; } .rc3 { background: #DDEBF7; color: #2F72A8; }
+.rc4 { background: #FBE3DD; color: #C4432D; } .rc5 { background: #ECE6FD; color: #6A4FD6; } .rc6 { background: #DDF1E4; color: #2A6E43; }
+
+/* Обычный тренинг vs FBT */
+.qa2 { margin-top: 44px; display: flex; flex-direction: column; gap: 14px; }
+.qa2-head { display: grid; grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1.5fr); font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+.qa2-head span:last-child { grid-column: 3; color: var(--accent-text); }
+.qa2-row { display: grid; grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1.5fr); align-items: stretch; }
+.qa2-old { display: flex; align-items: center; padding: 18px 20px; border-radius: 18px; background: var(--bg-2); border: 1px dashed var(--line-4); font-size: 17px; color: var(--dim); }
+.qa2-arr { display: flex; align-items: center; justify-content: center; color: var(--accent); }
+.qa2-arr svg { width: 26px; height: 26px; }
+.qa2-new { display: flex; gap: 16px; align-items: center; padding: 20px 22px; border-radius: 18px; background: var(--forest); color: #FFF8EE; box-shadow: 0 14px 30px rgba(59,42,33,.18); }
+.qa2-new b { font-size: 19px; line-height: 1.35; color: #fff; }
+.qa2-ico { width: 52px; height: 52px; flex-shrink: 0; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; }
+.qa2-ico svg { width: 28px; height: 28px; }
+.qa2 .q1 .qa2-ico { background: var(--honey); color: #3B2A21; }
+.qa2 .q2 .qa2-ico { background: #6DBB87; color: #1C140F; }
+.qa2 .q3 .qa2-ico { background: #C4432D; color: #fff; }
+.qa2 .q4 .qa2-ico { background: #8FC3EC; color: #1C3A55; }
+@media (max-width: 760px) {
+  .qa2-head { display: none; }
+  .qa2-row { grid-template-columns: minmax(0, 1fr); }
+  .qa2-old { padding: 12px 16px; font-size: 15px; border-radius: 14px 14px 0 0; }
+  .qa2-arr { display: none; }
+  .qa2-new { border-radius: 0 0 16px 16px; padding: 16px; gap: 14px; }
+  .qa2-new b { font-size: 17px; }
+  .qa2-ico { width: 44px; height: 44px; }
+}
+
+/* Сомневаетесь → диагностика */
+.doubt-h em { font-style: normal; color: var(--accent-text); }
+.doubt-p { margin-top: 18px; font-size: 19px; line-height: 1.55; color: var(--muted); }
+.doubt-p b { color: var(--text); }
+.doubt-cur { margin-top: 16px; display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; border-radius: 16px; background: #DDF1E4; border: 1px solid #B7DEC4; font-size: 17px; line-height: 1.45; color: #1F4A30; }
+.doubt-cur b { color: #174029; }
+.doubt-cur-ico { width: 38px; height: 38px; flex-shrink: 0; border-radius: 999px; background: #2A6E43; color: #fff; display: inline-flex; align-items: center; justify-content: center; }
+.doubt-cur-ico svg { width: 20px; height: 20px; }
+.chips-ico .chip { display: inline-flex; align-items: center; gap: 8px; }
+.chips-ico .chip svg { width: 18px; height: 18px; color: var(--accent-text); }
+.fit2 .fit-ico svg { color: var(--fc); width: 28px; height: 28px; margin: 0; }

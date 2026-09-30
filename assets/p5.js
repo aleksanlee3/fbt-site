@@ -1,7 +1,7 @@
-/* Стр. 5 · «Бизнес ради семьи»: «Отправить эту страницу семье» (Telegram) и копирование ссылки. */
+/* Стр. 5 · «Бизнес, который работает на семью»: «Отправить эту страницу семье» (Telegram) и копирование ссылки. */
 (function () {
   var url = (window.FBT_SHARE_URL || window.location.href.split('#')[0]).split('?')[0];
-  var text = 'Посмотри: как сделать так, чтобы бизнес работал ради семьи, а не забирал её. Давай обсудим — может, пойдём на FBT вместе?';
+  var text = 'Посмотри: как сделать бизнес, который работает на семью, а не забирает её время. Давай обсудим — может, пойдём на FBT вместе?';
   var tg = document.querySelector('[data-share-tg]');
   var copy = document.querySelector('[data-share-copy]');
   var note = document.querySelector('[data-share-note]');
