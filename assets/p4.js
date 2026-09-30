@@ -252,6 +252,7 @@
     }
     FBT.open(FBT.tg(C.curator, applyText()));
     st.sent = true; save(); renderApply();
+    if (FBT.medal) FBT.medal('drevo');
   });
   $('[data-apply-reopen]').addEventListener('click', function (e) { e.preventDefault(); FBT.open(FBT.tg(C.curator, applyText())); });
   if (qs.has('reset')) { st.sent = false; save(); }

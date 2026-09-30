@@ -38,7 +38,7 @@
 
   // Карта получена? (общая отметка для всех страниц)
   FBT.gotMap = function () { return store.get('fbt_map', 0) === 1; };
-  FBT.markMap = function () { store.set('fbt_map', 1); };
+  FBT.markMap = function () { store.set('fbt_map', 1); if (FBT.medal) { FBT.medal('shag'); FBT.medal('karta'); } };
 
   // Ссылки по data-атрибутам: data-tg="contact|curator", data-bot="<start>"
   function bindLinks(root) {

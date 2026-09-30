@@ -62,7 +62,7 @@
   }
 
   function render() {
-    if (st.pos >= UNLOCK() && !st.reached) { st.reached = true; event('video_unlock', { sec: Math.round(st.pos) }); }
+    if (st.pos >= UNLOCK() && !st.reached) { st.reached = true; event('video_unlock', { sec: Math.round(st.pos) }); if (FBT.medal) FBT.medal('shag'); }
     var open = st.reached, got = open && st.gotMap;
     var len = shownLen(), finalStage = len >= TOTAL();
     FBT.toggle({ locked: !open, unlocked: open && !got, got: got, notGot: !got, openAny: open });

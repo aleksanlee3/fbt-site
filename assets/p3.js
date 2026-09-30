@@ -347,7 +347,8 @@
     if (st.step === 'stage') renderStage();
     if (st.step === 'q') renderQ();
     if (st.step === 'sym') renderSym();
-    if (st.step === 'result' || st.step === 'sent') renderResult();
+    if (st.step === 'result' || st.step === 'sent') { renderResult(); if (FBT.medal) FBT.medal('kompas'); }
+    if (FBT.medal && tasksDone() === 5) FBT.medal('tetrad');
     if (st.step === 'tasks') renderTasks();
     FBT.text('tasksDone', String(tasksDone()));
     FBT.text('pdfLabel', st.pdf ? 'PDF-разбор — в боте ✓' : 'Получить PDF-разбор в боте');
@@ -377,6 +378,7 @@
     if (e.target.closest('[data-pdf]')) { st.pdf = true; setTimeout(render, 50); return; }
     if (e.target.closest('[data-send]')) {
       event('diag_send');
+      if (FBT.medal) FBT.medal('pismo');
       if (tasksDone() > 0 && !st.sent2) { st.sent2 = true; pushToBot(true); }  // часть 2 — в бот (если есть сервер)
       FBT.open(FBT.tg(C.curator, chatText()));
       st.step = 'sent'; render(); window.scrollTo(0, 0);

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+<defs>
+<filter id="w" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="29"/><feDisplacementMap in="SourceGraphic" scale="3.2"/></filter>
+<filter id="c" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="36" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.75 1.12" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in" result="t"/><feDisplacementMap in="t" scale="2.5"/></filter>
+</defs>
+<g filter="url(#w)">
+<circle cx="60" cy="60" r="54" fill="#FFF6E4"/>
+<circle cx="60" cy="60" r="54" fill="none" stroke="#2E2A26" stroke-width="2.6" stroke-dasharray="300 6 40 4"/>
+</g>
+<g filter="url(#c)" transform="translate(2.5 2)"><path fill="#8C5A3C" d="M54 100 L56 70 L64 70 L66 100 Z"/><circle cx="60" cy="48" r="28" fill="#6DBE5C"/><circle cx="38" cy="58" r="16" fill="#6DBE5C"/><circle cx="82" cy="58" r="16" fill="#6DBE5C"/></g><g filter="url(#w)" fill="none" stroke="#2E2A26" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M54 100 L56 72 M66 100 L64 72 M58 80 l-8 -6 M62 84 l8 -6"/><path d="M40 72 q-18 -2 -16 -16 q2 -12 14 -12 q-2 -22 22 -24 q24 2 22 24 q12 0 14 12 q2 14 -16 16 z"/><path d="M36 102 h48"/></g><g filter="url(#w)"><circle cx="46" cy="44" r="4.5" fill="#D2352B"/><circle cx="70" cy="36" r="4.5" fill="#D2352B"/><circle cx="76" cy="58" r="4.5" fill="#D2352B"/><circle cx="40" cy="60" r="4.5" fill="#D2352B"/><circle cx="60" cy="54" r="4.5" fill="#F7D774"/></g>
+</svg>

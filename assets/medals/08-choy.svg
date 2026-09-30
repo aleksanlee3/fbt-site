@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+<defs>
+<filter id="w" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="24"/><feDisplacementMap in="SourceGraphic" scale="3.2"/></filter>
+<filter id="c" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="31" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.75 1.12" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in" result="t"/><feDisplacementMap in="t" scale="2.5"/></filter>
+</defs>
+<g filter="url(#w)">
+<circle cx="60" cy="60" r="54" fill="#FFF6E4"/>
+<circle cx="60" cy="60" r="54" fill="none" stroke="#2E2A26" stroke-width="2.6" stroke-dasharray="300 6 40 4"/>
+</g>
+<g filter="url(#c)" transform="translate(2.5 2)"><path fill="#FFFFFF" d="M26 58 q0 -20 22 -20 q22 0 22 20 q0 20 -22 20 q-22 0 -22 -20 z"/><path fill="#FFFFFF" d="M72 70 h26 q-2 16 -13 16 q-11 0 -13 -16 z"/></g><g filter="url(#w)" fill="none" stroke="#2E2A26" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M26 58 q0 -20 22 -20 q22 0 22 20 q0 20 -22 20 q-22 0 -22 -20 z"/><path d="M42 38 q6 -8 12 0"/><path d="M48 30 v0" stroke-width="5"/><path d="M26 56 q-10 -6 -10 -16"/><path d="M70 52 q10 0 8 12 q-2 8 -10 6"/><path d="M72 70 h26 q-2 16 -13 16 q-11 0 -13 -16 z"/><path d="M20 94 h84" stroke-width="2.4"/></g><g filter="url(#w)" fill="none" stroke="#2E2A26" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M80 62 q-3 -5 0 -9 q3 -4 0 -8 M89 62 q-3 -5 0 -9 q3 -4 0 -8" stroke-width="2.2" stroke="#9A948C"/></g><g filter="url(#w)" fill="#1F5FA8"><circle cx="38" cy="56" r="3.2"/><circle cx="48" cy="62" r="3.2"/><circle cx="58" cy="56" r="3.2"/><circle cx="43" cy="68" r="2.4"/><circle cx="53" cy="68" r="2.4"/><circle cx="48" cy="50" r="2.4"/><circle cx="80" cy="76" r="2.4"/><circle cx="88" cy="78" r="2.4"/></g>
+</svg>
