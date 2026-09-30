@@ -3,18 +3,22 @@
   var C = FBT.cfg;
   var qs = new URLSearchParams(location.search);
 
-  // ── Цены 3-го потока (решение 29.09): ступени по 2 недели от 05.09, курс 12 000 сум ──
+  // ── Цены 3-го потока (решение 30.09): 4 ступени по неделе от 13.09, +25 $ каждая, курс 12 000 сум ──
+  // Старт 10 октября, цена 800 $ действует и в этот день; с 11 октября запись закрыта.
+  // Семейная скидка — в долларах каждому (d): вдвоём −25, втроём −50, от четырёх −75. Суммируется с ранней записью.
   var DAY = 86400000;
   function tzDate(y, m, d) { return Date.UTC(y, m - 1, d) - 5 * 3600000; }   // полночь по Ташкенту
   var RATE = 12000;
-  var PREV_START = tzDate(2026, 9, 5);
-  var START = tzDate(2026, 11, 14);
-  var PRICES = [600, 650, 700, 750, 800];
+  var PREV_START = tzDate(2026, 9, 13);
+  var START = tzDate(2026, 10, 11);
+  var PRICES = [725, 750, 775, 800];
+  var LAST = PRICES.length - 1;
   var NEXT_FULL = 850;
-  var BOUNDS = [1, 2, 3, 4].map(function (k) { return PREV_START + k * 14 * DAY; });
-  var RANGES = ['до 19 сентября', '19 сентября — 3 октября', '3 — 17 октября', '17 — 31 октября', '31 октября — 14 ноября'];
-  var ENDS = ['19 сентября', '3 октября', '17 октября', '31 октября', '14 ноября'];
-  var GROUP = [{ label: '1', n: 1, d: 0 }, { label: '2', n: 2, d: 10 }, { label: '3', n: 3, d: 12 }, { label: '4', n: 4, d: 15 }, { label: '5+', n: 5, d: 20 }];
+  var BOUNDS = [1, 2, 3].map(function (k) { return PREV_START + k * 7 * DAY; });   // 20.09, 27.09, 04.10
+  var RANGES = ['13 — 19 сентября', '20 — 26 сентября', '27 сентября — 3 октября', '4 — 10 октября'];
+  var ENDS = ['20 сентября', '27 сентября', '4 октября', '10 октября'];       // с какого дня новая цена / старт
+  var LASTDAY = ['19 сентября', '26 сентября', '3 октября', '10 октября'];   // последний день текущей цены
+  var GROUP = [{ label: '1', n: 1, d: 0 }, { label: '2', n: 2, d: 25 }, { label: '3', n: 3, d: 50 }, { label: '4+', n: 4, d: 75 }];
   var fmt = FBT.fmt;
 
   // Для проверки: ?date=2026-10-20 или ?date=2026-11-20 — показать страницу на эту дату
@@ -40,12 +44,12 @@
 
   function pricing() {
     var t = now(), started = t >= START;
-    var tier = Math.min(4, BOUNDS.filter(function (b) { return t >= b; }).length);
-    var tierEnd = tier < 4 ? BOUNDS[tier] : START;
+    var tier = Math.min(LAST, BOUNDS.filter(function (b) { return t >= b; }).length);
+    var tierEnd = tier < LAST ? BOUNDS[tier] : START;
     var left = Math.max(0, tierEnd - t);
     var priceSum = PRICES[tier] * RATE;
-    var g = GROUP[Math.max(0, Math.min(4, Number(st.ap.group) || 0))];
-    var per = priceSum * (1 - g.d / 100), total = per * g.n;
+    var g = GROUP[Math.max(0, Math.min(GROUP.length - 1, Number(st.ap.group) || 0))];
+    var per = (PRICES[tier] - g.d) * RATE, total = per * g.n;
     return { started: started, tier: tier, left: left, priceSum: priceSum, g: g, per: per, total: total };
   }
 
@@ -62,18 +66,18 @@
     var d = Math.floor(L / DAY), h = pad(Math.floor(L / 3600000) % 24), m = pad(Math.floor(L / 60000) % 60), s = pad(Math.floor(L / 1000) % 60);
     setV('cdD', String(d)); setV('cdH', h); setV('cdM', m); setV('cdS', s);
     setV('cdShort', d + ' дн ' + h + ' ч ' + m + ' мин');
-    $$('[role="timer"]').forEach(function (e) { e.setAttribute('aria-label', (p.tier < 4 ? 'До повышения цены ' : 'До старта ') + d + ' дней ' + h + ' часов ' + m + ' минут'); });
+    $$('[role="timer"]').forEach(function (e) { e.setAttribute('aria-label', (p.tier < LAST ? 'До повышения цены ' : 'До старта ') + d + ' дней ' + h + ' часов ' + m + ' минут'); });
   }
 
   function renderPrices() {
     var p = pricing(), labels = ctaLabels(p);
     FBT.toggle({ open: !p.started, closed: p.started, multi: p.g.n > 1 });
-    setV('priceNow', fmt(p.priceSum)); setV('usdNow', '$' + PRICES[p.tier]); setV('priceFull', fmt(PRICES[4] * RATE));
+    setV('priceNow', fmt(p.priceSum)); setV('usdNow', '$' + PRICES[p.tier]); setV('priceFull', fmt(PRICES[LAST] * RATE));
     setV('nextFull', fmt(NEXT_FULL * RATE));
-    setV('tierEnd', ENDS[p.tier]); setV('tierEndUp', ENDS[p.tier].toUpperCase());
-    setV('cdTitle', p.tier < 4 ? 'До повышения цены' : 'До старта');
-    setV('cdLower', p.tier < 4 ? 'цена вырастет через' : 'до старта');
-    setV('riseText', p.tier < 4 ? ENDS[p.tier] + ' цена станет ' + fmt(PRICES[p.tier + 1] * RATE) + ' сум' : 'следующий поток — ' + fmt(NEXT_FULL * RATE) + ' сум');
+    setV('tierEnd', LASTDAY[p.tier]); setV('tierEndUp', LASTDAY[p.tier].toUpperCase());
+    setV('cdTitle', p.tier < LAST ? 'До повышения цены' : 'До старта');
+    setV('cdLower', p.tier < LAST ? 'цена вырастет через' : 'до старта');
+    setV('riseText', p.tier < LAST ? ENDS[p.tier] + ' цена станет ' + fmt(PRICES[p.tier + 1] * RATE) + ' сум' : 'следующий поток — ' + fmt(NEXT_FULL * RATE) + ' сум');
     setV('chip', p.started ? 'Набор закрыт' : (full ? 'Мест нет' : 'Набор открыт'));
     // «Осталось N» показываем, когда занято хотя бы 3 места; до этого — просто «12 мест» (30.09)
     var fewLeft = seatsLeft <= 9;
@@ -81,7 +85,7 @@
     setV('seatsShort', p.started ? 'поток идёт' : (full ? 'мест нет' : (fewLeft ? 'осталось ' + seatsLeft + ' из 12' : '12 мест')));
     setV('cta', labels.cta); setV('ctaLong', labels.ctaLong); setV('ctaShort', labels.ctaShort);
     setV('per', fmt(p.per)); setV('total', fmt(p.total)); setV('prepay', fmt(p.total * 0.2));
-    setV('groupLabel', p.g.n === 1 ? 'Один участник' : (p.g.n === 5 ? 'От 5 человек, −20% каждому' : p.g.n + ' человека, −' + p.g.d + '% каждому'));
+    setV('groupLabel', p.g.n === 1 ? 'Один участник' : (p.g.label === '4+' ? 'От 4 человек, −$' + p.g.d + ' каждому' : p.g.n + ' человека, −$' + p.g.d + ' каждому'));
 
     $('[data-ladder]').innerHTML = PRICES.map(function (usd, i) {
       var cls = i < p.tier ? 'past' : (i === p.tier ? 'cur' : '');
@@ -102,8 +106,8 @@
       GROUP.forEach(function (o, i) {
         var b = document.createElement('button');
         b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', i === (Number(st.ap.group) || 0) ? 'true' : 'false');
-        b.setAttribute('aria-label', o.label + (o.n === 1 ? ' участник' : ' участника') + (o.d ? ', скидка ' + o.d + '%' : ''));
-        b.innerHTML = '<span>' + o.label + '</span>' + (small ? '' : '<small>' + (o.d ? '−' + o.d + '%' : 'без скидки') + '</small>');
+        b.setAttribute('aria-label', o.label + (o.n === 1 ? ' участник' : ' участника') + (o.d ? ', скидка ' + o.d + ' долларов каждому' : ''));
+        b.innerHTML = '<span>' + o.label + '</span>' + (small ? '' : '<small>' + (o.d ? '−$' + o.d : 'без скидки') + '</small>');
         b.addEventListener('click', function () { st.ap.group = i; save(); renderPrices(); });
         box.appendChild(b);
       });
@@ -182,7 +186,7 @@
       ['У меня мало времени. Я справлюсь?', 'Уроки в записи — смотрите, когда удобно. А отсутствие системы уже забирает время: операционка, повторяющиеся проблемы, одни и те же решения заново. Программа направляет усилия в то, что укрепляет бизнес.'],
       ['Я уже проходил курсы. Чем FBT отличается?', 'FBT соединяет ключевые области бизнеса в одну систему и строится на внедрении с наставником, а не только на получении информации.'],
       ['Почему в программе так много разных тем?', 'Потому что бизнес — это система. Маркетинг влияет на продажи и деньги, команда — на процессы, а решения собственника — на всё остальное.'],
-      ['Можно ли прийти вместе с семьёй или партнёром?', 'Да, и это выгоднее. Вдвоём — минус 10% каждому, втроём — 12%, вчетвером — 15%, от пяти человек — 20%. Скидка суммируется с ранней записью.'],
+      ['Можно ли прийти вместе с семьёй или партнёром?', 'Да, и это выгоднее. Вдвоём — минус $25 каждому, втроём — минус $50, от четырёх человек — минус $75 каждому. Скидка суммируется с ранней записью.'],
       ['Как зафиксировать цену?', 'Предоплатой 20% от суммы по текущей цене. Например, сейчас для одного участника это ' + fmt(p.priceSum * 0.2) + ' сум. После предоплаты цена за вами, даже если начнётся следующая ступень. Остаток оплачивается до старта потока.'],
       ['А если до старта что-то изменится?', 'Такое бывает. Напишите нам — вопрос с предоплатой решим лично, в минусе вы не останетесь.'],
       ['Как понять, подходит ли мне программа?', 'Пройдите бесплатную онлайн-диагностику — она покажет, где ваш бизнес сейчас. Или оставьте заявку: мы уточним вашу задачу и честно скажем, подходит ли вам FBT.']
@@ -228,13 +232,13 @@
   function applyText() {
     var p = pricing(), a = st.ap;
     var lines = [
-      p.started ? 'Здравствуйте! Хочу в лист ожидания 4-го потока FBT Online.' : 'Здравствуйте! Хочу забронировать место в 3-м потоке FBT Online (старт 14 ноября).',
+      p.started ? 'Здравствуйте! Хочу в лист ожидания 4-го потока FBT Online.' : 'Здравствуйте! Хочу забронировать место в 3-м потоке FBT Online (старт 10 октября).',
       '',
       'Имя: ' + a.name.trim(),
       'Телефон: ' + a.phone.trim()
     ];
     if (a.sit != null) lines.push('Где я сейчас: ' + SITS[a.sit].toLowerCase());
-    lines.push('Участников: ' + p.g.label + (p.g.d ? ' (скидка −' + p.g.d + '% каждому)' : ''));
+    lines.push('Участников: ' + p.g.label + (p.g.d ? ' (скидка −$' + p.g.d + ' каждому)' : ''));
     if (!p.started) lines.push('Цена на участника: ' + fmt(p.per) + ' сум · предоплата 20%: ' + fmt(p.total * 0.2) + ' сум');
     if (a.task.trim()) lines.push('Главная задача: ' + a.task.trim());
     return lines.join('\n');
