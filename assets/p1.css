@@ -172,3 +172,19 @@
   .yt-sound { padding: 8px 12px; font-size: 13px; }
   .yt-btn { height: 30px; min-width: 34px; font-size: 12px; }
 }
+
+/* 30.09: время скрыто — появляется при наведении мышью или касании */
+.player.is-yt .player-time { opacity: 0; transition: opacity .25s; pointer-events: none; }
+.player.is-yt.ui-on .player-time { opacity: 1; }
+@media (hover: hover) { .player.is-yt:hover .player-time { opacity: 1; } }
+/* Кнопка «во весь экран» — заметнее */
+.yt-fs { width: 44px; height: 40px; opacity: 1; }
+.yt-fs .fs-out, .yt-fs.on .fs-in { display: none; }
+.yt-fs.on .fs-out { display: block; }
+/* Полноэкранный режим без Fullscreen API (iPhone): плеер на всю страницу */
+.player.is-fs { position: fixed; inset: 0; z-index: 1000; margin: 0; border-radius: 0; border: 0; background: #000; display: flex; flex-direction: column; }
+.player.is-fs .player-stage { flex: 1; aspect-ratio: auto; }
+html.fs-lock, html.fs-lock body { overflow: hidden; }
+/* Значок Netlify не показываем (разрешено на бесплатном тарифе) */
+#nl-badge-frame { display: none !important; }
+@media (max-width: 640px) { .yt-fs { width: 38px; height: 34px; } }

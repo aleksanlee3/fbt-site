@@ -153,7 +153,7 @@
       '<button type="button" class="yt-sound" data-yt-sound hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>Включить звук</button>' +
       '<span class="yt-sp"></span>' +
       '<button type="button" class="yt-btn mono" data-yt-rate aria-label="Скорость">1×</button>' +
-      '<button type="button" class="yt-btn" data-yt-fs aria-label="Во весь экран"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>';
+      '<button type="button" class="yt-btn yt-fs" data-yt-fs aria-label="Во весь экран"><svg class="fs-in" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><svg class="fs-out" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>';
     el.stage.appendChild(bar);
     var soundBtn = bar.querySelector('[data-yt-sound]'), rateBtn = bar.querySelector('[data-yt-rate]'), fsBtn = bar.querySelector('[data-yt-fs]');
 
@@ -163,9 +163,22 @@
       if (ready) { if (m) yt.mute(); else { yt.unMute(); yt.setVolume(100); } }
       soundBtn.hidden = !m;
     }
+    // Время и кнопки скорости появляются только при наведении мышью или касании — 2,5 сек
+    var uiTimer = null;
+    function showUI() {
+      el.player.classList.add('ui-on');
+      clearTimeout(uiTimer);
+      uiTimer = setTimeout(function () { el.player.classList.remove('ui-on'); }, 2500);
+    }
+    el.player.addEventListener('mousemove', showUI);
+    var lastTouch = 0, hiddenAtTouch = false;
+    shield.addEventListener('touchstart', function () { lastTouch = Date.now(); hiddenAtTouch = !el.player.classList.contains('ui-on'); }, { passive: true });
     function toggle() {
       if (!ready) return;
+      var touch = Date.now() - lastTouch < 800, wasHidden = touch ? hiddenAtTouch : !el.player.classList.contains('ui-on');
+      showUI();
       if (muted) { setMuted(false); if (!st.playing) yt.playVideo(); return; }  // первое касание — включить звук
+      if (touch && wasHidden && st.playing) return;                            // касание на телефоне сначала показывает время
       if (st.playing) yt.pauseVideo(); else yt.playVideo();
     }
     shield.addEventListener('click', toggle);
@@ -175,19 +188,48 @@
       if (st.pos >= TOTAL() - 1) { st.pos = 0; yt.seekTo(0, true); }       // досмотрели — смотреть снова
       yt.playVideo();
     });
+    // Если браузер не дал запустить видео само — запускаем при первом касании или клике на странице
+    function firstGesture(e) {
+      document.removeEventListener('pointerdown', firstGesture, true);
+      document.removeEventListener('keydown', firstGesture, true);
+      if (!ready || st.playing || st.pos >= TOTAL() - 5) return;
+      if (e && e.target && e.target.closest && e.target.closest('a, .player')) return;  // ссылки и сам плеер — своя логика
+      setMuted(false); yt.playVideo();
+    }
+    document.addEventListener('pointerdown', firstGesture, true);
+    document.addEventListener('keydown', firstGesture, true);
     soundBtn.addEventListener('click', function (e) { e.stopPropagation(); setMuted(false); if (ready && !st.playing) yt.playVideo(); });
     rateBtn.addEventListener('click', function () {
       rateI = (rateI + 1) % RATES.length;
       rateBtn.textContent = String(RATES[rateI]).replace('.', ',') + '×';
       if (ready) yt.setPlaybackRate(RATES[rateI]);
     });
+    // Во весь экран: настоящий полноэкранный режим, а где его нет (iPhone) — плеер на весь экран страницы
     var fsTarget = el.player;
-    if (!(fsTarget.requestFullscreen || fsTarget.webkitRequestFullscreen)) fsBtn.hidden = true;
-    fsBtn.addEventListener('click', function () {
-      var d = document;
-      if (d.fullscreenElement || d.webkitFullscreenElement) (d.exitFullscreen || d.webkitExitFullscreen).call(d);
-      else (fsTarget.requestFullscreen || fsTarget.webkitRequestFullscreen).call(fsTarget);
+    function nativeFs() { return document.fullscreenElement || document.webkitFullscreenElement; }
+    function fsOn() { return !!nativeFs() || el.player.classList.contains('is-fs'); }
+    function fsIcon() { fsBtn.classList.toggle('on', fsOn()); fsBtn.setAttribute('aria-label', fsOn() ? 'Выйти из полноэкранного режима' : 'Во весь экран'); }
+    function pseudoFs(on) {
+      el.player.classList.toggle('is-fs', on);
+      document.documentElement.classList.toggle('fs-lock', on);
+      fsIcon();
+    }
+    fsBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (nativeFs()) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; }
+      if (el.player.classList.contains('is-fs')) { pseudoFs(false); return; }
+      var req = fsTarget.requestFullscreen || fsTarget.webkitRequestFullscreen;
+      if (req) {
+        try {
+          var r = req.call(fsTarget);
+          if (r && r.catch) r.catch(function () { pseudoFs(true); });
+          try { screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape').catch(function () {}); } catch (x) {}
+        } catch (x) { pseudoFs(true); }
+      } else pseudoFs(true);
     });
+    document.addEventListener('fullscreenchange', fsIcon);
+    document.addEventListener('webkitfullscreenchange', fsIcon);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && el.player.classList.contains('is-fs')) pseudoFs(false); });
 
     window.onYouTubeIframeAPIReady = function () {
       yt = new YT.Player('yt-player', {
