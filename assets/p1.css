@@ -144,3 +144,31 @@
 @media (max-width: 640px) { .stage-img { margin: -24px -24px 18px; height: 170px; } }
 .stage-card .h3 { margin-top: 20px; }
 @media (max-width: 640px) { .story-photo { flex: none; height: 240px; } }
+
+/* ── Плеер YouTube (type: 'youtube'): свои кнопки, «щит» поверх видео ── */
+.player.is-yt .player-stage { background: #000; }
+.player.is-yt #yt-player, .player.is-yt .player-stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 0; }
+.yt-shield { position: absolute; inset: 0; z-index: 1; cursor: pointer; }
+.player.is-yt .player-cover { z-index: 2; transition: opacity .2s; }
+.player.is-yt .player-play { z-index: 3; }
+.player.is-yt .player-time { z-index: 4; }
+.player.is-yt.is-playing .player-cover, .player.is-yt.is-playing .player-play { opacity: 0; pointer-events: none; }
+.player.is-yt .ph-tag { display: none; }
+.yt-ctrl { position: absolute; top: 16px; left: 16px; right: 16px; z-index: 4; display: flex; align-items: center; gap: 8px; pointer-events: none; }
+.yt-ctrl > * { pointer-events: auto; }
+.yt-sp { flex: 1; pointer-events: none; }
+.yt-sound { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 0; border-radius: 999px; background: var(--accent); color: var(--on-accent);
+  font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: 0 6px 24px rgba(0,0,0,.35); animation: yt-pulse 1.6s ease-in-out infinite; }
+@keyframes yt-pulse { 50% { transform: scale(1.05); } }
+.yt-btn { min-width: 40px; height: 36px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--bg); color: inherit;
+  font-size: 13px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; opacity: .85; }
+.yt-btn:hover { opacity: 1; }
+.yt-sound[hidden], .yt-btn[hidden] { display: none; }
+.player:fullscreen { display: flex; flex-direction: column; border-radius: 0; }
+.player:fullscreen .player-stage { flex: 1; aspect-ratio: auto; }
+.player:-webkit-full-screen .player-stage { height: calc(100% - 6px); aspect-ratio: auto; }
+@media (max-width: 640px) {
+  .yt-ctrl { top: 10px; left: 10px; right: 10px; }
+  .yt-sound { padding: 8px 12px; font-size: 13px; }
+  .yt-btn { height: 30px; min-width: 34px; font-size: 12px; }
+}
