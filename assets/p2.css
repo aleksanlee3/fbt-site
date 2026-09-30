@@ -229,3 +229,27 @@
 .bridge-p { margin-bottom: 28px; max-width: 760px; padding-left: 18px; border-left: 2px solid var(--line-4); font-size: 18px; line-height: 1.55; color: var(--muted-2); }
 .fam-line { max-width: 860px; padding: 20px 24px; border-radius: 16px; background: var(--forest); color: #F0E4D4; font-size: 18px; line-height: 1.55; --text: #FFF8EE; --text-2: #F1E4D3; --text-strong: #FFFFFF; --muted: #E3D2BE; --muted-2: #EEDFCC; --dim: #D2BEA7; --dim-2: #C8B39B; --line: #56402F; --line-2: #5E4636; --line-3: #6A503E; --line-4: #7A5E49; --line-5: #8C6E57; --card: #45322A; --card-2: #4A362A; --card-3: #533D30; --bg-2: #33241C; --sel: #5A4333; --accent-text: #F6A48E; --ok-text: #9ADBB0; --lime: #F2C46D; --warn: #F2C46D; }
 .fam-line b { color: var(--lime); }
+
+/* v2.3 · правки контента */
+.root .tags { flex-direction: column; }
+.root em { display: block; line-height: 1.4; }
+.root em strong { font-weight: 700; }
+.root--3 em { background: #FFF1E0; border-left: 3px solid var(--accent); font-weight: 600; }
+.money-ico { display: inline-block; margin-right: 10px; }
+@media (max-width: 900px) {
+  .mhero { gap: 0; }
+  .mhero-txt { display: contents; }
+  .mhero > .mhero-txt > * { order: 0; }
+  .mhero .pdf { order: 1; margin: 32px auto 8px; }
+  .mhero [data-show="notGot"], .mhero .got { order: 2; }
+  .mhero-txt > [data-show="notGot"] .get { margin-top: 24px; }
+  .mhero .got { margin-top: 24px; }
+}
+@media (max-width: 640px) {
+  .world { aspect-ratio: 350 / 190; }
+  .world img { max-width: none; inset: auto; width: 140%; height: auto; left: -24%; top: -10%; }
+  .world-stats-m { grid-template-columns: minmax(0, 1fr); }
+  .world-stats-m div { flex-direction: row; align-items: baseline; gap: 10px; }
+  .world-stats-m b { font-size: 22px; min-width: 88px; }
+  .world-stats-m span { font-size: 15px; }
+}

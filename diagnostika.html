@@ -194,31 +194,44 @@
 
     <section class="res-send">
       <div class="wrap">
-        <div class="send">
+        <div class="more" data-more>
+          <div class="more-top">
+            <span class="more-step">ЧАСТЬ 2 ИЗ 2</span>
+            <span class="more-time"><svg><use href="#i-clock"/></svg>10 минут</span>
+          </div>
+          <b class="more-h">Сделайте разбор точнее — 5 коротких заданий</b>
+          <p class="more-p">Вопросы показали, каким вы <i>видите</i> свой бизнес. Задания покажут, какой он <i>на самом деле</i>. С ними куратор даст разбор точнее.</p>
+          <div class="more-bar" aria-hidden="true"><i data-tasks-bar></i></div>
+          <span class="more-count">Выполнено: <span data-text-of="tasksDone">0</span> из 5</span>
+          <div class="more-btns">
+            <button type="button" class="btn btn--primary btn--lg" data-go="tasks"><span data-text-of="moreBtn">Пройти вторую часть</span><svg><use href="#i-right"/></svg></button>
+            <a class="more-skip" href="#send">Пропустить и сразу отправить куратору ↓</a>
+          </div>
+        </div>
+
+        <div class="send" id="send">
           <div class="send-l">
-            <span class="free">Бесплатно</span>
-            <h2 class="send-h">Отправьте результат куратору на разбор</h2>
-            <p class="muted send-p">Куратор посмотрит ваш профиль и ответит голосовыми в Telegram. А если захотите разобрать глубже — пригласит на бесплатный созвон с Любой Бэй или её командой.</p>
-            <div class="grid g-3 mt-24 send-3">
-              <div><b>Где вы сейчас</b><span>На каком этапе ваш бизнес по-настоящему</span></div>
-              <div><b>Узкое горлышко</b><span>Главный провал и его причина</span></div>
-              <div><b>Следующий шаг</b><span>Что сделать в первую очередь</span></div>
+            <div class="send-top"><span class="send-ico"><svg><use href="#i-send"/></svg></span><span class="free">Бесплатно</span></div>
+            <h2 class="send-h">Отправьте результат куратору</h2>
+            <p class="send-p">Сам по себе профиль — это только картинка. Куратор посмотрит ваши ответы и голосом объяснит, что с этим делать.</p>
+            <div class="send-3">
+              <div><i>1</i><p><b>Где вы сейчас</b><span>На каком этапе ваш бизнес на самом деле</span></p></div>
+              <div><i>2</i><p><b>Что мешает больше всего</b><span>Главная проблема и её причина</span></p></div>
+              <div><i>3</i><p><b>С чего начать</b><span>Первый шаг, который даст результат</span></p></div>
             </div>
-            <div class="voice"><svg><use href="#i-mic"/></svg>Ответ приходит голосовыми — удобно слушать в дороге.</div>
+            <div class="voice"><svg><use href="#i-mic"/></svg>Ответ приходит голосовыми в Telegram — удобно слушать в дороге.</div>
           </div>
           <div class="send-r">
-            <span class="cap">ЧТО УЙДЁТ КУРАТОРУ</span>
-            <pre class="msg" data-msg></pre>
             <div class="push push--col send-push">
               <div class="nudge" aria-hidden="true"><span>Разбор — бесплатно</span><svg><use href="#i-arrow-down"/></svg></div>
               <span class="ringed"><button type="button" class="btn btn--primary btn--lg" data-send><svg><use href="#i-send"/></svg>Отправить куратору</button></span>
             </div>
+            <details class="msg-box">
+              <summary>Что уйдёт куратору</summary>
+              <pre class="msg" data-msg></pre>
+            </details>
             <a class="btn btn--sm btn--block mt-14" data-pdf><svg><use href="#i-doc"/></svg><span data-text-of="pdfLabel">Получить PDF-разбор в боте</span></a>
           </div>
-        </div>
-        <div class="more card--3">
-          <div><b>Хотите разбор точнее? Выполните 5 коротких заданий</b><span>Они показывают реальную ситуацию лучше, чем самооценка. Около 10 минут, по желанию. Выполнено: <span data-text-of="tasksDone">0</span> из 5.</span></div>
-          <button type="button" class="btn btn--sm" data-go="tasks">Выполнить задания →</button>
         </div>
       </div>
     </section>

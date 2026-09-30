@@ -361,6 +361,10 @@
     if (FBT.medal && tasksDone() === 5) FBT.medal('tetrad');
     if (st.step === 'tasks') renderTasks();
     FBT.text('tasksDone', String(tasksDone()));
+    var nd = tasksDone(), mc = $('[data-more]'), mb = $('[data-tasks-bar]');
+    if (mc) mc.classList.toggle('is-done', nd === 5);
+    if (mb) mb.style.width = (nd * 20) + '%';
+    FBT.text('moreBtn', nd === 5 ? 'Изменить ответы' : nd > 0 ? 'Продолжить вторую часть' : 'Пройти вторую часть');
     FBT.text('pdfLabel', st.pdf ? 'PDF-разбор — в боте ✓' : 'Получить PDF-разбор в боте');
     FBT.text('rcBadge', { intro: '10 вопросов · 5 минут', stage: 'перед тестом', q: 'вопрос ' + (Math.min(st.qi, 9) + 1) + ' из 10', sym: 'последний шаг',
       result: 'результат готов', tasks: 'задания · ' + tasksDone() + ' из 5', sent: 'отправлено куратору' }[st.step]);
