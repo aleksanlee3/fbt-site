@@ -3,7 +3,7 @@
   var C = FBT.cfg, V = C.video || {};
   var qs = new URLSearchParams(location.search);
   // Тестовый режим: 30 секунд вместо урока. Включается в config.js (testMode) или адресом ?test
-  var TEST = !!C.testMode || qs.has('test');
+  var TEST = !!C.testMode || !!C.videoTest || qs.has('test');
   var realLen = Math.max(60, Number(V.length) || 1800);                // уточняется у плеера
   var UNLOCK_CFG = Math.max(30, Number(V.unlockAt) || 1770);
   var STAGES = (V.stages || [180, 600]).map(Number).filter(function (s) { return s > 0; }).sort(function (a, b) { return a - b; });
