@@ -100,7 +100,7 @@
   }
   function confetti(anchor) {
     if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var r = anchor.getBoundingClientRect(), cols = ['#F5C451', '#D2352B', '#6DBE5C', '#4FA3E3', '#F2994A', '#8B6CF6'];
+    var r = anchor.getBoundingClientRect(), cols = ['#F5C451', '#C4432D', '#6DBB87', '#4FA3E3', '#F2994A', '#8B6CF6'];
     for (var i = 0; i < 18; i++) {
       var b = el('i', 'alb-bit'), a = Math.random() * Math.PI, d = 70 + Math.random() * 90;
       b.style.left = (r.left + 50) + 'px'; b.style.top = (r.top + 40) + 'px';

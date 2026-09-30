@@ -5,10 +5,10 @@
 .player-stage iframe, .player-stage video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
 .player-cover { position: absolute; inset: 0; }
 .player-photo { position: absolute; top: 0; right: 0; bottom: 0; width: 46%; }
-.player-tag { position: absolute; top: 24px; left: 28px; font-size: 12px; letter-spacing: .06em; color: var(--dim-2); }
+.player-tag { position: absolute; top: 24px; left: 28px; font-size: 13px; letter-spacing: .06em; color: var(--dim-2); }
 .player-who { position: absolute; left: 28px; bottom: 28px; padding: 14px 18px; border-radius: 14px; background: var(--bg); border: 1px solid var(--line-2); display: flex; flex-direction: column; gap: 4px; }
 .player-who b { font-size: 18px; font-weight: 600; }
-.player-who > span { font-size: 14px; color: var(--muted); }
+.player-who > span { font-size: 15px; color: var(--muted); }
 .player-play {
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 104px; height: 104px; border-radius: 999px; border: 0;
   background: var(--accent); color: var(--on-accent); display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;
@@ -20,7 +20,7 @@
 .player.is-playing .player-play .i-play { display: none; }
 .player.is-playing .player-play .i-pause { display: block; }
 .player.is-real .player-cover, .player.is-real .player-play, .player.is-real .player-time { display: none; }
-.player-time { position: absolute; right: 28px; bottom: 34px; padding: 6px 12px; border-radius: 999px; background: var(--bg); font-size: 13px; }
+.player-time { position: absolute; right: 28px; bottom: 34px; padding: 6px 12px; border-radius: 999px; background: var(--bg); font-size: 14px; }
 .player-track { position: relative; height: 6px; background: var(--line-2); }
 .player-track i { display: block; height: 6px; width: 0; background: var(--accent); }
 .player-track b { position: absolute; top: -5px; width: 4px; height: 16px; margin-left: -2px; border-radius: 2px; background: var(--ok); }
@@ -31,7 +31,7 @@
 .unlock-txt { max-width: 600px; display: flex; flex-direction: column; gap: 10px; }
 .unlock-txt p { font-size: 16px; line-height: 1.55; }
 .unlock-h { font-size: 22px; line-height: 1.3; font-weight: 600; }
-.okline { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; letter-spacing: .04em; color: var(--ok); }
+.okline { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; letter-spacing: .04em; color: var(--ok); }
 .okline svg { width: 18px; height: 18px; }
 .unlock-act { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
 .also { margin-top: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; font-size: 16px; }
@@ -39,7 +39,7 @@
 .story { display: flex; gap: 80px; align-items: flex-start; }
 .story-side { width: 400px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px; }
 .story-photo { height: 420px; padding: 24px; border-radius: var(--radius); border: 1px solid var(--line-2); background: var(--card-2); display: flex; flex-direction: column; justify-content: space-between; }
-.story-photo .mono { font-size: 12px; letter-spacing: .06em; color: var(--dim-2); }
+.story-photo .mono { font-size: 13px; letter-spacing: .06em; color: var(--dim-2); }
 .story-ph-ico { width: 72px; height: 72px; stroke: var(--line-5); align-self: center; }
 .story-num { padding: 24px; border-radius: var(--radius); border: 1px solid var(--line-2); background: var(--card-2); display: flex; flex-direction: column; gap: 4px; }
 .story-num b { font-size: 48px; line-height: 1.1; font-weight: 700; letter-spacing: -.02em; color: var(--accent-text); }
@@ -72,19 +72,19 @@
 .learn-list .num { margin-top: 5px; }
 .bigquote { padding: 40px; display: flex; flex-direction: column; gap: 24px; }
 .bigquote blockquote { font-size: clamp(22px, 2.2vw, 28px); line-height: 1.35; font-weight: 600; letter-spacing: -.01em; }
-.bigquote figcaption { font-size: 15px; }
+.bigquote figcaption { font-size: 16px; }
 
 .stepcard { padding: 32px; display: flex; flex-direction: column; }
 .stepcard .h3 { margin-top: 28px; font-size: 24px; }
 .stepcard > p { margin-top: 10px; font-size: 16px; line-height: 1.55; }
 .stepcard .grow { min-height: 28px; }
-.stepnum { width: 32px; height: 32px; border-radius: 999px; border: 1px solid var(--line-5); color: var(--muted); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; flex-shrink: 0; }
+.stepnum { width: 32px; height: 32px; border-radius: 999px; border: 1px solid var(--line-5); color: var(--muted); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; flex-shrink: 0; }
 .stepnum.is-now { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 700; }
 .stepnum.is-ok { background: var(--ok); border-color: var(--ok); color: #111113; font-weight: 700; }
 .mini-map { margin-top: 20px; padding: 18px; border-radius: 10px; background: var(--paper); color: #141413; display: flex; flex-direction: column; gap: 8px; }
 .mini-map div { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .mini-map b { font-size: 16px; }
-.mini-map span { font-size: 10px; letter-spacing: .08em; color: #6E6E6E; }
+.mini-map span { font-size: 12px; letter-spacing: .08em; color: #6E6E6E; }
 .mini-map i { display: block; height: 7px; border-radius: 4px; background: #DCD8CE; }
 
 @media (max-width: 1080px) {
@@ -118,9 +118,9 @@
   .player-play { width: 72px; height: 72px; }
   .player-play svg { width: 28px; height: 28px; }
   .player-who { left: 12px; bottom: 16px; padding: 8px 12px; border-radius: 10px; }
-  .player-who b { font-size: 14px; }
-  .player-who > span { font-size: 12px; }
-  .player-time { right: 12px; bottom: 20px; font-size: 11px; padding: 4px 8px; }
+  .player-who b { font-size: 15px; }
+  .player-who > span { font-size: 13px; }
+  .player-time { right: 12px; bottom: 20px; font-size: 12px; padding: 4px 8px; }
   .unlock { padding: 22px 20px; }
   .unlock-h { font-size: 20px; }
   .also { flex-direction: column; align-items: flex-start; }
@@ -158,10 +158,10 @@
 .yt-ctrl > * { pointer-events: auto; }
 .yt-sp { flex: 1; pointer-events: none; }
 .yt-sound { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 0; border-radius: 999px; background: var(--accent); color: var(--on-accent);
-  font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: 0 6px 24px rgba(0,0,0,.35); animation: yt-pulse 1.6s ease-in-out infinite; }
+  font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 6px 24px rgba(0,0,0,.35); animation: yt-pulse 1.6s ease-in-out infinite; }
 @keyframes yt-pulse { 50% { transform: scale(1.05); } }
 .yt-btn { min-width: 40px; height: 36px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--bg); color: inherit;
-  font-size: 13px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; opacity: .85; }
+  font-size: 14px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; opacity: .85; }
 .yt-btn:hover { opacity: 1; }
 .yt-sound[hidden], .yt-btn[hidden] { display: none; }
 .player:fullscreen { display: flex; flex-direction: column; border-radius: 0; }
@@ -169,8 +169,8 @@
 .player:-webkit-full-screen .player-stage { height: calc(100% - 6px); aspect-ratio: auto; }
 @media (max-width: 640px) {
   .yt-ctrl { top: 10px; left: 10px; right: 10px; }
-  .yt-sound { padding: 8px 12px; font-size: 13px; }
-  .yt-btn { height: 30px; min-width: 34px; font-size: 12px; }
+  .yt-sound { padding: 8px 12px; font-size: 14px; }
+  .yt-btn { height: 30px; min-width: 34px; font-size: 13px; }
 }
 
 /* 30.09: время скрыто — появляется при наведении мышью или касании */
@@ -188,3 +188,14 @@ html.fs-lock, html.fs-lock body { overflow: hidden; }
 /* Значок Netlify не показываем (разрешено на бесплатном тарифе) */
 #nl-badge-frame { display: none !important; }
 @media (max-width: 640px) { .yt-fs { width: 38px; height: 34px; } }
+
+/* v2.0 · телефон: видео сразу под заголовком, описание — после плеера и карты */
+@media (max-width: 640px) {
+  .sec--hero > .wrap { display: flex; flex-direction: column; }
+  .sec--hero [data-hero]:not([hidden]) { display: contents; }
+  .sec--hero .hero-h1 { font-size: 31px; line-height: 1.1; margin-top: 12px; }
+  .sec--hero .eyebrow { font-size: 12px; }
+  .sec--hero .lead { order: 5; margin-top: 28px; font-size: 17px; }
+  .sec--hero .player { margin-top: 20px; }
+  .sec--hero { padding-top: 20px; }
+}

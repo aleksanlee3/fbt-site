@@ -168,11 +168,11 @@
     function f(p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }
     var h = '<svg viewBox="0 0 460 360" role="img" aria-label="' + label + '" font-family="Onest, sans-serif">';
     [5, 4, 3, 2, 1].forEach(function (s) {
-      h += '<polygon points="' + [0, 1, 2, 3, 4].map(function (a) { return f(pt(a, s)); }).join(' ') + '" fill="none" stroke="' + (s === 5 ? '#3E5E55' : '#2F4A44') + '" stroke-width="' + (s === 5 ? 1.2 : 1) + '"/>';
+      h += '<polygon points="' + [0, 1, 2, 3, 4].map(function (a) { return f(pt(a, s)); }).join(' ') + '" fill="none" stroke="' + (s === 5 ? '#7A5E49' : '#5E4636') + '" stroke-width="' + (s === 5 ? 1.2 : 1) + '"/>';
     });
-    h += '<path d="' + [0, 1, 2, 3, 4].map(function (a) { var p = pt(a, 5); return 'M' + CX + ' ' + CY + ' L' + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' ') + '" stroke="#2F4A44" stroke-width="1"/>';
+    h += '<path d="' + [0, 1, 2, 3, 4].map(function (a) { var p = pt(a, 5); return 'M' + CX + ' ' + CY + ' L' + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' ') + '" stroke="#5E4636" stroke-width="1"/>';
     if (sc.some(function (x) { return x > 0; })) {
-      h += '<polygon points="' + [0, 1, 2, 3, 4].map(function (a) { return f(pt(a, sc[DIR_OF_AXIS[a]])); }).join(' ') + '" fill="#CDEB78" fill-opacity="0.2" stroke="#CDEB78" stroke-width="2.4" stroke-linejoin="round"/>';
+      h += '<polygon points="' + [0, 1, 2, 3, 4].map(function (a) { return f(pt(a, sc[DIR_OF_AXIS[a]])); }).join(' ') + '" fill="#F2C46D" fill-opacity="0.2" stroke="#F2C46D" stroke-width="2.4" stroke-linejoin="round"/>';
     }
     [0, 1, 2, 3, 4].forEach(function (a) {
       var d = DIR_OF_AXIS[a];
@@ -180,13 +180,13 @@
     });
     if (weak != null) {
       var w = pt(DIRS[weak].axis, sc[weak]);
-      h += '<circle cx="' + w[0].toFixed(1) + '" cy="' + w[1].toFixed(1) + '" r="15" fill="none" stroke="#E48680" stroke-width="1.8"/>';
-      h += '<circle cx="' + w[0].toFixed(1) + '" cy="' + w[1].toFixed(1) + '" r="7" fill="#D2352B" stroke="#FFFFFF" stroke-width="2"/>';
+      h += '<circle cx="' + w[0].toFixed(1) + '" cy="' + w[1].toFixed(1) + '" r="15" fill="none" stroke="#F6A48E" stroke-width="1.8"/>';
+      h += '<circle cx="' + w[0].toFixed(1) + '" cy="' + w[1].toFixed(1) + '" r="7" fill="#C4432D" stroke="#FFFFFF" stroke-width="2"/>';
     }
     [0, 1, 2, 3, 4].forEach(function (a) {
       var d = DIR_OF_AXIS[a], l = LBL[a], hi = weak === d;
-      h += '<text x="' + l[0] + '" y="' + l[1] + '" text-anchor="' + l[2] + '" font-size="15" font-weight="' + (hi ? 700 : 600) + '" fill="' + (hi ? '#E48680' : '#FFFFFF') + '">' + DIRS[d].name + '</text>';
-      if (hi) h += '<text x="' + l[0] + '" y="' + (l[1] + 18) + '" text-anchor="' + l[2] + '" font-size="12" font-weight="500" fill="#C9D8D2">начать здесь</text>';
+      h += '<text x="' + l[0] + '" y="' + l[1] + '" text-anchor="' + l[2] + '" font-size="15" font-weight="' + (hi ? 700 : 600) + '" fill="' + (hi ? '#F6A48E' : '#FFF8EE') + '">' + DIRS[d].name + '</text>';
+      if (hi) h += '<text x="' + l[0] + '" y="' + (l[1] + 18) + '" text-anchor="' + l[2] + '" font-size="12" font-weight="500" fill="#EADCCB">начать здесь</text>';
     });
     return h + '</svg>';
   }
@@ -227,7 +227,7 @@
     $('[data-q-dir] b').textContent = d.name;
     $('[data-q-text]').textContent = q[1];
     $('[data-segs]').innerHTML = QS.map(function (qq, i) {
-      var bg = st.answers[i] != null ? DIRS[qq[0]].color : (i === qi ? '#6E6E78' : '#2A2A2F');
+      var bg = st.answers[i] != null ? DIRS[qq[0]].color : (i === qi ? '#8A7A6C' : '#E3D6C3');
       return '<span style="background:' + bg + '"></span>';
     }).join('');
     var box = $('[data-q-opts]'); box.innerHTML = '';
@@ -235,7 +235,7 @@
       var on = st.answers[qi] === o[1];
       var b = el('button', 'qopt', o[0]);
       b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on ? 'true' : 'false');
-      if (on) { b.style.background = d.color; b.style.borderColor = d.color; b.style.color = '#111113'; }
+      if (on) { b.style.background = d.color; b.style.borderColor = d.color; b.style.color = '#1C140F'; }
       b.addEventListener('click', function () {
         st.answers[qi] = o[1];
         event('diag_progress', { answered: st.answers.filter(function (x) { return x != null; }).length });
@@ -255,9 +255,9 @@
       var on = !!st.sym[s[0]], c = DIRS[s[2]].color;
       var b = el('button', 'sym');
       b.type = 'button'; b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      var dot = el('i'); dot.style.background = on ? '#111113' : c;
+      var dot = el('i'); dot.style.background = on ? '#1C140F' : c;
       b.appendChild(dot); b.appendChild(document.createTextNode(s[1]));
-      if (on) { b.style.background = c; b.style.borderColor = c; b.style.color = '#111113'; }
+      if (on) { b.style.background = c; b.style.borderColor = c; b.style.color = '#1C140F'; }
       b.addEventListener('click', function () { if (st.sym[s[0]]) delete st.sym[s[0]]; else st.sym[s[0]] = true; render(); });
       box.appendChild(b);
     });

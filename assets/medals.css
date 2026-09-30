@@ -73,3 +73,15 @@
 
 /* 30.09: на стр. 1 кнопка альбома ждёт минуту урока */
 .alb-fab.is-wait { display: none; }
+
+/* v2.0 · значок альбома меньше и не мешает тексту */
+.alb-fab .ring .bg { stroke: rgba(59,42,33,.16); }
+.theme-dark .alb-fab .ring .bg { stroke: rgba(244,241,234,.18); }
+.alb-fab { filter: drop-shadow(0 4px 12px rgba(59,42,33,.18)); }
+@media (max-width: 640px) {
+  .alb-fab { width: 56px; height: 56px; right: 12px; bottom: 12px; }
+  .alb-fab img { inset: 6px; width: 44px; height: 44px; }
+  .alb-fab svg.ring { width: 56px; height: 56px; }
+  .alb-fab b { font-size: 16px; min-width: 28px; padding: 0 6px; }
+  .alb-hint { right: 76px; bottom: 22px; font-size: 18px; }
+}
