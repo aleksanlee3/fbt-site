@@ -161,15 +161,6 @@
 .band > div > span { font-size: 16px; color: #E4D2BC; }
 .band .btn { flex-shrink: 0; }
 
-.revs { margin-top: 48px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
-.rev { display: flex; flex-direction: column; gap: 14px; }
-.rev-cover { height: 156px; border-radius: 18px; background: repeating-linear-gradient(135deg, #FBF4EA 0 14px, #F3EADD 14px 28px); border: 1px solid var(--line-2); position: relative; display: flex; align-items: center; justify-content: center; }
-.rev-play { width: 56px; height: 56px; border-radius: 999px; background: var(--accent); color: var(--on-accent); display: flex; align-items: center; justify-content: center; }
-.rev-play svg { width: 24px; height: 24px; margin-left: 3px; }
-.rev-cover em { position: absolute; left: 12px; top: 12px; padding: 4px 8px; border-radius: 6px; background: rgba(251,246,238,.85); font-style: normal; font-size: 12px; color: var(--dim); }
-.rev-t { display: flex; flex-direction: column; gap: 4px; }
-.rev-t b { font-size: 16px; font-weight: 600; }
-.rev-t span { font-size: 15px; color: var(--dim); }
 
 .ifs { gap: 20px; }
 .ifs .card { padding: 30px 28px; border-radius: 24px; border-color: var(--line-2); display: flex; flex-direction: column; gap: 12px; }
@@ -297,7 +288,6 @@
   .ment { flex-direction: column; }
   .luba { width: auto; flex-direction: row; }
   .luba-ph { width: 260px; height: auto; flex-shrink: 0; }
-  .revs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .price { flex-direction: column; align-items: stretch; }
   .price-card { width: auto; position: static; }
   .trial { flex-direction: column; align-items: stretch; padding: 40px; }
@@ -355,12 +345,6 @@
   .ment-list i { width: 48px; height: 48px; font-size: 16px; }
   .band { padding: 24px 22px; }
   .band b { font-size: 20px; }
-  .revs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-  .rev-cover { height: 110px; border-radius: 14px; }
-  .rev-play { width: 44px; height: 44px; }
-  .rev-cover em { display: none; }
-  .rev-t b { font-size: 15px; }
-  .rev-t span { font-size: 13px; }
   .hdr-nav > a.hdr-cta { display: inline-flex; }
   .ifs b { font-size: 19px; }
   .ladder li { flex-wrap: wrap; padding: 12px 16px; }

@@ -199,3 +199,6 @@ html.fs-lock, html.fs-lock body { overflow: hidden; }
   .sec--hero .player { margin-top: 20px; }
   .sec--hero { padding-top: 20px; }
 }
+/* v2.5 · фото Любы */
+.player-img { object-position: 72% 30%; }
+.story-photo > img { object-position: 68% 25%; }

@@ -30,7 +30,7 @@ window.FBT_CONFIG = {
 
   // Программа (стр. 4)
   seatsLeft: 12,                // свободных мест в 3-м потоке
-  reviewsUrl: '',               // «Все отзывы на YouTube» (пусто — кнопка скрыта)
+  reviewsUrl: 'https://www.youtube.com/@impactconsulting3759',               // «Все отзывы на YouTube» (пусто — кнопка скрыта)
 
   // Семейный альбом (наклейки за шаги воронки, assets/medals.js)
   medals: {

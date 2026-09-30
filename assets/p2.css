@@ -253,3 +253,10 @@
   .world-stats-m b { font-size: 22px; min-width: 88px; }
   .world-stats-m span { font-size: 15px; }
 }
+
+/* v2.5 · партнёры */
+.partners { margin-top: 32px; }
+.partners-cap { font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+.partners-row { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 12px; }
+.partners-row img { height: 56px; width: auto; padding: 8px 14px; border-radius: 14px; background: #fff; border: 1px solid var(--line-2); }
+.author-ph > img { object-position: 70% 30%; }

@@ -75,11 +75,56 @@
     return (n % 10 === 1 && n % 100 !== 11) ? one : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? few : many);
   };
 
+
+  // ── Видеоотзывы выпускников (YouTube, вертикальные). Подписи — по названиям роликов на канале ──
+  FBT.REVIEWS = [
+    { id: 'NGUKPFtwmiI', name: 'Ирина', place: 'Южная Корея' },
+    { id: 'FuIvvPfJZ58', name: 'Татьяна Ялышева', place: 'Выпускница FBT' },
+    { id: 'wXmNb0LaE-E', name: 'Дмитрий Морозов', place: 'Победитель тренинга' },
+    { id: 'f7TbHsUVdWY', name: 'Выпускник FBT', place: 'Душанбе, Таджикистан' },
+    { id: '5iXz6a-isZ8', name: 'Выпускница FBT', place: '' },
+    { id: 'jRntkVMctD0', name: 'Выпускник FBT', place: '' },
+    { id: '4PWNwSsQsIE', name: 'Выпускник FBT', place: 'Душанбе, Таджикистан' },
+    { id: 'wWW8hHLPUxM', name: 'Выпускница FBT', place: '' },
+    { id: 'tV_5pNK2XRA', name: 'Выпускник FBT', place: '' },
+    { id: 'zpWKM2sYcxQ', name: 'Выпускница FBT', place: '' }
+  ];
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function openReview(id) {
+    var m = document.createElement('div');
+    m.className = 'rv-modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-label', 'Видеоотзыв');
+    m.innerHTML = '<div class="rv-box"><button type="button" class="rv-x" aria-label="Закрыть">×</button>' +
+      '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Видеоотзыв"></iframe></div>';
+    function close() { m.remove(); document.removeEventListener('keydown', onKey); document.documentElement.classList.remove('rv-open'); }
+    function onKey(e) { if (e.key === 'Escape') close(); }
+    m.addEventListener('click', function (e) { if (e.target === m || e.target.closest('.rv-x')) close(); });
+    document.addEventListener('keydown', onKey);
+    document.documentElement.classList.add('rv-open');
+    document.body.appendChild(m);
+  }
+  FBT.renderReviews = function () {
+    document.querySelectorAll('[data-reviews]').forEach(function (box) {
+      var lim = parseInt(box.getAttribute('data-limit'), 10) || FBT.REVIEWS.length;
+      box.innerHTML = FBT.REVIEWS.slice(0, lim).map(function (r) {
+        return '<button type="button" class="rv" data-rv="' + r.id + '" aria-label="Смотреть отзыв: ' + esc(r.name) + '">' +
+          '<span class="rv-cover"><img src="assets/img/rev/' + r.id + '.jpg" alt="" loading="lazy"><span class="rv-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span></span>' +
+          '<span class="rv-t"><b>' + esc(r.name) + '</b>' + (r.place ? '<span>' + esc(r.place) + '</span>' : '') + '</span></button>';
+      }).join('');
+    });
+    var all = document.querySelector('[data-reviews-all]');
+    if (all && C.reviewsUrl) { all.href = C.reviewsUrl; all.hidden = false; }
+  };
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-rv]');
+    if (b) { openReview(b.getAttribute('data-rv')); if (FBT.event) try { FBT.event('review_open', { id: b.getAttribute('data-rv') }); } catch (x) {} }
+  });
+
   // Тестовый режим: показываем подписи «заглушка» на фото
   if (C.testMode) document.documentElement.classList.add('is-test');
 
   document.addEventListener('DOMContentLoaded', function () {
     bindLinks(document);
+    FBT.renderReviews();
     var y = document.querySelector('[data-year]');
     if (y) y.textContent = new Date().getFullYear();
   });

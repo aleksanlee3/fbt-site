@@ -175,13 +175,6 @@
   $('[data-mod-prev]').addEventListener('click', function () { st.mod = Math.max(0, st.mod - 1); renderMod(); });
   $('[data-mod-next]').addEventListener('click', function () { st.mod = (st.mod + 1) % 5; renderMod(); });
 
-  // ── Отзывы (обложки — заглушки до получения видео) ──────
-  $('[data-reviews]').innerHTML = ['01', '02', '03', '04', '05', '06', '07', '08'].map(function (n) {
-    return '<div class="rev" aria-label="Видеоотзыв участника ' + n + ' — скоро"><div class="rev-cover"><span class="rev-play"><svg><use href="#i-play"/></svg></span><em class="mono">обложка ' + n + '</em></div>' +
-      '<div class="rev-t"><b>Отзыв участника · ' + n + '</b><span>Имя, бизнес — добавим с обложкой</span></div></div>';
-  }).join('');
-  if (C.reviewsUrl) { var ra = $('[data-reviews-all]'); ra.href = C.reviewsUrl; ra.hidden = false; }
-
   // ── FAQ ─────────────────────────────────────────────────
   function faqData() {
     var p = pricing();
