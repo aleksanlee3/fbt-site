@@ -402,6 +402,21 @@
 @media (max-width: 640px) { .hero4-sec { padding-top: 230px; } .hero4-bg { height: 330px; } }
 @media (max-width: 640px) { .trial-ph { height: 160px; } }
 .luba-ph .ph-tag { color: #F5C451; font-size: 10px; }
+
+/* Узнать больше → стр. 5 «Бизнес ради семьи» */
+.fam-more { display: grid; grid-template-columns: 420px minmax(0, 1fr); gap: 0; border-radius: 28px; overflow: hidden; background: var(--forest); border: 1px solid #25423A; transition: transform .2s, border-color .2s; }
+.fam-more:hover { transform: translateY(-2px); border-color: #3F6B5C; }
+.fam-more-ph { border-radius: 0; min-height: 260px; }
+.fam-more-b { padding: 40px 44px; display: flex; flex-direction: column; gap: 12px; justify-content: center; }
+.fam-more-b b { font-size: clamp(24px, 2.6vw, 34px); line-height: 1.15; font-weight: 700; letter-spacing: -.015em; color: #fff; }
+.fam-more-b .muted { font-size: 17px; line-height: 1.55; color: #BFD8CB; }
+.fam-more-b .link-arrow { margin-top: 6px; color: var(--lime); }
+@media (max-width: 900px) {
+  .fam-more { grid-template-columns: minmax(0, 1fr); }
+  .fam-more-ph { min-height: 0; aspect-ratio: 16 / 9; }
+  .fam-more-b { padding: 28px 24px; }
+}
+
 /* 30.09 · по уровням осознанности: «не подойдёт», сравнение подходов, что будет после оплаты */
 .nofit4 { grid-column: 1 / -1; padding: 18px 22px; border-radius: 16px; border: 1px dashed var(--line-4); font-size: 15px; line-height: 1.55; color: var(--muted); }
 .nofit4 b { color: var(--text); }
@@ -415,7 +430,7 @@
 .cmp-head > div { padding-top: 14px; padding-bottom: 14px; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
 .cmp-head > .cmp-us { color: var(--lime); }
 
-.onb { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.onb { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .onb li { position: relative; padding: 24px; border-radius: 18px; background: var(--card); border: 1px solid var(--line-2); display: flex; flex-direction: column; gap: 8px; }
 .onb i { font-style: normal; font-family: var(--mono); font-size: 14px; color: var(--accent-text); }
 .onb b { font-size: 18px; line-height: 1.3; }

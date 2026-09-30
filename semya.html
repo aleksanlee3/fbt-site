@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Бизнес ради семьи — FBT Online</title>
+<meta name="description" content="FBT — не только о том, как зарабатывать больше. Как сделать бизнес активом семьи, договориться о ролях и долях и подготовить следующее поколение.">
+<meta property="og:title" content="Мы строим бизнес не вместо семьи. Мы строим его ради семьи">
+<meta property="og:description" content="Семья, бизнес и собственность — как FBT помогает сохранить и компанию, и отношения.">
+<meta name="theme-color" content="#111113">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fbt.css">
+<link rel="stylesheet" href="assets/medals.css">
+<link rel="stylesheet" href="assets/p5.css">
+<script src="config.js"></script>
+<script src="assets/fbt.js"></script>
+<script src="assets/medals.js"></script>
+</head>
+<body>
+<!--
+  MVP-КОНЦЕПТ (30.09.2026). Блоки с меткой .concept / .mod--new описывают уроки, которых пока НЕТ в программе:
+  «Собственность», «Преемственность», «Следующее поколение», семейные договорённости в итоге программы.
+  Страница — для проверки идеи. Перед показом в рекламе: создать эти уроки ИЛИ убрать обещания. См. site/web/README.md.
+-->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M6 13l6 6 6-6"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 40 44" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4c14 4 22 16 22 34"/><path d="M18 30l10 10l8-12"/></symbol>
+</svg>
+
+<div class="topbar">
+  <header class="hdr">
+    <div class="wrap">
+      <a class="brand" href="index.html"><b>IMPACT CONSULTING</b><i></i><span>FBT Online</span></a>
+      <nav class="hdr-nav p5nav" aria-label="Навигация">
+        <a class="back" href="programma.html"><svg><use href="#i-right"/></svg>К программе</a>
+        <a class="btn btn--primary btn--sm" style="height:46px" href="diagnostika.html"><span class="hide-sm">Пройти диагностику</span><span class="only-sm">Диагностика</span></a>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<main>
+  <!-- 1. Первый экран · узнавание: «это про меня и мою семью» -->
+  <section class="sec sec--hero hero5-sec">
+    <div class="hero5-bg" aria-hidden="true"><img src="assets/img/semya-hero.jpg" alt=""><span class="ph-tag">заглушка · фото семьи в своём деле (ИИ)</span></div>
+    <div class="wrap">
+      <div class="hero5">
+        <div class="kicker"><i></i>FAMILY BUSINESS TRAINING · ПОЧЕМУ «FAMILY»</div>
+        <h1 class="h1 hero5-h1">Мы строим бизнес не&nbsp;вместо семьи. <em>Мы строим его ради семьи.</em></h1>
+        <p class="lead">FBT учит не только зарабатывать больше. Вы выстроите бизнес, который не держится на одном человеке, договоритесь с семьёй о ролях, деньгах и долях — и сможете однажды передать дело, а не хаос.</p>
+        <div class="row gap-14 mt-40 btn-row" style="flex-wrap:wrap">
+          <a class="btn btn--primary btn--lg" href="#paradox">Чем FBT отличается<svg><use href="#i-down"/></svg></a>
+          <a class="btn btn--lg" href="#how">Что будет в программе</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Парадокс · узнавание и значимость -->
+  <section id="paradox" class="sec sec--tight">
+    <div class="wrap">
+      <div class="para">
+        <div>
+          <div class="eyebrow">ЧЕСТНЫЙ ПАРАДОКС</div>
+          <h2 class="h2 mt-20">Бизнес, созданный ради семьи, начинает отнимать у&nbsp;вас семью</h2>
+          <p class="sub">Большинство из нас начинали ради свободы, семьи и будущего детей. А потом что-то пошло не так.</p>
+          <div class="symp">
+            <div><i>01</i>Всё время уходит в операционку — «на минутку» в офис превращается в целый выходной.</div>
+            <div><i>02</i>Все решения проходят через вас. Уехать на неделю страшно: без вас всё встанет.</div>
+            <div><i>03</i>Дома спорите о работе, на работе — о семейном. Деньги семьи и бизнеса давно смешались.</div>
+            <div><i>04</i>Дети видят в бизнесе не возможность, а то, что забирает у них родителей.</div>
+          </div>
+        </div>
+        <div class="para-ph photo photo--shade" aria-label="Место для фото"><img src="assets/img/semya-evening.jpg" alt="" loading="lazy"><span class="ph-tag">заглушка · собственник допоздна, семья ждёт за столом</span></div>
+      </div>
+      <p class="bridge">Если вы узнали себя, дело не в том, что вы мало работаете. Вы работаете больше всех. <b>Проблема в том, что бизнес держится на вас</b> — и пока это так, он будет забирать ваше время у семьи.</p>
+    </div>
+  </section>
+
+  <!-- 3. Причина · сначала система -->
+  <section class="sec sec--tight sec--alt">
+    <div class="wrap">
+      <div class="eyebrow">ПРИЧИНА</div>
+      <h2 class="h2" style="max-width:960px">Бизнес может служить семье, только когда он работает без вас</h2>
+      <div class="sys">
+        <div class="stop">
+          <div class="stop-h">Если без вас останавливаются…</div>
+          <div class="stop-list"><span>сотрудники</span><span>продажи</span><span>финансы</span><span>решения</span></div>
+          <p class="stop-f">…то у вас нет ни свободы сейчас, ни того, что можно передать потом. Не потому что бизнес плохой — а потому что он живёт только в голове основателя.</p>
+        </div>
+        <div>
+          <p class="text" style="margin-bottom:18px">Поэтому в FBT путь такой: <b style="color:var(--text)">сначала система, потом преемственность</b>. Пока вы полны сил и всё контролируете, вы выстраиваете:</p>
+          <div class="fbt-sys">
+            <div><svg><use href="#i-check"/></svg>Бизнес-модель — понятную вам, партнёрам и детям</div>
+            <div><svg><use href="#i-check"/></svg>Маркетинг и продажи, которые работают без вашего звонка</div>
+            <div><svg><use href="#i-check"/></svg>Финансы: где деньги бизнеса, а где — семьи</div>
+            <div><svg><use href="#i-check"/></svg>Роли, ответственность и команду</div>
+          </div>
+        </div>
+      </div>
+      <p class="bridge">Но в семейном бизнесе одной системы мало. Можно выстроить процессы — и всё равно поссориться с братом из-за доли или с сыном из-за его зарплаты. <b>Потому что вы живёте сразу в трёх ролях.</b></p>
+    </div>
+  </section>
+
+  <!-- 4. Три роли · объяснение -->
+  <section class="sec sec--tight">
+    <div class="wrap">
+      <div class="eyebrow">СЕМЬЯ · БИЗНЕС · СОБСТВЕННОСТЬ</div>
+      <h2 class="h2" style="max-width:960px">Дома вы — мама или папа. В компании — директор. На бумаге — собственник</h2>
+      <p class="sub" style="max-width:760px">У каждой из трёх систем свои правила. Проблемы начинаются, когда их смешивают.</p>
+      <div class="three">
+        <svg class="venn" viewBox="0 0 440 400" role="img" aria-label="Три пересекающихся круга: семья, бизнес, собственность">
+          <circle cx="220" cy="135" r="112" fill="#6FCF97" fill-opacity=".14" stroke="#6FCF97" stroke-width="2"/>
+          <circle cx="152" cy="252" r="112" fill="#D2352B" fill-opacity=".14" stroke="#E48680" stroke-width="2"/>
+          <circle cx="288" cy="252" r="112" fill="#F5C451" fill-opacity=".12" stroke="#F5C451" stroke-width="2"/>
+          <text x="220" y="72" text-anchor="middle" fill="#F4F4F5" font-size="20" font-weight="700">Семья</text>
+          <text x="220" y="94" text-anchor="middle" fill="#A8A8B0" font-size="13">любовь · забота</text>
+          <text x="112" y="292" text-anchor="middle" fill="#F4F4F5" font-size="19" font-weight="700">Бизнес</text>
+          <text x="112" y="313" text-anchor="middle" fill="#A8A8B0" font-size="13">роли · результат</text>
+          <text x="334" y="292" text-anchor="middle" fill="#F4F4F5" font-size="16" font-weight="700">Собственность</text>
+          <text x="334" y="313" text-anchor="middle" fill="#A8A8B0" font-size="13">доли · дивиденды</text>
+          <circle cx="220" cy="214" r="24" fill="#111113" stroke="#CDEB78" stroke-width="2"/>
+          <text x="220" y="220" text-anchor="middle" fill="#CDEB78" font-size="15" font-weight="800">Вы</text>
+        </svg>
+        <div class="roles">
+          <div class="role"><b>Семья</b><span>Отношения, любовь, забота. Здесь ценят за то, кто ты, а не за результат.</span></div>
+          <div class="role"><b>Бизнес</b><span>Должности, задачи, ответственность. Здесь ценят за вклад, а не за родство.</span></div>
+          <div class="role"><b>Собственность</b><span>Доли, прибыль, дивиденды и право решать. Здесь всё держится на договорённостях.</span></div>
+        </div>
+      </div>
+      <div class="mix">
+        <span class="cap acc" style="display:block">КОГДА РОЛИ СМЕШИВАЮТСЯ, ЗВУЧИТ ТАК</span>
+        <div class="mix-q">
+          <div>«Я твой отец — значит, последнее слово за мной».</div>
+          <div>«Он мой сын — я не могу требовать с него как с сотрудника».</div>
+          <div>«Мы же семья — зачем прописывать обязанности и договариваться о деньгах?»</div>
+        </div>
+      </div>
+      <p class="bridge">Каждая из этих фраз когда-то казалась разумной. А потом из-за неё рушились и компании, и семьи. <b>Хорошая новость: разделять роли — это навык.</b> Ему можно научиться, как маркетингу или финансам.</p>
+    </div>
+  </section>
+
+  <!-- 5. Механизм · как это решается в FBT (часть уроков — концепт) -->
+  <section id="how" class="sec sec--tight sec--alt">
+    <div class="wrap">
+      <div class="how-head">
+        <div><div class="eyebrow">КАК ЭТО РЕШАЕТСЯ В FBT</div><h2 class="h2 mt-20" style="max-width:760px">Трек «Семья и бизнес» проходит через всю программу</h2></div>
+        <p class="sub" style="max-width:440px;margin:0">К пяти основным модулям добавлены уроки для семейного бизнеса. Задания вы делаете на своей ситуации, наставник проверяет каждое.</p>
+      </div>
+      <div class="track">
+        <div class="tr"><span class="mod">Модуль 03 · Финансы</span><b>Деньги семьи и деньги бизнеса</b><p>Сколько бизнес может отдавать семье без ущерба для роста. Зарплата собственника и родственников, резервы, выплаты.</p><span class="res">деньги семьи отдельно от денег компании</span></div>
+        <div class="tr"><span class="mod">Модуль 04 · Время</span><b>Время на семью, а не только на операционку</b><p>Что действительно должен делать собственник, а что пора отдать. Приоритеты, в которых есть место для близких.</p><span class="res">система приоритетов и свободные вечера</span></div>
+        <div class="tr"><span class="mod">Модуль 05 · Люди</span><b>Родственники в команде</b><p>Как брать в бизнес родных по роли, а не по родству. Зоны ответственности и как требовать с близких без обид.</p><span class="res">понятные роли для каждого члена семьи</span></div>
+        <div class="tr"><span class="concept">концепт · урока пока нет</span><span class="mod mod--new">Новый урок · Собственность</span><b>Доли, решения и дивиденды</b><p>Кому что принадлежит, кто и как принимает решения, как делить прибыль. Как не поссориться с братом, партнёром или супругом из-за денег.</p><span class="res">правила собственников, записанные заранее</span></div>
+        <div class="tr"><span class="concept">концепт · урока пока нет</span><span class="mod mod--new">Новый урок · Преемственность</span><b>Что будет с бизнесом без вас</b><p>План передачи: кому, когда и что. Как вырастить преемника или нанять директора, а семье остаться собственником.</p><span class="res">план преемственности вашего бизнеса</span></div>
+        <div class="tr"><span class="concept">концепт · урока пока нет</span><span class="mod mod--new">Новый урок · Следующее поколение</span><b>Чтобы дети захотели продолжить</b><p>Как рассказать детям историю семьи и дела, дать им первую ответственность и место, где они могут предлагать своё.</p><span class="res">шаги вовлечения детей по возрастам</span></div>
+      </div>
+      <div class="track-note"><span><i></i>Итог программы — Карта развития бизнеса, план на 90 дней и семейные договорённости</span><span class="concept" style="position:static">концепт · договорённостей в программе пока нет</span></div>
+      <p class="bridge">Трек подходит не только тем, кто уже работает с семьёй. <b>Семейный бизнес — это бизнес, который строится ради семьи.</b> Даже если сейчас вы в нём один.</p>
+    </div>
+  </section>
+
+  <!-- 6. Пригодность · кому подойдёт -->
+  <section class="sec sec--tight">
+    <div class="wrap">
+      <div class="eyebrow">КОМУ ПОДОЙДЁТ</div>
+      <h2 class="h2" style="max-width:900px">Узнайте себя хотя бы в одной ситуации</h2>
+      <div class="fit">
+        <div><svg><use href="#i-check"/></svg><div><b>Строю бизнес один — но ради семьи</b><span>Хочу, чтобы бизнес работал без меня и однажды стал активом семьи, а не моей пожизненной работой.</span></div></div>
+        <div><svg><use href="#i-check"/></svg><div><b>Работаем вместе с супругом(ой)</b><span>Хочу разделить роли и перестать спорить о работе дома, а о семье — на работе.</span></div></div>
+        <div><svg><use href="#i-check"/></svg><div><b>В бизнесе уже есть дети или родственники</b><span>Хочу понятных правил: кто за что отвечает, кто сколько получает и кто принимает решения.</span></div></div>
+        <div><svg><use href="#i-check"/></svg><div><b>Думаю, кому и как передать дело</b><span>Хочу подготовить бизнес и детей заранее, а не в момент, когда передавать придётся срочно.</span></div></div>
+      </div>
+      <div class="nofit"><b>Не подойдёт,</b> если вы ищете быструю схему заработка без внедрения. В FBT вы каждую неделю делаете задания на своём бизнесе — это работа, а не просмотр видео.</div>
+    </div>
+  </section>
+
+  <!-- 7. Следующее поколение + семейный капитал -->
+  <section class="sec sec--tight sec--alt">
+    <div class="wrap gen">
+      <div class="gen-ph photo photo--shade" aria-label="Место для фото"><img src="assets/img/semya-next.jpg" alt="" loading="lazy"><span class="ph-tag">заглушка · фрагмент ИИ-фото, нужен родитель + ребёнок-подросток</span></div>
+      <div>
+        <div class="eyebrow">СЛЕДУЮЩЕЕ ПОКОЛЕНИЕ</div>
+        <h2 class="h2 mt-20">Недостаточно просто захотеть передать бизнес детям</h2>
+        <div class="dream">
+          <b>«Когда-нибудь дети продолжат наше дело».</b>
+          <span>Родители годами строят компанию, уверенные в этом. А дети могут не почувствовать бизнес своим и увидеть в нём только тяжёлую работу родителей и заранее назначенную обязанность.</span>
+        </div>
+        <p class="text mt-28">Ребёнка невозможно заставить полюбить семейное дело. Но можно создать культуру, в которой он увидит в нём <b style="color:var(--text)">не чужую обязанность, а собственную возможность</b>. И передать ему не рабочее место, а фундамент:</p>
+        <div class="ready">
+          <div><svg><use href="#i-check"/></svg>долю в сильной компании</div>
+          <div><svg><use href="#i-check"/></svg>капитал и дивиденды</div>
+          <div><svg><use href="#i-check"/></svg>репутацию и отношения</div>
+          <div><svg><use href="#i-check"/></svg>работающую систему</div>
+          <div><svg><use href="#i-check"/></svg>знания и ценности</div>
+          <div><svg><use href="#i-check"/></svg>право участвовать в решениях</div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="steps" aria-label="Три поколения поднимаются выше">
+        <div class="stepc"><span class="cap">ПОКОЛЕНИЕ 1</span><b>Создаёт дело</b><span>С нуля, своими руками, часто — через ошибки.</span></div>
+        <div class="stepc"><span class="cap">ПОКОЛЕНИЕ 2</span><b>Выстраивает систему</b><span>Бизнес начинает работать без постоянного участия основателя.</span></div>
+        <div class="stepc"><span class="cap">ПОКОЛЕНИЕ 3</span><b>Развивает дальше</b><span>Стартует с фундамента, а не с нуля — и идёт по-своему.</span></div>
+      </div>
+      <div class="steps-base"></div>
+      <p class="bridge">Всё это звучит правильно. Но вы, скорее всего, уже проходили бизнес-обучение. <b>Чем FBT отличается от него?</b></p>
+    </div>
+  </section>
+
+  <!-- 8. Отличие -->
+  <section class="sec sec--tight">
+    <div class="wrap">
+      <div class="eyebrow">ЧЕМ FBT ОТЛИЧАЕТСЯ ОТ ОБЫЧНОГО БИЗНЕС-ОБРАЗОВАНИЯ</div>
+      <h2 class="h2" style="max-width:960px">Мы тоже учим продажам, маркетингу и финансам. А потом спрашиваем: <span class="lime" style="display:inline">ради чего вы всё это строите?</span></h2>
+      <div class="diff">
+        <div class="diff-row diff-head"><div>ОБЫЧНЫЙ ТРЕНИНГ СПРАШИВАЕТ</div><div>FBT СПРАШИВАЕТ ЕЩЁ</div></div>
+        <div class="diff-row"><div>Как заработать больше?</div><div>Как превратить бизнес в сильный актив семьи?</div></div>
+        <div class="diff-row"><div>Как управлять компанией?</div><div>Как создать систему, которая работает без постоянного присутствия основателя?</div></div>
+        <div class="diff-row"><div>Как работать с родственниками?</div><div>Как разделить семью, собственность и бизнес — и сохранить и компанию, и отношения?</div></div>
+        <div class="diff-row"><div>Как передать бизнес детям?</div><div>Как создать бизнес, который дети захотят принять, развить и сделать своим?</div></div>
+      </div>
+      <p class="text mt-28" style="max-width:820px">В основе — швейцарская методология Swiss Create и её философия: строить не на несколько лет, а на поколения. Victorinox и Ferrero когда-то тоже были небольшими семейными предприятиями.</p>
+    </div>
+  </section>
+
+  <!-- 9. Смысл · коротко -->
+  <section class="sec sec--tight sec--alt">
+    <div class="wrap mission">
+      <div class="eyebrow">САМЫЙ ГЛУБОКИЙ УРОВЕНЬ</div>
+      <h2 class="mission-h">Что наша семья даёт <em>миру?</em></h2>
+      <p class="sub" style="max-width:720px;margin:24px auto 0">Деньги сами по себе не всегда объединяют семью — иногда они становятся причиной ссор. Поколения объединяет общее дело и ответ на вопрос, ради чего оно существует.</p>
+      <div class="vs">
+        <div><span>МОЖНО ПЕРЕДАТЬ ДЕТЯМ ВОПРОС</span><b>«Что принадлежит нашей семье?»</b></div>
+        <div><span>А МОЖНО — БОЛЕЕ СИЛЬНЫЙ</span><b>«Что наша семья даёт миру?»</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Приходите вместе · безопасность и действие -->
+  <section id="together" class="sec sec--tight">
+    <div class="wrap together">
+      <div>
+        <div class="eyebrow">ПРИХОДИТЕ ВМЕСТЕ</div>
+        <h2 class="h2 mt-20">Договариваться о ролях проще, когда учитесь вдвоём</h2>
+        <p class="sub">Проходите программу с супругом, партнёром, братом или взрослым ребёнком. Вы говорите на одном языке, делаете задания о своём общем бизнесе — и договорённости появляются по ходу обучения, а не в споре.</p>
+        <div class="share">
+          <a class="btn btn--primary" data-share-tg target="_blank" rel="noopener"><svg><use href="#i-send"/></svg>Отправить эту страницу семье</a>
+          <button type="button" class="btn" data-share-copy><svg><use href="#i-link"/></svg>Скопировать ссылку</button>
+        </div>
+        <div class="share-note" data-share-note>Решение об участии часто принимают вдвоём — покажите страницу тому, с кем строите бизнес.</div>
+      </div>
+      <div>
+        <span class="cap lime" style="display:block;margin-bottom:14px">СЕМЕЙНАЯ СКИДКА КАЖДОМУ УЧАСТНИКУ</span>
+        <div class="tiers">
+          <div><span>Вдвоём</span><b>−10%</b></div>
+          <div><span>Втроём</span><b>−12%</b></div>
+          <div><span>Вчетвером</span><b>−15%</b></div>
+          <div><span>Пять человек и больше</span><b>−20%</b></div>
+        </div>
+        <p class="note mt-14" style="font-size:14px">Скидка суммируется с ранней записью. Цену фиксирует предоплата 20%.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Финал + диагностика -->
+  <section class="sec sec--tight" style="padding-top:0;border-top:0">
+    <div class="wrap">
+      <div class="final">
+        <h2 class="final-h">Создайте не просто успешный бизнес. Создайте бизнес, который стоит передавать дальше</h2>
+        <p>Третий поток FBT Online стартует 14 ноября. В потоке 12 мест, следующий — только в 2027 году.</p>
+        <div class="final-btns">
+          <a class="btn btn--primary btn--lg" href="programma.html#apply">Забронировать место<svg><use href="#i-right"/></svg></a>
+          <a class="btn btn--lg" href="programma.html#price">Условия и цена</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="doubt" style="padding:0 0 112px">
+    <div class="wrap">
+      <div class="doubt">
+        <div class="doubt-l">
+          <span class="free">Бесплатно</span>
+          <h2 class="doubt-h">Ещё не до конца уверены? Начните с диагностики</h2>
+          <p class="muted" style="font-size:18px;line-height:1.55;margin-top:18px">За 5 минут вы увидите, держится ваш бизнес на вас или уже на системе — и что мешает ему стать активом семьи. Куратор разберёт результат и ответит голосовыми в Telegram.</p>
+          <div class="chips mt-24"><span class="chip">10 вопросов</span><span class="chip">5 минут</span><span class="chip">Без регистрации</span><span class="chip">Разбор куратора</span></div>
+        </div>
+        <div class="doubt-r">
+          <div class="push push--col" style="align-items:stretch">
+            <div class="nudge" aria-hidden="true" style="justify-content:center;margin:0"><span style="font-size:34px">Не уверены? 5 минут</span><svg><use href="#i-arrow-down"/></svg></div>
+            <span class="ringed" style="width:100%"><a class="btn btn--primary btn--block" style="height:72px;font-size:20px" href="diagnostika.html">Пройти диагностику<svg><use href="#i-right"/></svg></a></span>
+          </div>
+          <span class="note" style="text-align:center;margin-top:14px;font-size:14px">Результат можно скачать и отправить куратору</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap"><span>© Impact Consulting · FBT Online</span><a href="privacy.html">Политика конфиденциальности</a></div>
+</footer>
+
+<script src="assets/p5.js"></script>
+</body>
+</html>

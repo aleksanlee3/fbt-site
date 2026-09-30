@@ -38,7 +38,7 @@
 
   // Карта получена? (общая отметка для всех страниц)
   FBT.gotMap = function () { return store.get('fbt_map', 0) === 1; };
-  FBT.markMap = function () { store.set('fbt_map', 1); if (FBT.medal) { FBT.medal('shag'); FBT.medal('karta'); } };
+  FBT.markMap = function () { store.set('fbt_map', 1); if (FBT.medal) FBT.medal('karta'); };
   // Был ли человек на стр. 1 (видео) — для подсказок холодному входу
   FBT.sawVideo = function () { var p = store.get('fbt_p1', {}) || {}; return Object.keys(p).length > 0; };
   FBT.inFunnel = function () { return FBT.sawVideo() || FBT.gotMap(); };

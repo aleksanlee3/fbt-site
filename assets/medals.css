@@ -70,3 +70,6 @@
   .alb-hint { right: 78px; bottom: 22px; font-size: 17px; }
   .alb-pop { bottom: 80px; }
 }
+
+/* 30.09: на стр. 1 кнопка альбома ждёт минуту урока */
+.alb-fab.is-wait { display: none; }

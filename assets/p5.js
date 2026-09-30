@@ -1,0 +1,15 @@
+/* Стр. 5 · «Бизнес ради семьи»: «Отправить эту страницу семье» (Telegram) и копирование ссылки. */
+(function () {
+  var url = (window.FBT_SHARE_URL || window.location.href.split('#')[0]).split('?')[0];
+  var text = 'Посмотри: как сделать так, чтобы бизнес работал ради семьи, а не забирал её. Давай обсудим — может, пойдём на FBT вместе?';
+  var tg = document.querySelector('[data-share-tg]');
+  var copy = document.querySelector('[data-share-copy]');
+  var note = document.querySelector('[data-share-note]');
+  if (tg) tg.href = 'https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text);
+  if (copy) copy.addEventListener('click', function () {
+    function done(ok) { if (note) note.textContent = ok ? 'Ссылка скопирована — отправьте её в семейный чат.' : 'Ссылка: ' + url; }
+    try {
+      navigator.clipboard.writeText(url).then(function () { done(true); }, function () { done(false); });
+    } catch (e) { done(false); }
+  });
+})();

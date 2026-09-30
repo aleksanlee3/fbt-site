@@ -1,0 +1,215 @@
+/* Стр. 5 · «Бизнес ради семьи» — философия FBT (после страницы программы, перед диагностикой) */
+.cap { font-size: 13px; font-weight: 600; letter-spacing: .12em; }
+.lime { color: var(--lime); }
+.kicker { align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line-4); font-size: 13px; font-weight: 600; letter-spacing: .1em; }
+.kicker i { width: 8px; height: 8px; border-radius: 999px; background: var(--lime); }
+.p5nav .back { display: inline-flex; align-items: center; gap: 6px; }
+.p5nav .back svg { width: 16px; height: 16px; transform: rotate(180deg); }
+
+/* Первый экран */
+.hero5-sec { position: relative; overflow: hidden; min-height: 680px; display: flex; align-items: flex-end; }
+.hero5-bg { position: absolute; inset: 0; z-index: 0; }
+.hero5-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 35%; }
+.hero5-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(17,17,19,.95) 0%, rgba(17,17,19,.78) 48%, rgba(17,17,19,.35) 100%), linear-gradient(0deg, rgba(17,17,19,1) 0%, rgba(17,17,19,0) 40%); }
+.hero5-bg .ph-tag { top: auto; bottom: 12px; }
+.hero5 { position: relative; z-index: 1; display: flex; flex-direction: column; max-width: 820px; margin-left: 0; }
+.hero5-h1 { margin-top: 28px; font-size: clamp(38px, 5vw, 66px); line-height: 1.03; text-wrap: balance; }
+.hero5-h1 em { font-style: normal; color: var(--lime); }
+.hero5 .lead { max-width: 640px; }
+
+/* Большая цитата */
+.big-q { font-size: clamp(28px, 3.6vw, 48px); line-height: 1.15; font-weight: 700; letter-spacing: -.02em; text-wrap: balance; }
+.big-q em { font-style: normal; color: var(--lime); }
+.pull { margin-top: 48px; padding: 40px 44px; border-radius: 24px; background: var(--forest); color: #fff; }
+.pull p { font-size: clamp(22px, 2.4vw, 30px); line-height: 1.3; font-weight: 600; letter-spacing: -.01em; }
+.pull span { display: block; margin-top: 14px; font-size: 15px; color: #BFD8CB; }
+
+/* Парадокс */
+.para { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 64px; align-items: center; }
+.para-ph { aspect-ratio: 4 / 5; }
+.symp { margin-top: 36px; display: flex; flex-direction: column; gap: 12px; }
+.symp div { display: flex; gap: 16px; align-items: flex-start; padding: 18px 20px; border-radius: 16px; background: var(--card); border: 1px solid var(--line-2); font-size: 17px; line-height: 1.45; color: var(--text-2); }
+.symp i { font-style: normal; font-family: var(--mono); font-size: 14px; color: var(--accent-text); padding-top: 3px; }
+.tool { margin-top: 28px; display: flex; align-items: center; gap: 14px; font-size: 20px; font-weight: 700; }
+.tool b { padding: 6px 14px; border-radius: 999px; background: var(--lime); color: #111113; font-size: 15px; letter-spacing: .04em; }
+
+/* Шире, чем «работаем с родственниками» */
+.wide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 56px; }
+.wide .card h3 { margin-top: 18px; font-size: 22px; line-height: 1.25; font-weight: 700; }
+.wide .card p { margin-top: 12px; font-size: 16px; line-height: 1.55; color: var(--muted); }
+.ico { width: 48px; height: 48px; border-radius: 14px; background: #202025; display: flex; align-items: center; justify-content: center; color: var(--lime); }
+.ico svg { width: 24px; height: 24px; }
+.pass { margin-top: 56px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 48px; align-items: center; }
+.pass-l .h3 { margin-top: 14px; }
+.not-job { margin-top: 14px; font-size: 17px; line-height: 1.55; color: var(--muted); }
+.not-job s { color: var(--dim); }
+.tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.tags span { padding: 12px 18px; border-radius: 999px; border: 1px solid var(--line-3); background: var(--card); font-size: 16px; font-weight: 500; }
+.tags span:nth-child(3n+1) { border-color: #3C5A40; }
+
+/* Сначала система */
+.sys { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; margin-top: 56px; }
+.stop { padding: 32px; border-radius: 20px; background: var(--card); border: 1px solid var(--line-2); }
+.stop-h { font-size: 18px; font-weight: 700; }
+.stop-list { margin-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stop-list span { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; background: #1F1F24; font-size: 15px; color: var(--muted-2); }
+.stop-list span::before { content: ""; width: 8px; height: 8px; border-radius: 999px; background: var(--accent); flex-shrink: 0; }
+.stop-f { margin-top: 18px; font-size: 16px; color: var(--muted); line-height: 1.5; }
+.stop-f b { color: var(--text); }
+.fbt-sys { display: flex; flex-direction: column; gap: 10px; }
+.fbt-sys div { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 14px; border: 1px solid var(--line-2); background: var(--bg-2); font-size: 16px; font-weight: 500; }
+.fbt-sys svg { width: 20px; height: 20px; color: var(--ok); flex-shrink: 0; }
+
+/* Три системы */
+.three { display: grid; grid-template-columns: 440px minmax(0, 1fr); gap: 64px; align-items: center; margin-top: 56px; }
+.venn { width: 100%; height: auto; display: block; }
+.venn text { font-family: var(--font); }
+.roles { display: flex; flex-direction: column; gap: 14px; }
+.role { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; padding: 20px 22px; border-radius: 16px; background: var(--card); border: 1px solid var(--line-2); }
+.role b { font-size: 18px; }
+.role span { font-size: 16px; color: var(--muted); line-height: 1.5; }
+.mix { margin-top: 56px; }
+.mix-q { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.mix-q div { padding: 24px; border-radius: 18px; background: #1E1616; border: 1px solid #3A2626; font-size: 18px; line-height: 1.4; font-weight: 600; color: #F1D2CF; }
+.mix-a { margin-top: 24px; font-size: 19px; line-height: 1.5; color: var(--text-2); max-width: 860px; }
+.mix-a b { color: var(--lime); }
+
+/* Следующее поколение */
+.gen { display: grid; grid-template-columns: 420px minmax(0, 1fr); gap: 64px; align-items: center; }
+.gen-ph { aspect-ratio: 4 / 5; }
+.dream { margin-top: 28px; padding: 24px 26px; border-radius: 18px; border-left: 4px solid var(--accent); background: var(--card); }
+.dream b { display: block; font-size: 20px; line-height: 1.35; }
+.dream span { display: block; margin-top: 10px; font-size: 16px; color: var(--muted); line-height: 1.55; }
+.ready { margin-top: 28px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; }
+.ready div { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.45; color: var(--text-2); }
+.ready svg { width: 18px; height: 18px; color: var(--lime); flex-shrink: 0; margin-top: 3px; }
+
+/* Семейный капитал — ступени поколений */
+.steps { margin-top: 56px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: end; }
+.stepc { border-radius: 20px 20px 0 0; padding: 26px; display: flex; flex-direction: column; justify-content: flex-start; border: 1px solid var(--line-2); border-bottom: 0; background: linear-gradient(180deg, #1C2B26 0%, var(--bg-2) 100%); }
+.stepc:nth-child(1) { min-height: 200px; }
+.stepc:nth-child(2) { min-height: 280px; }
+.stepc:nth-child(3) { min-height: 360px; background: linear-gradient(180deg, #243C33 0%, var(--bg-2) 100%); }
+.stepc .cap { color: var(--lime); font-size: 12px; }
+.stepc b { margin-top: 10px; font-size: 22px; line-height: 1.25; }
+.stepc span { margin-top: 10px; font-size: 15px; color: var(--muted); line-height: 1.5; }
+.steps-base { height: 1px; background: var(--line-4); }
+
+/* Миссия */
+.mission { text-align: center; }
+.mission .eyebrow { display: block; }
+.mission-h { margin: 22px auto 0; max-width: 900px; font-size: clamp(40px, 6vw, 80px); line-height: 1.02; font-weight: 800; letter-spacing: -.03em; }
+.mission-h em { font-style: normal; color: var(--lime); }
+.vs { margin: 48px auto 0; max-width: 860px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; text-align: left; }
+.vs div { padding: 26px; border-radius: 20px; border: 1px solid var(--line-2); background: var(--card); }
+.vs div:last-child { background: var(--forest); border-color: var(--forest); }
+.vs span { font-size: 13px; letter-spacing: .12em; font-weight: 600; color: var(--dim); }
+.vs div:last-child span { color: #9FC7B4; }
+.vs b { display: block; margin-top: 10px; font-size: 24px; line-height: 1.25; }
+
+/* Отличие от обычного обучения */
+.diff { margin-top: 48px; display: flex; flex-direction: column; border-radius: 24px; overflow: hidden; border: 1px solid var(--line-2); }
+.diff-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+.diff-row + .diff-row { border-top: 1px solid var(--line-2); }
+.diff-row > div { padding: 24px 28px; font-size: 18px; line-height: 1.4; }
+.diff-row > div:first-child { color: var(--muted); background: var(--bg-2); }
+.diff-row > div:last-child { font-weight: 600; background: var(--card); }
+.diff-head > div { padding: 16px 28px !important; font-size: 13px !important; letter-spacing: .12em; font-weight: 600 !important; color: var(--dim) !important; }
+.diff-head > div:last-child { color: var(--lime) !important; }
+
+/* Финал */
+.final { padding: 64px; border-radius: 32px; background: var(--forest); color: #fff; text-align: center; position: relative; overflow: hidden; }
+.final-h { font-size: clamp(34px, 4.6vw, 60px); line-height: 1.05; font-weight: 800; letter-spacing: -.025em; text-wrap: balance; }
+.final p { margin: 22px auto 0; max-width: 680px; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.55; color: #CFE3D8; }
+.final-fam { margin-top: 28px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 999px; background: rgba(0,0,0,.25); font-size: 15px; color: #fff; }
+.final-fam b { color: var(--lime); }
+.final-btns { margin-top: 32px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.final .btn:not(.btn--primary) { border-color: #3F5F52; color: #fff; }
+
+.free { align-self: flex-start; padding: 6px 14px; border-radius: 999px; background: var(--ok); color: #111113; font-size: 13px; font-weight: 700; }
+.doubt { padding: 56px 60px; border-radius: 32px; background: var(--card); border: 1px solid var(--line-2); display: flex; gap: 56px; align-items: center; }
+.doubt-l { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+.doubt-h { margin-top: 20px; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.1; font-weight: 700; letter-spacing: -.02em; text-wrap: balance; }
+.doubt-r { width: 400px; flex-shrink: 0; display: flex; flex-direction: column; }
+
+
+/* Переход между блоками: признать вывод → ограничение → следующий вопрос */
+.bridge { margin-top: 48px; max-width: 760px; padding-left: 20px; border-left: 2px solid var(--line-4); font-size: 18px; line-height: 1.55; color: var(--muted-2); }
+.bridge b { color: var(--text); }
+
+/* Как это решается в FBT */
+.track { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.tr { position: relative; padding: 28px; border-radius: 20px; background: var(--card); border: 1px solid var(--line-2); display: flex; flex-direction: column; gap: 10px; }
+.tr .mod { align-self: flex-start; padding: 4px 10px; border-radius: 999px; font-family: var(--mono); font-size: 12px; background: #202025; color: var(--muted-2); }
+.tr .mod--new { background: rgba(205,235,120,.14); color: var(--lime); }
+.tr b { font-size: 20px; line-height: 1.25; }
+.tr p { font-size: 15px; line-height: 1.55; color: var(--muted); }
+.tr .res { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line-2); font-size: 14px; color: var(--text-2); }
+.tr .res::before { content: "Результат: "; color: var(--ok); font-weight: 600; }
+.track-note { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: 15px; color: var(--muted); }
+.track-note span { display: inline-flex; align-items: center; gap: 8px; }
+.track-note i { width: 10px; height: 10px; border-radius: 999px; background: var(--lime); }
+/* Метка «концепт»: уроки, которых пока нет в программе (видна только в тестовом режиме) */
+.concept { display: none; position: absolute; top: 12px; right: 12px; padding: 3px 8px; border-radius: 6px; background: rgba(17,17,19,.85); color: #F5C451; font-family: var(--mono); font-size: 10px; letter-spacing: .04em; }
+.is-test .concept { display: block; }
+
+/* Кому подойдёт */
+.fit { margin-top: 48px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.fit div { padding: 24px 26px; border-radius: 18px; background: var(--card); border: 1px solid var(--line-2); display: flex; gap: 16px; align-items: flex-start; }
+.fit svg { width: 22px; height: 22px; color: var(--ok); flex-shrink: 0; margin-top: 2px; }
+.fit b { display: block; font-size: 18px; line-height: 1.3; }
+.fit span { display: block; margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--muted); }
+.nofit { margin-top: 16px; padding: 20px 26px; border-radius: 18px; border: 1px dashed var(--line-4); font-size: 16px; color: var(--muted); line-height: 1.5; }
+.nofit b { color: var(--text); }
+
+/* Приходите вместе */
+.together { display: grid; grid-template-columns: minmax(0, 1fr) 440px; gap: 56px; align-items: center; }
+.tiers { display: flex; flex-direction: column; gap: 10px; }
+.tiers div { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 20px; border-radius: 14px; background: var(--card); border: 1px solid var(--line-2); font-size: 17px; }
+.tiers b { font-family: var(--mono); font-size: 20px; color: var(--lime); font-variant-numeric: tabular-nums; }
+.tiers div:last-child { border-color: #3C5A40; background: var(--forest); }
+.share { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+.share-note { margin-top: 10px; font-size: 14px; color: var(--dim); min-height: 20px; }
+
+/* ── Адаптив ── */
+@media (max-width: 1080px) {
+  .three { grid-template-columns: minmax(0, 1fr); }
+  .venn { max-width: 440px; margin: 0 auto; }
+}
+@media (max-width: 900px) {
+  .hero5-sec { min-height: 600px; }
+  .para, .gen, .sys, .pass, .together { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .para-ph, .gen-ph { aspect-ratio: 4 / 3; }
+  .gen-ph { order: -1; }
+  .wide, .mix-q,   .doubt { flex-direction: column; align-items: stretch; padding: 40px; }
+  .doubt-r { width: auto; }
+  .final { padding: 44px 28px; }
+}
+@media (max-width: 640px) {
+  .hero5-sec { min-height: 560px; }
+  .hero5-h1 { margin-top: 20px; }
+  .pull { padding: 28px 24px; }
+    .symp div { font-size: 16px; }
+  .stop-list, .ready, .vs { grid-template-columns: minmax(0, 1fr); }
+  .role { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .steps { gap: 8px; }
+  .stepc { padding: 16px 12px; }
+  .stepc:nth-child(1) { min-height: 170px; }
+  .stepc:nth-child(2) { min-height: 230px; }
+  .stepc:nth-child(3) { min-height: 290px; }
+  .stepc b { font-size: 16px; }
+  .stepc span { font-size: 13px; }
+  .diff-row { grid-template-columns: minmax(0, 1fr); }
+  .diff-row > div { padding: 16px 20px; font-size: 16px; }
+  .diff-row > div:first-child { padding-bottom: 6px; }
+  .diff-head { display: none !important; }
+  .doubt { padding: 28px 20px; border-radius: 24px; }
+  .final { border-radius: 24px; }
+  .final-btns .btn { width: 100%; }
+}
+.how-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap; }
+@media (max-width: 1080px) { .track { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .track, .fit { grid-template-columns: minmax(0, 1fr); } .tiers div { font-size: 16px; } }
+.track-note .concept { display: none; }
+.is-test .track-note .concept { display: inline-flex; }
+.is-test .tr:has(.concept) { padding-top: 44px; }

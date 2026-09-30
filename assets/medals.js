@@ -43,7 +43,7 @@
     FBT.store.set('fbt_medals', got);
     botEvent(id);
     if (!quiet) { queue.push(id); if (ready) next(); }
-    updateFab(true);
+    updateFab(true); FBT.albumShow();
     if (book && !book.hidden) renderBook();
     return true;
   };
@@ -53,8 +53,12 @@
   var fab, book, ready = false;
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 
+  // На стр. 1 альбом не отвлекает от урока: кнопка появляется после минуты просмотра или первой наклейки (30.09)
+  var onLesson = /(^|\/)(index\.html)?$/.test(location.pathname);
+  FBT.albumShow = function () { if (fab) fab.classList.remove('is-wait'); };
   function buildFab() {
     fab = el('button', 'alb-fab');
+    if (onLesson && !count()) fab.classList.add('is-wait');
     fab.type = 'button';
     fab.innerHTML = '<svg class="ring" viewBox="0 0 74 74" aria-hidden="true"><circle class="bg" cx="37" cy="37" r="34"/><circle class="fg" cx="37" cy="37" r="34"/></svg>' +
       '<img src="' + IMG + 'gift-box.svg" alt="" width="60" height="60"><b></b>';
@@ -91,7 +95,7 @@
       clearTimeout(t);
       if (pop.classList.contains('is-out')) return;
       pop.classList.add('is-out');
-      setTimeout(function () { pop.remove(); showing = false; next(); }, 350);
+      setTimeout(function () { pop.remove(); showing = false; firstHint(); next(); }, 350);
     }
   }
   function confetti(anchor) {
@@ -148,7 +152,7 @@
     });
     if (full()) {
       h += '<div class="alb-gift is-open"><img src="' + IMG + 'gift-book.svg" alt=""><div><b>Подарок: книга «10 заповедей предпринимателя»</b>' +
-        '<p>На русском или узбекском — выберите сами. Книга в подарок, доставку оплачиваете только вы — или заберите её сами.</p>' +
+        '<p>На русском или узбекском — выберите сами. Напишите куратору: он сверит альбом с вашей перепиской и расскажет, как получить книгу. Книга в подарок, доставку оплачиваете только вы — или заберите её сами.</p>' +
         '<a class="alb-go" href="#" data-alb-act="book">Забрать книгу</a></div></div>';
     } else {
       h += '<div class="alb-gift"><img src="' + IMG + 'gift-box.svg" alt=""><div><b>Подарок-сюрприз</b>' +
@@ -157,6 +161,14 @@
     h += '<p class="alb-note">Наклейки хранятся в этом браузере.</p></div>';
     book.innerHTML = h;
     fresh = {};
+  }
+  // Подсказка «За каждый шаг — наклейка» — один раз, сразу после первой наклейки
+  function firstHint() {
+    if (FBT.store.get('fbt_alb_seen', 0) || count() !== 1 || queue.length) return;
+    FBT.store.set('fbt_alb_seen', 1);
+    var hint = el('div', 'alb-hint', 'За каждый шаг — наклейка');
+    document.body.appendChild(hint);
+    setTimeout(function () { hint.remove(); }, 6000);
   }
   var lastFocus = null;
   function openBook() {
@@ -195,14 +207,9 @@
   document.addEventListener('DOMContentLoaded', function () {
     var codes = M.codes || {}, q = new URLSearchParams(location.search).get('m');
     if (q) Object.keys(codes).forEach(function (id) { if (codes[id] && codes[id] === q) FBT.medal(id); });
-    if (FBT.gotMap()) { FBT.medal('shag', true); FBT.medal('karta', true); }
+    if (FBT.gotMap()) FBT.medal('karta', true);
 
     buildFab(); buildBook(); ready = true;
-    if (!FBT.store.get('fbt_alb_seen', 0) && !count()) {
-      var hint = el('div', 'alb-hint', 'За каждый шаг — наклейка');
-      document.body.appendChild(hint);
-      setTimeout(function () { hint.remove(); }, 6000);
-    }
     setTimeout(next, 600);
   });
 })();

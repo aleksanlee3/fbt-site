@@ -63,6 +63,7 @@
 
   function render() {
     if (st.pos >= UNLOCK() && !st.reached) { st.reached = true; event('video_unlock', { sec: Math.round(st.pos) }); if (FBT.medal) FBT.medal('shag'); }
+    if (st.pos >= 60 && FBT.albumShow) FBT.albumShow();   // альбом на стр. 1 — только после минуты урока (30.09)
     var open = st.reached, got = open && st.gotMap;
     var len = shownLen(), finalStage = len >= TOTAL();
     FBT.toggle({ locked: !open, unlocked: open && !got, got: got, notGot: !got, openAny: open });
