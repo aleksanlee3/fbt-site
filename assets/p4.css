@@ -402,3 +402,33 @@
 @media (max-width: 640px) { .hero4-sec { padding-top: 230px; } .hero4-bg { height: 330px; } }
 @media (max-width: 640px) { .trial-ph { height: 160px; } }
 .luba-ph .ph-tag { color: #F5C451; font-size: 10px; }
+/* 30.09 · по уровням осознанности: «не подойдёт», сравнение подходов, что будет после оплаты */
+.nofit4 { grid-column: 1 / -1; padding: 18px 22px; border-radius: 16px; border: 1px dashed var(--line-4); font-size: 15px; line-height: 1.55; color: var(--muted); }
+.nofit4 b { color: var(--text); }
+
+.cmp { border: 1px solid var(--line-2); border-radius: 20px; overflow: hidden; }
+.cmp-row { display: grid; grid-template-columns: 1.1fr 1fr 1fr 1.25fr; }
+.cmp-row + .cmp-row { border-top: 1px solid var(--line-2); }
+.cmp-row > div { padding: 18px 20px; font-size: 16px; line-height: 1.45; color: var(--muted); }
+.cmp-row > div:first-child { color: var(--text-2); font-weight: 600; }
+.cmp-row > .cmp-us { background: var(--forest); color: #fff; font-weight: 600; }
+.cmp-head > div { padding-top: 14px; padding-bottom: 14px; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+.cmp-head > .cmp-us { color: var(--lime); }
+
+.onb { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.onb li { position: relative; padding: 24px; border-radius: 18px; background: var(--card); border: 1px solid var(--line-2); display: flex; flex-direction: column; gap: 8px; }
+.onb i { font-style: normal; font-family: var(--mono); font-size: 14px; color: var(--accent-text); }
+.onb b { font-size: 18px; line-height: 1.3; }
+.onb span:not(.ph-tag) { font-size: 15px; line-height: 1.5; color: var(--muted); }
+
+@media (max-width: 1080px) { .onb { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .cmp-head { display: none; }
+  .cmp-row { grid-template-columns: 1fr; }
+  .cmp-row > div { padding: 6px 18px; font-size: 15px; }
+  .cmp-row > div:first-child { padding-top: 16px; }
+  .cmp-row > div:last-child { padding-bottom: 16px; margin-top: 4px; }
+  .cmp-row > div[data-l]::before { content: attr(data-l) ": "; color: var(--dim); font-weight: 500; }
+  .cmp-row > .cmp-us[data-l]::before { color: var(--lime); }
+  .onb { grid-template-columns: minmax(0, 1fr); }
+}

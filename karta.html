@@ -55,7 +55,7 @@
       <div class="step is-now route-full" aria-current="step" data-show="notGot"><span class="dot">2</span>Получить карту действий<span class="tag">Вы здесь</span></div>
       <div class="step route-full" data-show="got" hidden><span class="dot" style="background:var(--ok);border-color:var(--ok);color:#111113"><svg><use href="#i-check"/></svg></span>Карта действий<span class="tag tag--ok">Получена</span></div>
       <i class="route-line route-full"></i>
-      <a class="step is-muted route-full" href="#diag" data-show="notGot"><span class="dot">3</span>Онлайн-диагностика<span class="note">в конце страницы ↓</span></a>
+      <a class="step is-muted route-full" href="#diag" data-show="notGot"><span class="dot">3</span>Онлайн-диагностика<span class="note">ниже на странице ↓</span></a>
       <a class="step is-next route-full" href="diagnostika.html" data-show="got" hidden><span class="dot">3</span><span class="u">Пройти онлайн-диагностику</span><span class="tag">Следующий шаг</span></a>
 
       <div class="route-compact">
@@ -97,7 +97,7 @@
           </ol>
           <a class="keep-open mt-28" href="#diag">
             <b>Скачали карту? Не закрывайте страницу</b>
-            <span>В конце страницы — бесплатная онлайн-диагностика: 10 вопросов, 5 минут. Она покажет, с какой остановки карты начать именно вам.</span>
+            <span>Ниже на странице — бесплатная онлайн-диагностика: 10 вопросов, 5 минут. Она покажет, с какой остановки карты начать именно вам.</span>
             <em>Сразу к диагностике <svg><use href="#i-down"/></svg></em>
           </a>
         </div>
@@ -107,7 +107,7 @@
           <div class="got-h">Отличное начало! Теперь узнайте, с какой остановки начать именно вам</div>
           <p class="muted">Работайте с картой по порядку. А онлайн-диагностика за 5 минут покажет, где на этой карте ваш бизнес находится сейчас.</p>
           <div class="push push--col mt-14">
-            <div class="nudge" aria-hidden="true"><span>Жми сюда!</span><svg><use href="#i-arrow-down"/></svg></div>
+            <div class="nudge" aria-hidden="true"><span>5 минут, бесплатно</span><svg><use href="#i-arrow-down"/></svg></div>
             <span class="ringed"><a class="btn btn--primary btn--lg" href="diagnostika.html">Пройти онлайн-диагностику<svg><use href="#i-right"/></svg></a></span>
           </div>
           <div class="meta meta--sm meta--lime mt-14">
@@ -250,7 +250,54 @@
     </div>
   </section>
 
-  <section class="sec sec--tight">
+  <section id="diag" class="sec sec--tight">
+    <div class="wrap">
+      <div class="dg">
+        <div>
+          <p class="bridge-p">Карта показывает весь путь. Но начинать с первой остановки нужно не всем: у кого-то узкое место в финансах, у кого-то — в людях или времени.</p>
+          <div class="eyebrow">ШАГ 3 ИЗ 3 · ОНЛАЙН-ДИАГНОСТИКА</div>
+          <h2 class="h2 h2--xl"><span>Теперь у вас есть карта.</span><span class="grey">Узнайте, где находится ваш бизнес сейчас.</span></h2>
+          <p class="sub" style="margin-top:20px">«Швейцарский компас семейного бизнеса» — 10 простых вопросов по 5 направлениям: бизнес-модель, маркетинг, финансы, время и лидерство. Вы увидите профиль своего бизнеса и поймёте, с какой остановки карты начать. Результат можно отправить на разбор в Telegram.</p>
+          <div class="pills mt-28">
+            <span><svg><use href="#i-list"/></svg>10 вопросов</span>
+            <span><svg><use href="#i-clock"/></svg>5 минут</span>
+            <span><svg><use href="#i-check"/></svg>Бесплатно</span>
+            <span><svg><use href="#i-check"/></svg>Без регистрации</span>
+          </div>
+          <div class="push push--col mt-24">
+            <div class="nudge" aria-hidden="true"><span>5 минут, бесплатно</span><svg><use href="#i-arrow-down"/></svg></div>
+            <span class="ringed"><a class="btn btn--primary btn--lg" href="diagnostika.html">Пройти онлайн-диагностику<svg><use href="#i-right"/></svg></a></span>
+          </div>
+          <a class="link-quiet mt-20" style="display:inline-block" data-show="notGot" data-bot="map" data-page="p2" data-getmap>Ещё не забрали карту? Получить в боте</a>
+        </div>
+        <div class="dg-ex">
+          <span class="mono lime" style="font-size:12px;letter-spacing:.08em">ПРИМЕР ПРОФИЛЯ БИЗНЕСА</span>
+          <svg class="radar-ex" viewBox="0 0 380 290" role="img" aria-label="Пример профиля: слабее всего финансы" font-family="Onest, sans-serif">
+<polygon points="190,50 285.1,119.1 248.8,230.9 131.2,230.9 94.9,119.1" fill="none" stroke="#3E5E55" stroke-width="1.2"></polygon>
+<polygon points="190,70 266.1,125.3 237,214.7 143,214.7 113.9,125.3" fill="none" stroke="#2F4A44" stroke-width="1"></polygon>
+<polygon points="190,90 247.1,131.5 225.3,198.5 154.7,198.5 132.9,131.5" fill="none" stroke="#2F4A44" stroke-width="1"></polygon>
+<polygon points="190,110 228,137.6 213.5,182.4 166.5,182.4 152,137.6" fill="none" stroke="#2F4A44" stroke-width="1"></polygon>
+<path d="M190 150 L190 50 M190 150 L285.1 119.1 M190 150 L248.8 230.9 M190 150 L131.2 230.9 M190 150 L94.9 119.1" stroke="#2F4A44" stroke-width="1"></path>
+<polygon points="190,70 247.1,131.5 237,214.7 166.5,182.4 132.9,131.5" fill="#CDEB78" fill-opacity="0.2" stroke="#CDEB78" stroke-width="2.2" stroke-linejoin="round"></polygon>
+<circle cx="190" cy="70" r="5" fill="#CDEB78"></circle>
+<circle cx="247.1" cy="131.5" r="5" fill="#CDEB78"></circle>
+<circle cx="237" cy="214.7" r="5" fill="#CDEB78"></circle>
+<circle cx="132.9" cy="131.5" r="5" fill="#CDEB78"></circle>
+<circle cx="166.5" cy="182.4" r="12" fill="none" stroke="#E48680" stroke-width="1.5"></circle>
+<circle cx="166.5" cy="182.4" r="6" fill="#D2352B" stroke="#FFFFFF" stroke-width="2"></circle>
+<text x="190" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#FFFFFF">Бизнес-модель</text>
+<text x="296" y="116" text-anchor="start" font-size="13" font-weight="600" fill="#FFFFFF">Лидерство</text>
+<text x="256" y="254" text-anchor="start" font-size="13" font-weight="600" fill="#FFFFFF">Время</text>
+<text x="124" y="254" text-anchor="end" font-size="13" font-weight="700" fill="#E48680">Финансы</text>
+<text x="124" y="271" text-anchor="end" font-size="11" font-weight="500" fill="#C9D8D2">начать здесь</text>
+<text x="84" y="116" text-anchor="end" font-size="13" font-weight="600" fill="#FFFFFF">Маркетинг</text>
+</svg>
+          <p>Самый короткий луч — первое, что стоит разобрать. В этом примере это финансы: начните с остановки 5 на карте.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sec sec--tight sec--alt">
     <div class="wrap">
       <div class="eyebrow">ОТКУДА МЕТОДОЛОГИЯ</div>
       <h2 class="h2">Программа родом из Швейцарии</h2>
@@ -291,12 +338,11 @@
       <div class="world-legend">
         <div><i style="background:var(--lime)"></i><span><strong class="only-sm">Методология применяется: </strong><span class="hide-sm">Методология Swiss Create применяется</span><span class="only-sm muted">Швейцария, Румыния, Молдова, Албания, Казахстан, Кыргызстан, Непал, Вьетнам</span></span></div>
         <div><i style="background:var(--accent)"></i><span><strong class="only-sm">Узбекистан: </strong><span class="hide-sm">Узбекистан: FBT проводит Impact Consulting</span><span class="only-sm muted">FBT проводит Impact Consulting</span></span></div>
-        <div><i style="background:#2D4740;border:1px solid #3F6157"></i><span>Откуда ещё приезжали участники FBT в Узбекистане: Таджикистан, Туркменистан, Россия, Южная Корея, Беларусь</span></div>
       </div>
     </div>
   </section>
 
-  <section class="sec sec--alt" style="padding-top:96px;padding-bottom:96px">
+  <section class="sec" style="padding-top:96px;padding-bottom:96px">
     <div class="wrap">
       <div class="eyebrow">ФИЛОСОФИЯ FBT</div>
       <h2 class="h2 h2--xl"><span>Мы строим бизнес не вместо семьи.</span><span class="lime">Мы строим бизнес ради семьи.</span></h2>
@@ -310,7 +356,7 @@
     </div>
   </section>
 
-  <section class="sec" style="padding-top:96px;padding-bottom:96px">
+  <section class="sec sec--alt" style="padding-top:96px;padding-bottom:96px">
     <div class="wrap author">
       <div class="author-ph photo photo--shade">
         <img src="assets/img/workshop.jpg" alt="" loading="lazy">
@@ -331,51 +377,9 @@
     </div>
   </section>
 
-  <section id="diag" class="sec sec--tight sec--alt">
+  <section class="sec sec--tight">
     <div class="wrap">
-      <div class="dg">
-        <div>
-          <div class="eyebrow">ШАГ 3 ИЗ 3 · ОНЛАЙН-ДИАГНОСТИКА</div>
-          <h2 class="h2 h2--xl"><span>Теперь у вас есть карта.</span><span class="grey">Узнайте, где находится ваш бизнес сейчас.</span></h2>
-          <p class="sub" style="margin-top:20px">«Швейцарский компас семейного бизнеса» — 10 простых вопросов по 5 направлениям: бизнес-модель, маркетинг, финансы, время и лидерство. Вы увидите профиль своего бизнеса и поймёте, с какой остановки карты начать. Результат можно отправить на разбор в Telegram.</p>
-          <div class="pills mt-28">
-            <span><svg><use href="#i-list"/></svg>10 вопросов</span>
-            <span><svg><use href="#i-clock"/></svg>5 минут</span>
-            <span><svg><use href="#i-check"/></svg>Бесплатно</span>
-            <span><svg><use href="#i-check"/></svg>Без регистрации</span>
-          </div>
-          <div class="push push--col mt-24">
-            <div class="nudge" aria-hidden="true"><span>Жми сюда!</span><svg><use href="#i-arrow-down"/></svg></div>
-            <span class="ringed"><a class="btn btn--primary btn--lg" href="diagnostika.html">Пройти онлайн-диагностику<svg><use href="#i-right"/></svg></a></span>
-          </div>
-          <a class="link-quiet mt-20" style="display:inline-block" data-show="notGot" data-bot="map" data-page="p2" data-getmap>Ещё не забрали карту? Получить в боте</a>
-        </div>
-        <div class="dg-ex">
-          <span class="mono lime" style="font-size:12px;letter-spacing:.08em">ПРИМЕР ПРОФИЛЯ БИЗНЕСА</span>
-          <svg class="radar-ex" viewBox="0 0 380 290" role="img" aria-label="Пример профиля: слабее всего финансы" font-family="Onest, sans-serif">
-<polygon points="190,50 285.1,119.1 248.8,230.9 131.2,230.9 94.9,119.1" fill="none" stroke="#3E5E55" stroke-width="1.2"></polygon>
-<polygon points="190,70 266.1,125.3 237,214.7 143,214.7 113.9,125.3" fill="none" stroke="#2F4A44" stroke-width="1"></polygon>
-<polygon points="190,90 247.1,131.5 225.3,198.5 154.7,198.5 132.9,131.5" fill="none" stroke="#2F4A44" stroke-width="1"></polygon>
-<polygon points="190,110 228,137.6 213.5,182.4 166.5,182.4 152,137.6" fill="none" stroke="#2F4A44" stroke-width="1"></polygon>
-<path d="M190 150 L190 50 M190 150 L285.1 119.1 M190 150 L248.8 230.9 M190 150 L131.2 230.9 M190 150 L94.9 119.1" stroke="#2F4A44" stroke-width="1"></path>
-<polygon points="190,70 247.1,131.5 237,214.7 166.5,182.4 132.9,131.5" fill="#CDEB78" fill-opacity="0.2" stroke="#CDEB78" stroke-width="2.2" stroke-linejoin="round"></polygon>
-<circle cx="190" cy="70" r="5" fill="#CDEB78"></circle>
-<circle cx="247.1" cy="131.5" r="5" fill="#CDEB78"></circle>
-<circle cx="237" cy="214.7" r="5" fill="#CDEB78"></circle>
-<circle cx="132.9" cy="131.5" r="5" fill="#CDEB78"></circle>
-<circle cx="166.5" cy="182.4" r="12" fill="none" stroke="#E48680" stroke-width="1.5"></circle>
-<circle cx="166.5" cy="182.4" r="6" fill="#D2352B" stroke="#FFFFFF" stroke-width="2"></circle>
-<text x="190" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#FFFFFF">Бизнес-модель</text>
-<text x="296" y="116" text-anchor="start" font-size="13" font-weight="600" fill="#FFFFFF">Лидерство</text>
-<text x="256" y="254" text-anchor="start" font-size="13" font-weight="600" fill="#FFFFFF">Время</text>
-<text x="124" y="254" text-anchor="end" font-size="13" font-weight="700" fill="#E48680">Финансы</text>
-<text x="124" y="271" text-anchor="end" font-size="11" font-weight="500" fill="#C9D8D2">начать здесь</text>
-<text x="84" y="116" text-anchor="end" font-size="13" font-weight="600" fill="#FFFFFF">Маркетинг</text>
-</svg>
-          <p>Самый короткий луч — первое, что стоит разобрать. В этом примере это финансы: начните с остановки 5 на карте.</p>
-        </div>
-      </div>
-      <div class="cta-bar card mt-48 consider">
+      <div class="cta-bar card consider">
         <div>
           <h3 style="font-size:22px;font-weight:600">Уже рассматриваете обучение?</h3>
           <p class="muted mt-8" style="font-size:16px">Узнайте больше о программе FBT Online: формат, модули, даты и стоимость. Или напишите нам, чтобы обсудить свою ситуацию.</p>
@@ -385,6 +389,7 @@
           <a class="btn btn--sm btn--light" data-tg="contact"><svg><use href="#i-send"/></svg>Написать нам в Telegram</a>
         </div>
       </div>
+      <p class="note mt-20">Ещё не прошли диагностику? <a class="link-btn" href="diagnostika.html">10 вопросов, 5 минут — узнать, с чего начать</a></p>
     </div>
   </section>
 </main>

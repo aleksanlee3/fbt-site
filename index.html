@@ -75,13 +75,42 @@
 <main>
   <section class="sec sec--hero">
     <div class="wrap">
-      <div class="eyebrow"><span class="hide-sm">FBT ONLINE · </span>ИСТОРИЯ ОТ ПЕРВОГО ЛИЦА · 30 МИНУТ</div>
-      <h1 class="h1 hero-h1">
-        <span>Мы продали машину.</span>
-        <span>Заняли деньги.</span>
-        <span class="grey">И никогда не были так близки к провалу.</span>
-      </h1>
-      <p class="lead">В 30-минутном видео Люба Бэй рассказывает, как оборудование за €40&nbsp;000 чуть не стоило её семье бизнеса, и разбирает, почему одним удаётся построить успешный бизнес, а другие годами топчутся на месте.</p>
+      <!-- Первый экран: 3 варианта для A/B-теста рекламы. По умолчанию — A (обещание рекламы + история).
+           ?v=b — симптом, ?v=story — прежний (история). Вариант запоминается в браузере. -->
+      <div data-hero="a">
+        <div class="eyebrow"><span class="hide-sm">FBT ONLINE · </span>БЕСПЛАТНЫЙ УРОК ЛЮБЫ БЭЙ · 30 МИНУТ</div>
+        <h1 class="h1 hero-h1">
+          <span>Как выстроить бизнес,</span>
+          <span class="grey">который не держится на вас одном</span>
+        </h1>
+        <p class="lead">Семья Любы Бэй продала машину и заняла деньги ради станка за €40&nbsp;000 — и чуть не потеряла бизнес. В уроке Люба рассказывает, что помогло выйти из хаоса в систему и почему одни строят сильный бизнес, а другие годами топчутся на месте.</p>
+      </div>
+      <div data-hero="b" hidden>
+        <div class="eyebrow"><span class="hide-sm">FBT ONLINE · </span>БЕСПЛАТНЫЙ УРОК ЛЮБЫ БЭЙ · 30 МИНУТ</div>
+        <h1 class="h1 hero-h1">
+          <span>Работаете больше всех,</span>
+          <span class="grey">а бизнес топчется на месте?</span>
+        </h1>
+        <p class="lead">За 30 минут Люба Бэй покажет, почему так происходит и с чего начинается системный бизнес — на истории своей семьи, которая чуть не потеряла всё из-за станка за €40&nbsp;000.</p>
+      </div>
+      <div data-hero="story" hidden>
+        <div class="eyebrow"><span class="hide-sm">FBT ONLINE · </span>ИСТОРИЯ ОТ ПЕРВОГО ЛИЦА · 30 МИНУТ</div>
+        <h1 class="h1 hero-h1">
+          <span>Мы продали машину.</span>
+          <span>Заняли деньги.</span>
+          <span class="grey">И никогда не были так близки к провалу.</span>
+        </h1>
+        <p class="lead">В 30-минутном видео Люба Бэй рассказывает, как оборудование за €40&nbsp;000 чуть не стоило её семье бизнеса, и разбирает, почему одним удаётся построить успешный бизнес, а другие годами топчутся на месте.</p>
+      </div>
+      <script>
+        (function () {
+          var ok = { a: 1, b: 1, story: 1 }, v = new URLSearchParams(location.search).get('v');
+          try { if (ok[v]) localStorage.setItem('fbt_hero', v); else v = localStorage.getItem('fbt_hero'); } catch (e) {}
+          if (!ok[v]) v = 'a';
+          document.documentElement.setAttribute('data-hero-variant', v);
+          document.querySelectorAll('[data-hero]').forEach(function (el) { el.hidden = el.getAttribute('data-hero') !== v; });
+        })();
+      </script>
       <div class="meta mt-32 hide-sm">
         <span><svg><use href="#i-clock"/></svg>30 минут</span>
         <span><svg><use href="#i-check"/></svg>Бесплатно</span>
@@ -125,10 +154,9 @@
           </div>
           <div class="unlock-act">
             <div class="push">
-              <div class="nudge" aria-hidden="true"><span>Жми сюда!</span><svg><use href="#i-arrow-hand"/></svg></div>
+              <div class="nudge" aria-hidden="true"><span>PDF — бесплатно</span><svg><use href="#i-arrow-hand"/></svg></div>
               <span class="ringed"><a class="btn btn--primary btn--lg" href="karta.html">Перейти и забрать карту действий<svg><use href="#i-right"/></svg></a></span>
             </div>
-            <a class="link-arrow" href="programma.html">Уже готовы? Записаться в поток<svg><use href="#i-right"/></svg></a>
           </div>
         </div>
         <!-- 3. Карта получена -->
@@ -140,7 +168,6 @@
           </div>
           <div class="unlock-act">
             <a class="btn btn--primary btn--lg" href="diagnostika.html">Пройти онлайн-диагностику<svg><use href="#i-right"/></svg></a>
-            <a class="link-arrow" href="programma.html">Уже готовы? Записаться в поток<svg><use href="#i-right"/></svg></a>
           </div>
         </div>
       </div>
@@ -150,6 +177,26 @@
         <a class="link-arrow" href="programma.html">О программе<svg><use href="#i-right"/></svg></a>
         <a class="link-arrow" data-tg="contact">Обсудить в Telegram<svg><use href="#i-right"/></svg></a>
       </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="h2">Узнаёте себя?</h2>
+      <p class="sub">Видео будет полезно на любом из трёх этапов.</p>
+      <div class="grid g-3 mt-56">
+        <div class="card stage-card"><div class="stage-img photo"><img src="assets/img/stage-idea.jpg" alt="" loading="lazy"><span class="ph-tag">сток</span></div><div class="num">01</div><h3 class="h3">Ищу идею</h3><p class="text">Хочется своё дело, но непонятно, какую идею выбрать, с чего начать и как не потерять деньги и время.</p></div>
+        <div class="card stage-card"><div class="stage-img photo"><img src="assets/img/stage-doubt.jpg" alt="" loading="lazy"><span class="ph-tag">сток</span></div><div class="num">02</div><h3 class="h3">Есть идея, но не запускаю</h3><p class="text">Направление уже выбрано, но страх ошибки и «внутренний самозванец» не дают перейти к действию.</p></div>
+        <div class="card stage-card"><div class="stage-img photo"><img src="assets/img/stage-stuck.jpg" alt="" loading="lazy"><span class="ph-tag">сток</span></div><div class="num">03</div><h3 class="h3">Бизнес работает, но застрял</h3><p class="text">Всё держится на вас, решения принимаются «на ощущениях», а иногда случаются кассовые разрывы.</p></div>
+      </div>
+      <div class="eyebrow mt-56">И ТРИ ФРАЗЫ, КОТОРЫЕ МЫ СЛЫШИМ ЧАЩЕ ВСЕГО</div>
+      <div class="grid g-3 mt-20">
+        <div class="card card--3 phrase"><svg class="quote-ico"><use href="#i-quote"/></svg><b>Денег не хватает, а продажи то есть, то нет</b><span>Выручка есть, но неясно, сколько реально остаётся и откуда берутся кассовые разрывы.</span></div>
+        <div class="card card--3 phrase"><svg class="quote-ico"><use href="#i-quote"/></svg><b>Без меня всё развалится</b><span>Сотрудники ждут ваших решений, а на развитие бизнеса и семью не остаётся времени.</span></div>
+        <div class="card card--3 phrase"><svg class="quote-ico"><use href="#i-quote"/></svg><b>У меня бардак, и я не понимаю, как его систематизировать</b><span>Задачи, роли и деньги перемешаны, и каждое новое решение добавляет хаоса.</span></div>
+      </div>
+      <p class="normal">Это нормальный этап, а не личная неудача. <span class="grey">Через него проходят все предприниматели. Но если ничего не менять, через год всё останется так же — только усталости станет больше. В видео — о том, как выйти на следующий уровень.</span></p>
+      <a class="btn mt-36" href="#video"><svg><use href="#i-up"/></svg>Смотреть видео</a>
     </div>
   </section>
 
@@ -181,26 +228,6 @@
 
   <section class="sec">
     <div class="wrap">
-      <h2 class="h2">Узнаёте себя?</h2>
-      <p class="sub">Видео будет полезно на любом из трёх этапов.</p>
-      <div class="grid g-3 mt-56">
-        <div class="card stage-card"><div class="stage-img photo"><img src="assets/img/stage-idea.jpg" alt="" loading="lazy"><span class="ph-tag">сток</span></div><div class="num">01</div><h3 class="h3">Ищу идею</h3><p class="text">Хочется своё дело, но непонятно, какую идею выбрать, с чего начать и как не потерять деньги и время.</p></div>
-        <div class="card stage-card"><div class="stage-img photo"><img src="assets/img/stage-doubt.jpg" alt="" loading="lazy"><span class="ph-tag">сток</span></div><div class="num">02</div><h3 class="h3">Есть идея, но не запускаю</h3><p class="text">Направление уже выбрано, но страх ошибки и «внутренний самозванец» не дают перейти к действию.</p></div>
-        <div class="card stage-card"><div class="stage-img photo"><img src="assets/img/stage-stuck.jpg" alt="" loading="lazy"><span class="ph-tag">сток</span></div><div class="num">03</div><h3 class="h3">Бизнес работает, но застрял</h3><p class="text">Всё держится на вас, решения принимаются «на ощущениях», а иногда случаются кассовые разрывы.</p></div>
-      </div>
-      <div class="eyebrow mt-56">И ТРИ ФРАЗЫ, КОТОРЫЕ МЫ СЛЫШИМ ЧАЩЕ ВСЕГО</div>
-      <div class="grid g-3 mt-20">
-        <div class="card card--3 phrase"><svg class="quote-ico"><use href="#i-quote"/></svg><b>Денег не хватает, а продажи то есть, то нет</b><span>Выручка есть, но неясно, сколько реально остаётся и откуда берутся кассовые разрывы.</span></div>
-        <div class="card card--3 phrase"><svg class="quote-ico"><use href="#i-quote"/></svg><b>Без меня всё развалится</b><span>Сотрудники ждут ваших решений, а на развитие бизнеса и семью не остаётся времени.</span></div>
-        <div class="card card--3 phrase"><svg class="quote-ico"><use href="#i-quote"/></svg><b>У меня бардак, и я не понимаю, как его систематизировать</b><span>Задачи, роли и деньги перемешаны, и каждое новое решение добавляет хаоса.</span></div>
-      </div>
-      <p class="normal">Это нормальный этап, а не личная неудача. <span class="grey">Через него проходят все предприниматели. В видео — о том, как выйти на следующий уровень.</span></p>
-      <a class="btn mt-36" href="#video"><svg><use href="#i-up"/></svg>Смотреть видео</a>
-    </div>
-  </section>
-
-  <section class="sec sec--alt">
-    <div class="wrap">
       <div class="eyebrow">ЧТО ВЫ УЗНАЕТЕ ИЗ ВИДЕО</div>
       <h2 class="h2" style="max-width:900px">Посмотрите на свой бизнес целиком</h2>
       <div class="learn mt-64">
@@ -220,7 +247,7 @@
     </div>
   </section>
 
-  <section class="sec">
+  <section class="sec sec--alt">
     <div class="wrap">
       <div class="eyebrow">ВАШ МАРШРУТ</div>
       <h2 class="h2 h2--xl"><span>Три шага.</span><span class="grey">Сейчас вы на первом.</span></h2>

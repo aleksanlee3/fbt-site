@@ -230,3 +230,14 @@
 .intro-ph { height: 170px; margin-bottom: 28px; }
 .intro-ph img { object-position: 50% 42%; }
 @media (max-width: 640px) { .intro-ph { height: 130px; margin-bottom: 20px; border-radius: 16px; } }
+
+/* 30.09 · по уровням осознанности: цена проблемы, «это решаемо», холодный вход */
+.mp-cost { margin-top: 16px; padding-left: 16px; border-left: 2px solid var(--accent); display: flex; flex-direction: column; gap: 4px; }
+.mp-cost span { font-size: 12px; font-weight: 700; letter-spacing: .1em; color: var(--accent-text); }
+.mp-cost p { font-size: 16px; line-height: 1.55; color: var(--text-2); }
+.mp-fix { margin-top: 14px; font-size: 15px; line-height: 1.5; color: var(--muted); }
+.lesson-tip { margin-top: 24px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; padding: 20px 24px; border-radius: 16px; border: 1px solid var(--line-2); }
+.lesson-tip b { font-size: 17px; }
+.lesson-tip span { flex: 1 1 320px; font-size: 15px; color: var(--muted); line-height: 1.5; }
+.lesson-tip em { font-style: normal; font-weight: 600; color: var(--accent-text); white-space: nowrap; }
+.cold .route, .cold .funnel-only { display: none !important; }
