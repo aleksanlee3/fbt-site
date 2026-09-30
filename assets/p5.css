@@ -220,3 +220,16 @@
   .hero5-bg::after { background: linear-gradient(0deg, rgba(251,246,238,1) 0%, rgba(251,246,238,.93) 55%, rgba(251,246,238,.55) 100%); }
   .hero5-h1 { font-size: 36px; }
 }
+
+/* v2.7 · реальные фото семьи Любы (история → терракота) */
+.fam-real-p { margin-top: 16px; max-width: 760px; font-size: clamp(18px, 1.7vw, 20px); line-height: 1.55; color: var(--text-2); }
+.fam-real-grid { margin-top: 28px; display: grid; grid-template-columns: 1.6fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; }
+.fam-real-grid figure { margin: 0; border-radius: 20px; overflow: hidden; min-height: 180px; }
+.fam-real-grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fam-real-big { grid-row: span 2; min-height: 380px !important; }
+.fam-real-grid figure:nth-child(2) img { object-position: 50% 30%; }
+@media (max-width: 640px) {
+  .fam-real-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .fam-real-big { grid-column: span 2; grid-row: auto; min-height: 240px !important; }
+  .fam-real-grid figure { min-height: 150px; }
+}

@@ -516,3 +516,4 @@
 .faq-ask b { font-size: 18px; }
 .faq-ask span { font-size: 15px; color: var(--muted); }
 @media (max-width: 640px) { .faq-ask .btn { width: 100%; } }
+.fam-more-ph img { object-position: 50% 30%; }
