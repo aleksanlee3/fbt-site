@@ -88,14 +88,30 @@
     var t = tk(), rank = (t.t5rank || [0, 0, 0, 0, 0]).slice(0, 5);
     var filled = t.t5.filter(function (x) { return x.trim(); }).length;
     var left = [1, 2, 3, 4, 5].filter(function (n) { return rank.indexOf(n) < 0; });
+    // Если без места осталась одна заполненная задача и один номер — ставим его сами
+    var free = [0, 1, 2, 3, 4].filter(function (i) { return !rank[i] && (t.t5[i] || '').trim(); });
+    if (left.length === 1 && free.length === 1) { rank = rank.slice(); rank[free[0]] = left[0]; left = []; }
     var ok = filled === 5 && left.length === 0;
+    // В сообщение — все заполненные задачи: сначала по местам, потом без места
     var sorted = [1, 2, 3, 4, 5].map(function (n) { return t.t5[rank.indexOf(n)]; }).filter(function (x) { return x && x.trim(); });
-    return { rank: rank, filled: filled, left: left, ok: ok, sorted: sorted };
+    [0, 1, 2, 3, 4].forEach(function (i) { if (!rank[i] && (t.t5[i] || '').trim()) sorted.push(t.t5[i]); });
+    var nRanked = [1, 2, 3, 4, 5].filter(function (n) { var i = rank.indexOf(n); return i >= 0 && (t.t5[i] || '').trim(); }).length;
+    return { rank: rank, filled: filled, left: left, ok: ok, sorted: sorted, nRanked: nRanked };
   }
   function tasksDone() {
     var t = tk();
     return [!!t.t1.trim(), !!t.t2.trim() && !t2bad(), !!t.t3a.trim() && !!t.t3b.trim(),
       discKeys().length === 8 && !!t.t4.trim(), t5state().ok].filter(Boolean).length;
+  }
+  // Тип личности по 8 словам задания 4 (буква с наибольшим числом слов) — для куратора
+  var STYLE_NAMES = { D: 'Решительный', I: 'Вдохновляющий', S: 'Надёжный', C: 'Точный' };
+  function personality() {
+    var keys = discKeys(); if (keys.length < 8) return '';
+    var cnt = { D: 0, I: 0, S: 0, C: 0 };
+    keys.forEach(function (k) { if (cnt[k[0]] != null) cnt[k[0]]++; });
+    var top = Math.max(cnt.D, cnt.I, cnt.S, cnt.C);
+    var lead = 'DISC'.split('').filter(function (l) { return cnt[l] === top; }).map(function (l) { return STYLE_NAMES[l]; });
+    return lead.join(' + ') + ' (' + 'DISC'.split('').map(function (l) { return STYLE_NAMES[l].toLowerCase() + ' ' + cnt[l]; }).join(' · ') + ' из 8 слов)';
   }
   function chosenWords() { return WORDS.filter(function (k) { return tk().disc[k]; }).map(function (k) { return k.slice(2); }); }
 
@@ -111,12 +127,16 @@
       '\nЗадания: ' + tasksDone() + ' из 5';
   }
   function chatText() {
-    var t = tk(), lines = [], words = chosenWords(), s5 = t5state().sorted;
+    var t = tk(), lines = [], words = chosenWords(), st5 = t5state(), s5 = st5.sorted;
     if (t.t1.trim()) lines.push('1. Бизнес-модель: ' + t.t1.trim());
     if (t.t2.trim()) lines.push('2. Почему выбирают нас: ' + t.t2.trim());
     if (t.t3a.trim() || t.t3b.trim()) lines.push('3. Сложнее всего с: ' + t.t3a.trim() + (t.t3b.trim() ? ' — ' + t.t3b.trim() : ''));
-    if (words.length || t.t4.trim()) lines.push('4. Слова о себе: ' + (words.join(', ') || '—') + (t.t4.trim() ? '\nРабота с людьми: ' + t.t4.trim() : ''));
-    if (s5.length) lines.push('5. Задачи по важности: ' + s5.map(function (x, k) { return (k + 1) + ') ' + x.trim(); }).join('; '));
+    var pt = personality();
+    if (pt || t.t4.trim()) lines.push('4. Тип личности: ' + (pt || 'не определён — выбрано слов: ' + words.length + ' из 8') + (t.t4.trim() ? '\nРабота с людьми: ' + t.t4.trim() : ''));
+    var t5lines = [];
+    [1, 2, 3, 4, 5].forEach(function (n) { var i = st5.rank.indexOf(n); if (i >= 0 && (t.t5[i] || '').trim()) t5lines.push(n + ') ' + t.t5[i].trim()); });
+    [0, 1, 2, 3, 4].forEach(function (i) { if (!st5.rank[i] && (t.t5[i] || '').trim()) t5lines.push('(без места) ' + t.t5[i].trim()); });
+    if (t5lines.length) lines.push('5. Задачи по важности: ' + t5lines.join('; '));
     return 'Здравствуйте! Отправляю результат онлайн-диагностики FBT на разбор.\n\n' + summary().replace(/^РАЗБОР\n/, '') +
       (lines.length ? '\n\n' + lines.join('\n') : '');
   }

@@ -42,7 +42,7 @@
     got[id] = Date.now(); fresh[id] = 1;
     FBT.store.set('fbt_medals', got);
     botEvent(id);
-    if (!quiet) { queue.push(id); if (ready) next(); }
+    if (!quiet) { queue.push(id); savePending(); if (ready) next(); }
     updateFab(true); FBT.albumShow();
     if (book && !book.hidden) renderBook();
     return true;
@@ -77,11 +77,57 @@
     if (bump) { fab.classList.remove('is-bump'); void fab.offsetWidth; fab.classList.add('is-bump'); }
   }
 
+  // ── Когда показывать (01.10) ──
+  // Поздравление показываем только когда человек точно смотрит на сайт: вкладка видна, окно в фокусе
+  // и он не ушёл только что в Telegram / на другой сайт. Иначе ждём его возвращения.
+  // Очередь хранится в браузере — если страница закрылась, наклейка всплывёт при следующем заходе.
+  var away = false, awayAt = 0, blurred = false, retry = 0;
+  function savePending() { FBT.store.set('fbt_medals_pending', queue.slice()); }
+  function goAway() { away = true; awayAt = Date.now(); }
+  function comeBack(delay) {
+    away = false; blurred = false;
+    clearTimeout(retry); retry = setTimeout(next, delay || 900);
+  }
+  function canShow() {
+    return document.visibilityState === 'visible' && !blurred && !away && Date.now() - awayAt > 900;
+  }
+  function isOutbound(a) {
+    if (!a) return false;
+    if (a.hasAttribute('data-tg') || a.target === '_blank') return true;
+    var h = a.getAttribute('href') || '';
+    if (/^(tg|mailto|tel|whatsapp):/i.test(h)) return true;
+    try { var u = new URL(h, location.href); return u.origin !== location.origin; } catch (e) { return false; }
+  }
+  document.addEventListener('click', function (e) {
+    if (isOutbound(e.target.closest && e.target.closest('a,[data-tg]'))) goAway();
+  }, true);
+  var _open = window.open;
+  window.open = function () { goAway(); return _open.apply(window, arguments); };
+  window.addEventListener('blur', function () { blurred = true; });
+  window.addEventListener('focus', function () { comeBack(); });
+  window.addEventListener('pageshow', function () { comeBack(700); });
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') comeBack(); else { blurred = true; pauseShown(); }
+  });
+  // Ссылка не открыла ничего (Telegram не установлен и т.п.) — человек снова кликает или листает страницу
+  ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(function (ev) {
+    document.addEventListener(ev, function () { if (away && Date.now() - awayAt > 1500) comeBack(500); }, { passive: true });
+  });
+
   // ── Всплывашка ──
+  var current = null;
+  function pauseShown() {
+    // Страницу свернули, пока висело поздравление — вернём его в начало очереди и покажем после возвращения
+    if (!current) return;
+    queue.unshift(current.id); savePending();
+    current.pop.remove(); current = null; showing = false;
+  }
   function next() {
     if (showing || !queue.length) return;
+    if (!canShow()) { clearTimeout(retry); retry = setTimeout(next, 800); return; }
     showing = true;
-    var m = byId[queue.shift()], n = count();
+    var id = queue.shift(); savePending();
+    var m = byId[id], n = count();
     var pop = el('div', 'alb-pop',
       '<img src="' + IMG + m.img + '.svg" alt="">' +
       '<div><small>Новая наклейка · ' + n + ' из ' + TOTAL + '</small><strong>' + m.name + '</strong><span>' +
@@ -89,12 +135,13 @@
     pop.setAttribute('role', 'status');
     pop.addEventListener('click', function () { hide(); openBook(); });
     document.body.appendChild(pop);
+    current = { id: id, pop: pop };
     confetti(pop);
-    var t = setTimeout(hide, n === TOTAL ? 3600 : 1900);
+    var t = setTimeout(hide, n === TOTAL ? 4200 : 2800);
     function hide() {
       clearTimeout(t);
-      if (pop.classList.contains('is-out')) return;
-      pop.classList.add('is-out');
+      if (pop.classList.contains('is-out') || !pop.isConnected) return;
+      pop.classList.add('is-out'); current = null;
       setTimeout(function () { pop.remove(); showing = false; firstHint(); next(); }, 420);
     }
   }
@@ -212,7 +259,9 @@
     if (q) Object.keys(codes).forEach(function (id) { if (codes[id] && codes[id] === q) FBT.medal(id); });
     if (FBT.gotMap()) FBT.medal('karta', true);
 
+    // Наклейки, которые не успели показать в прошлый раз
+    (FBT.store.get('fbt_medals_pending') || []).forEach(function (id) { if (got[id] && queue.indexOf(id) < 0) queue.push(id); });
     buildFab(); buildBook(); ready = true;
-    setTimeout(next, 600);
+    setTimeout(next, 900);
   });
 })();

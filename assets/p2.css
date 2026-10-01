@@ -266,3 +266,26 @@
 .root .chips em { display: inline-block; padding: 9px 14px; border-radius: 999px; font-size: 16px; font-weight: 600; line-height: 1.2; }
 .root--3 .chips em { border-left: 0; background: #FDEBDD; color: #7C2A1A; }
 .root--1 .chips em { background: #EEF7F0; border-color: #BFDCC7; color: #2A4A34; }
+
+/* v2.9 · «Уже рассматриваете обучение?» — заметная карточка (01.10) */
+.consider2 { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 28px 40px; align-items: center; padding: 34px 36px 34px 42px; border-radius: 24px; background: linear-gradient(120deg, #FFF6E2 0%, #FCE9C8 55%, #F8DDB4 100%); border: 1.5px solid #EBC98E; box-shadow: 0 14px 40px rgba(196,67,45,.12), 0 2px 6px rgba(59,42,33,.06); overflow: hidden; }
+.consider2::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: linear-gradient(180deg, var(--accent), #E08A3C); }
+.consider2::after { content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(242,196,109,.55), rgba(242,196,109,0) 70%); pointer-events: none; }
+.c2-tag { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.c2-tag svg { width: 14px; height: 14px; }
+.c2-h { margin-top: 14px; font-size: 30px; line-height: 1.2; font-weight: 800; color: var(--text-strong); }
+.c2-p { margin-top: 8px; font-size: 17px; line-height: 1.5; color: var(--text-2); max-width: 560px; }
+.c2-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; padding: 0; list-style: none; }
+.c2-chips li { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 7px; border-radius: 999px; background: rgba(255,255,255,.75); border: 1px solid #EBD3A8; font-size: 15px; font-weight: 600; color: var(--text); }
+.c2-i { width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+.c2-i svg { width: 15px; height: 15px; }
+.c2-i--1 { background: var(--c-people); } .c2-i--2 { background: var(--c-model); } .c2-i--3 { background: var(--c-finance); } .c2-i--4 { background: #D99A1E; }
+.c2-act { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: stretch; gap: 10px; min-width: 300px; }
+.c2-main-btn { justify-content: center; animation: c2pulse 2.6s ease-in-out infinite; }
+.c2-tg { justify-content: center; background: rgba(255,255,255,.8); }
+.c2-note { text-align: center; font-size: 13px; color: var(--dim); }
+@keyframes c2pulse { 0%,100% { box-shadow: 0 6px 18px rgba(196,67,45,.25); } 50% { box-shadow: 0 6px 18px rgba(196,67,45,.25), 0 0 0 9px rgba(196,67,45,.12); } }
+@media (prefers-reduced-motion: reduce) { .c2-main-btn { animation: none; } }
+@media (max-width: 900px) { .consider2 { grid-template-columns: 1fr; padding: 28px 22px 26px 30px; } .c2-act { min-width: 0; } .c2-h { font-size: 25px; } .c2-main-btn { height: 60px; font-size: 18px; } }
+.c2-main { position: relative; z-index: 1; }
+.c2-i--txt { font-size: 15px; font-weight: 800; }
