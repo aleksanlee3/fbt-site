@@ -654,3 +654,77 @@
 .feats-big { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 1080px) { .feats-big { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 640px) { .feats-big { grid-template-columns: minmax(0, 1fr); } }
+
+/* v3.0 · «Программа НЕ подойдёт» — заголовок сверху, список ровной колонкой */
+.nofit-red { display: block; padding: 24px; }
+.nofit-head { display: flex; align-items: center; gap: 14px; }
+.nofit-head b { font-size: 20px; line-height: 1.25; }
+.nofit-red ul { margin: 18px 0 0; gap: 10px; max-width: 760px; }
+.nofit-red li { align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,.62); border: 1px solid rgba(196,67,45,.18); font-size: 16px; line-height: 1.4; }
+.nofit-red li .nx { width: 28px; height: 28px; flex-shrink: 0; border-radius: 999px; background: #F6C9BE; color: var(--accent); display: inline-flex; align-items: center; justify-content: center; }
+.nofit-red li .nx svg { width: 14px; height: 14px; margin: 0; }
+@media (max-width: 640px) { .nofit-red { padding: 20px 16px; } .nofit-head b { font-size: 18px; } .nofit-red li { font-size: 15px; } }
+
+/* v3.0 · Развилка — фото вместо рисунка */
+.cross--photo { aspect-ratio: 1672 / 941; background: #E9C79A; }
+.cross--photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* v3.0 · Плеер платформы: кадр урока SWOT «на паузе» */
+.plat-video.has-poster { height: auto; aspect-ratio: 1400 / 679; overflow: hidden; background: #0F1512; }
+.plat-video.has-poster .pv-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.plat-video.has-poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(15,12,10,.82) 0%, rgba(15,12,10,.15) 45%, rgba(15,12,10,.08) 100%); }
+.plat-video.has-poster > span, .plat-video.has-poster em, .plat-video.has-poster i, .plat-video.has-poster small { z-index: 1; }
+.plat-video.has-poster > span { box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+.plat-video.has-poster small { position: absolute; right: 14px; bottom: 30px; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: rgba(0,0,0,.55); color: #fff; }
+@media (max-width: 640px) { .plat-video.has-poster { height: auto; } .plat-video.has-poster em { font-size: 13px; } }
+
+/* v3.0 · Фото Любы с белой коробкой FBT */
+.luba-ph img { object-position: 52% 40%; }
+
+/* v3.0 · Карточки «Если…» — фото на всю ширину вместо иконки */
+.entry.e1, .entry.e2, .entry.e3, .entry.e4 { padding: 0 0 28px; overflow: hidden; gap: 10px; }
+.entry > h3, .entry > p, .entry > .link-arrow { margin-left: 28px; margin-right: 28px; }
+.entry-ph { position: relative; display: block; aspect-ratio: 2 / 1; overflow: hidden; margin-bottom: 6px; }
+.entry-ph img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
+.entry:hover .entry-ph img { transform: scale(1.04); }
+.entry-ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(20,14,10,.55) 0%, rgba(20,14,10,0) 55%); }
+.entry-ph em { position: absolute; left: 16px; bottom: 14px; z-index: 1; font-style: normal; font-size: 13px; font-weight: 700; letter-spacing: .02em; padding: 6px 12px; border-radius: 999px; color: #fff; }
+.e1 .entry-ph em { background: #C4432D; }
+.e2 .entry-ph em { background: #B7791F; }
+.e3 .entry-ph em { background: #2F7D57; }
+.e4 .entry-ph em { background: #6B4E9B; }
+.e1 { border-top: 4px solid #C4432D; } .e2 { border-top: 4px solid #B7791F; } .e3 { border-top: 4px solid #2F7D57; } .e4 { border-top: 4px solid #6B4E9B; }
+@media (max-width: 640px) {
+  .entry.e1, .entry.e2, .entry.e3, .entry.e4 { padding: 0 0 22px; }
+  .entry > h3, .entry > p, .entry > .link-arrow { margin-left: 20px; margin-right: 20px; }
+}
+
+/* v3.0 · FAQ — яркий заголовочный блок и цветные иконки вопросов */
+.faq-hero { padding: 30px 28px; border-radius: 24px; background: linear-gradient(150deg, #3B2A21 0%, #5A3A28 60%, #8A4A2E 100%); color: #FFF8EE; box-shadow: 0 18px 40px rgba(59,42,33,.18); }
+.faq-hero .h2 { margin-top: 16px; color: #FFF8EE; }
+.faq-hero p { margin-top: 12px; font-size: 16px; line-height: 1.55; color: #EBDCC9; }
+.faq-badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: #F2C46D; color: #3B2A21; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.faq-badge svg { width: 18px; height: 18px; }
+.faq-facts { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+.faq-facts span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 12px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); font-size: 14px; font-weight: 600; color: #FFF8EE; }
+.faq-facts svg { width: 18px; height: 18px; color: #F2C46D; }
+.fq button { justify-content: flex-start; gap: 16px; }
+.fq-q { flex: 1 1 auto; }
+.fq-ico { width: 42px; height: 42px; flex-shrink: 0; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; }
+.fq-ico svg { width: 22px; height: 22px; }
+.fqc1 .fq-ico { background: #FBE3DD; color: #C4432D; }
+.fqc2 .fq-ico { background: #FBEBCB; color: #A9701A; }
+.fqc3 .fq-ico { background: #DDF0E3; color: #2F7D57; }
+.fqc4 .fq-ico { background: #E6E0F3; color: #6B4E9B; }
+.fqc5 .fq-ico { background: #DCEAF4; color: #2F6A92; }
+.fq.open { background: var(--card); border-radius: 16px; box-shadow: 0 10px 26px rgba(59,42,33,.08); border-bottom-color: transparent; }
+.fq.open button { padding-left: 14px; padding-right: 14px; }
+.fq.open p { padding-left: 72px; padding-right: 20px; }
+.fq.open button i { color: var(--accent); }
+@media (max-width: 640px) {
+  .faq-hero { padding: 24px 20px; border-radius: 20px; }
+  .fq-ico { width: 36px; height: 36px; border-radius: 10px; }
+  .fq-ico svg { width: 19px; height: 19px; }
+  .fq button { gap: 12px; }
+  .fq.open p { padding-left: 14px; padding-right: 14px; }
+}

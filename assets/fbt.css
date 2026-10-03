@@ -465,3 +465,11 @@ html.rv-open { overflow: hidden; }
 .rv-full svg { width: 20px; height: 20px; }
 .rv-full:hover { background: rgba(28,20,15,.82); }
 @media (max-width: 640px) { .revs { scroll-padding-inline: var(--gutter); } }
+
+/* v3.0 · Подвал — ровно по центру, без рваных переносов */
+.foot .wrap > span:first-child { text-wrap: balance; }
+.foot-c { display: inline-flex; flex-wrap: wrap; justify-content: center; column-gap: .35em; }
+.foot-c > span { white-space: nowrap; }
+@media (max-width: 640px) {
+  .foot .wrap { align-items: center; text-align: center; gap: 8px; }
+}

@@ -365,3 +365,13 @@
 .chips-ico .chip { display: inline-flex; align-items: center; gap: 8px; }
 .chips-ico .chip svg { width: 18px; height: 18px; color: var(--accent-text); }
 .fit2 .fit-ico svg { color: var(--fc); width: 28px; height: 28px; margin: 0; }
+
+/* v3.0 · «Программа НЕ подойдёт» — заголовок сверху, список ровной колонкой */
+.nofit-red { display: block; padding: 24px; }
+.nofit-head { display: flex; align-items: center; gap: 14px; }
+.nofit-head b { font-size: 20px; line-height: 1.25; }
+.nofit-red ul { margin: 18px 0 0; gap: 10px; max-width: 760px; }
+.nofit-red li { align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,.62); border: 1px solid rgba(196,67,45,.18); font-size: 16px; line-height: 1.4; }
+.nofit-red li .nx { width: 28px; height: 28px; flex-shrink: 0; border-radius: 999px; background: #F6C9BE; color: var(--accent); display: inline-flex; align-items: center; justify-content: center; }
+.nofit-red li .nx svg { width: 14px; height: 14px; margin: 0; }
+@media (max-width: 640px) { .nofit-red { padding: 20px 16px; } .nofit-head b { font-size: 18px; } .nofit-red li { font-size: 15px; } }

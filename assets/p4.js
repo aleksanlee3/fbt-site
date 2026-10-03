@@ -198,8 +198,10 @@
       var item = document.createElement('div'); item.className = 'fq' + (open ? ' open' : '');
       var b = document.createElement('button');
       b.type = 'button'; b.setAttribute('aria-expanded', open ? 'true' : 'false');
-      b.innerHTML = '<span></span><i aria-hidden="true">' + (open ? '−' : '+') + '</i>';
-      b.firstChild.textContent = f[0];
+      var ic = ['j-seed', 'j-case', 'j-video', 'j-clock', 'j-book', 'j-target', 'j-couple', 'j-lock', 'j-shield', 'j-check2'][i % 10];
+      item.className += ' fqc' + (i % 5 + 1);
+      b.innerHTML = '<span class="fq-ico" aria-hidden="true"><svg><use href="#' + ic + '"/></svg></span><span class="fq-q"></span><i aria-hidden="true">' + (open ? '−' : '+') + '</i>';
+      b.querySelector('.fq-q').textContent = f[0];
       b.addEventListener('click', function () { st.faq = open ? null : i; save(); renderFaq(); });
       item.appendChild(b);
       if (open) { var p = document.createElement('p'); p.textContent = f[1]; item.appendChild(p); }
