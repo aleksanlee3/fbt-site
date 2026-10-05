@@ -30,6 +30,14 @@
   // Код запоминаем, а из адреса убираем — чтобы не попал в чужие руки при пересылке ссылки.
   var tkn = qs.get('t');
   if (tkn && /^[A-Za-z0-9]{10,40}$/.test(tkn)) {
+    // Пришёл с другим кодом, чем раньше (например, после /reset в боте) — это новое прохождение:
+    // стираем старый прогресс на сайте, чтобы не было «как будто уже проходил»
+    var prev = store.get('fbt_token', '');
+    if (prev && prev !== tkn) {
+      try {
+        Object.keys(window.localStorage).forEach(function (k) { if (k.indexOf('fbt') === 0) window.localStorage.removeItem(k); });
+      } catch (e) { /* хранилище недоступно */ }
+    }
     store.set('fbt_token', tkn);
     try {
       qs.delete('t');
