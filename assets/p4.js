@@ -264,6 +264,9 @@
     FBT.open(FBT.tg(C.curator, applyText()));
     st.sent = true; save(); renderApply();
     if (FBT.medal) FBT.medal('drevo');
+    // бот: наклейка, кружок Любы об оплате, расчёт и счёт на предоплату
+    var pz = pricing();
+    if (!pz.started && FBT.event) FBT.event('apply', { people: pz.g.n, phone: st.ap.phone.trim() });
   });
   $('[data-apply-reopen]').addEventListener('click', function (e) { e.preventDefault(); FBT.open(FBT.tg(C.curator, applyText())); });
   if (qs.has('reset')) { st.sent = false; save(); }
