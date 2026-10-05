@@ -283,3 +283,45 @@ html.fs-lock, html.fs-lock body { overflow: hidden; }
 .spath-line { z-index: 3; }
 .sp-dot { z-index: 4; }
 @media (max-width: 900px) { .story-num b { font-size: 28px !important; white-space: nowrap; } }
+
+/* 05.10 (v3.4) · телефон: в истории только фото Любы, без «€40 000» (на компьютере — как было) */
+@media (max-width: 900px) {
+  .story-num { display: none !important; }
+  .story-side { display: block !important; }
+  .story-photo { height: 360px !important; }
+  .story-photo img { object-position: 62% 18%; }
+}
+
+/* 05.10 (v3.4) · описание урока на телефоне — оформлено как история */
+.lead-tag { display: none; }
+@media (max-width: 640px) {
+  .sec--hero .lead-story { position: relative; padding: 20px 20px 22px 24px; border-radius: 18px; overflow: hidden;
+    background: linear-gradient(140deg, #2B1F18 0%, #231A15 55%, #2A1A14 100%);
+    border: 1px solid rgba(242,196,109,.28); box-shadow: 0 14px 34px rgba(0,0,0,.3);
+    color: var(--text); font-size: 16.5px; line-height: 1.55; }
+  .sec--hero .lead-story::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, #F2C46D, #E07A4F 55%, #C4432D); }
+  .lead-tag { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #F2C46D; }
+  .lead-tag img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid #F2C46D; flex-shrink: 0; }
+  .lead-hl { color: #F6A48E; font-weight: 700; white-space: nowrap; }
+}
+
+/* 05.10 (v3.4) · «Три шага» — линия пути «Урок → Диагностика → Запись»; на телефоне листаются вбок */
+.rsteps { position: relative; gap: 24px; padding-top: 46px; }
+.rsteps .stepcard { position: relative; overflow: visible; }
+.rsteps .stepcard::before { content: ""; position: absolute; top: -30px; left: 30px; right: -24px; height: 3px; border-radius: 3px;
+  background: linear-gradient(90deg, #C4432D, #E07A4F); }
+.rsteps .stepcard:nth-child(2)::before { background: linear-gradient(90deg, #E07A4F, #F2C46D); }
+.rsteps .stepcard:last-child::before { right: auto; width: 0; }
+.rsteps .stepcard::after { content: attr(data-step); position: absolute; top: -44px; left: 20px; padding: 6px 12px 6px 28px; border-radius: 999px;
+  font-size: 13px; font-weight: 700; letter-spacing: .04em; line-height: 1; color: #1C140F;
+  background: #F2C46D radial-gradient(circle at 15px 50%, #1C140F 0 4px, transparent 4.5px); z-index: 2; }
+.rsteps .stepcard:first-child::after { background-color: #F6A48E; }
+.rsteps .stepcard:nth-child(2)::after { background-color: #F0936B; }
+@media (max-width: 900px) {
+  .rsteps { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin-left: calc(var(--gutter) * -1); margin-right: calc(var(--gutter) * -1);
+    padding: 46px var(--gutter) 8px; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
+  .rsteps::-webkit-scrollbar { display: none; }
+  .rsteps .stepcard { flex: 0 0 82%; scroll-snap-align: start; padding: 26px 22px; }
+  .rsteps .stepcard::before { right: -14px; }
+  .rsteps .stepcard:not(:last-child) > .row::after { content: "→"; margin-left: auto; font-size: 20px; font-weight: 700; color: #E07A4F; }
+}
