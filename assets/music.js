@@ -11,7 +11,14 @@
   var M = C.music;
   if (M === false) return;
   M = M || {};
-  var SRC = M.src || 'assets/audio/fon.mp3';
+  var SRC = M.src || 'assets/audio/fon-1.mp3';
+  // Сравнить треки: ?track=1 (грустнее) или ?track=2 (теплее) — выбор держится до закрытия вкладки
+  try {
+    var tq = (location.search.match(/[?&]track=(\d)/) || [])[1];
+    if (tq) sessionStorage.setItem('fbt_music_track', tq);
+    var tr = sessionStorage.getItem('fbt_music_track');
+    if (tr) SRC = 'assets/audio/fon-' + tr + '.mp3';
+  } catch (e) {}
   var VOL = M.volume != null ? M.volume : 0.18;
   var KEY = 'fbt_music_off', POS = 'fbt_music_pos';
 
