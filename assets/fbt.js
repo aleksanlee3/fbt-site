@@ -103,16 +103,24 @@
   }
   FBT.bindLinks = bindLinks;
   // Проверяем, что сервер отвечает и личный код ещё привязан к человеку в боте (после /reset в боте — нет)
-  if (C.botApi && store.get('fbt_token', '')) {
+  // Заодно сверяем альбом: наклейки, выданные в боте (созвон, друг, канал), появляются и на сайте.
+  function syncWithBot() {
+    var token = store.get('fbt_token', '');
+    if (!C.botApi || !token) return;
     try {
-      fetch(C.botApi.replace(/\/$/, '') + '/api/session/' + encodeURIComponent(store.get('fbt_token', '')))
+      fetch(C.botApi.replace(/\/$/, '') + '/api/session/' + encodeURIComponent(token))
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (d) {
-          if (d && d.linked) { apiOk = true; bindLinks(); if (FBT.onLinked) FBT.onLinked(); }
-          else if (d) store.set('fbt_token', '');          // код устарел — забываем, ссылки остаются с /start
+          if (d && d.linked) {
+            if (!apiOk) { apiOk = true; bindLinks(); if (FBT.onLinked) FBT.onLinked(); }
+            (d.stickers || []).forEach(function (id) { if (FBT.medal) FBT.medal(id); });
+          } else if (d) { store.set('fbt_token', ''); apiOk = false; }   // код устарел — ссылки снова с /start
         }).catch(function () { /* сервер недоступен — остаются ссылки с /start */ });
     } catch (e) { /* нет fetch */ }
   }
+  syncWithBot();
+  setInterval(function () { if (!document.hidden) syncWithBot(); }, 30000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) syncWithBot(); });
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('[data-bot-start]');
     if (!a || !linked()) return;
