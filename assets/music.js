@@ -48,12 +48,22 @@
   function play() {
     if (!want || blocked()) return;
     setupGain();
-    if (ctx && ctx.state === 'suspended') ctx.resume();
+    if (ctx && ctx.state === 'suspended') { try { ctx.resume(); } catch (e) {} }
     if (!started) { var p = parseFloat(sget(POS) || '0'); if (p > 0) try { audio.currentTime = p; } catch (e) {} }
     if (!gain) audio.volume = 0;
     var pr = audio.play();
-    if (pr && pr.then) pr.then(function () { started = true; fade(VOL, 2500); render(); }).catch(function () {});
-    else { started = true; fade(VOL, 2500); render(); }
+    var go = function () {
+      if (started || !want) return;
+      started = true; unbind(); fade(VOL, 2500); render();
+    };
+    var ok = function () {
+      if (ctx && ctx.state !== 'running') {           // звук ещё не разрешён — включится, как только браузер позволит
+        try { ctx.resume().then(function () { if (ctx.state === 'running') go(); }).catch(function () {}); } catch (e) {}
+        return;
+      }
+      go();
+    };
+    if (pr && pr.then) pr.then(ok).catch(function () { render(); }); else ok();
   }
   function pause(ms) {
     fade(0, ms || 400);
@@ -63,12 +73,17 @@
   // Видеоотзыв или открытое видео — музыку не включаем
   function blocked() { return !!document.querySelector('.rv.is-on, .rv-modal'); }
 
-  // Первое касание запускает музыку
-  function first() {
-    ['pointerdown', 'touchend', 'click', 'keydown'].forEach(function (e) { document.removeEventListener(e, first, true); });
-    play();
+  // Запуск: сразу при открытии (если браузер разрешает — например, человек уже касался сайта),
+  // иначе — с первого касания экрана. Пробуем на каждом касании, пока музыка не заиграет.
+  var EVENTS = ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'mousedown', 'click', 'keydown'];
+  function first() { if (!started) play(); }
+  function unbind() { EVENTS.forEach(function (e) { document.removeEventListener(e, first, true); window.removeEventListener(e, first, true); }); }
+  if (want) {
+    EVENTS.forEach(function (e) { window.addEventListener(e, first, { capture: true, passive: true }); });
+    play();                                                        // попытка сразу при открытии
+    window.addEventListener('load', function () { if (!started) play(); });
+    window.addEventListener('pageshow', function () { if (!started) play(); });
   }
-  if (want) ['pointerdown', 'touchend', 'click', 'keydown'].forEach(function (e) { document.addEventListener(e, first, true); });
 
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) { if (started) { audio.pause(); } }
