@@ -232,3 +232,54 @@ html.fs-lock, html.fs-lock body { overflow: hidden; }
 .mapgift li::before{content:"";position:absolute;left:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--honey,#F2C46D) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233B2A21' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/12px no-repeat}
 .mapgift b{color:var(--honey,#F2C46D)}
 .unlock-act .link-btn{display:block;text-align:center;font-size:15px}
+
+/* 05.10 · история: фото и €40 000 над текстом на телефоне */
+@media (max-width: 900px) {
+  .story { flex-direction: column !important; gap: 28px; }
+  .story-side { width: 100% !important; flex-direction: row !important; gap: 12px; }
+  .story-photo { flex: 1.4; height: 240px !important; }
+  .story-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 20%; }
+  .story-num { flex: 1; justify-content: flex-end; padding: 18px; }
+  .story-num b { font-size: 32px !important; }
+  .story-num span { font-size: 14px; }
+}
+
+/* 05.10 · «Узнаёте себя?» — три этапа одного пути */
+.spath { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.spath-line { position: absolute; left: 0; right: 0; top: 0; height: 36px; pointer-events: none; }
+.spath-line i { position: absolute; left: 16%; right: 16%; top: 17px; height: 3px; border-radius: 3px;
+  background: linear-gradient(90deg, #F2C46D, #E07A4F 55%, #C4432D); }
+.spath-line i::after { content: ""; position: absolute; right: -8px; top: -6px; border: 7px solid transparent; border-left: 10px solid #C4432D; }
+.spath .stage-card { position: relative; padding-top: 48px; overflow: visible; }
+.sp-dot { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #2A1F18; z-index: 2; box-shadow: 0 0 0 5px var(--bg); }
+.sc1 .sp-dot { background: #F2C46D; } .sc2 .sp-dot { background: #E07A4F; } .sc3 .sp-dot { background: #C4432D; color: #fff; }
+.spath .stage-img { border-radius: 16px; overflow: hidden; }
+.sp-lvl { display: inline-block; margin-top: 18px; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.sc1 .sp-lvl { color: #F2C46D; } .sc2 .sp-lvl { color: #F0936B; } .sc3 .sp-lvl { color: #F6A48E; }
+.spath .stage-card .h3 { margin-top: 8px; }
+
+/* «Три фразы» — узкое фото сверху */
+.phr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.phr .phrase { padding: 0; overflow: hidden; gap: 0; }
+.phr-ph { display: block; height: 120px; overflow: hidden; }
+.phr-ph img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.85); }
+.phr-b { padding: 22px 26px 28px; display: flex; flex-direction: column; gap: 12px; }
+.phr .quote-ico { margin-top: -40px; width: 44px; height: 36px; padding: 8px 9px; border-radius: 12px; background: var(--accent); fill: #fff; position: relative; }
+
+.swipe-hint { display: none; }
+@media (max-width: 760px) {
+  .spath, .phr { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter) 8px; scrollbar-width: none; }
+  .spath::-webkit-scrollbar, .phr::-webkit-scrollbar { display: none; }
+  .spath .stage-card, .phr .phrase { flex: 0 0 80%; scroll-snap-align: start; }
+  .spath { padding-top: 0; }
+  .spath-line { display: none; }
+  .spath .stage-card::after { content: "→"; position: absolute; right: -14px; top: 6px; font-size: 20px; color: #E07A4F; font-weight: 700; }
+  .spath .sc3::after { display: none; }
+  .sp-dot { left: 24px; transform: none; }
+  .phr-ph { height: 100px; }
+  .swipe-hint { display: block; margin-top: 6px; text-align: center; font-size: 13px; color: var(--dim); letter-spacing: .04em; }
+}
+.also-card--end { margin-top: 0; }
+.spath-line { z-index: 3; }
+.sp-dot { z-index: 4; }
+@media (max-width: 900px) { .story-num b { font-size: 28px !important; white-space: nowrap; } }

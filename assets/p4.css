@@ -829,3 +829,4 @@
   .mc figcaption b { font-size: 15px; }
   .mc figcaption span { font-size: 13px; }
 }
+.notyet--one { grid-template-columns: minmax(0, 720px); }

@@ -194,9 +194,26 @@
 
     <section class="res-send">
       <div class="wrap">
+        <!-- 05.10 (правка Александра): сначала 5 заданий, потом отправка куратору -->
+        <div class="more more--hi" data-more>
+          <div class="more-top">
+            <span class="more-step">ШАГ 1 ИЗ 2 · ПЕРЕД ОТПРАВКОЙ КУРАТОРУ</span>
+            <span class="more-time"><svg><use href="#i-clock"/></svg>10 минут</span>
+          </div>
+          <b class="more-h">Пройдите вторую часть: 5 коротких заданий</b>
+          <p class="more-p">Вопросы показали, каким вы <i>видите</i> свой бизнес. Задания покажут, какой он <i>на самом деле</i>. Без них куратор увидит только половину картины — с ними разбор будет точнее и полезнее.</p>
+          <div class="more-bar" aria-hidden="true"><i data-tasks-bar></i></div>
+          <span class="more-count">Выполнено: <span data-text-of="tasksDone">0</span> из 5</span>
+          <div class="more-btns">
+            <span class="ringed"><button type="button" class="btn btn--primary btn--lg" data-go="tasks"><span data-text-of="moreBtn">Пройти вторую часть</span><svg><use href="#i-right"/></svg></button></span>
+            <a class="more-skip" href="#send">пропустить</a>
+          </div>
+        </div>
+        <p class="more-next">↓ затем — отправьте всё куратору</p>
+
         <div class="send" id="send">
           <div class="send-l">
-            <div class="send-top"><span class="send-ico"><svg><use href="#i-send"/></svg></span><span class="free">Бесплатно</span></div>
+            <div class="send-top"><span class="send-ico"><svg><use href="#i-send"/></svg></span><span class="free">Шаг 2 из 2 · бесплатно</span></div>
             <h2 class="send-h">Отправьте результат куратору</h2>
             <p class="send-p">Сам по себе профиль — это только картинка. Куратор посмотрит ваши ответы и голосом объяснит, что с этим делать.</p>
             <div class="send-3">
@@ -219,15 +236,6 @@
           </div>
         </div>
 
-        <!-- 05.10: задания — по желанию, свёрнуты под отправкой куратору (было «Часть 2 из 2» перед ней) -->
-        <div class="more more--mini" data-more>
-          <div class="mm-txt">
-            <b>Хотите разбор точнее?</b>
-            <span>5 коротких заданий · 10 минут · по желанию. Вопросы показывают, каким вы видите бизнес, задания — какой он на самом деле.</span>
-            <span class="more-count">Выполнено: <span data-text-of="tasksDone">0</span> из 5</span>
-          </div>
-          <button type="button" class="btn" data-go="tasks"><span data-text-of="moreBtn">Пройти задания</span><svg><use href="#i-right"/></svg></button>
-        </div>
       </div>
     </section>
 

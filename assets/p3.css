@@ -349,3 +349,11 @@
 .more--mini .more-count { font-size: 14px; color: var(--dim); }
 .more--mini.is-done { border-style: solid; border-color: var(--ok); }
 @media (max-width: 720px) { .res-send .more.more--mini { flex-direction: column; align-items: stretch; } .more--mini .btn { width: 100%; } }
+
+/* 05.10 · шаг 1 из 2 — задания до отправки куратору, с акцентом */
+.res-send .more.more--hi { box-shadow: 0 0 0 3px #C4432D, 0 18px 40px rgba(196,67,45,.25); margin-bottom: 0; }
+.res-send .more.more--hi.is-done { box-shadow: 0 0 0 2px var(--ok); }
+.res-send .more--hi .more-skip { font-size: 13px; opacity: .75; }
+.res-send .more--hi .ringed { display: inline-flex; }
+@media (max-width: 640px) { .res-send .more--hi .ringed { display: flex; } .res-send .more--hi .ringed .btn { width: 100%; } }
+.more-next { margin: 14px 0 18px; text-align: center; font-size: 15px; font-weight: 600; color: var(--accent-text); }

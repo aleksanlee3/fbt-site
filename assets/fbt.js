@@ -81,11 +81,9 @@
     { id: 'NGUKPFtwmiI', name: 'Ирина', place: 'Южная Корея' },
     { id: 'FuIvvPfJZ58', name: 'Татьяна Ялышева', place: 'Выпускница FBT' },
     { id: 'wXmNb0LaE-E', name: 'Дмитрий Морозов', place: 'Победитель тренинга' },
-    { id: 'f7TbHsUVdWY', name: 'Выпускник FBT', place: 'Душанбе, Таджикистан' },
     { id: '5iXz6a-isZ8', name: 'Выпускница FBT', place: '' },
     { id: 'jRntkVMctD0', name: 'Выпускник FBT', place: '' },
     { id: '4PWNwSsQsIE', name: 'Выпускник FBT', place: 'Душанбе, Таджикистан' },
-    { id: 'wWW8hHLPUxM', name: 'Выпускница FBT', place: '' },
     { id: 'tV_5pNK2XRA', name: 'Выпускник FBT', place: '' },
     { id: 'zpWKM2sYcxQ', name: 'Выпускница FBT', place: '' }
   ];

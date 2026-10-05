@@ -473,3 +473,10 @@ html.rv-open { overflow: hidden; }
 @media (max-width: 640px) {
   .foot .wrap { align-items: center; text-align: center; gap: 8px; }
 }
+
+/* 05.10 · отзывы: 8 штук, сетка 4 × 2; на телефоне два ряда листаются вбок */
+.revs { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 20px 16px; }
+@media (max-width: 760px) {
+  .revs { display: grid !important; grid-auto-flow: column; grid-template-rows: repeat(2, auto); grid-template-columns: none !important; grid-auto-columns: 42%; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px 12px; }
+  .revs .rv { flex: none; scroll-snap-align: start; }
+}
