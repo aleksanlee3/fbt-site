@@ -325,3 +325,17 @@ html.fs-lock, html.fs-lock body { overflow: hidden; }
   .rsteps .stepcard::before { right: -14px; }
   .rsteps .stepcard:not(:last-child) > .row::after { content: "→"; margin-left: auto; font-size: 20px; font-weight: 700; color: #E07A4F; }
 }
+
+/* 05.10 (v3.5) · «Уже рассматриваете обучение?» — компактнее, без перечня (всё есть на странице программы) */
+.also-card--hi .also-txt { align-items: center; }
+@media (max-width: 640px) {
+  .also-card--hi { padding: 18px 18px 18px 24px; gap: 14px; }
+  .also-card--hi::before { width: 5px; }
+  .also-card--hi .also-ico { width: 38px; height: 38px; border-radius: 11px; }
+  .also-card--hi .also-ico svg { width: 19px; height: 19px; }
+  .also-card--hi .also-txt { gap: 12px; }
+  .also-card--hi .also-txt b { font-size: 18px; }
+  .also-act { gap: 8px; }
+  .also-btn, .also-btn--main { height: 46px; padding: 0 16px; font-size: 15px; }
+  .also-btn svg { width: 16px; height: 16px; }
+}

@@ -6,7 +6,7 @@
 <title>Программа FBT Online — 3-й поток, старт 10 октября</title>
 <meta name="description" content="Онлайн-программа с наставником: за 2,5 месяца соберёте бизнес-модель, маркетинг, финансы, время и команду в одну систему. Итог — карта развития бизнеса и план на 90 дней.">
 <meta property="og:title" content="FBT Online — наведите порядок в бизнесе и получите план на 90 дней">
-<meta property="og:description" content="3-й поток стартует 10 октября. 12 мест, ранняя запись дешевле.">
+<meta property="og:description" content="3-й поток стартует 10 октября. 12 мест, следующий поток — только в 2027 году и дороже.">
 <meta name="theme-color" content="#FBF6EE">
 <link rel="icon" href="assets/logo/favicon-64.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -75,7 +75,7 @@
   <div class="promo">
     <div class="wrap">
       <span class="blink" aria-hidden="true"></span>
-      <span data-show="open"><b class="lime">Старт третьего потока — 10 октября</b><i class="sep"> · </i><span class="hide-md"><b>ранняя цена до <span data-v="tierEnd"></span>: <span data-v="priceNow"></span> сум</b><i class="sep"> · </i></span><b class="mono lime"><span data-v="cdLower"></span> <span data-v="cdShort"></span></b></span>
+      <span data-show="open"><b class="lime">Старт третьего потока — 10 октября</b><i class="sep"> · </i><span class="hide-md" data-show="early"><b>ранняя цена до <span data-v="tierEnd"></span>: <span data-v="priceNow"></span> сум</b><i class="sep"> · </i></span><b class="mono lime"><span data-v="cdLower"></span> <span data-v="cdShort"></span></b></span>
       <span data-show="closed" hidden><b class="lime">Третий поток FBT Online уже идёт · </b>следующий — в 2027 году · <b>запись в лист ожидания открыта</b></span>
     </div>
   </div>
@@ -119,9 +119,10 @@
         <div class="muted" style="font-size:15px;margin-top:6px">2,5 месяца · 5 модулей + бонус · до 12 человек</div>
         <div data-show="open">
           <div class="flow-price">
-            <div class="row" style="justify-content:space-between;gap:10px"><span class="cap acc">РАННЯЯ ЗАПИСЬ</span><span class="note">до <span data-v="tierEnd"></span></span></div>
+            <div class="row" style="justify-content:space-between;gap:10px" data-show="early"><span class="cap acc">РАННЯЯ ЗАПИСЬ</span><span class="note">до <span data-v="tierEnd"></span></span></div>
+            <div class="row" style="justify-content:space-between;gap:10px" data-show="late" hidden><span class="cap acc">ЦЕНА УЧАСТИЯ</span><span class="note">3-й поток</span></div>
             <div class="bigprice"><b data-v="priceNow"></b><span>сум</span><em>≈ <span data-v="usdNow"></span></em></div>
-            <span class="note" style="font-size:14px"><s><span data-v="priceFull"></span> сум</s> — полная цена</span>
+            <span class="note" style="font-size:14px" data-show="early"><s><span data-v="priceFull"></span> сум</s> — полная цена</span>
           </div>
           <div class="note mt-20" style="font-size:13px" data-v="cdTitle">До повышения цены</div>
           <div class="cd" role="timer" data-cd>
@@ -134,8 +135,29 @@
         <div class="seats-top"><span>Места в потоке</span><span class="acc" data-v="seatsShort">12 мест</span></div>
         <div class="seatbar" aria-hidden="true" data-seatbar></div>
         <a class="btn btn--primary btn--block mt-24" style="height:58px;font-size:17px" href="#apply" data-v="cta">Забронировать место</a>
-        <div class="muted mt-14" style="font-size:14px;text-align:center">Вместе с семьёй или партнёром — до −$75 каждому.<br>Следующий поток — только в 2027 году.</div>
+        <div class="muted mt-14" style="font-size:14px;text-align:center">Вместе с семьёй или партнёром — до −$75 каждому.</div>
       </aside>
+      <!-- 05.10 (v3.5) · где проходит FBT — карта стран (перенесена со стр. 2) -->
+      <div class="geo4" aria-label="Страны, где проходит программа">
+        <div class="geo4-head"><span class="cap">ГДЕ ПРОХОДИТ FBT</span><b>Программа проходит в разных странах — от Швейцарии до Вьетнама</b></div>
+        <div class="world geo4-map">
+          <img src="assets/world-map.svg" alt="Карта: страны, где проходит программа FBT — от Швейцарии до Вьетнама">
+          <div class="wl" style="right:75.71%;top:19.64%;text-align:right"><b>Швейцария</b><small class="lime">родина методологии</small></div>
+          <div class="wl" style="right:72.05%;top:39.64%"><b>Албания</b></div>
+          <div class="wl" style="left:31.79%;top:36.43%"><b>Румыния</b></div>
+          <div class="wl" style="left:35.54%;top:29.29%"><b>Молдова</b></div>
+          <div class="wl" style="left:48.21%;top:32.5%;width:8.4%;text-align:center"><b>Казахстан</b></div>
+          <div class="wl" style="left:57.5%;top:43.57%"><b>Кыргызстан</b></div>
+          <div class="wl" style="right:50.36%;top:48.21%;text-align:right"><b style="color:#F6A48E">Узбекистан</b><small style="color:#F1E4D3">FBT · Impact Consulting</small></div>
+          <div class="wl" style="left:64.29%;top:61.61%"><b>Непал</b></div>
+          <div class="wl" style="left:80.8%;top:66.96%"><b>Вьетнам</b></div>
+        </div>
+        <div class="geo4-chips">
+          <span class="gc gc--home">🇨🇭 Швейцария · родина методологии</span>
+          <span class="gc gc--uz">🇺🇿 Узбекистан · Impact Consulting</span>
+          <span class="gc">🇰🇿 Казахстан</span><span class="gc">🇰🇬 Кыргызстан</span><span class="gc">🇷🇴 Румыния</span><span class="gc">🇲🇩 Молдова</span><span class="gc">🇦🇱 Албания</span><span class="gc">🇳🇵 Непал</span><span class="gc">🇻🇳 Вьетнам</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -146,10 +168,9 @@
         <div class="eyebrow">ЧТО БУДЕТ НА ВЫХОДЕ</div>
         <h2 class="h2 h2--md">Карта развития вашего бизнеса и план на 90 дней</h2>
         <p class="sub">Вы работаете со своей ситуацией, а не с чужим кейсом. Поэтому результат зависит от того, откуда вы стартуете.</p>
-        <div class="res3">
-          <div class="res3-i r1"><span class="res3-ico"><svg><use href="#j-map"/></svg></span><div><b>Карта развития бизнеса</b><span>Где вы сейчас и куда расти дальше</span></div></div>
-          <div class="res3-i r2"><span class="res3-ico"><svg><use href="#j-cal"/></svg></span><div><b>План действий на 90 дней</b><span>Что делать каждую неделю — по шагам</span></div></div>
-          <div class="res3-i r3"><span class="res3-ico"><svg><use href="#j-target"/></svg></span><div><b>Готовая модель и стратегия развития вашего бизнеса</b><span>Понятно, как бизнес зарабатывает и за счёт чего будет расти</span></div></div>
+        <div class="res3 res2">
+          <div class="res3-i r1"><span class="res3-ph"><img src="assets/img/roadmap.jpg" alt="Карта пути на столе, люди отмечают шаги" loading="lazy"><em>Итог 1</em></span><div class="res3-b"><b>Карта развития бизнеса</b><span>Где вы сейчас и куда расти дальше</span></div></div>
+          <div class="res3-i r2"><span class="res3-ph"><img src="assets/img/workshop.jpg" alt="Собственница разбирает план с командой у доски" loading="lazy"><em>Итог 2</em></span><div class="res3-b"><b>План действий на 90 дней</b><span>Что делать каждую неделю — по шагам</span></div></div>
         </div>
       </div>
       <div class="grid g-2 outcome-r">
@@ -167,15 +188,22 @@
   <section id="program" class="sec sec--tight sec--alt">
     <div class="wrap">
       <div class="head2">
-        <div><div class="eyebrow">ПРОГРАММА</div><h2 class="h2">5 модулей — одна система</h2></div>
+        <div><div class="eyebrow">ПРОГРАММА</div><h2 class="h2">Из чего состоит программа FBT</h2></div>
         <p class="sub" style="max-width:520px;margin:0">Пять полноценных модулей по порядку — от мышления и бизнес-модели к маркетингу, деньгам, времени и людям. А в самом начале — бонусный нулевой модуль о поиске идеи.</p>
       </div>
-      <div class="path" aria-label="Путь программы">
-        <div class="path-e"><span class="cap">СТАРТ</span><b>10 октября</b></div>
-        <i></i><span class="path-0">0 · бонус: поиск идеи</span><i></i>
-        <div class="path-dots" data-path></div>
-        <i></i>
-        <div class="path-e end"><span class="cap">≈ 2,5 МЕСЯЦА</span><b>Карта + план на 90 дней</b></div>
+      <!-- 05.10 (v3.5) · путь программы: старт → бонус → 5 модулей → итог -->
+      <div class="ptrack" aria-label="Путь программы">
+        <div class="pt-top">
+          <div class="pt-e"><span class="pt-cap">СТАРТ</span><b>10 октября</b></div>
+          <span class="pt-dur">≈ 2,5 месяца</span>
+          <div class="pt-e pt-e--end"><span class="pt-cap">ИТОГ</span><b>Карта + план на 90 дней</b></div>
+        </div>
+        <div class="pt-line">
+          <span class="pt-zero" title="Бонусный нулевой модуль: поиск идеи"><b>0</b><small>бонус</small></span>
+          <div class="path-dots" data-path></div>
+          <span class="pt-fin" title="Итог: карта развития и план на 90 дней"><svg><use href="#i-check"/></svg><small>итог</small></span>
+        </div>
+        <p class="pt-hint">0 — бонус о поиске идеи, 01–05 — основные модули. Нажмите на номер, чтобы открыть модуль.</p>
       </div>
       <div class="mods">
         <div class="mod-tabs" role="tablist" aria-label="Модули программы" data-tabs>
@@ -313,39 +341,33 @@
         <h2 class="h2 h2--xl" data-show="open">Третий поток стартует <span class="acc" style="display:inline">10 октября</span></h2>
         <h2 class="h2 h2--xl" data-show="closed" hidden>Третий поток <span class="acc" style="display:inline">уже идёт</span></h2>
         <p class="price-p">Мы берём только <b>12 человек</b> — чтобы наставники успевали работать с ситуацией каждого. Когда места закончатся, набор закроется. <b>Следующий поток — только в 2027 году.</b></p>
-        <div data-show="open">
+        <div data-show="early">
           <div class="mt-40"><b style="font-size:22px">Цена растёт каждую неделю</b><div class="note" style="font-size:15px;margin-top:4px">Чем раньше запишетесь — тем дешевле. Предоплата закрепляет цену за вами.</div></div>
           <div class="steps3" aria-label="Цена по неделям" data-steps3></div>
+        </div>
+        <div class="nextup mt-36" data-show="late" hidden>
+          <div class="nu nu--next"><span>Следующий поток · 2027</span><b><span data-v="nextFull"></span> сум</b><em>≈ $850</em></div>
         </div>
         <div class="card flow-closed mt-36" data-show="closed" hidden>Третий поток уже идёт. Следующий — только в 2027 году. Оставьте заявку в лист ожидания: мы напишем первыми, когда откроем набор.</div>
       </div>
       <div class="price-card">
         <div data-show="open">
-          <span class="cap acc">ВАША ЦЕНА · ДО <span data-v="tierEndUp"></span></span>
+          <span class="cap acc" data-show="early">ВАША ЦЕНА · ДО <span data-v="tierEndUp"></span></span><span class="cap acc" data-show="late" hidden>ВАША ЦЕНА</span>
           <div class="fam">
             <b id="grp-l">Сколько вас идёт? С семьёй или партнёром — дешевле</b>
             <div class="grp mt-14" role="radiogroup" aria-labelledby="grp-l" data-grp="price"></div>
           </div>
           <div class="calc">
-            <div class="calc-full">Полная цена <s><span data-v="priceFull"></span> сум</s></div>
+            <div class="calc-full" data-show="disc">Полная цена <s><span data-v="priceFull"></span> сум</s></div>
             <div class="calc-now"><b><span data-v="per"></span></b><span>сум</span></div>
-            <div class="calc-row"><span class="calc-off">−<span data-v="offPct"></span>%</span><span class="calc-save">экономия <span data-v="saveSum"></span> сум <span data-v="saveWho"></span></span></div>
+            <div class="calc-row" data-show="disc"><span class="calc-off">−<span data-v="offPct"></span>%</span><span class="calc-save">экономия <span data-v="saveSum"></span> сум <span data-v="saveWho"></span></span></div>
             <div class="calc-total" data-show="multi" hidden>За всех: <b><span data-v="total"></span> сум</b></div>
           </div>
         </div>
         <div data-show="closed" hidden>
           <span class="cap dim">ЧЕТВЁРТЫЙ ПОТОК · 2027</span>
           <b style="display:block;margin-top:12px;font-size:34px;line-height:1.15">Лист ожидания</b>
-          <p class="muted mt-8" style="font-size:15px;line-height:1.55">Полная цена 4-го потока — <span data-v="nextFull"></span> сум ($850). Ранняя запись будет дешевле: чем раньше, тем выгоднее. Оставьте заявку — напишем первыми.</p>
-        </div>
-        <div class="incl">
-          <div><svg><use href="#i-check"/></svg>5 полноценных модулей + бонусный нулевой модуль</div>
-          <div><svg><use href="#i-check"/></svg>Видеоуроки и материалы на платформе</div>
-          <div><svg><use href="#i-check"/></svg>Практические задания на своём бизнесе</div>
-          <div><svg><use href="#i-check"/></svg>Проверка каждого задания наставником</div>
-          <div><svg><use href="#i-check"/></svg>Созвоны каждую неделю — с наставником и с Любой Бэй</div>
-          <div><svg><use href="#i-check"/></svg>ИИ-куратор на платформе</div>
-          <div><svg><use href="#i-check"/></svg>Итог: Карта развития бизнеса и план на 90 дней</div>
+          <p class="muted mt-8" style="font-size:15px;line-height:1.55">Полная цена 4-го потока — <span data-v="nextFull"></span> сум ($850). Оставьте заявку — напишем первыми.</p>
         </div>
         <a class="btn btn--primary btn--block mt-32" style="height:62px;font-size:18px" href="#apply" data-v="ctaLong">Забронировать место</a>
         <span class="note mt-14" style="display:block;text-align:center;font-size:14px">Чтобы закрепить цену — предоплата 20%: <span data-v="prepay"></span> сум.</span>
@@ -363,10 +385,9 @@
         <div class="cap dim mt-40">ЧТО БУДЕТ ПОСЛЕ ЗАЯВКИ</div>
         <!-- 05.10: сюда сведён бывший блок «Что будет после оплаты» -->
         <ol class="after">
-          <li><span>1</span><div><b>Куратор пишет вам в Telegram</b>Уточняет задачу и присылает реквизиты. Предоплата 20% закрепляет цену.</div></li>
-          <li><span>2</span><div><b>Установочный созвон до старта</b>Знакомство с Любой Бэй и вашим наставником, правила программы.</div></li>
-          <li><span>3</span><div><b>Старт и доступ к платформе</b>Углублённая диагностика бизнеса, первые уроки и задания.</div></li>
-          <li><span>4</span><div><b>Каждую неделю: урок → задание → проверка</b>Созвоны с наставником и с Любой. Через 2,5 месяца — карта развития и план на 90 дней.</div></li>
+          <li><span>1</span><div><b>Куратор пишет вам в Telegram</b>Уточняет задачу и присылает реквизиты.</div></li>
+          <li><span>2</span><div><b>Созвон до старта</b>Знакомство с Любой Бэй и наставником.</div></li>
+          <li><span>3</span><div><b>10 октября — старт</b>Доступ к платформе и первые задания.</div></li>
         </ol>
       </div>
       <div class="apply-card">
@@ -379,7 +400,7 @@
           <div class="sits" role="radiogroup" aria-labelledby="ap-sit" data-sits></div>
           <span class="flabel" id="ap-grp">Сколько вас будет — с семьёй или партнёрами</span>
           <div class="grp grp--sm" role="radiogroup" aria-labelledby="ap-grp" data-grp="form"></div>
-          <span class="note mt-8" style="font-size:14px;color:var(--muted)" data-show="open">Цена для каждого: <b style="color:var(--text)"><span data-v="per"></span> сум</b> (−<span data-v="offPct"></span>%)</span>
+          <span class="note mt-8" style="font-size:14px;color:var(--muted)" data-show="multi" hidden>Цена для каждого: <b style="color:var(--text)"><span data-v="per"></span> сум</b> (−<span data-v="offPct"></span>%)</span>
           <label class="flabel" for="ap-task">Главная задача в бизнесе — по желанию</label>
           <textarea class="textarea" id="ap-task" rows="3" placeholder="Например: навести порядок в финансах" data-ap="task"></textarea>
           <button type="button" class="check mt-20" role="checkbox" aria-checked="false" data-agree><span class="box"></span>Согласен на обработку персональных данных</button>
