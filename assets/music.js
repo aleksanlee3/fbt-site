@@ -60,8 +60,9 @@
     if (!gain) audio.volume = 0;
     var pr = audio.play();
     var go = function () {
-      if (started || !want) return;
-      started = true; unbind(); fade(VOL, 2500); render();
+      if (!want) return;
+      var again = started;
+      started = true; unbind(); fade(VOL, again ? 1500 : 2500); render();
     };
     var ok = function () {
       if (ctx && ctx.state !== 'running') {           // звук ещё не разрешён — включится, как только браузер позволит
@@ -78,12 +79,20 @@
   }
 
   // Видеоотзыв или открытое видео — музыку не включаем
-  function blocked() { return !!document.querySelector('.rv.is-on, .rv-modal'); }
+  function blocked() {
+    if (document.querySelector('.rv.is-on, .rv-modal')) return true;
+    var F = window.FBT; return !!(F && F.lessonAudible && F.lessonAudible());   // урок Любы идёт со звуком
+  }
 
   // Запуск: сразу при открытии (если браузер разрешает — например, человек уже касался сайта),
   // иначе — с первого касания экрана. Пробуем на каждом касании, пока музыка не заиграет.
   var EVENTS = ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'mousedown', 'click', 'keydown'];
-  function first() { if (!started) play(); }
+  function first(e) {
+    if (started) return;
+    var t = e && e.target;                                       // касание по видео урока — это запуск урока, не музыки
+    if (t && t.closest && t.closest('.player')) return;
+    play();
+  }
   function unbind() { EVENTS.forEach(function (e) { document.removeEventListener(e, first, true); window.removeEventListener(e, first, true); }); }
   if (want) {
     EVENTS.forEach(function (e) { window.addEventListener(e, first, { capture: true, passive: true }); });
@@ -102,7 +111,7 @@
     if (!started || !want) return;
     if (blocked() && !audio.paused) pause(300);
     else if (!blocked() && audio.paused && !document.hidden) play();
-  }, 1000);
+  }, 400);
 
   // ── Кнопка звука ──
   var btn;

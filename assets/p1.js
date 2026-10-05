@@ -86,6 +86,9 @@
   // ── Плеер ───────────────────────────────────────────────
   var type = V.type === 'youtube' && V.src ? 'youtube' : (V.type === 'file' && V.src ? 'file' : 'demo');
   if (TEST) type = 'demo';
+  // Фоновая музыка (assets/music.js) замолкает, пока урок идёт со звуком, и возвращается на паузе
+  var lessonMuted = false;
+  FBT.lessonAudible = function () { return !!st.playing && !lessonMuted; };
   st.pos = Math.min(st.pos, TOTAL());
 
   if (type === 'demo') {
@@ -152,8 +155,9 @@
     var soundBtn = bar.querySelector('[data-yt-sound]'), rateBtn = bar.querySelector('[data-yt-rate]'), fsBtn = bar.querySelector('[data-yt-fs]');
 
     var yt = null, ready = false, muted = true, RATES = [1, 1.25, 1.5], rateI = 0;
+    lessonMuted = true;
     function setMuted(m) {
-      muted = m;
+      muted = m; lessonMuted = m;
       if (ready) { if (m) yt.mute(); else { yt.unMute(); yt.setVolume(100); } }
       soundBtn.hidden = !m;
     }
