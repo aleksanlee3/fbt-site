@@ -163,10 +163,12 @@
     if (withTasks) p.tasks = { t1: t.t1, t2: t.t2, t3a: t.t3a, t3b: t.t3b, t4: t.t4, disc: discKeys(), t5: t.t5, t5rank: t.t5rank };
     return p;
   }
-  function pushToBot(withTasks) {
+  function pushToBot(withTasks, sent) {
     if (!C.botApi) return Promise.resolve(null);
+    var p = payload(withTasks);
+    if (sent) p.sent = true;            // человек уже открыл чат куратора — бот не просит «отправьте»
     return fetch(C.botApi.replace(/\/$/, '') + '/api/diagnostic', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload(withTasks))
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p)
     }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
   }
   function event(name, data) {
@@ -388,7 +390,8 @@
     FBT.text('pdfLabel', st.pdf ? 'PDF-разбор — в боте ✓' : 'Получить PDF-разбор в боте');
     FBT.text('rcBadge', { intro: '10 вопросов · 5 минут', stage: 'перед тестом', q: 'вопрос ' + (Math.min(st.qi, 9) + 1) + ' из 10', sym: 'последний шаг',
       result: 'результат готов', tasks: 'задания · ' + tasksDone() + ' из 5', sent: 'отправлено куратору' }[st.step]);
-    $$('[data-pdf]').forEach(function (a) { a.href = FBT.bot(botCode()); a.target = '_blank'; a.rel = 'noopener'; });
+    // знакомы с ботом — результат уже у него, открываем чат без /start
+    $$('[data-pdf]').forEach(function (a) { a.href = FBT.linked() ? FBT.bot('') : FBT.bot(botCode()); a.target = '_blank'; a.rel = 'noopener'; });
     save();
   }
 
@@ -411,9 +414,11 @@
     }
     if (e.target.closest('[data-pdf]')) { st.pdf = true; setTimeout(render, 50); return; }
     if (e.target.closest('[data-send]')) {
-      event('diag_send');
       if (FBT.medal) FBT.medal('pismo');
-      if (tasksDone() > 0 && !st.sent2) { st.sent2 = true; pushToBot(true); }  // часть 2 — в бот (если есть сервер)
+      if (tasksDone() > 0 && !st.sent2) {                   // часть 2 — в бот, потом отметка «отправил»
+        st.sent2 = true;
+        pushToBot(true, true).then(function () { event('diag_send'); });
+      } else event('diag_send');
       FBT.open(FBT.tg(C.curator, chatText()));
       st.step = 'sent'; render(); window.scrollTo(0, 0);
     }

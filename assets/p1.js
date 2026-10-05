@@ -40,20 +40,13 @@
   function fmt(sec) { sec = Math.max(0, Math.round(sec)); return String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0'); }
 
   // ── События для бота (когда будет сервер): минута просмотра и момент открытия карты ──
-  function event(name, data) {
-    var token = FBT.store.get('fbt_token', '');
-    if (!C.botApi || !token) return;
-    try {
-      fetch(C.botApi.replace(/\/$/, '') + '/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token, event: name, data: data || {} }), keepalive: true });
-    } catch (e) { /* без сервера — пропускаем */ }
-  }
+  function event(name, data) { FBT.event(name, data); }
   var lastMin = Math.floor(st.pos / 60);
   function report() {
     var m = Math.floor(st.pos / 60);
-    if (m > lastMin) { lastMin = m; event('video_progress', { minute: m, sec: Math.round(st.pos) }); }
+    if (m > lastMin) { lastMin = m; event('video_progress', { minute: m, sec: Math.round(st.pos), duration: Math.round(TOTAL()) }); }
   }
-  window.addEventListener('pagehide', function () { event('video_leave', { sec: Math.round(st.pos), minute: Math.floor(st.pos / 60) }); });
+  window.addEventListener('pagehide', function () { event('video_leave', { sec: Math.round(st.pos), minute: Math.floor(st.pos / 60), duration: Math.round(TOTAL()) }); });
 
   var lastSaved = '';
   function save() {

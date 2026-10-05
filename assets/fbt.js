@@ -18,6 +18,29 @@
   if (src) store.set('fbt_src', src);
   src = store.get('fbt_src', '');
 
+  // Личный код человека из бота (?t=<код>): так сайт знает, кто это, и шлёт боту события без /start.
+  // Код запоминаем, а из адреса убираем — чтобы не попал в чужие руки при пересылке ссылки.
+  var tkn = qs.get('t');
+  if (tkn && /^[A-Za-z0-9]{10,40}$/.test(tkn)) {
+    store.set('fbt_token', tkn);
+    try {
+      qs.delete('t');
+      var q = qs.toString();
+      history.replaceState(null, '', location.pathname + (q ? '?' + q : '') + location.hash);
+    } catch (e) { /* старый браузер — оставляем адрес как есть */ }
+  }
+  // Кнопки «в бот» без /start — только когда сервер бота точно отвечает (иначе обычные ссылки с /start)
+  var apiOk = false;
+  function linked() { return !!(apiOk && C.botApi && store.get('fbt_token', '')); }
+  function event(name, data) {
+    var token = store.get('fbt_token', '');
+    if (!C.botApi || !token) return;
+    try {
+      fetch(C.botApi.replace(/\/$/, '') + '/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token, event: name, data: data || {} }), keepalive: true });
+    } catch (e) { /* без сервера — пропускаем */ }
+  }
+
   function bot(start) {
     return 'https://t.me/' + C.bot + (start ? '?start=' + encodeURIComponent(start).slice(0, 64) : '');
   }
@@ -34,7 +57,10 @@
     if (!w) window.location.href = url;
   }
 
-  var FBT = window.FBT = { cfg: C, store: store, bot: bot, tg: tg, mapStart: mapStart, open: open, src: src };
+  var FBT = window.FBT = { cfg: C, store: store, bot: bot, tg: tg, mapStart: mapStart, open: open, src: src,
+    linked: linked, event: event };
+  // маршрут человека: какую страницу открыл
+  event('page_view', { page: (location.pathname.split('/').pop() || 'index').replace('.html', '') || 'index' });
 
   // Карта получена? (общая отметка для всех страниц)
   FBT.gotMap = function () { return store.get('fbt_map', 0) === 1; };
@@ -53,11 +79,27 @@
     (root || document).querySelectorAll('[data-bot]').forEach(function (a) {
       var start = a.getAttribute('data-bot');
       if (start === 'map') start = mapStart(a.getAttribute('data-page') || '');
-      a.href = bot(start);
+      // Человек уже знаком с ботом — открываем чат без /start, а сайт сам сообщает боту, что нажато
+      a.href = linked() ? bot('') : bot(start);
+      a.setAttribute('data-bot-start', start);
       a.target = '_blank'; a.rel = 'noopener';
     });
   }
   FBT.bindLinks = bindLinks;
+  if (C.botApi && store.get('fbt_token', '')) {
+    try {
+      fetch(C.botApi.replace(/\/$/, '') + '/health').then(function (r) {
+        if (r.ok) { apiOk = true; bindLinks(); if (FBT.onLinked) FBT.onLinked(); }
+      }).catch(function () { /* сервер недоступен — остаются ссылки с /start */ });
+    } catch (e) { /* нет fetch */ }
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('[data-bot-start]');
+    if (!a || !linked()) return;
+    var start = a.getAttribute('data-bot-start') || '';
+    if (start.indexOf('map') === 0) event('map_take', { page: a.getAttribute('data-page') || '' });
+    else if (start) event('bot_start', { start: start });
+  });
 
   // Скрыть/показать по состоянию: data-show="got" / data-show="notGot" и т.п.
   FBT.toggle = function (state) {
