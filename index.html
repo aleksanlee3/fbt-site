@@ -47,26 +47,23 @@
 
   <section class="route" aria-label="Ваш маршрут">
     <div class="wrap">
-      <!-- Десктоп -->
-      <div class="step is-now route-full" aria-current="step"><span class="dot">1</span>Посмотреть видео<span class="tag">Вы здесь</span></div>
+      <!-- Десктоп · 3 шага (05.10): урок (+ карта в подарок) → диагностика → программа -->
+      <div class="step is-now route-full" aria-current="step"><span class="dot">1</span>Посмотреть урок<span class="tag" data-show="locked">Вы здесь</span><span class="tag tag--ok" data-show="openAny" hidden>Карта открыта</span></div>
       <i class="route-line route-full"></i>
-      <div class="step route-full" data-show="locked"><span class="dot">2</span>Забрать карту действий<span class="tag--timer"><svg width="15" height="15" class="acc"><use href="#i-clock"/></svg>в конце видео · <b data-text-of="timeLeft">29:30</b></span></div>
-      <a class="step is-open route-full" data-show="unlocked" href="karta.html" hidden><span class="dot">2</span><span class="u">Перейти и забрать карту действий</span><span class="tag tag--ok">Доступ открыт</span></a>
-      <div class="step route-full" data-show="got" hidden><span class="dot" style="background:var(--ok);border-color:var(--ok);color:#111113"><svg><use href="#i-check"/></svg></span>Карта в боте</div>
+      <div class="step is-muted route-full" data-show="locked"><span class="dot">2</span>Пройти диагностику<span class="tag--timer"><svg width="15" height="15" class="acc"><use href="#i-clock"/></svg>после урока · <b data-text-of="timeLeft">29:30</b></span></div>
+      <a class="step is-next route-full" href="diagnostika.html" data-show="openAny" hidden><span class="dot">2</span><span class="u">Пройти диагностику</span><span class="tag">Следующий шаг</span></a>
       <i class="route-line route-full"></i>
-      <div class="step is-muted route-full" data-show="notGot"><span class="dot">3</span>Пройти онлайн-диагностику</div>
-      <a class="step is-next route-full" href="diagnostika.html" data-show="got" hidden><span class="dot">3</span><span class="u">Пройти онлайн-диагностику</span><span class="tag">Следующий шаг</span></a>
+      <a class="step is-muted route-full" href="programma.html"><span class="dot">3</span>Записаться на программу</a>
 
       <!-- Телефон -->
       <div class="route-compact">
         <div class="rc-top">
           <span class="rc-t">ВЫ НА ЭТАПЕ 1 ИЗ 3</span>
-          <span class="rc-badge" data-show="locked">карта в конце видео · <b data-text-of="timeLeft">29:30</b></span>
-          <a class="rc-badge rc-badge--ok" data-show="unlocked" href="karta.html" hidden>К карте действий →</a>
-          <a class="rc-badge rc-badge--acc" data-show="got" href="diagnostika.html" hidden>К диагностике →</a>
+          <span class="rc-badge" data-show="locked">карта в конце урока · <b data-text-of="timeLeft">29:30</b></span>
+          <a class="rc-badge rc-badge--acc" data-show="openAny" href="diagnostika.html" hidden>К диагностике →</a>
         </div>
         <div class="rc-line"><i class="now">1</i><b></b><i data-step2>2</i><b></b><i>3</i></div>
-        <div class="rc-lab"><span class="now">Посмотреть видео</span><span>Забрать карту действий</span><span>Пройти онлайн-диагностику</span></div>
+        <div class="rc-lab"><span class="now">Урок</span><span>Диагностика</span><span>Программа</span></div>
       </div>
     </div>
   </section>
@@ -114,7 +111,7 @@
       <div class="meta mt-32 hide-sm">
         <span><svg><use href="#i-clock"/></svg>30 минут</span>
         <span><svg><use href="#i-check"/></svg>Бесплатно</span>
-        <span><svg><use href="#i-doc"/></svg>Карта действий — в конце видео</span>
+        <span><svg><use href="#i-doc"/></svg>Карта действий в подарок</span>
       </div>
 
       <div id="video" class="player">
@@ -144,29 +141,34 @@
           </div>
           <button type="button" class="btn btn--lg btn--locked" disabled><svg><use href="#i-lock"/></svg>Забрать карту действий</button>
         </div>
-        <!-- 2. Открыто -->
+        <!-- 2. Открыто: карта сразу в бота (без стр. 2), рядом — шаг 2 -->
         <div class="unlock-row" data-show="unlocked" hidden>
           <div class="unlock-txt">
-            <div class="okline"><svg><use href="#i-check"/></svg>ДОСТУП ОТКРЫТ</div>
-            <div class="unlock-h">Ваша карта действий готова</div>
-            <p class="muted">Перейдите на следующую страницу: там подробно о карте — что внутри, как с ней работать, — и кнопка, по которой бот FBT в Telegram сразу пришлёт PDF.</p>
+            <div class="okline"><svg><use href="#i-check"/></svg>УРОК ПРОЙДЕН</div>
+            <div class="unlock-h">Заберите карту действий</div>
+            <ul class="mapgift">
+              <li><b>7 шагов</b> от хаоса к системе — от идеи до плана на 90 дней</li>
+              <li>На каждом шаге — вопрос, действие и результат</li>
+              <li>PDF пришлёт бот FBT в Telegram, бесплатно</li>
+            </ul>
           </div>
           <div class="unlock-act">
             <div class="push">
               <div class="nudge" aria-hidden="true"><span>PDF — бесплатно</span><svg><use href="#i-arrow-hand"/></svg></div>
-              <span class="ringed"><a class="btn btn--primary btn--lg" href="karta.html">Перейти и забрать карту действий<svg><use href="#i-right"/></svg></a></span>
+              <span class="ringed"><a class="btn btn--primary btn--lg" data-bot="map" data-getmap><svg><use href="#i-send"/></svg>Забрать карту в Telegram</a></span>
             </div>
+            <a class="link-btn mt-8" href="diagnostika.html">или сразу к шагу 2 — диагностике →</a>
           </div>
         </div>
         <!-- 3. Карта получена -->
         <div class="unlock-row" data-show="got" hidden>
           <div class="unlock-txt">
-            <div class="okline"><svg><use href="#i-check"/></svg>КАРТА В БОТЕ</div>
-            <div class="unlock-h">Следующий шаг — онлайн-диагностика</div>
-            <p class="muted">10 вопросов, 5 минут, бесплатно. Покажет, с какой остановки карты начать, а куратор разберёт результат голосовыми. Бот не прислал карту? <a class="link-btn" data-bot="map" data-getmap>Открыть бот ещё раз</a></p>
+            <div class="okline"><svg><use href="#i-check"/></svg>КАРТА В TELEGRAM</div>
+            <div class="unlock-h">Шаг 2 из 3 — онлайн-диагностика</div>
+            <p class="muted">10 вопросов, 5 минут, бесплатно. Покажет, с какого шага карты начать именно вам, а куратор разберёт результат голосовыми. Бот не прислал карту? <a class="link-btn" data-bot="map" data-getmap>Открыть бот ещё раз</a></p>
           </div>
           <div class="unlock-act">
-            <a class="btn btn--primary btn--lg" href="diagnostika.html">Пройти онлайн-диагностику<svg><use href="#i-right"/></svg></a>
+            <a class="btn btn--primary btn--lg" href="diagnostika.html">Пройти диагностику<svg><use href="#i-right"/></svg></a>
           </div>
         </div>
       </div>
@@ -242,27 +244,6 @@
     </div>
   </section>
 
-  <section class="sec">
-    <div class="wrap">
-      <span class="tag-tone tag-method">Методология · что вы узнаете из видео</span>
-      <h2 class="h2" style="max-width:900px">Посмотрите на свой бизнес целиком</h2>
-      <div class="learn mt-64">
-        <ol class="learn-list">
-          <li><span class="num">01</span><span>Почему одни строят сильный бизнес, а другие годами застревают «в середине»</span></li>
-          <li><span class="num">02</span><span>Почему бизнес-модель важнее идеи, а маркетинг важнее продаж</span></li>
-          <li><span class="num">03</span><span>Как оценить финансы с трёх сторон: ликвидность, прибыльность и стабильность</span></li>
-          <li><span class="num">04</span><span>Какой простой вопрос покажет, управляете ли вы своим бизнесом</span></li>
-          <li><span class="num">05</span><span>Реальные истории предпринимателей из Узбекистана: от угрозы закрытия до роста команды</span></li>
-        </ol>
-        <figure class="card card--2 bigquote tone-story">
-          <svg class="quote-ico" style="width:40px;height:32px"><use href="#i-quote"/></svg>
-          <blockquote>Многие ищут волшебные инструменты. Но проблема не в инструментах: нужно заложить правильный фундамент.</blockquote>
-          <figcaption class="muted">Люба Бэй, из видеоурока</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
   <section class="sec sec--tight" id="reviews">
     <div class="wrap">
       <div class="eyebrow">ОТЗЫВЫ ВЫПУСКНИКОВ</div>
@@ -279,29 +260,28 @@
       <div class="grid g-3 mt-56">
         <div class="card card--2 card--accent stepcard">
           <div class="row gap-14"><span class="stepnum is-now">1</span><span class="tag">Вы здесь</span></div>
-          <h3 class="h3">Посмотреть видео</h3>
-          <p class="muted">30 минут о том, почему бизнес застревает и как увидеть его как систему.</p>
+          <h3 class="h3">Посмотреть урок</h3>
+          <p class="muted">30 минут о том, почему бизнес застревает и как увидеть его как систему. В конце — карта действий в подарок.</p>
           <div class="grow"></div>
-          <a class="btn btn--sm btn--block" href="#video"><svg><use href="#i-up"/></svg>Вернуться к видео</a>
+          <a class="btn btn--sm btn--block" href="#video" data-show="locked"><svg><use href="#i-up"/></svg>Вернуться к уроку</a>
+          <a class="btn btn--sm btn--block btn--primary" data-show="unlocked" data-bot="map" data-getmap hidden><svg><use href="#i-send"/></svg>Забрать карту</a>
+          <a class="btn btn--sm btn--block btn--soft" data-show="got" data-bot="map" data-getmap hidden>Открыть бот с картой</a>
         </div>
         <div class="card stepcard">
-          <div class="row gap-14" data-show="locked"><span class="stepnum">2</span><span class="note" style="color:var(--muted)">Откроется в конце видео</span></div>
-          <div class="row gap-14" data-show="openAny" hidden><span class="stepnum is-ok">2</span><span class="tag tag--ok" data-text-of="step2Badge">Доступ открыт</span></div>
-          <h3 class="h3">Забрать карту действий</h3>
-          <p class="muted">Бесплатный пошаговый план: с чего начать выстраивать систему в бизнесе. Присылает бот FBT в Telegram.</p>
-          <div class="mini-map"><div><b>Карта действий</b><span class="mono">FBT ONLINE</span></div><i style="width:82%"></i><i style="width:64%"></i><i style="width:72%"></i></div>
+          <div class="row gap-14" data-show="locked"><span class="stepnum">2</span><span class="note" style="color:var(--muted)">После урока</span></div>
+          <div class="row gap-14" data-show="openAny" hidden><span class="stepnum is-ok">2</span><span class="tag tag--ok">Открыто</span></div>
+          <h3 class="h3">Пройти диагностику</h3>
+          <p class="muted">10 вопросов, 5 минут. Покажет, что сейчас больше всего мешает вашему бизнесу. Результат разберёт куратор.</p>
           <div class="grow"></div>
-          <div class="btn btn--sm btn--block btn--locked" data-show="locked"><svg><use href="#i-lock"/></svg>Откроется в конце видео</div>
-          <a class="btn btn--sm btn--block btn--primary" data-show="unlocked" href="karta.html" hidden>Перейти и забрать карту<svg><use href="#i-right"/></svg></a>
-          <a class="btn btn--sm btn--block btn--soft" data-show="got" data-bot="map" data-getmap hidden>Открыть бот ещё раз</a>
+          <div class="btn btn--sm btn--block btn--locked" data-show="locked"><svg><use href="#i-lock"/></svg>Откроется после урока</div>
+          <a class="btn btn--sm btn--block btn--primary" data-show="openAny" href="diagnostika.html" hidden>Пройти диагностику<svg><use href="#i-right"/></svg></a>
         </div>
         <div class="card stepcard">
-          <div class="row gap-14"><span class="stepnum">3</span><span class="note" style="color:var(--muted)">После карты</span></div>
-          <h3 class="h3">Пройти онлайн-диагностику</h3>
-          <p class="muted">Разберём вашу текущую ситуацию и найдём главное ограничение роста.</p>
+          <div class="row gap-14"><span class="stepnum">3</span><span class="note" style="color:var(--muted)">Когда будете готовы</span></div>
+          <h3 class="h3">Записаться на программу</h3>
+          <p class="muted">2,5 месяца с наставником: 5 модулей, задания и созвоны каждую неделю. Итог — план развития бизнеса на 90 дней.</p>
           <div class="grow"></div>
-          <div class="btn btn--sm btn--block btn--locked" data-show="notGot"><svg><use href="#i-lock"/></svg>Откроется после карты действий</div>
-          <a class="btn btn--sm btn--block btn--primary" data-show="got" href="diagnostika.html" hidden>Пройти диагностику<svg><use href="#i-right"/></svg></a>
+          <a class="btn btn--sm btn--block" href="programma.html">Смотреть программу<svg><use href="#i-right"/></svg></a>
         </div>
       </div>
     </div>

@@ -9,10 +9,10 @@
 
   var LIST = [
     { id: 'shag',   img: '01-shag',   name: 'Первый шаг',        hint: 'Досмотрите урок Любы до конца', go: ['index.html', 'К уроку'] },
-    { id: 'karta',  img: '02-karta',  name: 'Карта сокровищ',    hint: 'Заберите карту действий', go: ['karta.html', 'Забрать карту'] },
+    { id: 'karta',  img: '02-karta',  name: 'Карта сокровищ',    hint: 'Заберите карту действий в конце урока', go: ['index.html#video', 'К уроку'] },
     { id: 'dom',    img: '03-dom',    name: 'В кругу своих',     hint: 'Подпишитесь на канал FBT', act: 'channel', go: [null, 'Открыть канал'] },
     { id: 'kompas', img: '04-kompas', name: 'Компас в кармане',  hint: 'Ответьте на 10 вопросов диагностики', go: ['diagnostika.html', 'Пройти'] },
-    { id: 'tetrad', img: '05-tetrad', name: 'Домашнее задание',  hint: 'Выполните все 5 заданий второй части', go: ['diagnostika.html#tasks', 'К заданиям'] },
+    { id: 'tetrad', img: '05-tetrad', name: 'Домашнее задание',  hint: 'Выполните 5 заданий диагностики', go: ['diagnostika.html#tasks', 'К заданиям'] },
     { id: 'pismo',  img: '06-pismo',  name: 'Письмо наставнику', hint: 'Отправьте разбор куратору', go: ['diagnostika.html', 'К диагностике'] },
     { id: 'drug',   img: '07-drug',   name: 'Друг семьи',        hint: 'Позовите друга на бесплатный урок', act: 'share', go: [null, 'Позвать друга'] },
     { id: 'choy',   img: '08-choy',   name: 'Разговор за чаем',  hint: 'Созвон с Любой или командой — куратор пригласит после разбора' },

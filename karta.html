@@ -50,22 +50,23 @@
   </header>
   <section class="route" aria-label="Ваш маршрут">
     <div class="wrap">
-      <a class="step route-full" href="index.html"><span class="dot">1</span>Видеоурок</a>
-      <i class="route-line route-full"></i>
-      <div class="step is-now route-full" aria-current="step" data-show="notGot"><span class="dot">2</span>Получить карту действий<span class="tag">Вы здесь</span></div>
+      <!-- 05.10: стр. 2 вне основного пути (посадочная для рекламы про карту); маршрут — те же 3 шага -->
+      <div class="step is-now route-full" aria-current="step" data-show="notGot"><span class="dot">1</span>Урок и карта действий<span class="tag">Вы здесь</span></div>
       <div class="step route-full" data-show="got" hidden><span class="dot" style="background:var(--ok);border-color:var(--ok);color:#2A1F18"><svg><use href="#i-check"/></svg></span>Карта действий<span class="tag tag--ok">Получена</span></div>
       <i class="route-line route-full"></i>
-      <a class="step is-muted route-full" href="#diag" data-show="notGot"><span class="dot">3</span>Онлайн-диагностика<span class="note">ниже на странице ↓</span></a>
-      <a class="step is-next route-full" href="diagnostika.html" data-show="got" hidden><span class="dot">3</span><span class="u">Пройти онлайн-диагностику</span><span class="tag">Следующий шаг</span></a>
+      <a class="step is-muted route-full" href="#diag" data-show="notGot"><span class="dot">2</span>Онлайн-диагностика<span class="note">ниже на странице ↓</span></a>
+      <a class="step is-next route-full" href="diagnostika.html" data-show="got" hidden><span class="dot">2</span><span class="u">Пройти онлайн-диагностику</span><span class="tag">Следующий шаг</span></a>
+      <i class="route-line route-full"></i>
+      <a class="step is-muted route-full" href="programma.html"><span class="dot">3</span>Записаться на программу</a>
 
       <div class="route-compact">
         <div class="rc-top">
-          <span class="rc-t">ВЫ НА ЭТАПЕ 2 ИЗ 3</span>
+          <span class="rc-t">ВЫ НА ЭТАПЕ 1 ИЗ 3</span>
           <a class="rc-badge" href="#diag" data-show="notGot">диагностика ↓</a>
           <a class="rc-badge rc-badge--acc" href="diagnostika.html" data-show="got" hidden>К диагностике →</a>
         </div>
-        <div class="rc-line"><i class="done">1</i><b></b><i data-rc2 class="now">2</i><b></b><i>3</i></div>
-        <div class="rc-lab"><span>Видеоурок</span><span class="now">Карта действий</span><span>Онлайн-диагностика</span></div>
+        <div class="rc-line"><i data-rc2 class="now">1</i><b></b><i>2</i><b></b><i>3</i></div>
+        <div class="rc-lab"><span class="now">Урок и карта</span><span>Диагностика</span><span>Программа</span></div>
       </div>
     </div>
   </section>

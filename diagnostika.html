@@ -47,22 +47,22 @@
   </header>
   <section class="route" aria-label="Ваш маршрут">
     <div class="wrap">
-      <a class="step route-full" href="index.html"><span class="dot">1</span>Видеоурок</a>
+      <a class="step route-full" href="index.html"><span class="dot" style="background:var(--ok);border-color:var(--ok);color:#2A1F18"><svg><use href="#i-check"/></svg></span>Урок и карта</a>
       <i class="route-line route-full"></i>
-      <a class="step route-full" href="karta.html"><span class="dot" style="background:var(--ok);border-color:var(--ok);color:#2A1F18"><svg><use href="#i-check"/></svg></span>Карта действий</a>
+      <div class="step is-now route-full" aria-current="step"><span class="dot">2</span>Онлайн-диагностика<span class="tag">Вы здесь</span></div>
       <i class="route-line route-full"></i>
-      <div class="step is-now route-full" aria-current="step"><span class="dot">3</span>Онлайн-диагностика<span class="tag">Вы здесь</span></div>
+      <a class="step is-muted route-full" href="programma.html"><span class="dot">3</span>Записаться на программу</a>
       <div class="route-compact">
-        <div class="rc-top"><span class="rc-t">ВЫ НА ЭТАПЕ 3 ИЗ 3</span><span class="rc-badge" data-text-of="rcBadge">10 вопросов · 5 минут</span></div>
-        <div class="rc-line"><i class="done">1</i><b></b><i class="done">2</i><b></b><i class="now">3</i></div>
-        <div class="rc-lab"><span>Видеоурок</span><span>Карта действий</span><span class="now">Онлайн-диагностика</span></div>
+        <div class="rc-top"><span class="rc-t">ВЫ НА ЭТАПЕ 2 ИЗ 3</span><span class="rc-badge" data-text-of="rcBadge">10 вопросов · 5 минут</span></div>
+        <div class="rc-line"><i class="done">1</i><b></b><i class="now">2</i><b></b><i>3</i></div>
+        <div class="rc-lab"><span>Урок</span><span class="now">Диагностика</span><span>Программа</span></div>
       </div>
     </div>
   </section>
 </div>
 
 <script>
-  // Холодный вход (не был на уроке и не брал карту): прячем маршрут «Шаг 3 из 3»
+  // Холодный вход (не был на уроке и не брал карту): прячем маршрут «Шаг 2 из 3»
   (function () { try { var p = JSON.parse(localStorage.getItem('fbt_p1') || '{}') || {}; if (!Object.keys(p).length && localStorage.getItem('fbt_map') !== '1') document.documentElement.classList.add('cold'); } catch (e) {} })();
 </script>
 <main>
@@ -71,7 +71,7 @@
     <div class="wrap intro">
       <div class="intro-txt">
         <div class="intro-ph photo"><img src="assets/img/roadmap.jpg" alt="" loading="eager"><span class="ph-tag">заглушка</span></div>
-        <div class="eyebrow"><span class="funnel-only">ШАГ 3 ИЗ 3 · </span>ОНЛАЙН-ДИАГНОСТИКА «ШВЕЙЦАРСКИЙ КОМПАС»</div>
+        <div class="eyebrow"><span class="funnel-only">ШАГ 2 ИЗ 3 · </span>ОНЛАЙН-ДИАГНОСТИКА «ШВЕЙЦАРСКИЙ КОМПАС»</div>
         <h1 class="h1 mt-20"><span>Где ваш бизнес</span><span class="grey">теряет деньги и время?</span></h1>
         <p class="lead">10 простых вопросов по 5 направлениям — и вы увидите профиль своего бизнеса и главное место, с которого стоит начать. Куратор разберёт результат бесплатно.</p>
         <div class="pills mt-24">
@@ -194,21 +194,6 @@
 
     <section class="res-send">
       <div class="wrap">
-        <div class="more" data-more>
-          <div class="more-top">
-            <span class="more-step">ЧАСТЬ 2 ИЗ 2</span>
-            <span class="more-time"><svg><use href="#i-clock"/></svg>10 минут</span>
-          </div>
-          <b class="more-h">Сделайте разбор точнее — 5 коротких заданий</b>
-          <p class="more-p">Вопросы показали, каким вы <i>видите</i> свой бизнес. Задания покажут, какой он <i>на самом деле</i>. С ними куратор даст разбор точнее.</p>
-          <div class="more-bar" aria-hidden="true"><i data-tasks-bar></i></div>
-          <span class="more-count">Выполнено: <span data-text-of="tasksDone">0</span> из 5</span>
-          <div class="more-btns">
-            <button type="button" class="btn btn--primary btn--lg" data-go="tasks"><span data-text-of="moreBtn">Пройти вторую часть</span><svg><use href="#i-right"/></svg></button>
-            <a class="more-skip" href="#send">Пропустить и сразу отправить куратору ↓</a>
-          </div>
-        </div>
-
         <div class="send" id="send">
           <div class="send-l">
             <div class="send-top"><span class="send-ico"><svg><use href="#i-send"/></svg></span><span class="free">Бесплатно</span></div>
@@ -233,6 +218,16 @@
             <a class="btn btn--sm btn--block mt-14" data-pdf><svg><use href="#i-doc"/></svg><span data-text-of="pdfLabel">Получить PDF-разбор в боте</span></a>
           </div>
         </div>
+
+        <!-- 05.10: задания — по желанию, свёрнуты под отправкой куратору (было «Часть 2 из 2» перед ней) -->
+        <div class="more more--mini" data-more>
+          <div class="mm-txt">
+            <b>Хотите разбор точнее?</b>
+            <span>5 коротких заданий · 10 минут · по желанию. Вопросы показывают, каким вы видите бизнес, задания — какой он на самом деле.</span>
+            <span class="more-count">Выполнено: <span data-text-of="tasksDone">0</span> из 5</span>
+          </div>
+          <button type="button" class="btn" data-go="tasks"><span data-text-of="moreBtn">Пройти задания</span><svg><use href="#i-right"/></svg></button>
+        </div>
       </div>
     </section>
 
@@ -240,7 +235,7 @@
       <div class="wrap">
         <div class="next-card">
           <div class="next-ph photo"><img src="assets/img/training.jpg" alt="Участники FBT на тренинге" loading="lazy"></div>
-          <div><span class="lime-cap">ГОТОВЫ ИДТИ ДАЛЬШЕ?</span><b>Узнайте о программе FBT</b><span>Формат, модули, наставники, даты и стоимость — всё на одной странице.</span></div>
+          <div><span class="lime-cap">ШАГ 3 ИЗ 3</span><b>Записаться на программу FBT</b><span>Формат, модули, наставники, даты и стоимость — всё на одной странице.</span></div>
           <div class="row gap-14 btn-row" style="flex-wrap:wrap">
             <a class="btn btn--white" href="programma.html">О программе FBT</a>
             <a class="btn btn--forest" data-tg="contact">Написать в Telegram</a>
@@ -337,7 +332,7 @@
         <button type="button" class="link-quiet" style="background:none;border:0;font-size:16px;cursor:pointer" data-go="result">Вернуться к результату</button>
       </div>
       <div class="next-card mt-56" style="width:100%">
-        <div><span class="lime-cap">ПОКА ЖДЁТЕ ОТВЕТА</span><b>Узнайте о программе FBT</b><span>Формат, модули, наставники, даты и стоимость — всё на одной странице.</span></div>
+        <div><span class="lime-cap">ПОКА ЖДЁТЕ ОТВЕТА · ШАГ 3 ИЗ 3</span><b>Записаться на программу FBT</b><span>Формат, модули, наставники, даты и стоимость — всё на одной странице.</span></div>
         <a class="btn btn--white" href="programma.html">О программе FBT</a>
       </div>
     </div>

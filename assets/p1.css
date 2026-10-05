@@ -225,3 +225,10 @@ html.fs-lock, html.fs-lock body { overflow: hidden; }
 .also-btn--main { height: 60px; padding: 0 28px; font-size: 17px; font-weight: 700; animation: alsoPulse 2.6s ease-in-out infinite; }
 @keyframes alsoPulse { 0%,100% { box-shadow: 0 6px 18px rgba(196,67,45,.35); } 50% { box-shadow: 0 6px 18px rgba(196,67,45,.35), 0 0 0 9px rgba(196,67,45,.18); } }
 @media (prefers-reduced-motion: reduce) { .also-btn--main { animation: none; } }
+
+/* 05.10 · карта — подарок в конце урока, без отдельной страницы */
+.mapgift{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.mapgift li{position:relative;padding-left:30px;font-size:16px;line-height:1.45;color:var(--text)}
+.mapgift li::before{content:"";position:absolute;left:0;top:2px;width:20px;height:20px;border-radius:50%;background:var(--honey,#F2C46D) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233B2A21' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/12px no-repeat}
+.mapgift b{color:var(--honey,#F2C46D)}
+.unlock-act .link-btn{display:block;text-align:center;font-size:15px}

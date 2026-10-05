@@ -104,7 +104,7 @@
       bar += '<span class="' + (free ? 'on' : '') + '"></span>';
       boxes += '<span class="' + (free ? 'on' : '') + '"><svg><use href="#i-seat"/></svg></span>';
     }
-    $('[data-seatbar]').innerHTML = bar; $('[data-seatboxes]').innerHTML = boxes;
+    if ($('[data-seatbar]')) $('[data-seatbar]').innerHTML = bar; if ($('[data-seatboxes]')) $('[data-seatboxes]').innerHTML = boxes;
 
     $$('[data-grp]').forEach(function (box) {
       var small = box.getAttribute('data-grp') === 'form';
