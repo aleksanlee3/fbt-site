@@ -11,6 +11,14 @@
     }
   };
 
+  // Полный сброс для теста: ?reset на любой странице стирает всё, что сайт помнит о человеке
+  // (прогресс урока, карта, диагностика, наклейки, личный код из бота, источник).
+  if (/[?&]reset(=|&|$)/.test(location.search)) {
+    try {
+      Object.keys(window.localStorage).forEach(function (k) { if (k.indexOf('fbt') === 0) window.localStorage.removeItem(k); });
+    } catch (e) { /* хранилище недоступно */ }
+  }
+
   // Метка источника: ?s=ig1 или utm_source → запоминаем при первом заходе (для ссылок в бот)
   function cleanTag(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 24); }
   var qs = new URLSearchParams(window.location.search);
@@ -86,11 +94,15 @@
     });
   }
   FBT.bindLinks = bindLinks;
+  // Проверяем, что сервер отвечает и личный код ещё привязан к человеку в боте (после /reset в боте — нет)
   if (C.botApi && store.get('fbt_token', '')) {
     try {
-      fetch(C.botApi.replace(/\/$/, '') + '/health').then(function (r) {
-        if (r.ok) { apiOk = true; bindLinks(); if (FBT.onLinked) FBT.onLinked(); }
-      }).catch(function () { /* сервер недоступен — остаются ссылки с /start */ });
+      fetch(C.botApi.replace(/\/$/, '') + '/api/session/' + encodeURIComponent(store.get('fbt_token', '')))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (d && d.linked) { apiOk = true; bindLinks(); if (FBT.onLinked) FBT.onLinked(); }
+          else if (d) store.set('fbt_token', '');          // код устарел — забываем, ссылки остаются с /start
+        }).catch(function () { /* сервер недоступен — остаются ссылки с /start */ });
     } catch (e) { /* нет fetch */ }
   }
   document.addEventListener('click', function (e) {
