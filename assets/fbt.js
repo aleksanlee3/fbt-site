@@ -125,7 +125,7 @@
     var a = e.target.closest && e.target.closest('[data-bot-start]');
     if (!a || !linked()) return;
     var start = a.getAttribute('data-bot-start') || '';
-    if (start.indexOf('map') === 0) event('map_take', { page: a.getAttribute('data-page') || '' });
+    if (start.indexOf('map') === 0) { event('map_take', { page: a.getAttribute('data-page') || '' }); if (FBT.pushNotice) setTimeout(FBT.pushNotice.map, 2500); }
     else if (start) event('bot_start', { start: start });
   });
 

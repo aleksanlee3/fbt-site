@@ -1,0 +1,68 @@
+/* Уведомления на сайте в виде системного пуша (assets/push.js).
+   Вид подстраивается под телефон: iPhone (iOS), Android, компьютер (как macOS).
+   Светлая/тёмная тема — по настройке телефона (prefers-color-scheme). */
+
+.psh-wrap { position: fixed; z-index: 2147483000; left: 0; right: 0; top: 0; pointer-events: none;
+  padding: calc(env(safe-area-inset-top, 0px) + 8px) 8px 0; display: flex; justify-content: center; }
+.psh { pointer-events: auto; position: relative; width: 100%; max-width: 420px; box-sizing: border-box;
+  display: flex; align-items: flex-start; gap: 10px; cursor: pointer; text-align: left;
+  -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; touch-action: pan-x;
+  transform: translateY(-140%); opacity: 0; will-change: transform, opacity;
+  transition: transform .55s cubic-bezier(.2, 1.1, .3, 1), opacity .35s ease; }
+.psh.is-on { transform: translateY(0); opacity: 1; }
+.psh.is-out { transform: translateY(-140%); opacity: 0; transition: transform .35s cubic-bezier(.4, 0, 1, 1), opacity .3s ease; }
+.psh.is-drag { transition: none; }
+.psh img { display: block; }
+.psh b, .psh span, .psh p { margin: 0; }
+.psh-body { flex: 1; min-width: 0; }
+.psh-text { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; }
+
+/* ── iPhone / iPad (iOS 17–18) ── */
+.psh--ios { font-family: -apple-system, "SF Pro Text", system-ui, sans-serif; border-radius: 24px; padding: 13px 14px 13px 12px;
+  background: rgba(246, 246, 246, .88); color: #000; -webkit-backdrop-filter: blur(30px) saturate(180%); backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, .16), 0 0 0 .5px rgba(0, 0, 0, .06); }
+.psh--ios .psh-av { position: relative; flex: none; width: 38px; height: 38px; margin-top: 1px; }
+.psh--ios .psh-face { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+.psh--ios .psh-badge { position: absolute; right: -4px; bottom: -4px; width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid rgba(246, 246, 246, .95); background: #fff; object-fit: cover; }
+.psh--ios .psh-top { display: flex; align-items: baseline; gap: 8px; }
+.psh--ios .psh-title { flex: 1; min-width: 0; font-size: 15px; font-weight: 600; line-height: 20px; letter-spacing: -.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.psh--ios .psh-time { flex: none; font-size: 13px; color: rgba(60, 60, 67, .6); }
+.psh--ios .psh-text { font-size: 15px; line-height: 20px; letter-spacing: -.2px; }
+.psh--ios .psh-text strong { font-weight: 600; }
+
+/* ── Android (Material You, heads-up) ── */
+.psh--and { font-family: "Google Sans", Roboto, system-ui, sans-serif; border-radius: 26px; padding: 14px 16px 15px;
+  background: #F3EDF7; color: #1D1B20; box-shadow: 0 6px 20px rgba(0, 0, 0, .18); flex-direction: row-reverse; gap: 14px; }
+.psh--and .psh-av { flex: none; width: 40px; height: 40px; margin-top: 22px; }
+.psh--and .psh-face { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.psh--and .psh-badge { display: none; }
+.psh--and .psh-app { display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: #49454F; margin-bottom: 4px; }
+.psh--and .psh-app img { width: 18px; height: 18px; border-radius: 50%; object-fit: cover; }
+.psh--and .psh-time { font-size: 12px; color: #49454F; }
+.psh--and .psh-title { font-size: 15px; font-weight: 600; line-height: 20px; }
+.psh--and .psh-text { font-size: 14px; line-height: 20px; color: #49454F; -webkit-line-clamp: 3; }
+.psh--and .psh-text strong { font-weight: 500; color: #1D1B20; }
+.psh--and .psh-top { display: block; }
+
+/* ── Компьютер: справа сверху, как в macOS ── */
+.psh-wrap--desk { justify-content: flex-end; padding: 14px 14px 0; }
+.psh-wrap--desk .psh { max-width: 360px; transform: translateX(120%); }
+.psh-wrap--desk .psh.is-on { transform: translateX(0); }
+.psh-wrap--desk .psh.is-out { transform: translateX(120%); }
+.psh-wrap--desk .psh--ios { border-radius: 18px; padding: 12px 14px 12px 12px; }
+.psh-wrap--desk .psh--ios .psh-title, .psh-wrap--desk .psh--ios .psh-text { font-size: 13px; line-height: 17px; letter-spacing: 0; }
+.psh-wrap--desk .psh--ios .psh-time { font-size: 12px; }
+
+/* ── Тёмная тема телефона ── */
+@media (prefers-color-scheme: dark) {
+  .psh--ios { background: rgba(37, 37, 37, .86); color: #fff; box-shadow: 0 10px 34px rgba(0, 0, 0, .45), 0 0 0 .5px rgba(255, 255, 255, .08); }
+  .psh--ios .psh-time { color: rgba(235, 235, 245, .6); }
+  .psh--ios .psh-badge { border-color: rgba(37, 37, 37, .95); }
+  .psh--and { background: #2B2930; color: #E6E0E9; box-shadow: 0 6px 20px rgba(0, 0, 0, .5); }
+  .psh--and .psh-app, .psh--and .psh-time, .psh--and .psh-text { color: #CAC4D0; }
+  .psh--and .psh-text strong { color: #E6E0E9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .psh, .psh.is-out { transition: opacity .2s ease; transform: none !important; }
+}

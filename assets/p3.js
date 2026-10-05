@@ -401,7 +401,7 @@
     if (go) {
       var to = go.getAttribute('data-go');
       if (to === 'stage' && st.step === 'intro') event('diag_start');
-      if (to === 'result' && !st.sent1) { st.sent1 = true; pushToBot(false); }   // часть 1 — в бот (если есть сервер)
+      if (to === 'result' && !st.sent1) { st.sent1 = true; pushToBot(false).then(function (r) { if (r && r.pushed && FBT.pushNotice) setTimeout(FBT.pushNotice.report, 3000); }); }   // часть 1 — в бот (если есть сервер)
       st.step = to;
       if (to !== 'tasks' && location.hash === '#tasks') history.replaceState(null, '', location.pathname + location.search);
       render(); window.scrollTo(0, 0); return;
@@ -418,6 +418,7 @@
       if (tasksDone() > 0 && !st.sent2) {                   // часть 2 — в бот, потом отметка «отправил»
         st.sent2 = true;
         pushToBot(true, true).then(function () { event('diag_send'); });
+        if (FBT.pushNotice) setTimeout(FBT.pushNotice.sent, 2500);
       } else event('diag_send');
       FBT.open(FBT.tg(C.curator, chatText()));
       st.step = 'sent'; render(); window.scrollTo(0, 0);

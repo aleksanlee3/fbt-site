@@ -43,6 +43,7 @@
     FBT.store.set('fbt_medals', got);
     botEvent(id);
     if (!quiet) { queue.push(id); savePending(); if (ready) next(); }
+    if (!quiet && FBT.pushNotice) FBT.pushNotice.medal(byId[id], count(), TOTAL);   // пуш-плашка (assets/push.js)
     updateFab(true); FBT.albumShow();
     if (book && !book.hidden) renderBook();
     return true;
