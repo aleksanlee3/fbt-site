@@ -339,3 +339,12 @@ html.fs-lock, html.fs-lock body { overflow: hidden; }
   .also-btn, .also-btn--main { height: 46px; padding: 0 16px; font-size: 15px; }
   .also-btn svg { width: 16px; height: 16px; }
 }
+
+/* v2.7 · обложка видео с надписью внутри картинки (06.10) */
+.player-img--titled { object-position: 50% 50%; }
+.player-cover:has(.player-img--titled)::after { display: none; }
+.player-cover:has(.player-img--titled) ~ .player-play { left: calc(10.3% + 52px); top: 77%; }
+@media (max-width: 640px) {
+  .player-cover:has(.player-img--titled) ~ .player-play { left: calc(10.3% + 28px); top: 80%; width: 56px; height: 56px; }
+  .player-cover:has(.player-img--titled) ~ .player-play svg { width: 22px; height: 22px; }
+}
