@@ -239,7 +239,7 @@
   function doAct(a) {
     if (a === 'channel') { FBT.open('https://t.me/' + (M.channel || 'fbt_ru')); FBT.medal('dom'); return; }
     if (a === 'share') {
-      var url = inviteUrl(), text = 'Смотри, бесплатный урок Любы Бэй — как выстроить системный бизнес:';
+      var url = inviteUrl(), text = 'Смотри, бесплатный урок Любы Бэй — как создать устойчивый семейный бизнес в Узбекистане в 2026 году:';
       var done = function () { FBT.medal('drug'); };
       if (navigator.share) { navigator.share({ title: 'FBT Online', text: text, url: url }).then(done).catch(function () {}); return; }
       FBT.open('https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text)); done(); return;
