@@ -1,4 +1,4 @@
-/* FBT Online — игра «Артефакты» (с 06.10, бывший «Семейный альбом»): 9 артефактов за шаги воронки, за все 9 — книга.
+/* FBT Online — «Артефакты» (с 06.10, бывший «Семейный альбом»): 9 артефактов за шаги воронки, за все 9 — книга.
    «Позвать друга» — личная ссылка на бота (start=ref_<id>, та же, что в боте); артефакт «Друг семьи» засчитывает бот,
    когда друг нажал «Старт», сайт получает его при сверке (GET /api/session → stickers).
    Выдать наклейку из любого скрипта: FBT.medal('karta').
@@ -8,6 +8,8 @@
   var FBT = window.FBT; if (!FBT) return;
   var C = FBT.cfg, M = C.medals || {};
   var IMG = 'assets/medals/';
+  var CARD = 'assets/medals/cards/';   // 06.10: карточки артефактов 4:5 «рисунок карандашом» (те же, что в боте)
+  function card(m) { return CARD + m.img + '.webp'; }
   var BOOK = 'assets/img/kniga-10-zapovedey.jpg';
 
   var LIST = [
@@ -76,7 +78,8 @@
     var fg = fab.querySelector('.fg');
     fg.style.strokeDasharray = L; fg.style.strokeDashoffset = L * (1 - n / TOTAL);
     fab.querySelector('b').textContent = n + '/' + TOTAL;
-    fab.querySelector('img').src = IMG + (full() ? 'gift-book.svg' : (n ? LIST.filter(function (m) { return got[m.id]; }).sort(function (a, b) { return got[b.id] - got[a.id]; })[0].img + '.svg' : 'gift-box.svg'));
+    // 06.10: в кружке — подарок (карточка 4:5 в маленьком круге не читается), прогресс — кольцом и «N/9»
+    fab.querySelector('img').src = IMG + (full() ? 'gift-book.svg' : 'gift-box.svg');
     fab.setAttribute('aria-label', 'Мои артефакты: ' + n + ' из ' + TOTAL);
     if (bump) { fab.classList.remove('is-bump'); void fab.offsetWidth; fab.classList.add('is-bump'); }
   }
@@ -133,8 +136,8 @@
     var id = queue.shift(); savePending();
     var m = byId[id], n = count();
     var pop = el('div', 'alb-pop',
-      '<img src="' + IMG + m.img + '.svg" alt="">' +
-      '<div><small>Новый артефакт · ' + n + ' из ' + TOTAL + '</small><strong>' + m.name + '</strong><span>' +
+      '<img class="alb-card" src="' + card(m) + '" alt="' + m.name + '">' +
+      '<div><small>Новый артефакт · ' + n + ' из ' + TOTAL + '</small><strong class="alb-sr">' + m.name + '</strong><span>' +
       (n === TOTAL ? 'Все 9 собраны — вас ждёт книга в подарок' : 'Добавлен в ваши артефакты') + '</span></div>');
     pop.setAttribute('role', 'status');
     pop.addEventListener('click', function () { hide(); openBook(); });
@@ -194,7 +197,7 @@
       LIST.slice(row[1], row[1] + 3).forEach(function (m, i) {
         var on = !!got[m.id];
         h += '<div class="alb-it ' + (on ? 'is-on' : 'is-off') + (on && fresh[m.id] ? ' is-new' : '') + '" style="--tilt:' + ([-4, 3, -2][i]) + 'deg">' +
-          '<div class="pic"><img src="' + IMG + m.img + '.svg" alt=""></div><b>' + m.name + '</b>';
+          '<div class="pic"><img src="' + card(m) + '" alt="" loading="lazy"></div><b>' + m.name + '</b>';
         if (!on) {
           h += '<em>' + m.hint + '</em>';
           if (m.act) h += '<a class="alb-go" href="#" data-alb-act="' + m.act + '">' + m.go[1] + '</a>' +
@@ -290,6 +293,7 @@
     // Наклейки, которые не успели показать в прошлый раз
     (FBT.store.get('fbt_medals_pending') || []).forEach(function (id) { if (got[id] && queue.indexOf(id) < 0) queue.push(id); });
     buildFab(); buildBook(); ready = true;
+    setTimeout(function () { LIST.forEach(function (m) { (new Image()).src = card(m); }); }, 2500);   // карточки — заранее, чтобы всплывали сразу
     setTimeout(next, 900);
   });
 })();

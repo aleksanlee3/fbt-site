@@ -101,3 +101,20 @@
 .alb-gift:not(.is-open) img.alb-book-img { filter: saturate(.7); }
 .alb-go--soft { background: transparent; border-style: dashed; }
 .alb-note a { color: inherit; }
+
+/* 06.10 · новые артефакты — карточки 4:5 «рисунок карандашом» (assets/medals/cards/*.webp, те же, что в боте).
+   Название и «N из 9» уже нарисованы на карточке, поэтому подписи под ней короче. */
+.alb-sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.alb-pop { width: min(300px, calc(100% - 48px)); padding: 16px 16px 16px; gap: 10px; }
+.alb-pop img.alb-card { width: 100%; max-width: 250px; height: auto; aspect-ratio: 1122 / 1402; border-radius: 12px; box-shadow: 0 10px 26px rgba(46,42,38,.28); animation: alb-card-in .9s cubic-bezier(.3,1.6,.5,1) .12s both; }
+@keyframes alb-card-in { 0% { transform: scale(.3) rotate(-14deg); opacity: 0; } 60% { transform: scale(1.06) rotate(3deg); opacity: 1; } 100% { transform: scale(1) rotate(-2deg); } }
+@media (max-height: 640px) { .alb-pop img.alb-card { max-width: 190px; } }
+.alb-grid { gap: 12px; }
+.alb-it .pic { width: 100%; height: auto; aspect-ratio: 1122 / 1402; margin: 0 0 6px; }
+.alb-it img { display: block; object-fit: cover; border-radius: 10px; box-shadow: 0 6px 16px rgba(46,42,38,.22); }
+.alb-it.is-off img { box-shadow: none; opacity: .32; }
+.alb-it.is-off .pic::after { inset: 0; border-radius: 10px; font-size: 46px; }
+.alb-it.is-on b { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.alb-it b { font-size: 17px; }
+@media (max-width: 420px) { .alb-it .pic { width: 100%; height: auto; } .alb-grid { gap: 8px; } }
+@media (prefers-reduced-motion: reduce) { .alb-pop img.alb-card { animation: none !important; } }
