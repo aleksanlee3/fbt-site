@@ -140,7 +140,7 @@
   // ── События сайта ──
   FBT.pushNotice = {
     medal: function (m, n, total) {
-      FBT.push({ key: 'medal-' + m.id, text: '', html: 'Новая наклейка в семейном альбоме — <strong>«' + esc(m.name) + '»</strong>. Уже ' + n + ' из ' + total + ' 🎉',
+      FBT.push({ key: 'medal-' + m.id, text: '', html: 'Новый артефакт — <strong>«' + esc(m.name) + '»</strong>. Уже ' + n + ' из ' + total + ' 🎉',
         tap: function () { var f = document.querySelector('.alb-fab'); if (f) f.click(); } });
     },
     map: function () {

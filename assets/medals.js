@@ -1,4 +1,6 @@
-/* FBT Online — «Семейный альбом»: 9 наклеек за шаги воронки и подарок за полный альбом.
+/* FBT Online — игра «Артефакты» (с 06.10, бывший «Семейный альбом»): 9 артефактов за шаги воронки, за все 9 — книга.
+   «Позвать друга» — личная ссылка на бота (start=ref_<id>, та же, что в боте); артефакт «Друг семьи» засчитывает бот,
+   когда друг нажал «Старт», сайт получает его при сверке (GET /api/session → stickers).
    Выдать наклейку из любого скрипта: FBT.medal('karta').
    Хранится в браузере (fbt_medals); при сервере бота — событие 'medal' уходит в бот.
    Ссылка-наклейка от куратора: <сайт>/?m=<код из config.js → medals.codes>. */
@@ -6,15 +8,16 @@
   var FBT = window.FBT; if (!FBT) return;
   var C = FBT.cfg, M = C.medals || {};
   var IMG = 'assets/medals/';
+  var BOOK = 'assets/img/kniga-10-zapovedey.jpg';
 
   var LIST = [
-    { id: 'shag',   img: '01-shag',   name: 'Первый шаг',        hint: 'Досмотрите урок Любы до конца', go: ['index.html', 'К уроку'] },
-    { id: 'karta',  img: '02-karta',  name: 'Карта сокровищ',    hint: 'Заберите карту действий в конце урока', go: ['index.html#video', 'К уроку'] },
+    { id: 'shag',   img: '01-shag',   name: 'Первый шаг',        hint: 'Досмотрите историю Любы до конца', go: ['index.html', 'К истории'] },
+    { id: 'karta',  img: '02-karta',  name: 'Карта сокровищ',    hint: 'Заберите карту действий в конце истории', go: ['index.html#video', 'К истории'] },
     { id: 'dom',    img: '03-dom',    name: 'В кругу своих',     hint: 'Подпишитесь на канал FBT', act: 'channel', go: [null, 'Открыть канал'] },
     { id: 'kompas', img: '04-kompas', name: 'Компас в кармане',  hint: 'Ответьте на 10 вопросов диагностики', go: ['diagnostika.html', 'Пройти'] },
     { id: 'tetrad', img: '05-tetrad', name: 'Домашнее задание',  hint: 'Выполните 5 заданий диагностики', go: ['diagnostika.html#tasks', 'К заданиям'] },
-    { id: 'pismo',  img: '06-pismo',  name: 'Письмо наставнику', hint: 'Отправьте разбор куратору', go: ['diagnostika.html', 'К диагностике'] },
-    { id: 'drug',   img: '07-drug',   name: 'Друг семьи',        hint: 'Позовите друга на бесплатный урок', act: 'share', go: [null, 'Позвать друга'] },
+    { id: 'pismo',  img: '06-pismo',  name: 'Письмо наставнику', hint: 'Отправьте ответы Александру', go: ['diagnostika.html', 'К диагностике'] },
+    { id: 'drug',   img: '07-drug',   name: 'Друг семьи',        hint: 'Друг нажал «Старт» в боте по вашей ссылке', act: 'share', go: [null, 'Позвать друга'] },
     { id: 'choy',   img: '08-choy',   name: 'Разговор за чаем',  hint: 'Созвон с Любой или командой — куратор пригласит после разбора' },
     { id: 'drevo',  img: '09-drevo',  name: 'Семейное древо',    hint: 'Оставьте заявку в поток FBT', go: ['programma.html#apply', 'К программе'] }
   ];
@@ -74,7 +77,7 @@
     fg.style.strokeDasharray = L; fg.style.strokeDashoffset = L * (1 - n / TOTAL);
     fab.querySelector('b').textContent = n + '/' + TOTAL;
     fab.querySelector('img').src = IMG + (full() ? 'gift-book.svg' : (n ? LIST.filter(function (m) { return got[m.id]; }).sort(function (a, b) { return got[b.id] - got[a.id]; })[0].img + '.svg' : 'gift-box.svg'));
-    fab.setAttribute('aria-label', 'Семейный альбом: ' + n + ' из ' + TOTAL + ' наклеек');
+    fab.setAttribute('aria-label', 'Мои артефакты: ' + n + ' из ' + TOTAL);
     if (bump) { fab.classList.remove('is-bump'); void fab.offsetWidth; fab.classList.add('is-bump'); }
   }
 
@@ -131,8 +134,8 @@
     var m = byId[id], n = count();
     var pop = el('div', 'alb-pop',
       '<img src="' + IMG + m.img + '.svg" alt="">' +
-      '<div><small>Новая наклейка · ' + n + ' из ' + TOTAL + '</small><strong>' + m.name + '</strong><span>' +
-      (n === TOTAL ? 'Альбом собран — вас ждёт подарок от Любы' : 'Наклеили в ваш семейный альбом') + '</span></div>');
+      '<div><small>Новый артефакт · ' + n + ' из ' + TOTAL + '</small><strong>' + m.name + '</strong><span>' +
+      (n === TOTAL ? 'Все 9 собраны — вас ждёт книга в подарок' : 'Добавлен в ваши артефакты') + '</span></div>');
     pop.setAttribute('role', 'status');
     pop.addEventListener('click', function () { hide(); openBook(); });
     document.body.appendChild(pop);
@@ -169,11 +172,11 @@
   function buildBook() {
     book = el('div', 'alb');
     book.hidden = true;
-    book.setAttribute('role', 'dialog'); book.setAttribute('aria-modal', 'true'); book.setAttribute('aria-label', 'Семейный альбом');
+    book.setAttribute('role', 'dialog'); book.setAttribute('aria-modal', 'true'); book.setAttribute('aria-label', 'Мои артефакты');
     book.addEventListener('click', function (e) {
       if (e.target === book || e.target.closest('.alb-x')) return closeBook();
       var act = e.target.closest('[data-alb-act]');
-      if (act) { e.preventDefault(); doAct(act.getAttribute('data-alb-act')); }
+      if (act) { e.preventDefault(); doAct(act.getAttribute('data-alb-act'), act); }
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !book.hidden) closeBook(); });
     document.body.appendChild(book);
@@ -181,9 +184,9 @@
   function renderBook() {
     var n = count(), h = '';
     h += '<div class="alb-book"><button class="alb-x" type="button" aria-label="Закрыть">×</button>';
-    h += '<h2 class="alb-h">Семейный альбом</h2>';
-    h += '<p class="alb-sub">' + (full() ? 'Все 9 наклеек собраны. Спасибо, что прошли путь до конца!' :
-      'За каждый шаг — наклейка. Соберите все ' + TOTAL + ' — и получите подарок от Любы.') + '</p>';
+    h += '<h2 class="alb-h">Мои артефакты</h2>';
+    h += '<p class="alb-sub">' + (full() ? 'Все 9 артефактов собраны. Спасибо, что прошли путь до конца!' :
+      'За каждый шаг — артефакт, на сайте и в боте. Соберите все ' + TOTAL + ' — и Люба подарит вам книгу.') + '</p>';
     h += '<div class="alb-bar"><i style="width:' + (n / TOTAL * 100) + '%"></i></div>';
     h += '<p class="alb-sub" style="margin:0">' + n + ' из ' + TOTAL + '</p>';
     ROWS.forEach(function (row) {
@@ -194,7 +197,8 @@
           '<div class="pic"><img src="' + IMG + m.img + '.svg" alt=""></div><b>' + m.name + '</b>';
         if (!on) {
           h += '<em>' + m.hint + '</em>';
-          if (m.act) h += '<a class="alb-go" href="#" data-alb-act="' + m.act + '">' + m.go[1] + '</a>';
+          if (m.act) h += '<a class="alb-go" href="#" data-alb-act="' + m.act + '">' + m.go[1] + '</a>' +
+            (m.id === 'drug' && FBT.refLink && FBT.refLink() ? ' <a class="alb-go alb-go--soft" href="#" data-alb-act="copy">Скопировать ссылку</a>' : '');
           else if (m.go && location.pathname.split('/').pop() !== m.go[0].split('#')[0]) h += '<a class="alb-go" href="' + m.go[0] + '">' + m.go[1] + '</a>';
         }
         h += '</div>';
@@ -202,14 +206,14 @@
       h += '</div>';
     });
     if (full()) {
-      h += '<div class="alb-gift is-open"><img src="' + IMG + 'gift-book.svg" alt=""><div><b>Подарок: книга «10 заповедей предпринимателя»</b>' +
-        '<p>На русском или узбекском — выберите сами. Напишите куратору: он сверит альбом с вашей перепиской и расскажет, как получить книгу. Книга в подарок, доставку оплачиваете только вы — или заберите её сами.</p>' +
+      h += '<div class="alb-gift is-open"><img class="alb-book-img" src="' + BOOK + '" alt="Книга «Десять заповедей для предпринимателей»"><div><b>Ваш подарок: книга Марио Брюльмана «Десять заповедей для предпринимателей»</b>' +
+        '<p>Печатная, на русском. Напишите Александру — он расскажет, как получить книгу. Заберите её у нас сами или закажите доставку (доставку оплачиваете вы).</p>' +
         '<a class="alb-go" href="#" data-alb-act="book">Забрать книгу</a></div></div>';
     } else {
-      h += '<div class="alb-gift"><img src="' + IMG + 'gift-box.svg" alt=""><div><b>Подарок-сюрприз</b>' +
-        '<p>Откроется, когда в альбоме будут все ' + TOTAL + ' наклеек. Осталось ' + (TOTAL - n) + '.</p></div></div>';
+      h += '<div class="alb-gift"><img class="alb-book-img" src="' + BOOK + '" alt="Книга «Десять заповедей для предпринимателей»"><div><b>Подарок за все ' + TOTAL + ': книга Марио Брюльмана «Десять заповедей для предпринимателей»</b>' +
+        '<p>Осталось собрать ' + (TOTAL - n) + '.</p></div></div>';
     }
-    h += '<p class="alb-note">Наклейки хранятся в этом браузере.</p></div>';
+    h += '<p class="alb-note">Артефакты общие для сайта и бота. Правила игры — внизу <a href="index.html#igra">главной страницы</a>.</p></div>';
     book.innerHTML = h;
     fresh = {};
   }
@@ -217,7 +221,7 @@
   function firstHint() {
     if (FBT.store.get('fbt_alb_seen', 0) || count() !== 1 || queue.length) return;
     FBT.store.set('fbt_alb_seen', 1);
-    var hint = el('div', 'alb-hint', 'За каждый шаг — наклейка');
+    var hint = el('div', 'alb-hint', 'За каждый шаг — артефакт');
     document.body.appendChild(hint);
     setTimeout(function () { hint.remove(); }, 6000);
   }
@@ -235,17 +239,32 @@
   }
 
   // ── Действия из альбома ──
-  function inviteUrl() { return location.origin + location.pathname.replace(/[^/]*$/, '') + 'index.html?s=friend'; }
-  function doAct(a) {
-    if (a === 'channel') { FBT.open('https://t.me/' + (M.channel || 'fbt_ru')); FBT.medal('dom'); return; }
-    if (a === 'share') {
-      var url = inviteUrl(), text = 'Смотри, бесплатный урок Любы Бэй — как создать устойчивый семейный бизнес в Узбекистане в 2026 году:';
-      var done = function () { FBT.medal('drug'); };
-      if (navigator.share) { navigator.share({ title: 'FBT Online', text: text, url: url }).then(done).catch(function () {}); return; }
-      FBT.open('https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text)); done(); return;
+  // «Позвать друга»: личная ссылка на бота — та же, что бот присылает в чате (start=ref_<id>).
+  // Сайт знает её после входа через бота (FBT.refLink из /api/session). Без входа — бот сам пришлёт ссылку (start=invite).
+  // Артефакт по клику НЕ даём: его засчитывает бот, когда друг нажмёт «Старт», и сайт подтягивает его при сверке.
+  var SHARE_TEXT = 'Посмотри реальную историю Любы Бэй — как создать устойчивый семейный бизнес в Узбекистане. Открывается в Telegram:';
+  FBT.invite = function () {
+    var ref = FBT.refLink && FBT.refLink();
+    if (!ref) {                                   // ещё не знакомы с ботом — бот пришлёт личную ссылку
+      if (FBT.linked()) { FBT.event('bot_start', { start: 'invite' }); FBT.open(FBT.bot('')); }
+      else FBT.open(FBT.bot('invite'));
+      return;
     }
+    if (navigator.share) { navigator.share({ title: 'FBT Online', text: SHARE_TEXT, url: ref }).catch(function () {}); return; }
+    FBT.open('https://t.me/share/url?url=' + encodeURIComponent(ref) + '&text=' + encodeURIComponent(SHARE_TEXT));
+  };
+  function copyRef(btn) {
+    var ref = FBT.refLink && FBT.refLink(); if (!ref) return;
+    var ok = function () { btn.textContent = 'Скопировано ✓'; setTimeout(function () { btn.textContent = 'Скопировать ссылку'; }, 2000); };
+    if (navigator.clipboard) navigator.clipboard.writeText(ref).then(ok, function () { window.prompt('Ваша ссылка:', ref); });
+    else window.prompt('Ваша ссылка:', ref);
+  }
+  function doAct(a, btn) {
+    if (a === 'channel') { FBT.open('https://t.me/' + (M.channel || 'fbt_ru')); FBT.medal('dom'); return; }
+    if (a === 'share') { FBT.invite(); return; }
+    if (a === 'copy') { copyRef(btn); return; }
     if (a === 'book' && full()) {
-      FBT.open(FBT.tg(C.curator, 'Здравствуйте! Я собрал(а) все 9 наклеек в семейном альбоме FBT и хочу забрать книгу «10 заповедей предпринимателя».\nЯзык: русский / узбекский\nКак получу: доставка / заберу сам(а)'));
+      FBT.open(FBT.tg(C.curator, 'Здравствуйте! Я собрал(а) все 9 артефактов FBT и хочу забрать книгу «Десять заповедей для предпринимателей».\nКак получу: доставка / заберу сам(а)'));
     }
   }
 
@@ -254,6 +273,14 @@
     var a = e.target.closest && e.target.closest('a[href*="t.me/' + (M.channel || 'fbt_ru') + '"]');
     if (a) FBT.medal('dom');
   }, true);
+
+  // Кнопки на страницах: data-invite — «Позвать друга», data-album — открыть «Мои артефакты»
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-invite],[data-album]');
+    if (!b) return;
+    e.preventDefault();
+    if (b.hasAttribute('data-invite')) FBT.invite(); else openBook();
+  });
 
   document.addEventListener('DOMContentLoaded', function () {
     var codes = M.codes || {}, q = new URLSearchParams(location.search).get('m');

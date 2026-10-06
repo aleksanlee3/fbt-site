@@ -12,7 +12,7 @@
   };
 
   // Полный сброс для теста: ?reset на любой странице стирает всё, что сайт помнит о человеке
-  // (прогресс урока, карта, диагностика, наклейки, личный код из бота, источник).
+  // (прогресс урока, карта, диагностика, артефакты, личный код из бота, источник).
   if (/[?&]reset(=|&|$)/.test(location.search)) {
     try {
       Object.keys(window.localStorage).forEach(function (k) { if (k.indexOf('fbt') === 0) window.localStorage.removeItem(k); });
@@ -76,6 +76,8 @@
 
   var FBT = window.FBT = { cfg: C, store: store, bot: bot, tg: tg, mapStart: mapStart, open: open, src: src,
     linked: linked, event: event };
+  // Личная ссылка «Позвать друга» (t.me/<бот>?start=ref_<id>) — приходит от бота после входа
+  FBT.refLink = function () { return store.get('fbt_token', '') ? store.get('fbt_ref', '') : ''; };
   // маршрут человека: какую страницу открыл
   event('page_view', { page: (location.pathname.split('/').pop() || 'index').replace('.html', '') || 'index' });
 
@@ -104,7 +106,7 @@
   }
   FBT.bindLinks = bindLinks;
   // Проверяем, что сервер отвечает и личный код ещё привязан к человеку в боте (после /reset в боте — нет)
-  // Заодно сверяем альбом: наклейки, выданные в боте (созвон, друг, канал), появляются и на сайте.
+  // Заодно сверяем артефакты, выданные в боте (созвон, друг, канал), и берём личную ссылку «Позвать друга» (ref_link).
   function syncWithBot() {
     var token = store.get('fbt_token', '');
     if (!C.botApi || !token) return;
@@ -115,7 +117,8 @@
           if (d && d.linked) {
             if (!apiOk) { apiOk = true; bindLinks(); if (FBT.onLinked) FBT.onLinked(); }
             (d.stickers || []).forEach(function (id) { if (FBT.medal) FBT.medal(id); });
-          } else if (d) { store.set('fbt_token', ''); apiOk = false; }   // код устарел — ссылки снова с /start
+            if (d.ref_link && /^https:\/\/t\.me\/[A-Za-z0-9_]+\?start=ref_\d+$/.test(d.ref_link)) store.set('fbt_ref', d.ref_link);
+          } else if (d) { store.set('fbt_token', ''); store.set('fbt_ref', ''); apiOk = false; }   // код устарел — ссылки снова с /start
         }).catch(function () { /* сервер недоступен — остаются ссылки с /start */ });
     } catch (e) { /* нет fetch */ }
   }

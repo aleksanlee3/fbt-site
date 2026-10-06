@@ -95,3 +95,9 @@
 @keyframes alb-boom-in { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.2) rotate(-12deg); } 70% { opacity: 1; transform: translate(-50%, -50%) scale(1.08) rotate(2deg); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0); } }
 @keyframes alb-boom-out { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 35% { opacity: 1; transform: translate(-50%, -50%) scale(1.12); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(.3); } }
 @media (prefers-reduced-motion: reduce) { .alb-pop { animation: none !important; } }
+
+/* 06.10 — книга-подарок в окне артефактов и кнопка «Скопировать ссылку» */
+.alb-gift img.alb-book-img { width: 64px; height: auto; border-radius: 2px 5px 5px 2px; transform: rotate(-4deg); box-shadow: 0 8px 18px rgba(46,42,38,.35); }
+.alb-gift:not(.is-open) img.alb-book-img { filter: saturate(.7); }
+.alb-go--soft { background: transparent; border-style: dashed; }
+.alb-note a { color: inherit; }
