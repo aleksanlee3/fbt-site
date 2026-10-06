@@ -227,8 +227,22 @@
     var b = el('button', 'opt');
     b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on ? 'true' : 'false');
     b.appendChild(el('span', 'radio')); b.appendChild(document.createTextNode(label));
-    b.addEventListener('click', onPick);
+    b.addEventListener('click', function (e) { buzz(); onPick(e); });
     return b;
+  }
+
+  // v5.1 (06.10): отклик на нажатие — вибрация. Android: navigator.vibrate; iPhone (iOS 18+): системный переключатель даёт лёгкий «тик».
+  var hapt = null;
+  function buzz() {
+    try { if (navigator.vibrate) { navigator.vibrate(18); return; } } catch (e) {}
+    try {
+      if (!hapt) {
+        hapt = document.createElement('label'); hapt.className = 'haptic-sw'; hapt.setAttribute('aria-hidden', 'true');
+        var inp = document.createElement('input'); inp.type = 'checkbox'; inp.setAttribute('switch', ''); inp.tabIndex = -1;
+        hapt.appendChild(inp); document.body.appendChild(hapt);
+      }
+      hapt.click();
+    } catch (e) {}
   }
 
   function renderStage() {
@@ -249,20 +263,26 @@
     $('[data-q-dir] b').textContent = d.name;
     $('[data-q-text]').textContent = q[1];
     $('[data-segs]').innerHTML = QS.map(function (qq, i) {
-      var bg = st.answers[i] != null ? DIRS[qq[0]].color : (i === qi ? '#8A7A6C' : '#E3D6C3');
+      var bg = st.answers[i] != null ? '#C60000' : (i === qi ? '#FF8585' : 'rgba(128,128,134,.35)');
       return '<span style="background:' + bg + '"></span>';
     }).join('');
-    var box = $('[data-q-opts]'); box.innerHTML = '';
+    var box = $('[data-q-opts]'); box.innerHTML = ''; box.removeAttribute('data-busy');
     [['Нет', 1], ['Частично', 3], ['Да', 5]].forEach(function (o) {
       var on = st.answers[qi] === o[1];
       var b = el('button', 'qopt', o[0]);
       b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on ? 'true' : 'false');
-      if (on) { b.style.background = d.color; b.style.borderColor = d.color; b.style.color = '#1C140F'; }
       b.addEventListener('click', function () {
+        if (box.getAttribute('data-busy')) return;          // уже выбрали — ждём перехода
+        box.setAttribute('data-busy', '1'); buzz();
+        $$('[data-q-opts] .qopt').forEach(function (x) { x.classList.remove('is-picked'); x.setAttribute('aria-checked', 'false'); });
+        b.classList.add('is-picked'); b.setAttribute('aria-checked', 'true');
         st.answers[qi] = o[1];
         event('diag_progress', { answered: st.answers.filter(function (x) { return x != null; }).length });
-        if (qi < 9) { st.qi = qi + 1; } else { st.step = 'sym'; }
-        render(); window.scrollTo(0, 0);
+        // короткая пауза: человек видит, что ответ выбран (красная кнопка), и только потом открывается следующий вопрос
+        setTimeout(function () {
+          if (qi < 9) { st.qi = qi + 1; } else { st.step = 'sym'; }
+          render(); window.scrollTo(0, 0);
+        }, 380);
       });
       box.appendChild(b);
     });
@@ -277,10 +297,9 @@
       var on = !!st.sym[s[0]], c = DIRS[s[2]].color;
       var b = el('button', 'sym');
       b.type = 'button'; b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      var dot = el('i'); dot.style.background = on ? '#1C140F' : c;
+      var dot = el('i'); dot.style.background = c;
       b.appendChild(dot); b.appendChild(document.createTextNode(s[1]));
-      if (on) { b.style.background = c; b.style.borderColor = c; b.style.color = '#1C140F'; }
-      b.addEventListener('click', function () { if (st.sym[s[0]]) delete st.sym[s[0]]; else st.sym[s[0]] = true; render(); });
+      b.addEventListener('click', function () { buzz(); if (st.sym[s[0]]) delete st.sym[s[0]]; else st.sym[s[0]] = true; render(); });
       box.appendChild(b);
     });
   }

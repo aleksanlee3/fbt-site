@@ -36,3 +36,11 @@ body.ic.ic-dark .topbar .rc-line b, body.ic.ic-dark .topbar .rc-line i:not(.now)
 :is(body.ic.ic-dark .ic-top, body.ic .sec--hero) .btn:not(.btn--primary) { border-color: rgba(255,255,255,.28); color: #fff; background: transparent; }
 :is(body.ic.ic-dark .ic-top, body.ic .sec--hero) .tag { border-color: #FF8585; color: #FF8585; }
 @media (max-width: 640px) { body.ic .sec--hero .lead-story { background: #232325 !important; border-color: transparent !important; box-shadow: none !important; } }
+
+/* Сайт v5.1 (06.10) · диагностика в тёмной теме — графит целиком, без светлых полос («бутербродов»). */
+body.ic.ic-dark.pg-diag, html:has(body.ic.ic-dark.pg-diag) { background: #181818; }
+body.ic.ic-dark.pg-diag main > section, body.ic.ic-dark.pg-diag .res > section { background: #181818; }
+body.ic.ic-dark.pg-diag .foot { background: #181818; border-top: 1px solid rgba(255,255,255,.08); color: #9A9AA0; }
+body.ic.ic-dark.pg-diag .foot a { color: #B4B4BA; }
+body.ic.ic-dark.pg-diag .ic-top :is(.send, .panel, .next-card) { background: #232325; border-color: rgba(255,255,255,.10); box-shadow: none; }
+body.ic.ic-dark.pg-diag .ic-top .send-3 > div { background: #2C2C2E; }

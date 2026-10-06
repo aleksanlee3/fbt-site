@@ -478,3 +478,18 @@ body:not(.theme-dark) .sc3 .sp-lvl { color: var(--accent-text); }
 }
 .also-card--end .l-short { display: none; }
 @media (max-width: 480px) { .also-card--end .l-long { display: none; } .also-card--end .l-short { display: inline; } }
+
+/* v5.1 (06.10) · «Смотрите это видео» — ярче и крупнее, стрелка толще, всё внимание на плеер */
+body.ic .watch-cue { color: #FF5A5A; }
+body.ic .watch-cue-t { font-size: 48px; text-shadow: 0 2px 18px rgba(198,0,0,.35); }
+body.ic .watch-cue-s { color: #E5E5EA; font-size: 17px; font-weight: 500; }
+body.ic .watch-cue-a { width: 52px; height: 72px; stroke-width: 4; color: #FF5A5A; }
+@media (max-width: 640px) { body.ic .watch-cue-t { font-size: 40px; } body.ic .watch-cue-s { font-size: 15px; } body.ic .watch-cue-a { width: 44px; height: 60px; } }
+
+/* v5.1 · «Ваши артефакты — здесь» — насыщенный красный, крупнее */
+body.ic .igra-cue-t { color: #C60000 !important; font-size: 30px; font-weight: 700; }
+body.ic .igra-cue-n { color: #3A3A3C !important; font-size: 15px; }
+body.ic .igra-cue-n b { color: #C60000 !important; }
+body.ic .igra-arrow { color: #C60000 !important; }
+body.ic .igra-arrow path.igra-arrow-p { stroke-width: 3.5; filter: none; }
+@media (max-width: 640px) { body.ic .igra-cue-t { font-size: 26px; } }

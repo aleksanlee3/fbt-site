@@ -368,3 +368,17 @@
 .theme-dark .sent-3 .st2 b, .theme-dark .sent-3 .st3 b { color: #FAECE0; }
 .theme-dark .sp-ico { background-color: #463A2A; }
 .theme-dark .send { background: linear-gradient(180deg, #3A2620 0%, var(--card) 60%); }
+
+/* v5.1 (06.10) · нажатие на ответ видно сразу: красная заливка, лёгкое «вдавливание», пауза перед следующим вопросом */
+.opt, .qopt, .sym { transition: background .15s, border-color .15s, color .15s, transform .12s; -webkit-tap-highlight-color: transparent; }
+.opt:active, .qopt:active, .sym:active { transform: scale(.97); }
+body.ic .opt[aria-checked="true"] { background: rgba(198,0,0,.20); border-color: #E04848; border-width: 2px; color: var(--text-strong); }
+body.ic .opt[aria-checked="true"] .radio { border-color: #E04848; }
+body.ic .opt[aria-checked="true"] .radio::after { background: #E04848; }
+body.ic .qopt[aria-checked="true"], body.ic .qopt.is-picked { background: #C60000 !important; border-color: #C60000 !important; color: #fff !important; }
+body.ic .qopt.is-picked { animation: qpick .32s ease-out; }
+body.ic .sym[aria-pressed="true"] { background: #C60000 !important; border-color: #C60000 !important; color: #fff !important; }
+body.ic .sym[aria-pressed="true"] i { background: #fff !important; }
+@keyframes qpick { 0% { transform: scale(.94); } 60% { transform: scale(1.04); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { body.ic .qopt.is-picked { animation: none; } }
+.haptic-sw { position: fixed; left: -9999px; top: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }

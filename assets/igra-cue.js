@@ -7,7 +7,7 @@
   var sec = document.getElementById('igra'), cue = document.getElementById('igra-cue');
   if (!sec || !cue) return;
   var NS = 'http://www.w3.org/2000/svg', TOTAL = 9;
-  var calm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var calm = true;   // v5.1: без «дыхания» — стрелка неподвижна
 
   function fab() { return document.querySelector('.alb-fab'); }
   function got() { try { return Object.keys(FBT.medals ? FBT.medals() : {}).length; } catch (e) { return 0; } }
@@ -44,14 +44,12 @@
     // начало — у правого края подписи; конец — чуть не доходя до кнопки
     var t = cue.querySelector('.igra-cue-t').getBoundingClientRect();
     var x1 = t.right + 10, y1 = t.top + t.height * 0.6;
+    // v5.1 (06.10): стрелка входит в кнопку строго сверху (или снизу) и смотрит точно в центр круга, без покачивания
     var cx = b.left + b.width / 2, cy = b.top + b.height / 2;
-    var dx = cx - x1, dy = cy - y1, d = Math.sqrt(dx * dx + dy * dy) || 1;
-    var stop = b.width / 2 + 12;
-    var x2 = cx - dx / d * stop, y2 = cy - dy / d * stop;
-    // мягкий изгиб; лёгкое «дыхание», чтобы стрелка жила
-    var wob = calm ? 0 : Math.sin(((now || performance.now()) - t0) / 420) * 10;
-    // изгиб уводим к правому краю экрана, чтобы стрелка не перечёркивала текст
-    var mx = Math.min(window.innerWidth - 10, Math.max(x1, x2) + 30 + wob), my = (y1 + y2) / 2;
+    var down = cy >= y1, stop = b.width / 2 + 10;
+    var x2 = cx, y2 = down ? cy - stop : cy + stop;
+    var mx = cx, my = y1;   // контрольная точка над центром кнопки: последний участок кривой вертикальный → наконечник смотрит в центр
+    if (Math.abs(x2 - x1) < 24) { mx = x1 + 40; my = (y1 + y2) / 2; }
     path.setAttribute('d', 'M' + x1.toFixed(1) + ' ' + y1.toFixed(1) + ' Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + x2.toFixed(1) + ' ' + y2.toFixed(1));
     svg.classList.add('on');
     f.classList.add('is-called');
@@ -67,6 +65,7 @@
     }, { threshold: 0.25 }).observe(cue);
   } else { visible = true; }
   window.addEventListener('scroll', kick, { passive: true });
+  setInterval(kick, 400);   // кнопка артефактов может появиться или сдвинуться — стрелка догоняет её
   window.addEventListener('resize', kick);
   document.addEventListener('click', function () { setTimeout(kick, 60); });
 
