@@ -584,3 +584,14 @@ html:has(body.theme-dark) { background: #17120F; }
 /* шапка уходит под вырез / адресную строку: фон с размытием закрывает и эту зону, логотип и кнопки остаются ниже */
 .topbar { padding-top: env(safe-area-inset-top, 0px); }
 body > header.hdr:first-of-type { margin-top: env(safe-area-inset-top, 0px); }
+
+/* 06.10 · вопросы-самопроверка: подсказка под 4 вопросами; блок «Частые сомнения» (стр. 4) */
+.ust-cta { display: flex; align-items: center; gap: 14px; margin-top: 18px; padding: 16px 20px; border-radius: 18px; background: var(--card); border: 1.5px dashed var(--accent, #C60000); color: var(--text-strong); text-decoration: none; font-size: 16.5px; line-height: 1.45; }
+.ust-cta b { color: var(--accent, #C60000); }
+.ust-cta-ico { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--accent, #C60000); color: #fff; }
+.ust-cta-ico svg { width: 20px; height: 20px; }
+.ust-cta:hover { transform: translateY(-1px); }
+.ust--5 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 900px) { .ust--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .ust--5 { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { body.ic .ust-i b { padding-right: 28px; } }

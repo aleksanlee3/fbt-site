@@ -31,6 +31,9 @@ body.ic .ust .u4 { --uc: #E04848; --ub: rgba(224,72,72,.12); }
 body.ic .sp-get { background: rgba(162,195,205,.10); }
 body.ic .vi-box.vi-box { background: #F5F5F7 !important; box-shadow: inset 0 0 0 1.5px rgba(34,32,32,.09), 0 2px 6px rgba(47,45,45,.06); }
 body.ic .on-dark .vi-box.vi-box { box-shadow: 0 4px 14px rgba(0,0,0,.28); }
+body.ic .ust-cta { border: 1.5px dashed var(--accent, #C60000); }
+body.ic .ust-cta b { color: var(--accent, #C60000); }
+body.ic .ust-cta-ico { background: var(--accent, #C60000); color: #fff; }
 
 /* ── p1.css ── */
 body.ic .player-stage iframe, body.ic .player-stage video { background: #000; }
@@ -100,6 +103,14 @@ body.ic .igra-arrow { color: #E04848; }
 body.ic .igra-arrow path.igra-arrow-p { filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)); }
 body.ic .alb-fab.is-called::after { border: 3px solid #E04848; }
 body.ic .also-card--hi.also-card--end { box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+body.ic .watch-cue { color: #FF8585; }
+body.ic .watch-cue-t { text-shadow: 0 2px 18px rgba(198,0,0,.35); }
+body.ic .watch-cue-s { color: #F5F5F7; }
+body.ic .watch-cue-a { color: #FF8585; }
+body.ic .igra-cue-t { color: #C60000 !important; }
+body.ic .igra-cue-n { color: #3C3A3A !important; }
+body.ic .igra-cue-n b { color: #C60000 !important; }
+body.ic .igra-arrow { color: #C60000 !important; }
 
 /* ── p2.css ── */
 body.ic .how li { border: 1px solid #DDDCDC; }
@@ -218,6 +229,12 @@ body.ic .sp-ico { background: #F5F5F7; }
 body.ic .sp-ico svg { color: #5A6E7A; }
 body.ic .sp-btn { background: #2F2D2D; color: #F5F5F7; }
 body.ic .res-send .more.more--hi { box-shadow: 0 0 0 3px #E04848, 0 18px 40px rgba(224,72,72,.25); }
+body.ic .opt[aria-checked="true"] { background: rgba(198,0,0,.20); border-color: #E04848; }
+body.ic .opt[aria-checked="true"] .radio { border-color: #E04848; }
+body.ic .opt[aria-checked="true"] .radio::after { background: #E04848; }
+body.ic .qopt[aria-checked="true"], body.ic .qopt.is-picked { background: #C60000 !important; border-color: #C60000 !important; color: #fff !important; }
+body.ic .sym[aria-pressed="true"] { background: #C60000 !important; border-color: #C60000 !important; color: #fff !important; }
+body.ic .sym[aria-pressed="true"] i { background: #fff !important; }
 
 /* ── p4.css ── */
 body.ic .promo { color: #fff; --text: #F5F5F7; --text-2: #F5F5F7; --text-strong: #FFFFFF; --muted: #D1D0D0; --muted-2: #DDDDDD; --dim: #BDBCBC; --dim-2: #B2B1B1; --line: #444141; --line-2: #4B4949; --line-3: #565252; --line-4: #636060; --line-5: #746F6F; --card: #393636; --card-2: #3B3939; --card-3: #434040; --bg-2: #282727; --sel: #484545; --accent-text: #F7C9C9; --ok-text: #D5E6EB; --lime: #A2C3CD; --warn: #A2C3CD; }
