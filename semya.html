@@ -11,19 +11,22 @@
 <link rel="icon" href="assets/logo/favicon-64.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/fbt.css">
 <link rel="stylesheet" href="assets/medals.css">
 <link rel="stylesheet" href="assets/push.css">
 <link rel="stylesheet" href="assets/music.css">
 <link rel="stylesheet" href="assets/p5.css">
+<link rel="stylesheet" href="assets/ic-auto.css">
+<link rel="stylesheet" href="assets/ic-theme.css">
+<link rel="stylesheet" href="assets/ic-dark.css"><!-- 06.10 v5.0: графит до отзывов (тёмная тема) -->
 <script src="config.js"></script>
 <script src="assets/fbt.js"></script>
 <script src="assets/medals.js"></script>
 <script src="assets/push.js"></script>
 <script src="assets/music.js"></script>
 </head>
-<body>
+<body class="ic ic-dark"><!-- 06.10 v5.0: цвета Impact Consulting; тёмная (по умолчанию) — графит сверху, светлая — графит только первый экран -->
 <script src="assets/theme.js"></script>
 <!--
   MVP-КОНЦЕПТ (30.09.2026). Блоки с меткой .concept / .mod--new описывают уроки, которых пока НЕТ в программе:
@@ -83,7 +86,7 @@
 
 <main>
   <!-- 1. Первый экран · узнавание: «это про меня и мою семью» -->
-  <section class="sec sec--hero hero5-sec">
+  <section class="ic-top sec sec--hero hero5-sec">
     <div class="hero5-bg" aria-hidden="true"><img src="assets/img/semya-hero.jpg" alt=""><span class="ph-tag">заглушка · фото семьи в своём деле (ИИ)</span></div>
     <div class="wrap">
       <div class="hero5">
@@ -99,7 +102,7 @@
   </section>
 
   <!-- 1б. Семья Любы · реальные фото (история) -->
-  <section class="sec sec--tight" style="padding-top:8px">
+  <section class="ic-top sec sec--tight" style="padding-top:8px">
     <div class="wrap">
       <div class="storybox tone-story fam-real">
         <span class="tag-tone tag-story">История Любы · семья</span>
@@ -115,7 +118,7 @@
   </section>
 
   <!-- 2. Парадокс · узнавание и значимость -->
-  <section id="paradox" class="sec sec--tight">
+  <section id="paradox" class="ic-top sec sec--tight">
     <div class="wrap">
       <div class="para">
         <div>
@@ -136,7 +139,7 @@
   </section>
 
   <!-- 3. Причина · сначала система -->
-  <section class="sec sec--tight sec--alt">
+  <section class="ic-top sec sec--tight sec--alt">
     <div class="wrap">
       <div class="eyebrow">ПРИЧИНА</div>
       <h2 class="h2" style="max-width:960px">Бизнес работает на семью, только когда он может работать без вас</h2>
@@ -233,7 +236,7 @@
   </section>
 
   <!-- 7. Следующее поколение + семейный капитал -->
-  <section class="sec sec--tight sec--alt">
+  <section class="ic-top sec sec--tight sec--alt">
     <div class="wrap gen">
       <div class="gen-ph photo photo--shade" aria-label="Место для фото"><img src="assets/img/semya-next.jpg" alt="" loading="lazy"><span class="ph-tag">заглушка · фрагмент ИИ-фото, нужен родитель + ребёнок-подросток</span></div>
       <div>
@@ -282,7 +285,7 @@
   </section>
 
   <!-- 9. Смысл · коротко -->
-  <section class="sec sec--tight sec--alt">
+  <section class="ic-top sec sec--tight sec--alt">
     <div class="wrap mission">
       <div class="eyebrow">ГЛАВНЫЙ ВОПРОС ДЛЯ СЕМЬИ</div>
       <h2 class="mission-h">Что наше семейное дело даёт <em>людям?</em></h2>

@@ -1,0 +1,38 @@
+/* Сайт v5.0 (06.10) · тёмная тема в цветах Impact Consulting = «графит до отзывов».
+   Переключатель (assets/theme.js) ставит на <body class="ic"> класс ic-dark. Графитовыми становятся шапка
+   и секции с классом ic-top (стр. 1 — всё до отзывов, стр. 4 — до отзывов, на остальных — первые блоки).
+   Ниже — светлые секции из ic-theme.css. Светлая тема: графит только первый экран (.sec--hero). */
+body.ic.ic-dark .topbar, body.ic.ic-dark .ic-top, body.ic .sec--hero {
+  --bg: #181818; --bg-rgb: 24, 24, 24; --bg-2: #1F1F21;
+  --card: #232325; --card-2: #232325; --card-3: #2C2C2E; --sel: #3A1A1A;
+  --line: rgba(255,255,255,.08); --line-2: rgba(255,255,255,.10); --line-3: rgba(255,255,255,.14); --line-4: rgba(255,255,255,.18); --line-5: #5A6E7A;
+  --text: #F5F5F7; --text-2: #E5E5EA; --text-strong: #FFFFFF;
+  --muted: #B4B4BA; --muted-2: #C7C7CC; --dim: #9A9AA0; --dim-2: #9A9AA0;
+  --accent-text: #FF8585; --ok-text: #A2C3CD; --ok: #A2C3CD; --on-ok: #181818;
+  --tint: #2C2C2E; --tint-2: #3A1A1A; --paper: #2C2C2E; --shadow: none;
+  color: var(--text);
+}
+body.ic.ic-dark .ic-top, body.ic .sec--hero { background: #181818; }
+body.ic.ic-dark .ic-top.sec--alt, body.ic.ic-dark .ic-top + .ic-top.sec--alt { background: #1F1F21; }
+body.ic.ic-dark .topbar { background: rgba(24,24,24,.88); }
+html:has(body.ic.ic-dark) { background: #181818; }
+body.ic.ic-dark .topbar .brand b, body.ic.ic-dark .topbar .hdr-nav a { color: #fff; }
+body.ic.ic-dark .topbar .tag--timer, body.ic.ic-dark .topbar .tag--timer b { background: #232325; color: #E5E5EA; }
+body.ic.ic-dark .topbar .rc-line b, body.ic.ic-dark .topbar .rc-line i:not(.now) { background-color: rgba(255,255,255,.16); }
+
+/* тексты и акценты на графите */
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) .grey { color: #A2C3CD; }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero, body.ic.ic-dark .topbar) .eyebrow { color: #FF8585; }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) :is(.card, .stage-card, .stepcard, .quote-card, .ust-i, .unlock) { background: #232325; box-shadow: none; border: 1px solid rgba(255,255,255,.06); }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) :is(.ust-ico, .vi-box) { background: #F5F5F7 !important; }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) .ust-i::before { color: #FF8585; }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) :is(.lquote, .storybox) { background: #232325; border: 1px solid rgba(255,255,255,.06); box-shadow: inset 4px 0 0 #C60000; }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) .tag-story { background: rgba(255,133,133,.14); color: #FF8585; }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) .tag-method { background: rgba(162,195,205,.14); color: #A2C3CD; }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) :is(.story-num b, .lead-hl) { color: #FF8585; }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) .timeline li::before { border-color: #FF8585; }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) .timeline li.last::before { background: #FF8585; }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) :is(.sc1, .sc2) .sp-dot { background: #232325; color: #fff; border-color: #A2C3CD; }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) .btn:not(.btn--primary) { border-color: rgba(255,255,255,.28); color: #fff; background: transparent; }
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) .tag { border-color: #FF8585; color: #FF8585; }
+@media (max-width: 640px) { body.ic .sec--hero .lead-story { background: #232325 !important; border-color: transparent !important; box-shadow: none !important; } }

@@ -11,19 +11,22 @@
 <link rel="icon" href="assets/logo/favicon-64.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/fbt.css">
 <link rel="stylesheet" href="assets/medals.css">
 <link rel="stylesheet" href="assets/push.css">
 <link rel="stylesheet" href="assets/music.css">
 <link rel="stylesheet" href="assets/p3.css">
+<link rel="stylesheet" href="assets/ic-auto.css">
+<link rel="stylesheet" href="assets/ic-theme.css">
+<link rel="stylesheet" href="assets/ic-dark.css"><!-- 06.10 v5.0: графит до отзывов (тёмная тема) -->
 <script src="config.js"></script>
 <script src="assets/fbt.js"></script>
 <script src="assets/medals.js"></script>
 <script src="assets/push.js"></script>
 <script src="assets/music.js"></script>
 </head>
-<body>
+<body class="ic ic-dark"><!-- 06.10 v5.0: цвета Impact Consulting; тёмная (по умолчанию) — графит сверху, светлая — графит только первый экран -->
 <script src="assets/theme.js"></script>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></symbol>
@@ -72,7 +75,7 @@
 </script>
 <main>
   <!-- ── Старт ───────────────────────────────────────── -->
-  <section class="scr" data-screen="intro" hidden>
+  <section class="ic-top scr" data-screen="intro" hidden>
     <div class="wrap intro">
       <div class="intro-txt">
         <div class="intro-ph photo"><img src="assets/img/roadmap.jpg" alt="" loading="eager"><span class="ph-tag">заглушка</span></div>
@@ -98,7 +101,7 @@
   </section>
 
   <!-- ── Этап ────────────────────────────────────────── -->
-  <section class="scr" data-screen="stage" hidden>
+  <section class="ic-top scr" data-screen="stage" hidden>
     <div class="wrap center">
       <div class="panel">
         <div class="eyebrow">ПЕРЕД ТЕСТОМ</div>
@@ -117,7 +120,7 @@
   </section>
 
   <!-- ── Вопрос ──────────────────────────────────────── -->
-  <section class="scr" data-screen="q" hidden>
+  <section class="ic-top scr" data-screen="q" hidden>
     <div class="wrap qwrap">
       <div class="panel qpanel">
         <div class="qhead"><span class="mono muted" data-q-n>Вопрос 1 из 10</span><span class="qdir" data-q-dir><i></i><b></b></span></div>
@@ -139,7 +142,7 @@
   </section>
 
   <!-- ── Проявления ──────────────────────────────────── -->
-  <section class="scr" data-screen="sym" hidden>
+  <section class="ic-top scr" data-screen="sym" hidden>
     <div class="wrap center">
       <div class="panel panel--wide">
         <div class="eyebrow">ПОСЛЕДНИЙ ШАГ</div>
@@ -156,7 +159,7 @@
 
   <!-- ── Результат ───────────────────────────────────── -->
   <div data-screen="result" hidden>
-    <section class="res-top">
+    <section class="ic-top res-top">
       <div class="wrap">
         <div class="res-head">
           <div>
@@ -259,7 +262,7 @@
   </div>
 
   <!-- ── Задания ─────────────────────────────────────── -->
-  <section class="scr" data-screen="tasks" id="tasks" hidden>
+  <section class="ic-top scr" data-screen="tasks" id="tasks" hidden>
     <div class="wrap tasks">
       <button type="button" class="btn btn--sm back-sm" data-go="result">← К результату</button>
       <div class="eyebrow mt-28">5 ЗАДАНИЙ · ПО ЖЕЛАНИЮ</div>
@@ -329,7 +332,7 @@
   </section>
 
   <!-- ── Отправлено ──────────────────────────────────── -->
-  <section class="scr" data-screen="sent" hidden>
+  <section class="ic-top scr" data-screen="sent" hidden>
     <div class="wrap sent">
       <div class="sent-ok"><svg><use href="#i-check"/></svg></div>
       <h1 class="h1 sent-h1">Чат с куратором открыт</h1>

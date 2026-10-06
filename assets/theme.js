@@ -3,14 +3,17 @@
    По умолчанию: стр. 1 тёмная, остальные светлые. Если человек выбрал тему — она на всех страницах.
    Ключ не начинается с «fbt», поэтому ?reset его не стирает (это настройка удобства, а не прогресс). */
 (function () {
-  var KEY = 'site_theme', b = document.body, defDark = b.classList.contains('theme-dark');
+  // С 06.10 (v5.0) все страницы в цветах Impact Consulting (body.ic): тёмная = графит сверху до отзывов (класс ic-dark),
+  // светлая = графит только первый экран. Старые классы theme-dark на страницах .ic не используются.
+  var KEY = 'site_theme', b = document.body, IC = b.classList.contains('ic');
+  var CLS = IC ? 'ic-dark' : 'theme-dark', defDark = b.classList.contains(CLS);
   function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function apply(t) {
     var dark = t === 'dark' || (t !== 'light' && defDark);
-    b.classList.toggle('theme-dark', dark);
+    b.classList.toggle(CLS, dark);
     document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
     var m = document.querySelector('meta[name="theme-color"]');
-    if (m) m.setAttribute('content', dark ? '#17120F' : '#FBF6EE');
+    if (m) m.setAttribute('content', IC ? (dark ? '#181818' : '#F5F5F7') : (dark ? '#17120F' : '#FBF6EE'));
     return dark;
   }
   apply(saved());
@@ -19,7 +22,7 @@
   var MOON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
 
   function paint(btn) {
-    var dark = b.classList.contains('theme-dark');
+    var dark = b.classList.contains(CLS);
     btn.innerHTML = (dark ? SUN : MOON) + '<span class="theme-btn-l">' + (dark ? 'Светлая' : 'Тёмная') + '<span class="theme-btn-x"> тема</span></span>';
     btn.setAttribute('aria-label', dark ? 'Включить светлую тему' : 'Включить тёмную тему');
     btn.setAttribute('aria-pressed', dark ? 'false' : 'true');
@@ -32,7 +35,7 @@
     btn.type = 'button'; btn.className = 'theme-btn'; btn.setAttribute('data-theme-toggle', '');
     paint(btn);
     btn.addEventListener('click', function () {
-      var next = b.classList.contains('theme-dark') ? 'light' : 'dark';
+      var next = b.classList.contains(CLS) ? 'light' : 'dark';
       try { localStorage.setItem(KEY, next); } catch (e) { /* без хранилища тема меняется только на этой странице */ }
       apply(next); paint(btn);
     });
