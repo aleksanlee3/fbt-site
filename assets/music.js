@@ -11,8 +11,8 @@
   var M = C.music;
   if (M === false) return;
   M = M || {};
-  var SRC = M.src || 'assets/audio/fon-1.mp3';
-  // Сравнить треки: ?track=1 (грустнее) или ?track=2 (теплее) — выбор держится до закрытия вкладки
+  var SRC = M.src || 'assets/audio/fon-3.mp3';
+  // Сравнить треки: ?track=3 (основной), ?track=1 (грустнее) или ?track=2 (теплее) — выбор держится до закрытия вкладки
   try {
     var tq = (location.search.match(/[?&]track=(\d)/) || [])[1];
     if (tq) sessionStorage.setItem('fbt_music_track', tq);
@@ -28,7 +28,7 @@
   function sset(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
 
   var audio = new Audio(SRC);
-  audio.loop = true; audio.preload = 'auto'; audio.setAttribute('playsinline', '');
+  audio.loop = true; audio.preload = 'metadata'; audio.setAttribute('playsinline', '');
   var ctx = null, gain = null, started = false, off = get(KEY) === '1', want = !off;
 
   // На iPhone громкость <audio> не меняется — делаем её через Web Audio
