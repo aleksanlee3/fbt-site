@@ -58,7 +58,7 @@
 .stop-block { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line-2); display: flex; flex-direction: column; gap: 8px; }
 .stop-block > span { font-size: 13px; font-weight: 600; letter-spacing: .12em; color: var(--dim); }
 .stop-block p { font-size: 17px; line-height: 1.6; color: #3D2F25; }
-.stop-ex { margin-top: 20px; padding: 16px 18px; border: 0; border-radius: 14px; background: #F3EADD; gap: 6px; }
+.stop-ex { margin-top: 20px; padding: 16px 18px; border: 0; border-radius: 14px; background: var(--tint, #F3EADD); gap: 6px; }
 .stop-ex > span { font-size: 12px; font-weight: 700; letter-spacing: .1em; color: var(--lime); }
 .stop-ex p { font-size: 16px; line-height: 1.55; color: var(--text-2); }
 .stop-done { margin-top: 14px; padding: 16px 18px; border-radius: 14px; background: var(--lime-bg); color: var(--forest); display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.45; }
@@ -101,7 +101,7 @@
 .root--2 em { background: #4F3A2D; color: #fff; --text: #FFF8EE; --text-2: #F1E4D3; --text-strong: #FFFFFF; --muted: #E3D2BE; --muted-2: #EEDFCC; --dim: #D2BEA7; --dim-2: #C8B39B; --line: #56402F; --line-2: #5E4636; --line-3: #6A503E; --line-4: #7A5E49; --line-5: #8C6E57; --card: #45322A; --card-2: #4A362A; --card-3: #533D30; --bg-2: #33241C; --sel: #5A4333; --accent-text: #F6A48E; --ok-text: #9ADBB0; --lime: #F2C46D; --warn: #F2C46D; }
 .root--3 { background: var(--card); border: 1px solid var(--line-2); }
 .root--3 i { background: var(--accent); color: var(--on-accent); }
-.root--3 em { background: #F3EADD; }
+.root--3 em { background: var(--tint, #F3EADD); }
 .root-arr { width: 48px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--dim-2); }
 .root-arr svg { width: 24px; height: 24px; }
 .money { padding: 32px 36px; border-radius: var(--radius); border: 1px solid var(--line-2); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 48px; align-items: center; }
@@ -144,7 +144,7 @@
 .dg { display: flex; gap: 64px; align-items: center; }
 .dg > div:first-child { flex-grow: 1; min-width: 0; }
 .pills { display: flex; flex-wrap: wrap; gap: 10px; }
-.pills span { height: 36px; padding: 0 14px; display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; background: #F3EADD; font-size: 15px; font-weight: 500; }
+.pills span { height: 36px; padding: 0 14px; display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; background: var(--tint, #F3EADD); font-size: 15px; font-weight: 500; }
 .pills svg { width: 16px; height: 16px; color: var(--lime); }
 .dg-ex { width: 440px; flex-shrink: 0; padding: 28px 32px; border-radius: 24px; background: var(--forest); display: flex; flex-direction: column; --text: #FFF8EE; --text-2: #F1E4D3; --text-strong: #FFFFFF; --muted: #E3D2BE; --muted-2: #EEDFCC; --dim: #D2BEA7; --dim-2: #C8B39B; --line: #56402F; --line-2: #5E4636; --line-3: #6A503E; --line-4: #7A5E49; --line-5: #8C6E57; --card: #45322A; --card-2: #4A362A; --card-3: #533D30; --bg-2: #33241C; --sel: #5A4333; --accent-text: #F6A48E; --ok-text: #9ADBB0; --lime: #F2C46D; --warn: #F2C46D; color: var(--text); }
 .radar-ex { margin-top: 10px; width: 100%; height: auto; }
@@ -218,7 +218,7 @@
 
 /* Фото на стр. 2 */
 .pdf-desk { position: absolute; top: 70px; left: -40px; right: -40px; bottom: 20px; border-radius: 24px; opacity: .9; }
-.pdf-desk::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 40% 45%, rgba(251,246,238,.1) 0%, rgba(251,246,238,.55) 100%); }
+.pdf-desk::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 40% 45%, rgba(var(--bg-rgb),.1) 0%, rgba(var(--bg-rgb),.55) 100%); }
 .pdf-back, .pdf-front, .pdf-cap { z-index: 1; }
 .author-ph { padding: 0; border: 0; display: block; }
 .author-ph > img { object-position: 62% 30%; }
@@ -289,3 +289,15 @@
 @media (max-width: 900px) { .consider2 { grid-template-columns: 1fr; padding: 28px 22px 26px 30px; } .c2-act { min-width: 0; } .c2-h { font-size: 25px; } .c2-main-btn { height: 60px; font-size: 18px; } }
 .c2-main { position: relative; z-index: 1; }
 .c2-i--txt { font-size: 15px; font-weight: 800; }
+
+
+/* 06.10 (v4.6) · Тёмная тема по кнопке в шапке: кремовые и пастельные подложки этой страницы → тёмные (сгенерировано из правил выше) */
+.theme-dark .pdf-back { background-color: #3B342D; }
+.theme-dark .pdf-sums i { background-color: #393430; }
+.theme-dark .stop-block p { color: #FAEDE1; }
+.theme-dark .root--3 em { background-color: #42372C; }
+.theme-dark .partners-row img { background-color: #393430; }
+.theme-dark .root--3 .chips em { background-color: #42352C; color: #FADED3; }
+.theme-dark .root--1 .chips em { background-color: #37352F; color: #EBF5E5; border-color: var(--line-3); }
+.theme-dark .consider2 { background: linear-gradient(120deg, #3A2A21 0%, #2D221B 100%); }
+.theme-dark .c2-tg { background: rgba(255,255,255,.06); }

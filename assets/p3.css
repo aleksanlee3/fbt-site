@@ -1,7 +1,7 @@
 /* Стр. 3 · Онлайн-диагностика */
 .scr { padding: 72px 0 96px; }
 .pills { display: flex; flex-wrap: wrap; gap: 10px; }
-.pills span { height: 36px; padding: 0 14px; display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; background: #F3EADD; font-size: 15px; font-weight: 500; }
+.pills span { height: 36px; padding: 0 14px; display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; background: var(--tint, #F3EADD); font-size: 15px; font-weight: 500; }
 .pills svg { width: 16px; height: 16px; color: var(--lime); }
 .dirs { display: flex; flex-wrap: wrap; gap: 10px 20px; font-size: 16px; color: var(--muted-2); }
 .dirs span { display: inline-flex; align-items: center; gap: 8px; }
@@ -28,7 +28,7 @@
 .qwrap { display: flex; gap: 40px; align-items: flex-start; }
 .qpanel { flex: 0 0 640px; max-width: 640px; padding: 40px; }
 .qhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 15px; }
-.qdir { height: 30px; padding: 0 12px; display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; background: #F3EADD; font-size: 14px; font-weight: 600; }
+.qdir { height: 30px; padding: 0 12px; display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; background: var(--tint, #F3EADD); font-size: 14px; font-weight: 600; }
 .qdir i { width: 10px; height: 10px; border-radius: 999px; }
 .qsegs { margin-top: 16px; display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 6px; }
 .qsegs span { height: 6px; border-radius: 3px; }
@@ -65,13 +65,13 @@
 .mp-name span { font-size: clamp(34px, 3.6vw, 48px); line-height: 1.05; font-weight: 700; letter-spacing: -.02em; }
 .mp-stop { margin-top: 14px; display: inline-block; padding: 6px 12px; border-radius: 999px; background: var(--forest); color: var(--lime); font-size: 15px; font-weight: 600; --text: #FFF8EE; --text-2: #F1E4D3; --text-strong: #FFFFFF; --muted: #E3D2BE; --muted-2: #EEDFCC; --dim: #D2BEA7; --dim-2: #C8B39B; --line: #56402F; --line-2: #5E4636; --line-3: #6A503E; --line-4: #7A5E49; --line-5: #8C6E57; --card: #45322A; --card-2: #4A362A; --card-3: #533D30; --bg-2: #33241C; --sel: #5A4333; --accent-text: #F6A48E; --ok-text: #9ADBB0; --lime: #F2C46D; --warn: #F2C46D; }
 .mp-why { margin-top: 20px; font-size: 18px; line-height: 1.6; color: var(--text-2); }
-.mp-step { margin-top: 20px; padding: 18px 20px; border-radius: 16px; background: #F3EADD; display: flex; flex-direction: column; gap: 6px; }
+.mp-step { margin-top: 20px; padding: 18px 20px; border-radius: 16px; background: var(--tint, #F3EADD); display: flex; flex-direction: column; gap: 6px; }
 .mp-step span { font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--lime); }
 .mp-step b { font-size: 16px; line-height: 1.55; font-weight: 400; }
 .mp-perfect { margin-top: 12px; font-size: clamp(28px, 3vw, 40px); line-height: 1.1; font-weight: 700; }
 .mp-syms { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line-2); display: flex; flex-direction: column; gap: 10px; }
 .mp-syms > span { font-size: 13px; font-weight: 600; letter-spacing: .12em; color: var(--dim); }
-.mp-syms .chip { background: #F3EADD; border: 0; padding: 7px 12px; color: var(--text); }
+.mp-syms .chip { background: var(--tint, #F3EADD); border: 0; padding: 7px 12px; color: var(--text); }
 
 .res-send { padding: 16px 0 32px; }
 .send { padding: 44px; border-radius: 28px; background: var(--card); border: 1.5px solid var(--accent-text); display: flex; gap: 48px; align-items: stretch; }
@@ -80,7 +80,7 @@
 .send-h { margin-top: 16px; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.1; font-weight: 700; letter-spacing: -.02em; }
 .send-p { margin-top: 16px; font-size: 18px; line-height: 1.6; }
 .send-3 { gap: 12px; }
-.send-3 > div { padding: 18px; border-radius: 16px; background: #F3EADD; display: flex; flex-direction: column; gap: 8px; }
+.send-3 > div { padding: 18px; border-radius: 16px; background: var(--tint, #F3EADD); display: flex; flex-direction: column; gap: 8px; }
 .send-3 b { font-size: 16px; font-weight: 600; }
 .send-3 span { font-size: 15px; line-height: 1.45; color: var(--muted); }
 .voice { margin-top: 24px; display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--muted); }
@@ -112,7 +112,7 @@
 .back-sm { height: 40px; padding: 0 16px; font-size: 15px; color: var(--muted-2); }
 .tasks-head { margin-top: 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 24px; }
 .tasks-h1 { font-size: clamp(34px, 4vw, 52px); line-height: 1.06; }
-.done-pill { flex-shrink: 0; padding: 8px 14px; border-radius: 999px; background: #F3EADD; font-size: 15px; font-weight: 600; }
+.done-pill { flex-shrink: 0; padding: 8px 14px; border-radius: 999px; background: var(--tint, #F3EADD); font-size: 15px; font-weight: 600; }
 .task { margin-top: 16px; padding: 28px; border-radius: var(--radius); background: var(--card); border: 1px solid #EADFCF; display: flex; gap: 18px; }
 .task:first-of-type { margin-top: 32px; }
 .tn { width: 36px; height: 36px; flex-shrink: 0; border-radius: 999px; color: #2A1F18; display: flex; align-items: center; justify-content: center; font-weight: 700; }
@@ -120,7 +120,7 @@
 .task-h { font-size: 20px; font-weight: 600; }
 .task-d { font-size: 16px; line-height: 1.5; color: var(--muted); }
 .task-q { margin-top: 10px; font-size: 16px; line-height: 1.45; font-weight: 600; }
-.count { flex-shrink: 0; padding: 5px 12px; border-radius: 999px; background: #F3EADD; font-size: 14px; }
+.count { flex-shrink: 0; padding: 5px 12px; border-radius: 999px; background: var(--tint, #F3EADD); font-size: 14px; }
 .words { display: flex; flex-wrap: wrap; gap: 8px; }
 .word { height: 38px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-3); background: transparent; color: #3D2F25; font-size: 15px; font-weight: 500; cursor: pointer; }
 .word[aria-pressed="true"] { background: var(--c-time); border-color: var(--c-time); color: #2A1F18; }
@@ -357,3 +357,14 @@
 .res-send .more--hi .ringed { display: inline-flex; }
 @media (max-width: 640px) { .res-send .more--hi .ringed { display: flex; } .res-send .more--hi .ringed .btn { width: 100%; } }
 .more-next { margin: 14px 0 18px; text-align: center; font-size: 15px; font-weight: 600; color: var(--accent-text); }
+
+
+/* 06.10 (v4.6) · Тёмная тема по кнопке в шапке: кремовые и пастельные подложки этой страницы → тёмные (сгенерировано из правил выше) */
+.theme-dark .tn { color: #FAECE0; }
+.theme-dark .send-3 > div { background-color: #393430; }
+.theme-dark .res-send .more .more-step { color: #FAECE0; }
+.theme-dark .sent-3 .st2 { background-color: #41372C; border-color: var(--line-3); }
+.theme-dark .sent-3 .st3 { background-color: #36362F; border-color: var(--line-3); }
+.theme-dark .sent-3 .st2 b, .theme-dark .sent-3 .st3 b { color: #FAECE0; }
+.theme-dark .sp-ico { background-color: #463A2A; }
+.theme-dark .send { background: linear-gradient(180deg, #3A2620 0%, var(--card) 60%); }

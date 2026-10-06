@@ -398,3 +398,24 @@ html.fs-lock, html.fs-lock body { overflow: hidden; }
   .watch-cue-a { width: 32px; height: 44px; }
   .lesson-sound .watch-cue + .player, .watch-cue.is-off + .player { margin-top: 32px; }
 }
+
+/* 06.10 (v4.6) · Светлая тема стр. 1 (кнопка в шапке): тёмные блоки остаются «ореховыми», как на стр. 2–5 */
+body:not(.theme-dark) .igra, body:not(.theme-dark) .also-card {
+  --text: #FFF8EE; --text-2: #F1E4D3; --text-strong: #FFFFFF; --muted: #E3D2BE; --muted-2: #EEDFCC; --dim: #D2BEA7; --dim-2: #C8B39B;
+  --line: #56402F; --line-2: #5E4636; --line-3: #6A503E; --line-4: #7A5E49; --line-5: #8C6E57;
+  --card: #45322A; --card-2: #4A362A; --card-3: #533D30; --bg-2: #33241C; --sel: #5A4333;
+  --accent-text: #F6A48E; --ok-text: #9ADBB0; --lime: #F2C46D; --warn: #F2C46D; color: var(--text);
+}
+body:not(.theme-dark) .also-card { background: linear-gradient(135deg, #4A362A 0%, #3B2A21 60%, #452E24 100%); }
+body:not(.theme-dark) .also-card--hi { box-shadow: 0 18px 40px rgba(59,42,33,.22); }
+body:not(.theme-dark) .igra { background: radial-gradient(90% 80% at 100% 0%, rgba(242,196,109,.18) 0%, transparent 60%), linear-gradient(160deg, #4A362A 0%, #3B2A21 70%, #452E24 100%); }
+body:not(.theme-dark) .mapgift b { color: var(--lime); }
+body:not(.theme-dark) .sc1 .sp-lvl { color: #8A5D0E; }
+body:not(.theme-dark) .sc2 .sp-lvl { color: #B4552F; }
+body:not(.theme-dark) .sc3 .sp-lvl { color: var(--accent-text); }
+@media (max-width: 640px) {
+  body:not(.theme-dark) .sec--hero .lead-story { background: linear-gradient(140deg, #FFF8EE 0%, #FBEFE0 100%); border-color: #EBCB8C; box-shadow: 0 10px 26px rgba(59,42,33,.10); }
+  body:not(.theme-dark) .lead-tag { color: #8A5D0E; }
+  body:not(.theme-dark) .lead-tag img { border-color: #E9B23F; }
+  body:not(.theme-dark) .lead-hl { color: var(--accent-text); }
+}

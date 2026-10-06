@@ -55,6 +55,7 @@
   --text: #F7EFE5; --text-2: #E6DACC; --text-strong: #FFFFFF; --muted: #C8B8A7; --muted-2: #D8C9B8; --dim: #AE9D8B; --dim-2: #A08F7E;
   --accent: #D2472F; --accent-hover: #E0553C; --accent-text: #F29A85; --ok: #7CC896; --ok-text: #8FD6A6; --on-ok: #17120F;
   --warn: #F2C46D; --lime: #F2C46D; --shadow: none; color-scheme: dark;
+  --tint: #2F251E; --tint-2: #3A2620; /* выбранные плашки и мягкие подложки (были кремовыми) */
 }
 /* Внутри тёмных «ореховых» блоков текст светлый */
 .on-dark {
@@ -62,6 +63,7 @@
   --line: #56402F; --line-2: #5E4636; --line-3: #6A503E; --line-4: #7A5E49; --line-5: #8C6E57;
   --card: #45322A; --card-2: #4A362A; --card-3: #533D30; --bg-2: #33241C; --sel: #5A4333;
   --accent-text: #F6A48E; --ok-text: #9ADBB0; --lime: #F2C46D; --warn: #F2C46D; color: var(--text);
+  --tint: #533D30; --tint-2: #5A3A2E;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -551,3 +553,24 @@ html.rv-open { overflow: hidden; }
   .fq-ico.vi-box.vi-box { width: 44px; height: 44px; }
   .tr-ico.vi-box.vi-box, .fit-ico.vi-box.vi-box { width: 64px; height: 64px; }
 }
+
+/* 06.10 (v4.6) · Переключатель темы в шапке (assets/theme.js) — на всех страницах */
+.theme-btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-radius: 999px;
+  border: 1.5px solid var(--line-4); background: var(--card); color: var(--text); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: border-color .15s, background .15s; white-space: nowrap; }
+.theme-btn:hover { border-color: var(--accent); }
+.theme-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.theme-btn svg { flex-shrink: 0; color: var(--accent-text); }
+.theme-dark .theme-btn svg { color: var(--honey); }
+@media (max-width: 640px) {
+  .theme-btn { height: 36px; padding: 0 11px; font-size: 13px; gap: 6px; }
+  .theme-btn-x { display: none; }
+}
+body, .card, .hdr, .topbar { transition: background-color .2s, color .2s; }
+@media (max-width: 640px) {
+  .theme-btn { width: 38px; height: 38px; padding: 0; justify-content: center; }
+  .theme-btn-l { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .hdr-nav > a.keep { white-space: nowrap; }
+}
+.brand-logo { flex-shrink: 0; min-width: 30px; object-fit: contain; }
+@media (max-width: 400px) { .theme-btn { width: 34px; height: 34px; } }
