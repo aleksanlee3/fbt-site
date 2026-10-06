@@ -419,3 +419,62 @@ body:not(.theme-dark) .sc3 .sp-lvl { color: var(--accent-text); }
   body:not(.theme-dark) .lead-tag img { border-color: #E9B23F; }
   body:not(.theme-dark) .lead-hl { color: var(--accent-text); }
 }
+
+/* 06.10 (v4.7) · «Книга в подарок» ярче: иконка подарка, выделенные слова, книга плашкой, 9 ячеек и живая стрелка к кнопке артефактов */
+.igra { border: 1.5px solid rgba(242,196,109,.55); box-shadow: 0 0 0 1px rgba(242,196,109,.10), 0 24px 60px rgba(0,0,0,.35); }
+.igra::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 7px; background: linear-gradient(180deg, #C4432D, #E07A4F 50%, #F2C46D); }
+.igra-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.igra-head .eyebrow { margin: 0; color: #F2C46D; }
+.igra-ico.vi-box.vi-box { width: 64px; height: 64px; border-radius: 18px; animation: igra-wiggle 3.2s ease-in-out infinite; transform-origin: 50% 80%; }
+@keyframes igra-wiggle { 0%, 70%, 100% { transform: rotate(0); } 76% { transform: rotate(-9deg) scale(1.06); } 82% { transform: rotate(7deg) scale(1.06); } 88% { transform: rotate(-4deg); } 94% { transform: rotate(2deg); } }
+.igra-n { color: #F2C46D; white-space: nowrap; }
+.igra-hl { color: #F6A48E; }
+.igra-txt .sub { margin-top: 14px; }
+.igra-bookname { margin-top: 18px; display: flex; align-items: center; gap: 14px; padding: 12px 16px 12px 12px; border-radius: 16px;
+  background: rgba(242,196,109,.10); border: 1px dashed rgba(242,196,109,.45); }
+.igra-bk-ico.vi-box.vi-box { width: 48px; height: 48px; border-radius: 12px; padding: 4px; }
+.igra-bookname b { display: block; font-size: 17px; line-height: 1.3; color: var(--text-strong); }
+.igra-bookname i { display: block; margin-top: 3px; font-style: normal; font-size: 14px; color: var(--muted); }
+.igra-slots { margin-top: 18px; display: flex; gap: 6px; }
+.igra-slots i { flex: 1; max-width: 34px; height: 10px; border-radius: 6px; background: rgba(242,196,109,.16); border: 1px solid rgba(242,196,109,.35); }
+.igra-slots i.on { background: linear-gradient(90deg, #F2C46D, #E9B23F); border-color: #F2C46D; box-shadow: 0 0 10px rgba(242,196,109,.45); }
+.igra-cue { margin-top: 12px; display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; text-align: left; }
+.igra-cue-n { font-size: 14px; color: var(--muted); }
+.igra-cue-n b { color: #F2C46D; }
+.igra-cue-t { font: 700 26px/1.1 var(--hand); color: #F6A48E; transform: rotate(-2deg); }
+@media (max-width: 720px) {
+  .igra { padding-left: 22px; }
+  .igra::before { width: 5px; }
+  .igra-ico.vi-box.vi-box { width: 54px; height: 54px; }
+  .igra-bookname b { font-size: 15.5px; }
+  .igra-cue-t { font-size: 22px; }
+}
+/* стрелка поверх страницы (рисует assets/igra-cue.js) */
+.igra-arrow { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 899; pointer-events: none; overflow: visible; color: #E07A4F; opacity: 0; transition: opacity .35s; }
+.igra-arrow.on { opacity: 1; }
+.igra-arrow path.igra-arrow-p { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 9; animation: igra-march 0.9s linear infinite;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)); }
+@keyframes igra-march { to { stroke-dashoffset: -11; } }
+.alb-fab.is-called::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 3px solid #E07A4F; animation: igra-call 1.4s ease-out infinite; pointer-events: none; }
+@keyframes igra-call { 0% { opacity: .9; transform: scale(.9); } 100% { opacity: 0; transform: scale(1.45); } }
+@media (prefers-reduced-motion: reduce) { .igra-ico.vi-box.vi-box, .igra-arrow path.igra-arrow-p, .alb-fab.is-called::after { animation: none !important; } }
+
+/* 06.10 (v4.7) · «Уже рассматриваете обучение?» — тонкая полоска вместо большой карточки */
+.also-card--hi.also-card--end { flex-direction: row; align-items: center; padding: 12px 14px 12px 24px; gap: 12px 20px; border-radius: 18px; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.also-card--end .also-ico.vi-box.vi-box { width: 40px; height: 40px; border-radius: 11px; padding: 3px; }
+.also-card--end .also-txt { gap: 12px; }
+.also-card--end .also-txt b { font-size: 18px; }
+.also-card--end .also-act { flex-direction: row; flex-wrap: nowrap; gap: 8px; }
+.also-card--end .also-btn, .also-card--end .also-btn--main { width: auto; height: 42px; padding: 0 16px; font-size: 15px; }
+.also-card--end .also-btn svg { width: 16px; height: 16px; }
+@media (max-width: 900px) {
+  .also-card--hi.also-card--end { flex-direction: column; align-items: stretch; padding: 12px 12px 12px 20px; gap: 10px; }
+  .also-card--end .also-act { display: grid; grid-template-columns: 1fr 1fr; }
+  .also-card--end .also-btn, .also-card--end .also-btn--main { width: 100%; height: 40px; padding: 0 10px; font-size: 13.5px; }
+}
+@media (max-width: 640px) {
+  .also-card--end .also-txt b { font-size: 16px; }
+  .also-card--end .also-ico.vi-box.vi-box { width: 34px; height: 34px; border-radius: 9px; }
+}
+.also-card--end .l-short { display: none; }
+@media (max-width: 480px) { .also-card--end .l-long { display: none; } .also-card--end .l-short { display: inline; } }

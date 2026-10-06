@@ -414,3 +414,8 @@
 .theme-dark .doubt-cur { background-color: #37362C; color: #E5F5E3; border-color: var(--line-3); }
 .theme-dark .doubt-cur b { color: #E3F5E3; }
 .theme-dark .nofit-red li .nx { background-color: #473028; }
+
+/* 06.10 (v4.7) · Три круга в тёмной теме: подписи «Семья / Бизнес / Собственность» светлые, круги чуть ярче */
+.theme-dark .venn .vn-t { fill: #FFF3E2; }
+.theme-dark .venn .vn-s { fill: #D9C6AF; }
+.theme-dark .venn circle[fill-opacity] { fill-opacity: .22; }

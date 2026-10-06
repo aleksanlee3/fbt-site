@@ -574,3 +574,13 @@ body, .card, .hdr, .topbar { transition: background-color .2s, color .2s; }
 }
 .brand-logo { flex-shrink: 0; min-width: 30px; object-fit: contain; }
 @media (max-width: 400px) { .theme-btn { width: 34px; height: 34px; } }
+
+/* 06.10 (v4.7) · Шапка: всё, что над ней (зона адресной строки Telegram / iOS при прокрутке), всегда закрыто размытием.
+   Раньше там просвечивала страница — например, картинка урока над шапкой в браузере Telegram. */
+.topbar::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 100vh; pointer-events: none;
+  background: rgba(var(--bg-rgb), .94); -webkit-backdrop-filter: saturate(1.4) blur(12px); backdrop-filter: saturate(1.4) blur(12px); }
+html { background: var(--bg); }
+html:has(body.theme-dark) { background: #17120F; }
+/* шапка уходит под вырез / адресную строку: фон с размытием закрывает и эту зону, логотип и кнопки остаются ниже */
+.topbar { padding-top: env(safe-area-inset-top, 0px); }
+body > header.hdr:first-of-type { margin-top: env(safe-area-inset-top, 0px); }
