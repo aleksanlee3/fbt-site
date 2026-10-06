@@ -65,7 +65,8 @@
   }
   function mapStart(page) {
     // Бот понимает map (с сайта) и map_<метка> (реклама): так видно, откуда пришёл человек
-    return src ? 'map_' + (page ? page + '_' : '') + src : 'map';
+    if (page) return 'map_' + page + (src ? '_' + src : '');   // страница карты: бот не поздравляет «вы досмотрели урок»
+    return src ? 'map_' + src : 'map';
   }
   function open(url) {
     var w = null;
