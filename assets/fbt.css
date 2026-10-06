@@ -480,3 +480,20 @@ html.rv-open { overflow: hidden; }
   .revs { display: grid !important; grid-auto-flow: column; grid-template-rows: repeat(2, auto); grid-template-columns: none !important; grid-auto-columns: 42%; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px 12px; }
   .revs .rv { flex: none; scroll-snap-align: start; }
 }
+
+/* 06.10 · отзывы: одна лента, листается вбок (на компьютере — стрелки) */
+.revs { display: flex !important; grid-template-columns: none !important; grid-template-rows: none !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px !important; margin: 24px calc(-1 * var(--gutter)) 0 !important; padding: 0 var(--gutter) 10px !important; scroll-padding-inline: var(--gutter); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.revs::-webkit-scrollbar { display: none; }
+.revs .rv { flex: 0 0 calc((100% - 3 * 16px) / 4.3) !important; scroll-snap-align: start; }
+.revs-nav { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.revs-arr { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-3); background: var(--card-2); color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity .2s, background .2s; }
+.revs-arr svg { width: 20px; height: 20px; }
+.revs-arr:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: #fff; }
+.revs-arr:disabled { opacity: .35; cursor: default; }
+.revs-nav + .revs { margin-top: 14px !important; }
+@media (max-width: 1080px) { .revs .rv { flex-basis: calc((100% - 2 * 16px) / 3.3) !important; } }
+@media (max-width: 760px) {
+  .revs-nav { display: none; }
+  .revs { gap: 12px !important; margin-top: 24px !important; }
+  .revs .rv { flex-basis: 44% !important; }
+}

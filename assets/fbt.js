@@ -229,6 +229,27 @@
         box.querySelectorAll('.rv').forEach(function (rv) { io.observe(rv); });
       }
     });
+    // Стрелки для ленты отзывов (на компьютере; на телефоне — свайп)
+    document.querySelectorAll('[data-reviews]').forEach(function (box) {
+      if (box.previousElementSibling && box.previousElementSibling.classList.contains('revs-nav')) return;
+      var nav = document.createElement('div');
+      nav.className = 'revs-nav';
+      var arr = function (d) { return '<button type="button" class="revs-arr" data-dir="' + d + '" aria-label="' + (d < 0 ? 'Назад' : 'Дальше') + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' + (d < 0 ? '<path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/>' : '<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>') + '</svg></button>'; };
+      nav.innerHTML = arr(-1) + arr(1);
+      box.parentNode.insertBefore(nav, box);
+      var upd = function () {
+        var b = nav.querySelectorAll('.revs-arr');
+        b[0].disabled = box.scrollLeft < 8;
+        b[1].disabled = box.scrollLeft + box.clientWidth > box.scrollWidth - 8;
+      };
+      nav.addEventListener('click', function (e) {
+        var btn = e.target.closest('.revs-arr'); if (!btn) return;
+        box.scrollBy({ left: (+btn.getAttribute('data-dir')) * box.clientWidth * 0.8, behavior: 'smooth' });
+      });
+      box.addEventListener('scroll', upd, { passive: true });
+      window.addEventListener('resize', upd);
+      upd();
+    });
     var all = document.querySelector('[data-reviews-all]');
     if (all && C.reviewsUrl) { all.href = C.reviewsUrl; all.hidden = false; }
   };
