@@ -201,9 +201,9 @@
       var item = document.createElement('div'); item.className = 'fq' + (open ? ' open' : '');
       var b = document.createElement('button');
       b.type = 'button'; b.setAttribute('aria-expanded', open ? 'true' : 'false');
-      var ic = ['j-seed', 'j-case', 'j-video', 'j-clock', 'j-book', 'j-target', 'j-couple', 'j-lock', 'j-shield', 'j-check2'][i % 10];
+      var ic = ['reshenie', 'rost', 'praktika', 'dedlayn', 'instrument', 'sistema', 'komanda', 'cena', 'podushka', 'diagnostika'][i % 10];
       item.className += ' fqc' + (i % 5 + 1);
-      b.innerHTML = '<span class="fq-ico" aria-hidden="true"><svg><use href="#' + ic + '"/></svg></span><span class="fq-q"></span><i aria-hidden="true">' + (open ? '−' : '+') + '</i>';
+      b.innerHTML = '<span class="fq-ico vi-box" aria-hidden="true"><img class="vi" src="assets/icons/' + ic + '.webp" alt="" width="96" height="96"></span><span class="fq-q"></span><i aria-hidden="true">' + (open ? '−' : '+') + '</i>';
       b.querySelector('.fq-q').textContent = f[0];
       b.addEventListener('click', function () { st.faq = open ? null : i; save(); renderFaq(); });
       item.appendChild(b);

@@ -253,10 +253,10 @@
 .symp2 p b { color: var(--text); }
 .sy-ico { width: 48px; height: 48px; flex-shrink: 0; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; }
 .sy-ico svg { width: 26px; height: 26px; }
-.symp2 .s1 { border-left-color: #8B6CF6; } .symp2 .s1 .sy-ico { background: #ECE6FD; color: #6A4FD6; }
+.symp2 .s1 { border-left-color: #8A4F7D; } .symp2 .s1 .sy-ico { background: #F3E4EE; color: #7A3F6E; }
 .symp2 .s2 { border-left-color: var(--accent); } .symp2 .s2 .sy-ico { background: #FBE3DD; color: var(--accent); }
 .symp2 .s3 { border-left-color: #E9B23F; } .symp2 .s3 .sy-ico { background: #FCEFD2; color: #8A5D0E; }
-.symp2 .s4 { border-left-color: #3F95D6; } .symp2 .s4 .sy-ico { background: #DDEBF7; color: #2F72A8; }
+.symp2 .s4 { border-left-color: #4A3F3A; } .symp2 .s4 .sy-ico { background: #EDE6DF; color: #3A302B; }
 
 /* Если без вас останавливаются */
 .stop { background: var(--forest); border-color: var(--forest); color: #FFF8EE; }
@@ -275,8 +275,8 @@
 .sys2 .sys-ico svg { width: 24px; height: 24px; color: inherit; }
 .sys2 .c1 .sys-ico { background: #FBE3DD; color: #C4432D; }
 .sys2 .c2 .sys-ico { background: #FCEFD2; color: #8A5D0E; }
-.sys2 .c3 .sys-ico { background: #D8F0EC; color: #1E7D6E; }
-.sys2 .c4 .sys-ico { background: #DDEBF7; color: #2F72A8; }
+.sys2 .c3 .sys-ico { background: #E3EEDF; color: #3F7148; }
+.sys2 .c4 .sys-ico { background: #EDE6DF; color: #3A302B; }
 
 /* Роли */
 .roles2 .role { grid-template-columns: 56px minmax(0, 1fr); align-items: start; border-left: 5px solid; }
@@ -285,7 +285,7 @@
 .roles2 .role > div { display: flex; flex-direction: column; gap: 4px; }
 .role-k { font-size: 12px !important; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 .roles2 .role b { font-size: 19px; line-height: 1.3; }
-.roles2 .r-fam { border-left-color: #6DBB87; } .r-fam .role-ico { background: #DDF1E4; color: #2A6E43; } .r-fam .role-k { color: #2A6E43 !important; }
+.roles2 .r-fam { border-left-color: #6E9E6F; } .r-fam .role-ico { background: #E3EEDF; color: #2A6E43; } .r-fam .role-k { color: #2A6E43 !important; }
 .roles2 .r-biz { border-left-color: #C4432D; } .r-biz .role-ico { background: #FBE3DD; color: #C4432D; } .r-biz .role-k { color: #A93824 !important; }
 .roles2 .r-own { border-left-color: #E9B23F; } .r-own .role-ico { background: #FCEFD2; color: #8A5D0E; } .r-own .role-k { color: #8A5D0E !important; }
 @media (max-width: 640px) { .roles2 .role { grid-template-columns: 48px minmax(0, 1fr); gap: 14px; } .role-ico { width: 48px; height: 48px; } }
@@ -299,12 +299,12 @@
 .track2 .tr::before { content: ""; display: block; height: 8px; margin: 0 -28px 18px; background: var(--tc, var(--honey)); }
 .tr-ico { width: 52px; height: 52px; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; background: var(--tb); color: var(--tc); }
 .tr-ico svg { width: 28px; height: 28px; }
-.track2 .t-fin { --tc: #2BA592; --tb: #D8F0EC; }
-.track2 .t-time { --tc: #8B6CF6; --tb: #ECE6FD; }
-.track2 .t-ppl { --tc: #3F95D6; --tb: #DDEBF7; }
+.track2 .t-fin { --tc: #5E9468; --tb: #E3EEDF; }
+.track2 .t-time { --tc: #8A4F7D; --tb: #F3E4EE; }
+.track2 .t-ppl { --tc: #4A3F3A; --tb: #EDE6DF; }
 .track2 .t-own { --tc: #E9B23F; --tb: #FCEFD2; }
 .track2 .t-succ { --tc: #C4432D; --tb: #FBE3DD; }
-.track2 .t-gen { --tc: #6DBB87; --tb: #DDF1E4; }
+.track2 .t-gen { --tc: #6E9E6F; --tb: #E3EEDF; }
 .track2 .tr .res { margin-top: auto; padding: 12px 14px; border-top: 0; border-radius: 12px; background: var(--tb); color: var(--text); font-weight: 600; }
 .track2 .tr .res::before { color: var(--text); }
 .is-test .track2 .tr:has(.concept) { padding-top: 0; }
@@ -316,8 +316,8 @@
 .fit-ico svg { width: 28px; height: 28px; }
 .fit2 .f1 { --fc: #C4432D; --fb: #FBE3DD; }
 .fit2 .f2 { --fc: #8A5D0E; --fb: #FCEFD2; }
-.fit2 .f3 { --fc: #2A6E43; --fb: #DDF1E4; }
-.fit2 .f4 { --fc: #2F72A8; --fb: #DDEBF7; }
+.fit2 .f3 { --fc: #2A6E43; --fb: #E3EEDF; }
+.fit2 .f4 { --fc: #3A302B; --fb: #EDE6DF; }
 .fit2 b { font-size: 19px; }
 .nofit-red { margin-top: 18px; }
 
@@ -325,8 +325,8 @@
 .ready2 div { align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: var(--card); border: 1px solid var(--line-2); font-weight: 600; color: var(--text); }
 .rd-ico { width: 38px; height: 38px; flex-shrink: 0; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; }
 .ready2 .rd-ico svg { width: 20px; height: 20px; margin: 0; color: inherit; }
-.rc1 { background: #FCEFD2; color: #8A5D0E; } .rc2 { background: #D8F0EC; color: #1E7D6E; } .rc3 { background: #DDEBF7; color: #2F72A8; }
-.rc4 { background: #FBE3DD; color: #C4432D; } .rc5 { background: #ECE6FD; color: #6A4FD6; } .rc6 { background: #DDF1E4; color: #2A6E43; }
+.rc1 { background: #FCEFD2; color: #8A5D0E; } .rc2 { background: #E3EEDF; color: #3F7148; } .rc3 { background: #EDE6DF; color: #3A302B; }
+.rc4 { background: #FBE3DD; color: #C4432D; } .rc5 { background: #F3E4EE; color: #7A3F6E; } .rc6 { background: #E3EEDF; color: #2A6E43; }
 
 /* Обычный тренинг vs FBT */
 .qa2 { margin-top: 44px; display: flex; flex-direction: column; gap: 14px; }
@@ -341,9 +341,9 @@
 .qa2-ico { width: 52px; height: 52px; flex-shrink: 0; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; }
 .qa2-ico svg { width: 28px; height: 28px; }
 .qa2 .q1 .qa2-ico { background: var(--honey); color: #3B2A21; }
-.qa2 .q2 .qa2-ico { background: #6DBB87; color: #1C140F; }
+.qa2 .q2 .qa2-ico { background: #6E9E6F; color: #1C140F; }
 .qa2 .q3 .qa2-ico { background: #C4432D; color: #fff; }
-.qa2 .q4 .qa2-ico { background: #8FC3EC; color: #1C3A55; }
+.qa2 .q4 .qa2-ico { background: #C8B8AB; color: #1C140F; }
 @media (max-width: 760px) {
   .qa2-head { display: none; }
   .qa2-row { grid-template-columns: minmax(0, 1fr); }
@@ -358,7 +358,7 @@
 .doubt-h em { font-style: normal; color: var(--accent-text); }
 .doubt-p { margin-top: 18px; font-size: 19px; line-height: 1.55; color: var(--muted); }
 .doubt-p b { color: var(--text); }
-.doubt-cur { margin-top: 16px; display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; border-radius: 16px; background: #DDF1E4; border: 1px solid #B7DEC4; font-size: 17px; line-height: 1.45; color: #1F4A30; }
+.doubt-cur { margin-top: 16px; display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; border-radius: 16px; background: #E3EEDF; border: 1px solid #B7DEC4; font-size: 17px; line-height: 1.45; color: #1F4A30; }
 .doubt-cur b { color: #174029; }
 .doubt-cur-ico { width: 38px; height: 38px; flex-shrink: 0; border-radius: 999px; background: #2A6E43; color: #fff; display: inline-flex; align-items: center; justify-content: center; }
 .doubt-cur-ico svg { width: 20px; height: 20px; }

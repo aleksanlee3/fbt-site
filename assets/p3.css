@@ -326,7 +326,7 @@
 .sent-3 .st2 .num { color: #9A6512; }
 .sent-3 .st3 { background: #E7F4EB; border-color: #A9D8B8; }
 .sent-3 .st3 .st-ico { background: #3E9B66; }
-.sent-3 .st3 .num { color: #2F7D57; }
+.sent-3 .st3 .num { color: #3F7148; }
 .sent-3 .st2 b, .sent-3 .st3 b { color: #2A1F18; }
 .sent-pdf { margin-top: 18px; width: 100%; max-width: 820px; display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 18px; background: var(--card); border: 1.5px dashed #D8B98C; text-align: left; flex-wrap: nowrap; justify-content: flex-start; cursor: pointer; text-decoration: none; }
 .sp-ico { width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px; background: #FBEBCB; display: inline-flex; align-items: center; justify-content: center; }

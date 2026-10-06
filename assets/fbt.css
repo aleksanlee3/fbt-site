@@ -24,7 +24,7 @@
   --accent-hover: #A93824;
   --accent-text: #A93A24;
   --on-accent: #FFFFFF;
-  --ok: #6DBB87;
+  --ok: #6E9E6F;
   --ok-text: #2A6E43;
   --on-ok: #1C140F;
   --warn: #8A5D0E;
@@ -37,9 +37,9 @@
   --shadow: 0 1px 2px rgba(59,42,33,.06), 0 8px 24px rgba(59,42,33,.06);
   --c-model: #E4574F;
   --c-marketing: #E9B23F;
-  --c-finance: #2BA592;
-  --c-time: #8B6CF6;
-  --c-people: #3F95D6;
+  --c-finance: #5E9468;
+  --c-time: #8A4F7D;
+  --c-people: #4A3F3A;
   --gutter: 24px;
   --maxw: 1120px;
   --radius: 22px;
@@ -506,11 +506,48 @@ html.rv-open { overflow: hidden; }
 .ust-i > span:last-child { font-size: 15.5px; line-height: 1.5; color: var(--muted); }
 .ust-ico { width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; background: var(--ub); color: var(--uc); margin-bottom: 6px; }
 .ust-ico svg { width: 26px; height: 26px; }
-.ust .u1 { --uc: #2BA592; --ub: rgba(43,165,146,.14); }
+.ust .u1 { --uc: #5E9468; --ub: rgba(94,148,104,.14); }
 .ust .u2 { --uc: #D98A12; --ub: rgba(233,178,63,.18); }
-.ust .u3 { --uc: #6A4FD6; --ub: rgba(139,108,246,.15); }
+.ust .u3 { --uc: #7A3F6E; --ub: rgba(138,79,125,.15); }
 .ust .u4 { --uc: #C4432D; --ub: rgba(196,67,45,.12); }
-.theme-dark .ust .u2 { --uc: #F2C46D; } .theme-dark .ust .u3 { --uc: #A994FA; } .theme-dark .ust .u4 { --uc: #F29A85; }
+.theme-dark .ust .u2 { --uc: #F2C46D; } .theme-dark .ust .u3 { --uc: #D49CC4; } .theme-dark .ust .u4 { --uc: #F29A85; }
 .sp-get { margin-top: 10px; padding: 10px 12px; border-radius: 12px; background: rgba(242,196,109,.10); border-left: 3px solid var(--lime); font-size: 14.5px; line-height: 1.45; color: var(--text-2); }
 @media (max-width: 900px) { .ust { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .ust { grid-template-columns: 1fr; gap: 10px; } .ust-i { flex-direction: row; flex-wrap: wrap; align-items: center; column-gap: 14px; padding: 18px 16px; } .ust-ico { margin: 0; width: 44px; height: 44px; } .ust-i b { flex: 1; min-width: 0; } .ust-i > span:last-child { flex-basis: 100%; } }
+
+/* ── FBT Visual Language (06.10): смысловые иконки — рисунки из эталонных листов Notion «07 · Материалы и бренд-активы».
+   Файлы — assets/icons/*.webp. Рисунок лежит на «бумажной» плашке, чтобы одинаково читаться на светлых и тёмных блоках.
+   Новые иконки берём только из этого набора или рисуем в том же стиле (угольная линия + терракота, мёд, зелёный, сливовый). */
+.vi { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; user-select: none; }
+.vi-box.vi-box { background: #FFFBF3 !important; border-radius: 18px; padding: 6px; box-shadow: inset 0 0 0 1.5px rgba(42,31,24,.09), 0 2px 6px rgba(59,42,33,.06); color: inherit; flex-shrink: 0; overflow: hidden; }
+.theme-dark .vi-box.vi-box, .on-dark .vi-box.vi-box { box-shadow: 0 4px 14px rgba(0,0,0,.28); }
+/* размеры: рисунку нужно больше места, чем линейной иконке */
+.ust-ico.vi-box.vi-box { width: 68px; height: 68px; }
+.also-ico.vi-box.vi-box { width: 60px; height: 60px; }
+.tips .tip-ico.vi-box.vi-box { display: block; width: 72px; height: 72px; }
+.money-ico.vi-box.vi-box { display: inline-block; width: 44px; height: 44px; padding: 3px; border-radius: 12px; vertical-align: middle; }
+.send-ico.vi-box.vi-box { width: 72px; height: 72px; }
+.st-ico.vi-box.vi-box { width: 60px; height: 60px; }
+.sp-ico.vi-box.vi-box { width: 54px; height: 54px; }
+.voice-ico.vi-box.vi-box { width: 44px; height: 44px; padding: 3px; border-radius: 12px; }
+.feats-big .ico.vi-box.vi-box, .ico.vi-box.vi-box { width: 68px; height: 68px; }
+.fam4-list .fi.vi-box.vi-box { width: 54px; height: 54px; border-radius: 14px; padding: 4px; }
+.fq-ico.vi-box.vi-box { width: 50px; height: 50px; border-radius: 14px; padding: 4px; }
+.sy-ico.vi-box.vi-box { width: 64px; height: 64px; }
+.sys-ico.vi-box.vi-box { width: 62px; height: 62px; }
+.role-ico.vi-box.vi-box { width: 72px; height: 72px; }
+.tr-ico.vi-box.vi-box { width: 72px; height: 72px; }
+.fit-ico.vi-box.vi-box { width: 72px; height: 72px; border-radius: 999px; padding: 9px; }
+.rd-ico.vi-box.vi-box { width: 52px; height: 52px; border-radius: 14px; padding: 4px; }
+.qa2-ico.vi-box.vi-box { width: 66px; height: 66px; }
+.doubt-cur-ico.vi-box.vi-box { width: 52px; height: 52px; border-radius: 999px; padding: 5px; }
+@media (max-width: 640px) {
+  .ust-ico.vi-box.vi-box { width: 60px; height: 60px; }
+  .also-card--hi .also-ico.vi-box.vi-box { width: 50px; height: 50px; border-radius: 14px; }
+  .ico.vi-box.vi-box, .feats-big .ico.vi-box.vi-box { width: 58px; height: 58px; }
+  .roles2 .role { grid-template-columns: 60px minmax(0, 1fr); }
+  .role-ico.vi-box.vi-box { width: 60px; height: 60px; }
+  .qa2-ico.vi-box.vi-box { width: 56px; height: 56px; }
+  .fq-ico.vi-box.vi-box { width: 44px; height: 44px; }
+  .tr-ico.vi-box.vi-box, .fit-ico.vi-box.vi-box { width: 64px; height: 64px; }
+}
