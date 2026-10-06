@@ -60,6 +60,7 @@
     var open = st.reached, got = open && st.gotMap;
     var len = shownLen(), finalStage = len >= TOTAL();
     FBT.toggle({ locked: !open, unlocked: open && !got, got: got, notGot: !got, openAny: open });
+    if (open) { var c2 = document.querySelector('[data-watch-cue]'); if (c2) c2.classList.add('is-off'); }  // урок досмотрен — стрелка не нужна
     // До последнего этапа «осталось» считаем от показанной длины — не выдаём настоящую
     FBT.text('timeLeft', fmt(finalStage ? UNLOCK() - st.pos : len - st.pos));
     FBT.text('posLabel', fmt(st.pos));
@@ -70,6 +71,8 @@
     el.marker.hidden = !finalStage;
     el.progress.style.width = (open ? 100 : Math.min(100, st.pos / (finalStage ? UNLOCK() : len) * 100)).toFixed(1) + '%';
     el.player.classList.toggle('is-playing', st.playing);
+    var cue = document.querySelector('[data-watch-cue]');
+    if (cue && st.playing && !el.player.classList.contains('is-yt')) cue.classList.add('is-off');  // демо/файл: начали смотреть — стрелка не нужна
     el.play.setAttribute('aria-label', st.playing ? 'Пауза' : 'Смотреть видео');
     if (el.step2) el.step2.className = open ? 'done' : '';
     report();
@@ -160,6 +163,7 @@
       muted = m; lessonMuted = m;
       if (ready) { if (m) yt.mute(); else { yt.unMute(); yt.setVolume(100); } }
       soundBtn.hidden = !m;
+      document.documentElement.classList.toggle('lesson-sound', !m);  // звук включён — стрелку «Смотрите это видео» убираем
     }
     // Время и кнопки скорости появляются только при наведении мышью или касании — 2,5 сек
     var uiTimer = null;

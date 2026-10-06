@@ -55,7 +55,8 @@
       <div class="step is-now route-full" aria-current="step"><span class="dot">1</span>Посмотреть урок<span class="tag" data-show="locked">Вы здесь</span><span class="tag tag--ok" data-show="openAny" hidden>Карта открыта</span></div>
       <i class="route-line route-full"></i>
       <div class="step is-muted route-full" data-show="locked"><span class="dot">2</span>Пройти диагностику<span class="tag--timer"><svg width="15" height="15" class="acc"><use href="#i-clock"/></svg>после урока · <b data-text-of="timeLeft">29:30</b></span></div>
-      <a class="step is-next route-full" href="diagnostika.html" data-show="openAny" hidden><span class="dot">2</span><span class="u">Пройти диагностику</span><span class="tag">Следующий шаг</span></a>
+      <div class="step is-muted route-full" data-show="unlocked" hidden><span class="dot">2</span>Пройти диагностику<span class="tag--timer"><svg width="15" height="15" class="acc"><use href="#i-lock"/></svg>после карты</span></div>
+      <a class="step is-next route-full" href="diagnostika.html" data-show="got" hidden><span class="dot">2</span><span class="u">Пройти диагностику</span><span class="tag">Следующий шаг</span></a>
       <i class="route-line route-full"></i>
       <a class="step is-muted route-full" href="programma.html"><span class="dot">3</span>Записаться на программу</a>
 
@@ -64,7 +65,8 @@
         <div class="rc-top">
           <span class="rc-t">ВЫ НА ЭТАПЕ 1 ИЗ 3</span>
           <span class="rc-badge" data-show="locked">карта в конце урока · <b data-text-of="timeLeft">29:30</b></span>
-          <a class="rc-badge rc-badge--acc" data-show="openAny" href="diagnostika.html" hidden>К диагностике →</a>
+          <span class="rc-badge rc-badge--acc" data-show="unlocked" hidden>заберите карту ↓</span>
+          <a class="rc-badge rc-badge--acc" data-show="got" href="diagnostika.html" hidden>К диагностике →</a>
         </div>
         <div class="rc-line"><i class="now">1</i><b></b><i data-step2>2</i><b></b><i>3</i></div>
         <div class="rc-lab"><span class="now">Урок</span><span>Диагностика</span><span>Программа</span></div>
@@ -118,6 +120,13 @@
         <span><svg><use href="#i-doc"/></svg>Карта действий в подарок</span>
       </div>
 
+      <!-- 06.10: стрелка на видео — человек сразу понимает, куда смотреть и нажать -->
+      <div class="watch-cue" data-watch-cue aria-hidden="true">
+        <span class="watch-cue-t">Смотрите это видео</span>
+        <span class="watch-cue-s">нажмите на него, чтобы включить звук</span>
+        <svg class="watch-cue-a" viewBox="0 0 40 56" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c10 10 12 26 8 44"/><path d="M12 38l10 12l9-13"/></svg>
+      </div>
+
       <div id="video" class="player">
         <div class="player-stage" data-player-stage>
           <!-- демо-обложка; при type=youtube/file сюда встраивается видео -->
@@ -161,7 +170,6 @@
               <div class="nudge" aria-hidden="true"><span>PDF — бесплатно</span><svg><use href="#i-arrow-hand"/></svg></div>
               <span class="ringed"><a class="btn btn--primary btn--lg" data-bot="map" data-getmap><svg><use href="#i-send"/></svg>Забрать карту в Telegram</a></span>
             </div>
-            <a class="link-btn mt-8" href="diagnostika.html">или сразу к шагу 2 — диагностике →</a>
           </div>
         </div>
         <!-- 3. Карта получена -->
@@ -278,13 +286,13 @@
           <a class="btn btn--sm btn--block btn--soft" data-show="got" data-bot="map" data-getmap hidden>Открыть бот с картой</a>
         </div>
         <div class="card stepcard" data-step="Диагностика">
-          <div class="row gap-14" data-show="locked"><span class="stepnum">2</span><span class="note" style="color:var(--muted)">После урока</span></div>
-          <div class="row gap-14" data-show="openAny" hidden><span class="stepnum is-ok">2</span><span class="tag tag--ok">Открыто</span></div>
+          <div class="row gap-14" data-show="notGot"><span class="stepnum">2</span><span class="note" style="color:var(--muted)">После карты действий</span></div>
+          <div class="row gap-14" data-show="got" hidden><span class="stepnum is-ok">2</span><span class="tag tag--ok">Открыто</span></div>
           <h3 class="h3">Пройти диагностику</h3>
           <p class="muted">10 вопросов, 5 минут. Покажет, что мешает вашему бизнесу стать устойчивым и с какого шага начать. Результат разберёт куратор.</p>
           <div class="grow"></div>
-          <div class="btn btn--sm btn--block btn--locked" data-show="locked"><svg><use href="#i-lock"/></svg>Откроется после урока</div>
-          <a class="btn btn--sm btn--block btn--primary" data-show="openAny" href="diagnostika.html" hidden>Пройти диагностику<svg><use href="#i-right"/></svg></a>
+          <div class="btn btn--sm btn--block btn--locked" data-show="notGot"><svg><use href="#i-lock"/></svg>Откроется после карты</div>
+          <a class="btn btn--sm btn--block btn--primary" data-show="got" href="diagnostika.html" hidden>Пройти диагностику<svg><use href="#i-right"/></svg></a>
         </div>
         <div class="card stepcard" data-step="Запись">
           <div class="row gap-14"><span class="stepnum">3</span><span class="note" style="color:var(--muted)">Когда будете готовы</span></div>

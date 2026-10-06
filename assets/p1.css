@@ -379,3 +379,22 @@ html.fs-lock, html.fs-lock body { overflow: hidden; }
   .igra-top { grid-template-columns: 1fr; gap: 20px; text-align: left; }
   .bk { width: 180px; }
 }
+
+/* 06.10 · Стрелка «Смотрите это видео» над плеером */
+.watch-cue { margin-top: 40px; display: flex; flex-direction: column; align-items: center; text-align: center; color: var(--accent-text); }
+.watch-cue-t { font-family: var(--hand); font-size: 44px; line-height: 1; font-weight: 700; transform: rotate(-3deg); }
+.watch-cue-s { margin-top: 6px; font-size: 16px; color: var(--muted); }
+.watch-cue-a { width: 40px; height: 56px; margin-top: 4px; animation: nudge-y 1.1s ease-in-out infinite; }
+.watch-cue + .player { margin-top: 8px; }
+.watch-cue + .player { box-shadow: 0 0 0 3px var(--accent), 0 0 0 9px color-mix(in srgb, var(--accent) 25%, transparent); animation: cue-ring 1.8s ease-in-out infinite; }
+@keyframes cue-ring { 0%,100% { box-shadow: 0 0 0 3px var(--accent), 0 0 0 6px color-mix(in srgb, var(--accent) 30%, transparent); } 50% { box-shadow: 0 0 0 3px var(--accent), 0 0 0 14px color-mix(in srgb, var(--accent) 0%, transparent); } }
+.lesson-sound .watch-cue, .watch-cue.is-off { display: none; }
+.lesson-sound .watch-cue + .player, .watch-cue.is-off + .player { box-shadow: none; animation: none; margin-top: 48px; }
+@media (prefers-reduced-motion: reduce) { .watch-cue-a, .watch-cue + .player { animation: none !important; } }
+@media (max-width: 720px) {
+  .watch-cue { margin-top: 24px; }
+  .watch-cue-t { font-size: 36px; }
+  .watch-cue-s { font-size: 14px; }
+  .watch-cue-a { width: 32px; height: 44px; }
+  .lesson-sound .watch-cue + .player, .watch-cue.is-off + .player { margin-top: 32px; }
+}
