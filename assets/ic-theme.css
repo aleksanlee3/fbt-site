@@ -1,0 +1,136 @@
+/* Сайт v4.9 (06.10) · стр. 1 в цветах Impact Consulting / icgroup.uz (согласовано Александром; рисованные иконки — цветные).
+   Палитра логотипа: красный #C60000, графит #181818, серо-голубой #5A6E7A / #A2C3CD / #D5F0F7.
+   Фон #F5F5F7, карточки белые, текст #1D1D1F, шрифт Golos Text. Без мёда, оранжевого и радуги. */
+body.ic {
+  --font: 'Golos Text', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  --mono: var(--font);
+  --bg: #F5F5F7; --bg-rgb: 245, 245, 247; --bg-2: #FFFFFF;
+  --card: #FFFFFF; --card-2: #FFFFFF; --card-3: #F5F5F7; --sel: #FBEAEA;
+  --line: rgba(29,29,31,.09); --line-2: rgba(29,29,31,.10); --line-3: rgba(29,29,31,.14); --line-4: rgba(29,29,31,.18); --line-5: #A2C3CD;
+  --text: #1D1D1F; --text-2: #3A3A3C; --text-strong: #111111;
+  --muted: #6E6E73; --muted-2: #55555A; --dim: #6E6E73; --dim-2: #747478;
+  --accent: #C60000; --accent-hover: #A80000; --accent-text: #C60000; --on-accent: #FFFFFF;
+  --ok: #5A6E7A; --ok-text: #3F5560; --on-ok: #FFFFFF;
+  --honey: #C60000; --lime: #C60000; --lime-bg: #FBEAEA; --warn: #5A6E7A;
+  --forest: #181818; --forest-2: #232325; --paper: #FFFFFF;
+  --tint: #F5F5F7; --tint-2: #FBEAEA;
+  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.05);
+  --radius: 24px;
+  --blue: #5A6E7A; --blue-2: #A2C3CD; --blue-3: #D5F0F7;
+  background: var(--bg); color: var(--text); font-family: var(--font);
+}
+html:has(body.ic) { background: #F5F5F7; }
+body.ic .theme-btn { display: none !important; }
+
+/* Типографика как на icgroup: крупно, плотно, без жирного «700» */
+body.ic .h1, body.ic .h2, body.ic .h2--xl { font-weight: 600; letter-spacing: -.035em; line-height: 1.02; }
+body.ic .h3 { font-weight: 600; letter-spacing: -.015em; }
+body.ic .eyebrow { color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: .06em; }
+body.ic .grey { color: #8A8A8F; }
+
+/* Шапка и маршрут */
+body.ic .topbar { background: rgba(245,245,247,.86); backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px); }
+body.ic .hdr, body.ic .route { background: transparent; border-color: var(--line); }
+body.ic .brand b { color: #181818; letter-spacing: .08em; }
+body.ic .tag { border-color: var(--accent); color: var(--accent); }
+body.ic .tag--timer { background: #fff; border-color: var(--line-3); }
+body.ic .rc-line i.now, body.ic .step.is-now .dot { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* Кнопки — красные «таблетки», вторичные — графит с обводкой */
+body.ic .btn { border-radius: 999px; font-weight: 500; }
+body.ic .btn--primary { background: var(--accent); border-color: var(--accent); box-shadow: none; font-weight: 500; }
+body.ic .btn--primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+/* Первый экран — графит, как фото-шапка icgroup */
+body.ic .sec--hero { background: #181818; color: #fff;
+  --text: #F5F5F7; --text-2: #E5E5EA; --text-strong: #FFFFFF; --muted: #B4B4BA; --muted-2: #C7C7CC; --dim: #9A9AA0; --dim-2: #9A9AA0;
+  --card: #232325; --card-2: #232325; --card-3: #2C2C2E; --line: rgba(255,255,255,.08); --line-2: rgba(255,255,255,.10); --line-3: rgba(255,255,255,.14);
+  --accent-text: #FF8585; --bg: #181818; }
+body.ic .sec--hero .grey { color: #A2C3CD; }
+body.ic .sec--hero .eyebrow { color: #FF8585; }
+body.ic .sec--hero .lead-story::before { background: var(--accent); }
+body.ic .lead-tag { color: #A2C3CD; }
+body.ic .lead-tag img { border-color: #A2C3CD; }
+body.ic .lead-hl { color: #FF8585; }
+body.ic .sec--hero .player { border-color: rgba(255,255,255,.12); }
+
+/* Все разноцветные детали стр. 1 → красный / графит / серо-голубой логотипа */
+body.ic .sc1 .sp-dot, body.ic .sc2 .sp-dot { background: #fff; color: #181818; border: 1.5px solid #181818; }
+body.ic .sc3 .sp-dot { background: var(--accent); color: #fff; }
+body.ic .sc1 .sp-lvl, body.ic .sc2 .sp-lvl, body.ic .sc3 .sp-lvl { color: var(--accent); }
+body.ic [class*="spath"] [class*="line"], body.ic .spath::before { background: #A2C3CD !important; }
+body.ic .spath .stage-card::after, body.ic .rsteps .stepcard:not(:last-child) > .row::after { color: #A2C3CD; }
+body.ic .rsteps .stepcard::before, body.ic .rsteps .stepcard:nth-child(2)::before { background: #A2C3CD !important; }
+body.ic .rsteps .stepcard:first-child::before { background: var(--accent) !important; }
+body.ic .rsteps .stepcard::after, body.ic .rsteps .stepcard:first-child::after, body.ic .rsteps .stepcard:nth-child(2)::after { background-color: #fff !important; border: 1.5px solid #5A6E7A; }
+body.ic .rsteps .stepcard:first-child::after { background-color: var(--accent) !important; border-color: var(--accent); }
+
+/* Карточки — белые, мягкая тень, без цветных полос */
+body.ic .card, body.ic .stage-card, body.ic .stepcard, body.ic .quote-card, body.ic .ust-it, body.ic .unlock { background: #fff; border-color: transparent; box-shadow: var(--shadow); }
+body.ic .sec--hero .unlock { background: #232325; box-shadow: none; }
+body.ic .ust > * { border-top-color: transparent !important; }
+body.ic .ust { --uc: #C60000 !important; }
+body.ic .ust .u2, body.ic .ust .u3, body.ic .ust .u4 { --uc: #C60000 !important; }
+
+/* Рисованные иконки остаются цветными (решение Александра 06.10), плашка под ними — светло-серая */
+body.ic .vi-box { background: #F5F5F7 !important; border-color: transparent !important; box-shadow: none !important; }
+
+/* История Любы и её слова — графитовая карточка, как блок основателя на icgroup */
+body.ic .lquote, body.ic .storybox { background: #181818; border-color: #181818; box-shadow: none; color: #fff;
+  --text: #F5F5F7; --text-strong: #fff; --muted: #B4B4BA; --dim: #9A9AA0; --accent-text: #FF8585; }
+body.ic .lquote .quote-ico { fill: #FF8585; opacity: .5; }
+body.ic .lquote-foot { border-top-color: rgba(255,255,255,.12); }
+body.ic .lquote-who img { border-color: #A2C3CD; }
+body.ic .tag-story { background: rgba(198,0,0,.08); color: var(--accent); }
+body.ic .lquote .tag-story, body.ic .storybox .tag-story { background: rgba(255,133,133,.14); color: #FF8585; }
+body.ic .tag-method { background: rgba(90,110,122,.12); color: #3F5560; }
+body.ic .story-num b { color: var(--accent); }
+body.ic .timeline li::before { border-color: var(--accent); }
+
+/* Отзывы */
+body.ic .sec--alt { background: #fff; }
+
+/* Книга в подарок */
+body.ic .igra { background: #fff; border-color: transparent; box-shadow: var(--shadow); }
+body.ic .igra::before { background: var(--accent); }
+body.ic .igra-head .eyebrow, body.ic .igra-n, body.ic .igra-cue-n b { color: var(--accent); }
+body.ic .igra-hl { color: #181818; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+body.ic .igra-ribbon { background: var(--accent); color: #fff; }
+body.ic .igra-bookname { background: #F5F5F7; border-color: transparent; }
+body.ic .igra-slots i { background: #F5F5F7; border-color: rgba(29,29,31,.12); }
+body.ic .igra-slots i.on { background: var(--accent); border-color: var(--accent); box-shadow: none; }
+body.ic .igra-cue-t { color: var(--accent); }
+body.ic .igra-arrow { color: var(--accent); }
+body.ic .alb-fab.is-called::after { border-color: var(--accent); }
+body.ic .alb-fab .ring .fg { stroke: var(--accent); }
+body.ic .alb-fab b { background: #181818; color: #fff; }
+
+/* «Смотрите это видео» и «Уже рассматриваете обучение?» */
+body.ic .watch-cue, body.ic [class*="cue"] { color: #FF8585; }
+body.ic .mapgift li::before { background-color: var(--accent); }
+body.ic .mapgift b { color: var(--accent); }
+body.ic .foot { background: #F5F5F7; }
+
+/* Блок книги — светлый (белая карточка) */
+body.ic .igra {
+  --text: #1D1D1F; --text-2: #3A3A3C; --text-strong: #111; --muted: #6E6E73; --muted-2: #55555A; --dim: #6E6E73; --dim-2: #747478;
+  --line: rgba(29,29,31,.09); --line-2: rgba(29,29,31,.10); --line-3: rgba(29,29,31,.14); --card: #fff; --card-2: #F5F5F7; --card-3: #F5F5F7; --bg-2: #F5F5F7;
+  --accent-text: #C60000; --lime: #C60000; --warn: #C60000;
+  background: #fff !important; border: 0 !important; box-shadow: var(--shadow) !important; color: var(--text);
+}
+/* «Уже рассматриваете обучение?» — графитовая полоса */
+body.ic .also-card {
+  --text: #F5F5F7; --text-2: #E5E5EA; --text-strong: #fff; --muted: #B4B4BA; --dim: #9A9AA0; --line: rgba(255,255,255,.1); --line-2: rgba(255,255,255,.12);
+  --accent-text: #FF8585; background: #181818 !important; box-shadow: none !important; border-color: #181818 !important;
+}
+/* 4 признака: вместо цветных полосок — красные номера 01–04, как на icgroup */
+body.ic .ust { counter-reset: u; }
+body.ic .ust-i { border: 0; }
+body.ic .ust-i::before { content: "0" counter(u); counter-increment: u; position: absolute; top: 22px; right: 22px; left: auto; height: auto; background: none; color: var(--accent); font-size: 13px; font-weight: 600; letter-spacing: .04em; }
+body.ic .ust-ico { background: #F5F5F7; }
+body.ic .ust-i b { font-weight: 600; }
+@media (max-width: 640px) {
+  body.ic .sec--hero .lead-story { background: #232325 !important; border-color: transparent !important; box-shadow: none !important; color: #E5E5EA; }
+  body.ic .sec--hero .lead-tag { color: #A2C3CD !important; }
+  body.ic .sec--hero .lead-hl { color: #FF8585 !important; }
+}
