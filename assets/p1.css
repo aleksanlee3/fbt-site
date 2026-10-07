@@ -525,3 +525,11 @@ body.ic .igra-arrow path.igra-arrow-p { stroke-width: 3.5; filter: none; }
   .dh-why li { font-size: 15px; padding: 11px 12px; }
   .diag-hot .unlock-act .btn { min-width: 0; }
 }
+/* 07.10 v5.10 · иконки вместо номеров в причинах */
+.dh-i svg { width: 16px; height: 16px; }
+.dh-why li:first-child { border-color: rgba(255,255,255,.08); background: rgba(255,255,255,.05); }
+.dh-why li:nth-child(2) { border-color: rgba(198,0,0,.55); background: rgba(198,0,0,.12); }
+.dh-why li .dh-i, .dh-why li:nth-child(n+2) .dh-i { background: #5A6E7A; color: #fff; }
+.dh-why li:nth-child(2) .dh-i { background: #C60000; }
+.dh-why li:last-child .dh-i { background: #A2C3CD; color: #181818; }
+.diag-hot .dh-lead b { color: #fff; }
