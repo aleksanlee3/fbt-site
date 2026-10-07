@@ -80,6 +80,25 @@
   FBT.refLink = function () { return store.get('fbt_token', '') ? store.get('fbt_ref', '') : ''; };
   // маршрут человека: какую страницу открыл
   event('page_view', { page: (location.pathname.split('/').pop() || 'index').replace('.html', '') || 'index' });
+  // 07.10: сколько секунд человек провёл на странице и как глубоко прокрутил — для аналитики воронки (Notion).
+  // Считаем только время, когда вкладка видна; отправляем при уходе со страницы или сворачивании.
+  (function () {
+    var page = (location.pathname.split('/').pop() || 'index').replace('.html', '') || 'index';
+    var shown = document.hidden ? 0 : Date.now(), acc = 0, depth = 0;
+    function scrolled() {
+      var h = document.documentElement.scrollHeight - innerHeight;
+      if (h > 0) depth = Math.max(depth, Math.round(scrollY / h * 100));
+    }
+    addEventListener('scroll', scrolled, { passive: true });
+    function flush() {
+      if (shown) { acc += Date.now() - shown; shown = 0; }
+      var sec = Math.round(acc / 1000);
+      if (sec >= 3) event('page_time', { page: page, sec: sec, scroll: depth });
+      acc = 0;
+    }
+    document.addEventListener('visibilitychange', function () { if (document.hidden) flush(); else shown = Date.now(); });
+    addEventListener('pagehide', flush);
+  })();
 
   // Карта получена? (общая отметка для всех страниц)
   FBT.gotMap = function () { return store.get('fbt_map', 0) === 1; };
