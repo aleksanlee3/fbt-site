@@ -45,3 +45,27 @@ body.ic .res-send .more--hi .more-top .more-step { color: #fff; }               
 body.ic .unlock-row .mapgift li b, body.ic.ic-dark .ic-top .main-pt .mp-step > span { color: #FF5A5A; }
 body.ic.ic-dark .ic-top .task-b .alert { color: #A2C3CD; }
 body.ic .tag--ok { color: #fff; }
+
+/* 11. Полная проверка 07.10 (все экраны × обе темы, порог 4,5 / 3 для крупного) — scripts/contrast-audit.py */
+/* стр. 3 · задание 4 «слова»: на графите — светлые слова; выбранное слово — красная плашка с белым текстом */
+body.ic .word { color: #222020; }
+body.ic.ic-dark .ic-top .word { color: #E8E8EC; border-color: #5A5A60; }
+body.ic .word[aria-pressed="true"], body.ic.ic-dark .ic-top .word[aria-pressed="true"] { background: #C60000; border-color: #C60000; color: #fff; }
+body.ic .word.full:not([aria-pressed="true"]) { opacity: .55; }
+/* серо-голубые плашки (#5A6E7A): «Бесплатно», номера корней на стр. 2 — белый текст */
+body.ic .free, body.ic .root--1 i { color: #fff; }
+/* красные плашки с белым текстом — фирменный тёмно-красный, чтобы белое читалось */
+body.ic .gc--uz, body.ic .entry.e1 .entry-ph em, body.ic .pdot.on { background-color: #C60000; border-color: #C60000; color: #fff; }
+/* стр. 4 · цены: прошлая неделя без бледности, мелкие подписи темнее */
+body.ic .s3.past { opacity: 1; }
+body.ic .s3.past :is(.s3-l, .s3-u, b) { color: #55555A; }
+body.ic .s3-u, body.ic .calc-full, body.ic .calc-full s, body.ic .calc-total { color: #55555A; }
+/* стр. 2 · подпись под кнопкой и неактивная «Назад» */
+body.ic .c2-note { color: #55555A; }
+body.ic :is(.stop-nav, .mod-nav) .btn:disabled { opacity: .65; }
+/* подвал в тёмной теме, метки наставников на фото, время в «пуше» */
+body.ic.ic-dark.pg-diag .foot-c, body.ic.ic-dark.pg-diag .foot-c span { color: #A1A1A6; }   /* графитовый подвал только у диагностики */
+body.ic .mc-ph em { color: #E3EEF2; }
+.psh--ios .psh-time { color: rgba(60, 60, 67, .8); }
+body.ic .ptrack .path-dots .pdot.on { background: #C60000 !important; border-color: #C60000 !important; color: #fff; }
+body.ic.ic-dark .ic-top .send .free { color: #181818; }                  /* на светлой серо-голубой плашке — тёмный */

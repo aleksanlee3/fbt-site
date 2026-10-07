@@ -595,3 +595,18 @@ body > header.hdr:first-of-type { margin-top: env(safe-area-inset-top, 0px); }
 @media (max-width: 900px) { .ust--5 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .ust--5 { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { body.ic .ust-i b { padding-right: 28px; } }
+
+/* 07.10 · «Жмите сюда» со стрелкой вниз на главную кнопку шага (стр. 1 — диагностика, стр. 3 — вторая часть).
+   Отступ снизу больше, чем разлёт пульсирующего кольца у кнопки, — стрелка и кнопка не наезжают друг на друга. */
+.cue-down { display: flex; align-items: flex-end; justify-content: center; gap: 10px; margin: 6px 0 30px; color: #FF5A5A;
+  animation: nudge-y 1.1s ease-in-out infinite; pointer-events: none; }
+.cue-down span { font-family: var(--hand); font-size: 34px; line-height: 1; font-weight: 700; transform: rotate(-4deg); white-space: nowrap; }
+.cue-down svg { width: 44px; height: 50px; flex: none; stroke-width: 4; }
+@media (max-width: 640px) { .cue-down span { font-size: 30px; } .cue-down svg { width: 40px; height: 46px; } }
+@media (prefers-reduced-motion: reduce) { .cue-down { animation: none; } }
+.more .cue-down { align-self: center; width: 100%; margin: 20px 0 26px; }
+.more .cue-down span { font-size: 34px !important; font-family: var(--hand) !important; letter-spacing: 0; text-transform: none; color: inherit; }
+.more .cue-down svg { width: 44px !important; height: 50px !important; }
+@media (max-width: 640px) { .more .cue-down span { font-size: 30px !important; } }
+.more .cue-down { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; justify-content: center !important; align-items: flex-end !important; text-align: center; }
+.more .cue-down span { display: inline-block !important; width: auto !important; }
