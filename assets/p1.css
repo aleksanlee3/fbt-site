@@ -493,3 +493,9 @@ body.ic .igra-cue-n b { color: #C60000 !important; }
 body.ic .igra-arrow { color: #C60000 !important; }
 body.ic .igra-arrow path.igra-arrow-p { stroke-width: 3.5; filter: none; }
 @media (max-width: 640px) { body.ic .igra-cue-t { font-size: 26px; } }
+
+/* 07.10 · стрелка к «Пройти диагностику» (после карты) — крупная, вниз на кнопку, качается */
+.unlock-act .nudge--diag { flex-direction: row; align-items: flex-end; justify-content: center; gap: 8px; animation: nudge-y 1.1s ease-in-out infinite; }
+.unlock-act .nudge--diag span { font-size: 34px; }
+.unlock-act .nudge--diag svg { width: 46px; height: 52px; transform: none; stroke-width: 4; }
+@media (max-width: 640px) { .unlock-act .nudge--diag span { font-size: 30px; } .unlock-act .nudge--diag svg { width: 42px; height: 48px; } }

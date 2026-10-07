@@ -84,7 +84,7 @@
       <!-- Первый экран: 3 варианта для A/B-теста рекламы. По умолчанию — A (обещание рекламы + история).
            ?v=b — симптом, ?v=story — прежний (история). Вариант запоминается в браузере. -->
       <div data-hero="a">
-        <div class="eyebrow"><span class="hide-sm">FBT ONLINE · </span>БЕСПЛАТНЫЙ УРОК ЛЮБЫ БЭЙ · 30 МИНУТ</div>
+        <div class="eyebrow"><span class="hide-sm">FBT ONLINE · </span>БЕСПЛАТНЫЙ ВИДЕОРАЗБОР ЛЮБЫ БЭЙ · 30 МИНУТ</div>
         <h1 class="h1 hero-h1">
           <span>Как создать устойчивый семейный бизнес</span>
           <span class="grey">в Узбекистане в 2026 году</span>
@@ -92,7 +92,7 @@
         <p class="lead lead-story"><span class="lead-tag" aria-hidden="true"><img src="assets/img/luba-avatar.jpg" alt=""><span>О чём видеоразбор</span></span>Семья Любы продала машину и заняла деньги на оборудование за <span class="lead-hl">€40&nbsp;000</span>. На тренинге им сказали: «Денег мы не даём». Почему именно это их спасло — в видеоразборе.</p>
       </div>
       <div data-hero="b" hidden>
-        <div class="eyebrow"><span class="hide-sm">FBT ONLINE · </span>БЕСПЛАТНЫЙ УРОК ЛЮБЫ БЭЙ · 30 МИНУТ</div>
+        <div class="eyebrow"><span class="hide-sm">FBT ONLINE · </span>БЕСПЛАТНЫЙ ВИДЕОРАЗБОР ЛЮБЫ БЭЙ · 30 МИНУТ</div>
         <h1 class="h1 hero-h1">
           <span>Работаете больше всех,</span>
           <span class="grey">а бизнес топчется на месте?</span>
@@ -160,7 +160,7 @@
         <!-- 2. Открыто: карта сразу в бота (без стр. 2), рядом — шаг 2 -->
         <div class="unlock-row" data-show="unlocked" hidden>
           <div class="unlock-txt">
-            <div class="okline"><svg><use href="#i-check"/></svg>УРОК ПРОЙДЕН</div>
+            <div class="okline"><svg><use href="#i-check"/></svg>ВИДЕОРАЗБОР ПРОСМОТРЕН</div>
             <div class="unlock-h">Заберите карту действий</div>
             <ul class="mapgift">
               <li><b>С чего начать</b> и какие шаги сделать, чтобы создать устойчивый семейный бизнес</li>
@@ -183,7 +183,11 @@
             <p class="muted">10 вопросов, 5 минут, бесплатно. Покажет, с какого шага карты начать именно вам, а куратор разберёт результат голосовыми. Бот не прислал карту? <a class="link-btn" data-bot="map" data-getmap>Открыть бот ещё раз</a></p>
           </div>
           <div class="unlock-act">
-            <a class="btn btn--primary btn--lg" href="diagnostika.html">Пройти диагностику<svg><use href="#i-right"/></svg></a>
+            <!-- 07.10: стрелка и пульсирующее кольцо — как у «Забрать карту», чтобы сразу нажимали «Пройти диагностику» -->
+            <div class="push">
+              <div class="nudge nudge--diag" aria-hidden="true"><span>Жмите сюда · 5 минут</span><svg viewBox="0 0 40 44"><use href="#i-arrow-down"/></svg></div>
+              <span class="ringed"><a class="btn btn--primary btn--lg" href="diagnostika.html">Пройти диагностику<svg><use href="#i-right"/></svg></a></span>
+            </div>
           </div>
         </div>
       </div>
