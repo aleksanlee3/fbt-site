@@ -610,3 +610,15 @@ body > header.hdr:first-of-type { margin-top: env(safe-area-inset-top, 0px); }
 @media (max-width: 640px) { .more .cue-down span { font-size: 30px !important; } }
 .more .cue-down { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; justify-content: center !important; align-items: flex-end !important; text-align: center; }
 .more .cue-down span { display: inline-block !important; width: auto !important; }
+/* 07.10 v5.9 · варианты стрелки: на светлом фоне — фирменный красный; серо-голубая — для второстепенной кнопки */
+body.ic .cue-down--light { color: #C60000; }
+body.ic .cue-down--blue { color: #A2C3CD; }
+.cue-down--blue span { font-size: 28px; white-space: normal; text-align: center; }
+@media (max-width: 640px) { .cue-down--blue span { font-size: 25px; } }
+.ringed--blue::before { background: #A2C3CD; }
+.fam-more, body.ic .fam4 .fam-more { border: 0 !important; background: none !important; padding: 0 !important; box-shadow: none !important; border-radius: 0 !important; }
+.fam-more { margin-top: 26px; display: flex; flex-direction: column; align-items: stretch; }
+.fam-more .ringed { width: 100%; }
+.btn-fam, body.ic .fam4 .btn-fam { background: #A2C3CD !important; color: #181818 !important; border: 0 !important; font-weight: 700; box-shadow: 0 10px 26px rgba(162,195,205,.25); }
+.btn-fam:hover { background: #B8D3DB; }
+.btn-fam svg { color: #181818; }

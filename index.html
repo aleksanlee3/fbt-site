@@ -175,19 +175,29 @@
             </div>
           </div>
         </div>
-        <!-- 3. Карта получена -->
-        <div class="unlock-row" data-show="got" hidden>
+        <!-- 3. Карта получена · 07.10 v5.9: яркий блок-прогрев на диагностику (только цвета IC: красный, графит, белый, серо-голубой) -->
+        <div class="unlock-row diag-hot" data-show="got" hidden>
           <div class="unlock-txt">
-            <div class="okline"><svg><use href="#i-check"/></svg>КАРТА В TELEGRAM</div>
-            <div class="unlock-h">Шаг 2 из 3 — онлайн-диагностика</div>
-            <p class="muted">10 вопросов, 5 минут, бесплатно. Покажет, с какого шага карты начать именно вам, а куратор разберёт результат голосовыми. Бот не прислал карту? <a class="link-btn" data-bot="map" data-getmap>Открыть бот ещё раз</a></p>
+            <div class="dh-top">
+              <span class="dh-ok"><svg><use href="#i-check"/></svg>Карта уже в Telegram</span>
+              <span class="dh-step">Шаг 2 из 3</span>
+            </div>
+            <div class="unlock-h dh-h">В карте 7 шагов. С какого начать <em>именно вам?</em></div>
+            <p class="dh-lead">Если браться за всё сразу, сил не хватит ни на что. Диагностика за 5 минут покажет одно место, где ваш бизнес сейчас теряет больше всего — деньги, клиентов или ваше время.</p>
+            <ul class="dh-why">
+              <li><span class="dh-i">1</span><span><b>Главная точка роста</b> — увидите, с чего начать, чтобы бизнес стал устойчивым, а не тушить всё подряд.</span></li>
+              <li><span class="dh-i">2</span><span><b>Личный разбор от Александра</b> — бесплатно, голосовым в Telegram: что мешает и что сделать первым.</span></li>
+              <li><span class="dh-i">3</span><span><b>PDF-разбор по 5 направлениям</b> — останется у вас, к нему можно вернуться через месяц и сравнить.</span></li>
+              <li><span class="dh-i">+</span><span><b>Новые артефакты для квеста</b> — до книги станет на шаг ближе.</span></li>
+            </ul>
+            <p class="dh-meta">10 простых вопросов · ответы «да», «частично», «нет» · бесплатно</p>
           </div>
           <div class="unlock-act">
-            <!-- 07.10: стрелка и пульсирующее кольцо — как у «Забрать карту», чтобы сразу нажимали «Пройти диагностику» -->
             <div class="push">
               <div class="cue-down" aria-hidden="true"><span>Жмите сюда · 5 минут</span><svg viewBox="0 0 40 44"><use href="#i-arrow-down"/></svg></div>
               <span class="ringed"><a class="btn btn--primary btn--lg" href="diagnostika.html">Пройти диагностику<svg><use href="#i-right"/></svg></a></span>
             </div>
+            <p class="dh-again">Бот не прислал карту? <a class="link-btn" data-bot="map" data-getmap>Открыть бот ещё раз</a></p>
           </div>
         </div>
       </div>

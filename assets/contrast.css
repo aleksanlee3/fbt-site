@@ -69,3 +69,8 @@ body.ic .mc-ph em { color: #E3EEF2; }
 .psh--ios .psh-time { color: rgba(60, 60, 67, .8); }
 body.ic .ptrack .path-dots .pdot.on { background: #C60000 !important; border-color: #C60000 !important; color: #fff; }
 body.ic.ic-dark .ic-top .send .free { color: #181818; }                  /* на светлой серо-голубой плашке — тёмный */
+
+/* 12. Стрелки «Жмите сюда» (07.10): цвет по фону — на графите светло-красный, на белом фирменный красный, серо-голубой вариант */
+body.ic .cue-down { color: #FF5A5A; }
+body.ic .cue-down.cue-down--light { color: #C60000; }
+body.ic .cue-down.cue-down--blue { color: #A2C3CD; }

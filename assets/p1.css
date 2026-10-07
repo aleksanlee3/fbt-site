@@ -493,3 +493,35 @@ body.ic .igra-cue-n b { color: #C60000 !important; }
 body.ic .igra-arrow { color: #C60000 !important; }
 body.ic .igra-arrow path.igra-arrow-p { stroke-width: 3.5; filter: none; }
 @media (max-width: 640px) { body.ic .igra-cue-t { font-size: 26px; } }
+
+/* 07.10 v5.9 · блок «Карта получена → диагностика»: яркий, только цвета Impact Consulting (красный, графит, белый, серо-голубой) */
+.unlock:has(.diag-hot:not([hidden])) { position: relative; overflow: hidden; border: 2px solid #C60000 !important;
+  background: radial-gradient(120% 70% at 100% 0%, rgba(198,0,0,.28) 0%, rgba(198,0,0,0) 60%), #1E1E20 !important;
+  box-shadow: 0 0 0 6px rgba(198,0,0,.14), 0 18px 44px rgba(198,0,0,.22) !important; color: #F5F5F7; }
+.diag-hot .unlock-txt { max-width: 640px; gap: 14px; }
+.dh-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.dh-ok { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: rgba(162,195,205,.16);
+  color: #A2C3CD; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.dh-ok svg { width: 16px; height: 16px; }
+.dh-step { padding: 6px 12px; border-radius: 999px; background: #C60000; color: #fff; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.diag-hot .dh-h { font-size: 28px; line-height: 1.18; font-weight: 800; color: #fff; letter-spacing: -.01em; }
+.diag-hot .dh-h em { font-style: normal; color: #FF5A5A; }
+.diag-hot .dh-lead { font-size: 17px; line-height: 1.55; color: #E5E5EA; }
+.dh-why { list-style: none; margin: 2px 0 0; padding: 0; display: grid; gap: 10px; }
+.dh-why li { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08); font-size: 16px; line-height: 1.45; color: #D9D9DE; }
+.dh-why li b { color: #fff; }
+.dh-why li:first-child { border-color: rgba(198,0,0,.55); background: rgba(198,0,0,.12); }
+.dh-i { flex: none; width: 28px; height: 28px; border-radius: 999px; display: grid; place-items: center; background: #C60000; color: #fff;
+  font-size: 14px; font-weight: 800; }
+.dh-why li:nth-child(n+2) .dh-i { background: #5A6E7A; }
+.dh-why li:last-child .dh-i { background: #A2C3CD; color: #181818; }
+.dh-meta { font-size: 14px !important; color: #A2C3CD; font-weight: 600; }
+.dh-again { margin: 4px 0 0; font-size: 14px; color: #B5B5BA; text-align: center; }
+.diag-hot .unlock-act .btn { min-width: 300px; }
+@media (max-width: 640px) {
+  .diag-hot .dh-h { font-size: 24px; }
+  .diag-hot .dh-lead { font-size: 16px; }
+  .dh-why li { font-size: 15px; padding: 11px 12px; }
+  .diag-hot .unlock-act .btn { min-width: 0; }
+}
