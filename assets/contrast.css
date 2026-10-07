@@ -34,3 +34,14 @@ body.ic .plat-ai p { color: #C9C9CE; }
   .mhero-sub, .hero5-h1 em, .stepc .cap, .mission-h em) { color: #FF5A5A; }
 body.ic .steps .stepc:nth-child(2) .cap, body.ic.ic-dark .ic-top .steps .stepc:nth-child(2) .cap { color: #C60000; }   /* на светлой карточке — фирменный красный */
 body.ic .fc-key strong { color: #FF5A5A; }   /* стр. 4 · ключевая карточка всегда графитовая */
+
+/* 9. Стр. 3 · экран «Отправлено куратору» в тёмной теме: карточки «Шаг 2» и «Шаг 3» графитовые — текст светлый (07.10) */
+body.ic.ic-dark .ic-top .sent-3 .st2 b, body.ic.ic-dark .ic-top .sent-3 .st3 b { color: #F5F5F7; }
+body.ic.ic-dark .ic-top .sent-3 .st2 .num, body.ic.ic-dark .ic-top .sent-3 .st3 .num { color: #A2C3CD; }
+
+/* 10. Найдено проверкой скрытых экранов (07.10): мелкий красный на графите — светлее; «Открыто» на серо-голубой плашке — белым */
+body.ic .res-send .more-p i { color: #FF5A5A; }                        /* графитовый блок в обеих темах */
+body.ic .res-send .more--hi .more-top .more-step { color: #fff; }                           /* на красной плашке — белый */
+body.ic .unlock-row .mapgift li b, body.ic.ic-dark .ic-top .main-pt .mp-step > span { color: #FF5A5A; }
+body.ic.ic-dark .ic-top .task-b .alert { color: #A2C3CD; }
+body.ic .tag--ok { color: #fff; }
