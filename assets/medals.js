@@ -13,8 +13,8 @@
   var BOOK = 'assets/img/kniga-10-zapovedey.jpg';
 
   var LIST = [
-    { id: 'shag',   img: '01-shag',   name: 'Первый шаг',        hint: 'Досмотрите историю Любы до конца', go: ['index.html', 'К истории'] },
-    { id: 'karta',  img: '02-karta',  name: 'Карта сокровищ',    hint: 'Заберите карту действий в конце истории', go: ['index.html#video', 'К истории'] },
+    { id: 'shag',   img: '01-shag',   name: 'Первый шаг',        hint: 'Досмотрите видеоразбор Любы до конца', go: ['index.html', 'К видеоразбору'] },
+    { id: 'karta',  img: '02-karta',  name: 'Карта сокровищ',    hint: 'Заберите карту действий в конце видеоразбора', go: ['index.html#video', 'К видеоразбору'] },
     { id: 'dom',    img: '03-dom',    name: 'В кругу своих',     hint: 'Подпишитесь на канал FBT', act: 'channel', go: [null, 'Открыть канал'] },
     { id: 'kompas', img: '04-kompas', name: 'Компас в кармане',  hint: 'Ответьте на 10 вопросов диагностики', go: ['diagnostika.html', 'Пройти'] },
     { id: 'tetrad', img: '05-tetrad', name: 'Домашнее задание',  hint: 'Выполните 5 заданий диагностики', go: ['diagnostika.html#tasks', 'К заданиям'] },
@@ -138,7 +138,7 @@
     var pop = el('div', 'alb-pop',
       '<img class="alb-card" src="' + card(m) + '" alt="' + m.name + '">' +
       '<div><small>Новый артефакт · ' + n + ' из ' + TOTAL + '</small><strong class="alb-sr">' + m.name + '</strong><span>' +
-      (n === TOTAL ? 'Все 9 собраны — вас ждёт книга в подарок' : 'Добавлен в ваши артефакты') + '</span></div>');
+      (n === TOTAL ? 'Все 9 собраны — квест пройден! Вас ждёт книга в подарок' : 'Добавлен в ваши артефакты') + '</span></div>');
     pop.setAttribute('role', 'status');
     pop.addEventListener('click', function () { hide(); openBook(); });
     document.body.appendChild(pop);
@@ -188,8 +188,8 @@
     var n = count(), h = '';
     h += '<div class="alb-book"><button class="alb-x" type="button" aria-label="Закрыть">×</button>';
     h += '<h2 class="alb-h">Мои артефакты</h2>';
-    h += '<p class="alb-sub">' + (full() ? 'Все 9 артефактов собраны. Спасибо, что прошли путь до конца!' :
-      'За каждый шаг — артефакт, на сайте и в боте. Соберите все ' + TOTAL + ' — и Люба подарит вам книгу.') + '</p>';
+    h += '<p class="alb-sub">' + (full() ? 'Квест пройден: все 9 артефактов собраны! Спасибо, что прошли путь до конца.' :
+      'Квест: за каждый шаг — артефакт, на сайте и в боте. Соберите все ' + TOTAL + ' — и Люба подарит вам книгу.') + '</p>';
     h += '<div class="alb-bar"><i style="width:' + (n / TOTAL * 100) + '%"></i></div>';
     h += '<p class="alb-sub" style="margin:0">' + n + ' из ' + TOTAL + '</p>';
     ROWS.forEach(function (row) {
@@ -245,7 +245,7 @@
   // «Позвать друга»: личная ссылка на бота — та же, что бот присылает в чате (start=ref_<id>).
   // Сайт знает её после входа через бота (FBT.refLink из /api/session). Без входа — бот сам пришлёт ссылку (start=invite).
   // Артефакт по клику НЕ даём: его засчитывает бот, когда друг нажмёт «Старт», и сайт подтягивает его при сверке.
-  var SHARE_TEXT = 'Посмотри реальную историю Любы Бэй — как создать устойчивый семейный бизнес в Узбекистане. Открывается в Telegram:';
+  var SHARE_TEXT = 'Посмотри видеоразбор Любы Бэй — как создать устойчивый семейный бизнес в Узбекистане. Открывается в Telegram:';
   FBT.invite = function () {
     var ref = FBT.refLink && FBT.refLink();
     if (!ref) {                                   // ещё не знакомы с ботом — бот пришлёт личную ссылку

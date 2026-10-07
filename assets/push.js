@@ -179,7 +179,7 @@
         return;
       }
       if (page === 'index' && d.watching >= 3 && !ses('fbt_push_watch')) {
-        if (social({ html: '<strong>Урок сейчас смотрят ' + d.watching + ' ' + plural(d.watching, 'человек', 'человека', 'человек') + '.</strong> Досмотрите до конца — в финале вас ждёт карта действий.' })) ses('fbt_push_watch', 1);
+        if (social({ html: '<strong>Видеоразбор сейчас смотрят ' + d.watching + ' ' + plural(d.watching, 'человек', 'человека', 'человек') + '.</strong> Досмотрите до конца — в финале вас ждёт карта действий.' })) ses('fbt_push_watch', 1);
       }
     }).catch(function () { /* сервер недоступен — без уведомлений */ });
   }
@@ -199,7 +199,7 @@
       function () { FBT.push({ html: '<strong>Нигора</strong> оставил(а) заявку в поток FBT · 5 минут назад' }); },
       function () { FBT.push({ html: '<strong>Азиз</strong> забронировал(а) место в потоке FBT · только что' }); },
       function () { FBT.push({ html: '<strong>Осталось 4 места из 12.</strong> Запись в поток закроется, когда места закончатся.' }); },
-      function () { FBT.push({ html: '<strong>Урок сейчас смотрят 17 человек.</strong> Досмотрите до конца — в финале вас ждёт карта действий.' }); }
+      function () { FBT.push({ html: '<strong>Видеоразбор сейчас смотрят 17 человек.</strong> Досмотрите до конца — в финале вас ждёт карта действий.' }); }
     ];
     var start = function () { demo.forEach(function (f, i) { setTimeout(f, 1500 + i * 200); }); };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();

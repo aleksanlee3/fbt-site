@@ -1,0 +1,36 @@
+/* FBT Online · правило контраста (07.10, v5.3). Подключается последним на всех страницах.
+   Правило Александра: тёмный фон — светлый (белый) текст, светлый фон — тёмный (чёрный) текст.
+   Найдено проверкой scripts/contrast-audit.py (все страницы × тёмная и светлая тема, телефон 390px).
+   Новые блоки с подложкой — проверять тем же скриптом. */
+
+/* 1. Плашки стран (стр. 4, «География FBT»): белая плашка — чёрный текст */
+body.ic .gc { color: #181818; }
+body.ic .gc--home { color: #181818; }
+body.ic .gc--uz { color: #fff; }
+
+/* 2. Красные кнопки — всегда белый текст (в светлой теме «Записаться» в шапке был красным по красному) */
+body.ic .btn--primary, body.ic .btn--primary span { color: #fff; }
+
+/* 3. Стр. 2 · карточки остановок в тёмной теме: текст был тёмно-серым на графите */
+body.ic.ic-dark .ic-top .stop-block p,
+body.ic.ic-dark .ic-top .stop-ex p { color: #E8E8EC; }
+
+/* 4. Стр. 2 · полоска «Все 7 остановок…» в светлой теме: белый текст был на белом */
+body.ic:not(.ic-dark) .inside-cta > span { color: #181818; }
+
+/* 5. Стр. 5 · средняя карточка «Поколение 2» — светлая: заголовок и текст тёмные */
+body.ic .stepc:nth-child(2) { --text: #181818; --text-2: #3A3A3E; --text-strong: #181818; --muted: #55555A; color: #181818; }
+body.ic .stepc:nth-child(2) b { color: #181818; }
+body.ic .stepc:nth-child(2) > span:not(.cap) { color: #3A3A3E; }
+
+/* 6. Стр. 4 · метка «Итог 1» на красной плашке — белая */
+body.ic .res2 .r1 .res3-ph em { color: #fff; }
+
+/* 7. Стр. 4 · подсказка ИИ-куратора на чёрном — светло-серая */
+body.ic .plat-ai p { color: #C9C9CE; }
+
+/* 8. Мелкий красный текст на графите плохо читается — на тёмном фоне берём светлый красный */
+:is(body.ic.ic-dark .ic-top, body.ic .sec--hero) :is(.ust-cta b, .sp-lvl, .stop-card .lime, .stop-ex > span,
+  .mhero-sub, .hero5-h1 em, .stepc .cap, .mission-h em) { color: #FF5A5A; }
+body.ic .steps .stepc:nth-child(2) .cap, body.ic.ic-dark .ic-top .steps .stepc:nth-child(2) .cap { color: #C60000; }   /* на светлой карточке — фирменный красный */
+body.ic .fc-key strong { color: #FF5A5A; }   /* стр. 4 · ключевая карточка всегда графитовая */
