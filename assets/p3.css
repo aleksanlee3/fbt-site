@@ -382,3 +382,11 @@ body.ic .sym[aria-pressed="true"] i { background: #fff !important; }
 @keyframes qpick { 0% { transform: scale(.94); } 60% { transform: scale(1.04); } 100% { transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { body.ic .qopt.is-picked { animation: none; } }
 .haptic-sw { position: fixed; left: -9999px; top: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+/* 07.10 · 3 вопроса перед тестом: выбранный ответ — красный, как в 10 вопросах; длинные ответы — слева, в 2 строки */
+body.ic .opts .opt.is-picked { background: #C60000 !important; border-color: #C60000 !important; color: #fff !important; animation: qpick .32s ease-out; }
+body.ic .opts .opt.is-picked .radio { border-color: #fff; }
+body.ic .opts .opt.is-picked .radio::after { background: #fff; }
+[data-sq-opts] .opt { text-align: left; line-height: 1.35; padding-top: 12px; padding-bottom: 12px; }
+.sq-segs { display: grid; grid-template-columns: repeat(3, 1fr); }
+@media (prefers-reduced-motion: reduce) { body.ic .opts .opt.is-picked { animation: none; } }

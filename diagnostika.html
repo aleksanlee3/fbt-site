@@ -103,16 +103,14 @@
   <section class="ic-top scr" data-screen="stage" hidden>
     <div class="wrap center">
       <div class="panel">
-        <div class="eyebrow">ПЕРЕД ТЕСТОМ</div>
-        <h2 class="panel-h">Где вы сейчас?</h2>
-        <div class="opts mt-24" role="radiogroup" aria-label="Где вы сейчас" data-stages></div>
-        <div data-idea-wrap hidden>
-          <h3 class="panel-h3">Если бизнеса пока нет — что уже есть?</h3>
-          <div class="opts mt-14" role="radiogroup" aria-label="Что уже есть" data-ideas></div>
-        </div>
+        <!-- 07.10 (вариант A): 3 вопроса перед тестом, по одному на экран, автопереход -->
+        <div class="eyebrow">ПЕРЕД ТЕСТОМ · <span data-sq-n>1 из 3</span></div>
+        <div class="qsegs sq-segs mt-14" data-sq-segs aria-hidden="true"></div>
+        <h2 class="panel-h mt-24" data-sq-h>Что лучше всего описывает вашу ситуацию сейчас?</h2>
+        <div class="opts mt-24" role="radiogroup" aria-label="Ваш ответ" data-sq-opts></div>
         <div class="panel-nav">
-          <button type="button" class="btn btn--sm" data-go="intro">← Назад</button>
-          <button type="button" class="btn btn--primary" data-stage-next>К вопросам<svg><use href="#i-right"/></svg></button>
+          <button type="button" class="btn btn--sm" data-sq-back>← Назад</button>
+          <span class="note hide-sm" style="font-size:14px">Нажмите на ответ — следующий вопрос откроется сам</span>
         </div>
       </div>
     </div>
@@ -126,7 +124,7 @@
         <div class="qsegs" data-segs></div>
         <p class="qtext" data-q-text></p>
         <div class="qopts" role="radiogroup" aria-label="Ваш ответ" data-q-opts></div>
-        <p class="note mt-14" data-idea-note hidden style="font-size:14px">Бизнеса пока нет? Отвечайте про свою идею или план.</p>
+        <p class="note mt-14" data-idea-note hidden style="font-size:14px">Бизнес ещё не работает? Отвечайте про свою идею или план.</p>
         <div class="qfoot">
           <button type="button" class="btn btn--sm" data-q-back>← Назад</button>
           <span class="note hide-sm" style="font-size:14px">Нажмите на ответ — следующий вопрос откроется сам</span>
@@ -224,7 +222,7 @@
             <h2 class="send-h">Отправьте результат куратору</h2>
             <p class="send-p">Сам по себе профиль — это только картинка. Куратор посмотрит ваши ответы и голосом объяснит, что с этим делать.</p>
             <div class="send-3">
-              <div><i>1</i><p><b>Где вы сейчас</b><span>На каком этапе ваш бизнес на самом деле</span></p></div>
+              <div><i>1</i><p><b>Где вы сейчас</b><span>Стадия бизнеса, кто из семьи участвует и что мешает</span></p></div>
               <div><i>2</i><p><b>Что мешает больше всего</b><span>Главная проблема и её причина</span></p></div>
               <div><i>3</i><p><b>С чего начать</b><span>Первый шаг, который даст результат</span></p></div>
             </div>

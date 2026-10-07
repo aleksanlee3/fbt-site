@@ -45,8 +45,32 @@
   ];
   var SYMS = [['s1', 'Мало клиентов', 1], ['s2', 'Продажи скачут', 1], ['s3', 'Неясно, кому продаём', 1], ['s4', 'Не понимаем прибыль', 2],
     ['s5', 'Деньги смешаны', 2], ['s6', 'Все перегружены', 3], ['s7', 'Задачи зависают', 3], ['s8', 'Роли пересекаются', 4], ['s9', 'Часто спорим', 4]];
-  var STAGES = [['one', 'У меня уже есть один бизнес'], ['many', 'У меня несколько бизнесов'], ['none', 'Бизнеса пока нет, но планирую']];
-  var IDEAS = [['clear', 'Есть понятная идея'], ['doubt', 'Есть идея, но сомневаюсь'], ['noidea', 'Идеи пока нет']];
+  // 07.10 (решение Александра, вариант A): 3 вопроса перед тестом — стадия, кто из семьи участвует, что мешает.
+  var STAGES = [['one', 'У меня есть действующий бизнес'], ['launch', 'Я запускаю бизнес сейчас'], ['none', 'Бизнеса пока нет, но планирую начать']];
+  var STAGE_CODE = { one: 'o', launch: 'l', none: 'n', many: 'o' };
+  function familyOpts() {
+    return st.stage === 'none' ? [
+      ['spouse', 'Планирую вести бизнес вместе с супругом / супругой'],
+      ['relatives', 'Будут участвовать родители, дети, братья, сёстры или другие родственники'],
+      ['want', 'Начну сам(а), но хочу вовлечь семью'],
+      ['no', 'Семья в бизнесе участвовать не будет']] : [
+      ['spouse', 'Я веду бизнес вместе с супругом / супругой'],
+      ['relatives', 'В бизнесе участвуют родители, дети, братья, сёстры или другие родственники'],
+      ['want', 'Сейчас бизнес веду я, но хочу вовлечь семью'],
+      ['no', 'Семья в бизнесе не участвует']];
+  }
+  var PAINS = [
+    ['self', 'Всё держится на мне', 'one launch'],
+    ['system', 'Нет понятной системы и порядка', 'one launch'],
+    ['roles', 'Сложно разделить роли между членами семьи', 'one launch none'],
+    ['conflict', 'Возникают конфликты между семьёй и бизнесом', 'one launch none'],
+    ['scale', 'Не понимаю, как масштабировать бизнес', 'one'],
+    ['succession', 'Думаю о передаче бизнеса детям / следующему поколению', 'one'],
+    ['start', 'Только начинаю и хочу сразу построить всё правильно', 'launch none']];
+  function painOpts() { return PAINS.filter(function (p) { return p[2].split(' ').indexOf(st.stage || 'one') >= 0; }); }
+  function labelOf(list, key) { var f = list.filter(function (o) { return o[0] === key; })[0]; return f ? f[1] : ''; }
+  var SQ_TITLES = ['Что лучше всего описывает вашу ситуацию сейчас?', 'Кто участвует в вашем бизнесе или будет участвовать?',
+    'Что сейчас больше всего мешает вашему бизнесу двигаться дальше?'];
   // Слова для задания 4. Ключ «буква:слово» нужен боту для PDF; человеку буквы и названия стилей не показываем.
   var WORDS = ['I:общительный', 'C:аналитичный', 'D:решительный', 'S:терпеливый', 'C:точный', 'S:надёжный',
     'D:прямой', 'I:вдохновляющий', 'S:командный игрок', 'D:соревновательный', 'C:любит правила', 'I:оптимистичный',
@@ -56,11 +80,12 @@
 
   // ── Состояние (сохраняется в браузере) ─────────────────
   function fresh() {
-    return { step: 'intro', qi: 0, answers: [null, null, null, null, null, null, null, null, null, null], stage: null, idea: null, sym: {},
+    return { step: 'intro', qi: 0, answers: [null, null, null, null, null, null, null, null, null, null], stage: null, idea: null, family: null, pain: null, sq: 0, sym: {},
       tasks: { t1: '', t2: '', t3a: '', t3b: '', t4: '', disc: {}, t5: ['', '', '', '', ''], t5rank: [0, 0, 0, 0, 0] },
       pdf: false, sent1: false, sent2: false };
   }
   var st = Object.assign(fresh(), FBT.store.get('fbt_diag', null) || {});
+  if (st.stage === 'many') st.stage = 'one';                 // старый вариант ответа (до 07.10)
   st.tasks = Object.assign(fresh().tasks, st.tasks || {});
   if (location.hash === '#tasks') st.step = 'tasks';          // ссылка из бота «Пройти вторую часть»
   function save() { FBT.store.set('fbt_diag', st); }
@@ -117,10 +142,12 @@
 
   function summary() {
     var r = calc();
-    var stageText = { one: 'у меня уже есть один бизнес', many: 'у меня несколько бизнесов', none: 'бизнеса пока нет, но планирую' }[st.stage] || '—';
-    var ideaText = { clear: 'есть понятная идея', doubt: 'есть идея, но сомневаюсь', noidea: 'идеи пока нет' }[st.idea];
+    var stageText = (labelOf(STAGES, st.stage) || '—').toLowerCase();
+    var famText = labelOf(familyOpts(), st.family), painText = labelOf(PAINS, st.pain);
     var syms = SYMS.filter(function (s) { return st.sym[s[0]]; }).map(function (s) { return s[1].toLowerCase(); }).join(', ') || 'не отмечены';
-    return 'РАЗБОР\nЭтап: ' + stageText + (ideaText ? ' (' + ideaText + ')' : '') +
+    return 'РАЗБОР\nЭтап: ' + stageText +
+      (famText ? '\nСемья в бизнесе: ' + famText.toLowerCase() : '') +
+      (painText ? '\nЧто мешает (по словам человека): ' + painText.toLowerCase() : '') +
       '\nПрофиль: ' + DIRS.map(function (d, i) { return d.name + ' ' + r.sc[i]; }).join(' · ') +
       '\nГлавная точка: ' + (r.perfect ? 'не выделяется' : DIRS[r.weak].name) +
       '\nПроявления: ' + syms +
@@ -144,16 +171,17 @@
   // Код результата для бота (запасной режим без сервера): diag_<этап><идея>_<5 баллов>_<проявления>_t<задания>
   function botCode() {
     var r = calc();
-    var stage = { one: 'o', many: 'm', none: 'n' }[st.stage] || 'o';
-    var idea = st.stage === 'none' ? ({ clear: 'c', doubt: 'd', noidea: 'x' }[st.idea] || '0') : '0';
+    var stage = STAGE_CODE[st.stage] || 'o', idea = '0';
     var syms = SYMS.map(function (s, i) { return st.sym[s[0]] ? String(i + 1) : ''; }).join('') || '0';
     return 'diag_' + stage + idea + '_' + r.sc.join('') + '_' + syms + '_t' + tasksDone();
   }
   // Полный результат для API бота (когда будет сервер)
   function payload(withTasks) {
     var t = tk(), p = {
-      stage: { one: 'o', many: 'm', none: 'n' }[st.stage] || 'o',
-      idea: st.stage === 'none' ? ({ clear: 'c', doubt: 'd', noidea: 'x' }[st.idea] || '0') : '0',
+      stage: STAGE_CODE[st.stage] || 'o',
+      idea: '0',
+      family: st.family || '',
+      pain: st.pain || '',
       answers: st.answers.slice(),
       symptoms: SYMS.map(function (s, i) { return st.sym[s[0]] ? i + 1 : 0; }).filter(Boolean),
       source: FBT.src || 'site'
@@ -245,15 +273,39 @@
     } catch (e) {}
   }
 
+  // 07.10: 3 вопроса перед тестом — по одному на экран, ответ выбран → через 0,38 с следующий
   function renderStage() {
-    var box = $('[data-stages]'); box.innerHTML = '';
-    STAGES.forEach(function (o) {
-      box.appendChild(optButton(o[1], st.stage === o[0], function () { st.stage = o[0]; if (o[0] !== 'none') st.idea = null; render(); }));
+    var sq = Math.max(0, Math.min(st.sq || 0, 2));
+    var opts = sq === 0 ? STAGES : sq === 1 ? familyOpts() : painOpts();
+    var cur = sq === 0 ? st.stage : sq === 1 ? st.family : st.pain;
+    $('[data-sq-n]').textContent = (sq + 1) + ' из 3';
+    $('[data-sq-h]').textContent = sq === 2 && st.stage === 'none' ? 'Что для вас сейчас важнее всего?' : SQ_TITLES[sq];
+    $('[data-sq-segs]').innerHTML = [0, 1, 2].map(function (i) {
+      return '<span style="background:' + (i < sq ? '#C60000' : i === sq ? '#FF8585' : 'rgba(128,128,134,.35)') + '"></span>';
+    }).join('');
+    var box = $('[data-sq-opts]'); box.innerHTML = ''; box.removeAttribute('data-busy');
+    opts.forEach(function (o) {
+      var b = optButton(o[1], cur === o[0], function () {
+        if (box.getAttribute('data-busy')) return;
+        box.setAttribute('data-busy', '1');
+        $$('[data-sq-opts] .opt').forEach(function (x) { x.setAttribute('aria-checked', 'false'); x.classList.remove('is-picked'); });
+        b.setAttribute('aria-checked', 'true'); b.classList.add('is-picked');
+        if (sq === 0) {
+          if (st.stage !== o[0]) { st.family = null; st.pain = null; }
+          st.stage = o[0];
+        } else if (sq === 1) st.family = o[0]; else st.pain = o[0];
+        save();
+        setTimeout(function () {
+          if (sq < 2) st.sq = sq + 1;
+          else {
+            st.step = 'q'; st.qi = 0;
+            event('diag_profile', { stage: STAGE_CODE[st.stage], family: st.family, pain: st.pain });
+          }
+          render(); window.scrollTo(0, 0);
+        }, 380);
+      });
+      box.appendChild(b);
     });
-    var ib = $('[data-ideas]'); ib.innerHTML = '';
-    IDEAS.forEach(function (o) { ib.appendChild(optButton(o[1], st.idea === o[0], function () { st.idea = o[0]; render(); })); });
-    $('[data-idea-wrap]').hidden = st.stage !== 'none';
-    $('[data-stage-next]').disabled = !(st.stage && (st.stage !== 'none' || st.idea));
   }
 
   function renderQ() {
@@ -286,7 +338,7 @@
       });
       box.appendChild(b);
     });
-    $('[data-idea-note]').hidden = st.stage !== 'none';
+    $('[data-idea-note]').hidden = st.stage === 'one';
     var r = calc();
     $('[data-radar="live"]').innerHTML = radarSVG(r.sc, null, 'Ваш профиль строится');
   }
@@ -419,14 +471,14 @@
     var go = e.target.closest('[data-go]');
     if (go) {
       var to = go.getAttribute('data-go');
-      if (to === 'stage' && st.step === 'intro') event('diag_start');
+      if (to === 'stage' && st.step === 'intro') { event('diag_start'); st.sq = 0; }
       if (to === 'result' && !st.sent1) { st.sent1 = true; pushToBot(false).then(function (r) { if (r && r.pushed && FBT.pushNotice) setTimeout(FBT.pushNotice.report, 3000); }); }   // часть 1 — в бот (если есть сервер)
       st.step = to;
       if (to !== 'tasks' && location.hash === '#tasks') history.replaceState(null, '', location.pathname + location.search);
       render(); window.scrollTo(0, 0); return;
     }
-    if (e.target.closest('[data-stage-next]')) { st.step = 'q'; st.qi = 0; render(); window.scrollTo(0, 0); return; }
-    if (e.target.closest('[data-q-back]')) { if (st.qi > 0) st.qi--; else st.step = 'stage'; render(); return; }
+    if (e.target.closest('[data-sq-back]')) { if ((st.sq || 0) > 0) st.sq--; else st.step = 'intro'; render(); window.scrollTo(0, 0); return; }
+    if (e.target.closest('[data-q-back]')) { if (st.qi > 0) st.qi--; else { st.step = 'stage'; st.sq = 2; } render(); return; }
     if (e.target.closest('[data-sym-back]')) { st.step = 'q'; st.qi = 9; render(); return; }
     if (e.target.closest('[data-restart]')) {
       var keepTasks = st.tasks; st = fresh(); st.tasks = keepTasks; render(); window.scrollTo(0, 0); return;
