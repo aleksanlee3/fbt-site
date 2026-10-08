@@ -79,10 +79,12 @@
     save();
   }
 
-  // Нажатие «Забрать карту в боте»: ссылка сама открывает бота, здесь отмечаем, что карта получена
+  // Нажатие «Забрать карту в боте»: человека не уводим с сайта — карту присылает бот, здесь сразу диагностика.
+  // Связи с ботом нет (пришёл с рекламы, кода нет) — открываем Telegram: иначе карту доставить нечем.
   document.addEventListener('click', function (e) {
     var a = e.target.closest('[data-getmap]');
     if (!a) return;
+    if (FBT.linked && FBT.linked()) e.preventDefault();   // карту отправит бот, событие шлёт fbt.js
     st.gotMap = true; FBT.markMap(); render();
   });
 

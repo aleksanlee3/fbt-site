@@ -48,6 +48,9 @@
   // Кнопки «в бот» без /start — только когда сервер бота точно отвечает (иначе обычные ссылки с /start)
   var apiOk = false;
   function linked() { return !!(apiOk && C.botApi && store.get('fbt_token', '')); }
+  // Кнопки «Забрать карту» (p1.js/p2.js) спрашивают: можем ли отправить карту, не уводя человека в Telegram?
+  // Связи нет (холодный трафик с рекламы) — ссылка на бота остаётся единственным способом её доставить.
+  FBT.linked = linked;
   function event(name, data) {
     var token = store.get('fbt_token', '');
     if (!C.botApi || !token) return;

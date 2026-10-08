@@ -98,8 +98,12 @@
 
   document.querySelector('[data-prev]').addEventListener('click', function () { st.stop--; render(); });
   document.querySelector('[data-next]').addEventListener('click', function () { st.stop++; render(); });
+  // Как на стр. 1: со связью с ботом человека с сайта не уводим, карту присылает бот.
+  // Без связи (холодный трафик) открываем Telegram — иначе карту доставить нечем.
   document.addEventListener('click', function (e) {
-    if (e.target.closest('[data-getmap]')) { st.got = true; FBT.markMap(); render(); }
+    if (!e.target.closest('[data-getmap]')) return;
+    if (FBT.linked && FBT.linked()) e.preventDefault();
+    st.got = true; FBT.markMap(); render();
   });
   (mq.addEventListener ? mq.addEventListener('change', layout) : mq.addListener(layout));
   layout(); render();
