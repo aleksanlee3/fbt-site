@@ -21,7 +21,7 @@ window.FBT_CONFIG = {
     type: 'youtube',
     src: 'hmJsP-9rCdk',         // youtube: ID ролика (youtu.be/hmJsP-9rCdk); file: ссылка на .mp4
     poster: 'assets/img/fbt-video-cover.png', // настоящая обложка видео
-    length: 1980,               // запасная длительность, сек — настоящую плеер берёт у YouTube сам
+    length: 1951,               // запасная длительность 32:31; настоящую плеер берёт у YouTube сам
     unlockAt: 1930,             // фраза «Поздравляю, вы досмотрели» — 32:10
     stages: [180, 600]          // какую длину видит зритель: 3:00 → 10:00 → настоящая
   },

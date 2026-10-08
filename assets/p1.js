@@ -240,7 +240,7 @@
       yt = new YT.Player('yt-player', {
         videoId: V.src,
         host: 'https://www.youtube-nocookie.com',
-        playerVars: { controls: 0, disablekb: 1, fs: 0, rel: 0, iv_load_policy: 3, playsinline: 1, modestbranding: 1,
+        playerVars: { origin: location.origin, controls: 0, disablekb: 1, fs: 0, rel: 0, iv_load_policy: 3, playsinline: 1, modestbranding: 1,
                       autoplay: 1, mute: 1, start: Math.floor(st.pos > 5 && st.pos < TOTAL() - 5 ? st.pos : 0) },
         events: {
           onReady: function () {
