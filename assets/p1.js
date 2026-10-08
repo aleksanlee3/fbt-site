@@ -177,8 +177,9 @@
     el.player.addEventListener('mousemove', showUI);
     var lastTouch = 0, hiddenAtTouch = false;
     shield.addEventListener('touchstart', function () { lastTouch = Date.now(); hiddenAtTouch = !el.player.classList.contains('ui-on'); }, { passive: true });
+    var pendingPlay = false;
     function toggle() {
-      if (!ready) return;
+      if (!ready) { pendingPlay = true; showUI(); return; }
       var touch = Date.now() - lastTouch < 800, wasHidden = touch ? hiddenAtTouch : !el.player.classList.contains('ui-on');
       showUI();
       if (muted) { setMuted(false); if (!st.playing) yt.playVideo(); return; }  // первое касание — включить звук
@@ -187,7 +188,7 @@
     }
     shield.addEventListener('click', toggle);
     el.play.addEventListener('click', function () {
-      if (!ready) return;
+      if (!ready) { pendingPlay = true; showUI(); return; }
       setMuted(false);
       if (st.pos >= TOTAL() - 1) { st.pos = 0; yt.seekTo(0, true); }       // досмотрели — смотреть снова
       yt.playVideo();
@@ -247,7 +248,8 @@
             var d = yt.getDuration();
             if (d && d > 60) realLen = d;
             setMuted(true);
-            if (st.pos < TOTAL() - 5) yt.playVideo();                      // автозапуск без звука
+            if (pendingPlay || st.pos < TOTAL() - 5) yt.playVideo();       // учитываем клик во время загрузки; автозапуск без звука
+            pendingPlay = false;
             track(function () { return yt.getCurrentTime(); }, function (t) { yt.seekTo(t, true); },
               function () { return yt.getPlaybackRate(); }, function (r) { yt.setPlaybackRate(r); });
             render();
