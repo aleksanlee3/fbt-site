@@ -21,7 +21,8 @@
 
   var saved = FBT.store.get('fbt_p1', {}) || {};
   var st = {
-    pos: Math.max(0, Number(saved.pos) || 0),   // сколько досмотрено (сек)
+    pos: Math.max(0, Number(saved.pos) || 0),   // докуда дошёл ползунок (сек)
+    played: Math.max(0, Number(saved.pl) || 0), // 09.10: сколько секунд реально проиграно (всего, с пересмотрами)
     reached: !!saved.reached,
     gotMap: !!saved.gotMap || FBT.gotMap(),
     playing: false
@@ -40,22 +41,33 @@
   function fmt(sec) { sec = Math.max(0, Math.round(sec)); return String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0'); }
 
   // ── События для бота (когда будет сервер): минута просмотра и момент открытия карты ──
-  function event(name, data) { FBT.event(name, data); }
-  var lastMin = Math.floor(st.pos / 60);
+  // 09.10: в каждом событии видео — played: секунды, которые реально проигрались (не позиция ползунка).
+  // Так в Notion видно разницу между «дошёл до конца» и «смотрел 30 секунд».
+  function event(name, data) { data = data || {}; data.played = Math.round(st.played); FBT.event(name, data); }
+  var lastMin = Math.floor(st.pos / 60), lastPlayedMin = Math.floor(st.played / 60);
   function report() {
-    var m = Math.floor(st.pos / 60);
-    if (m > lastMin) { lastMin = m; event('video_progress', { minute: m, sec: Math.round(st.pos), duration: Math.round(TOTAL()) }); }
+    var m = Math.floor(st.pos / 60), pm = Math.floor(st.played / 60);
+    if (m > lastMin || pm > lastPlayedMin) {
+      lastMin = Math.max(lastMin, m); lastPlayedMin = Math.max(lastPlayedMin, pm);
+      event('video_progress', { minute: m, sec: Math.round(st.pos), duration: Math.round(TOTAL()) });
+    }
   }
   window.addEventListener('pagehide', function () { event('video_leave', { sec: Math.round(st.pos), minute: Math.floor(st.pos / 60), duration: Math.round(TOTAL()) }); });
+  var ended = false;
+  function videoEnd() {            // 09.10: ролик доиграл до последней секунды
+    if (ended) return;
+    ended = true;
+    event('video_end', { sec: Math.round(st.pos), duration: Math.round(TOTAL()) });
+  }
 
   var lastSaved = '';
   function save() {
-    var s = JSON.stringify({ pos: Math.round(st.pos), reached: st.reached, gotMap: st.gotMap });
+    var s = JSON.stringify({ pos: Math.round(st.pos), pl: Math.round(st.played), reached: st.reached, gotMap: st.gotMap });
     if (s !== lastSaved) { FBT.store.set('fbt_p1', JSON.parse(s)); lastSaved = s; }
   }
 
   function render() {
-    if (st.pos >= UNLOCK() && !st.reached) { st.reached = true; event('video_unlock', { sec: Math.round(st.pos) }); if (FBT.medal) FBT.medal('shag'); }
+    if (st.pos >= UNLOCK() && !st.reached) { st.reached = true; event('video_unlock', { sec: Math.round(st.pos), duration: Math.round(TOTAL()) }); if (FBT.medal) FBT.medal('shag'); }
     if (st.pos >= 60 && FBT.albumShow) FBT.albumShow();   // альбом на стр. 1 — только после минуты урока (30.09)
     var open = st.reached, got = open && st.gotMap;
     var len = shownLen(), finalStage = len >= TOTAL();
@@ -103,18 +115,23 @@
     setInterval(function () {
       if (!st.playing) return;
       st.pos = Math.min(TOTAL(), st.pos + demoSpeed);
-      if (st.pos >= TOTAL()) st.playing = false;
+      st.played += 1;                                          // реальная секунда (при ?demo=N ползунок бежит быстрее)
+      if (st.pos >= TOTAL()) { st.playing = false; videoEnd(); }
       render();
     }, 1000);
     el.play.addEventListener('click', function () { st.playing = !st.playing && st.pos < TOTAL(); render(); });
   }
 
   // Общая защита для настоящего видео: без перемотки вперёд дальше досмотренного, скорость до ×1,5
+  var lastT = null;
   function track(getTime, seek, getRate, setRate) {
     setInterval(function () {
       var t = getTime();
       if (t == null || isNaN(t)) return;
-      if (t > st.pos + 3) { seek(st.pos); return; }            // перемотка вперёд — возвращаем
+      if (t > st.pos + 3) { seek(st.pos); lastT = st.pos; return; }   // перемотка вперёд — возвращаем
+      // 09.10: реально проиграно — только плавный ход вперёд во время воспроизведения (шаг 0,5 с, скорость до ×1,5)
+      if (st.playing && lastT != null && t > lastT && t - lastT <= 2) st.played += t - lastT;
+      lastT = t;
       if (t > st.pos) st.pos = Math.min(TOTAL(), t);
       var r = getRate && getRate();
       if (r && r > 1.5) setRate(1.5);
@@ -134,6 +151,7 @@
     });
     v.addEventListener('play', function () { st.playing = true; });
     v.addEventListener('pause', function () { st.playing = false; });
+    v.addEventListener('ended', function () { st.playing = false; videoEnd(); render(); });
     track(function () { return v.currentTime; }, function (t) { v.currentTime = t; },
       function () { return v.playbackRate; }, function (r) { v.playbackRate = r; });
   }
@@ -257,7 +275,7 @@
           onStateChange: function (e) {
             st.playing = e.data === 1;
             if (e.data === 1) { var d = yt.getDuration(); if (d && d > 60) realLen = d; }
-            if (e.data === 0) { st.pos = TOTAL(); }
+            if (e.data === 0) { st.pos = TOTAL(); videoEnd(); }
             el.player.classList.toggle('yt-started', e.data === 1 || e.data === 3 || el.player.classList.contains('yt-started'));
             render();
           }

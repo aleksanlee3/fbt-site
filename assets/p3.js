@@ -199,14 +199,8 @@
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p)
     }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
   }
-  function event(name, data) {
-    var token = FBT.store.get('fbt_token', '');
-    if (!C.botApi || !token) return;
-    try {
-      fetch(C.botApi.replace(/\/$/, '') + '/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token, event: name, data: data || {} }), keepalive: true });
-    } catch (e) { /* без сервера — просто пропускаем */ }
-  }
+  // 09.10: через общий FBT.event — с номером события, версией сайта и пометкой теста
+  function event(name, data) { FBT.event(name, data); }
 
   // ── Радар ───────────────────────────────────────────────
   var U = [[0, -1], [0.9511, -0.309], [0.5878, 0.809], [-0.5878, 0.809], [-0.9511, -0.309]];

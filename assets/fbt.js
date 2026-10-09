@@ -19,9 +19,33 @@
     } catch (e) { /* хранилище недоступно */ }
   }
 
+  // 09.10: версия сайта — уходит с каждым событием в бот (по ней в Notion видно, при какой версии это было)
+  var VERSION = '5.17';
+
+  // 09.10: тестовое прохождение. ?test, ?demo, ?reset в адресе или testMode в config.js — это сотрудник или проверка.
+  // Отметка остаётся в браузере: все события отсюда идут с пометкой test, бот ставит человеку «Тест» в Notion.
+  if (!!C.testMode || !!C.videoTest || /[?&](test|demo|reset)(=|&|$)/.test(location.search)) store.set('fbt_test', 1);
+  var isTest = store.get('fbt_test', 0) === 1;
+
   // Метка источника: ?s=ig1 или utm_source → запоминаем при первом заходе (для ссылок в бот)
   function cleanTag(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 24); }
   var qs = new URLSearchParams(window.location.search);
+  // 09.10: все метки рекламы первого захода (utm_source / medium / campaign / content / term / id) — для Notion.
+  // Первый заход не перезаписываем: важно, какая реклама привела человека впервые.
+  (function () {
+    var u = {}, any = false;
+    ['source', 'medium', 'campaign', 'content', 'term', 'id'].forEach(function (k) {
+      var v = String(qs.get('utm_' + k) || '').replace(/[^\w\-.:|]/g, '').slice(0, 80);
+      if (v) { u[k] = v; any = true; }
+    });
+    if (any && !store.get('fbt_utm', null)) store.set('fbt_utm', u);
+  })();
+  // 09.10: анонимный ID браузера — без имени и телефона. По нему в Clarity находится запись визита человека из Notion.
+  var anon = store.get('fbt_anon', '');
+  if (!/^[a-z0-9]{12,32}$/.test(anon)) {
+    anon = (Date.now().toString(36) + Math.random().toString(36).slice(2, 12)).replace(/[^a-z0-9]/g, '').slice(0, 20);
+    store.set('fbt_anon', anon);
+  }
   var src = cleanTag(qs.get('s') || qs.get('utm_source'));
   if (src) store.set('fbt_src', src);
   src = store.get('fbt_src', '');
@@ -50,12 +74,16 @@
   function linked() { return !!(apiOk && C.botApi && store.get('fbt_token', '')); }
   // Кнопки «Забрать карту» (p1.js/p2.js) спрашивают: можем ли отправить карту, не уводя человека в Telegram?
   // Связи нет (холодный трафик с рекламы) — ссылка на бота остаётся единственным способом её доставить.
+  // 09.10: у каждого события — свой номер (eid): если браузер пришлёт его дважды, бот не засчитает повтор.
+  var eidN = 0;
+  function eid() { eidN += 1; return (Date.now().toString(36) + Math.random().toString(36).slice(2, 8) + eidN.toString(36)).slice(0, 40); }
   function event(name, data) {
     var token = store.get('fbt_token', '');
     if (!C.botApi || !token) return;
     try {
       fetch(C.botApi.replace(/\/$/, '') + '/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token, event: name, data: data || {} }), keepalive: true });
+        body: JSON.stringify({ token: token, event: name, data: data || {}, eid: eid(), v: VERSION, test: isTest ? 1 : 0 }),
+        keepalive: true });
     } catch (e) { /* без сервера — пропускаем */ }
   }
 
@@ -77,7 +105,7 @@
   }
 
   var FBT = window.FBT = { cfg: C, store: store, bot: bot, tg: tg, mapStart: mapStart, open: open, src: src,
-    linked: linked, event: event };
+    linked: linked, event: event, version: VERSION, isTest: isTest, anon: anon };
   // Личная ссылка «Позвать друга» (t.me/<бот>?start=ref_<id>) — приходит от бота после входа
   FBT.refLink = function () { return store.get('fbt_token', '') ? store.get('fbt_ref', '') : ''; };
   // маршрут человека: какую страницу открыл
@@ -137,6 +165,13 @@
         .then(function (d) {
           if (d && d.linked) {
             if (!apiOk) { apiOk = true; bindLinks(); if (FBT.onLinked) FBT.onLinked(); }
+            // 09.10: один раз на прохождение — метки рекламы первого захода и анонимный ID (для Clarity)
+            if (store.get('fbt_utm_sent', '') !== token) {
+              var u = store.get('fbt_utm', {}) || {}, payload = { anon: anon };
+              Object.keys(u).forEach(function (k) { payload[k] = u[k]; });
+              event('utm', payload);
+              store.set('fbt_utm_sent', token);
+            }
             (d.stickers || []).forEach(function (id) { if (FBT.medal) FBT.medal(id); });
             if (d.ref_link && /^https:\/\/t\.me\/[A-Za-z0-9_]+\?start=ref_\d+$/.test(d.ref_link)) store.set('fbt_ref', d.ref_link);
           } else if (d) { store.set('fbt_token', ''); store.set('fbt_ref', ''); apiOk = false; }   // код устарел — ссылки снова с /start
@@ -302,4 +337,26 @@
     var y = document.querySelector('[data-year]');
     if (y) y.textContent = new Date().getFullYear();
   });
+
+  // ── 09.10: Microsoft Clarity — тепловые карты и записи визитов (необязательный визуальный слой) ──
+  // Включается, только если в config.js указан clarity: '<ID проекта>'. Ответы диагностики, формы и все поля ввода
+  // скрываются в записях (data-clarity-mask), в Clarity уходит только анонимный ID — без имени, телефона и Telegram.
+  if (C.clarity && /^[a-z0-9]{6,20}$/i.test(C.clarity)) {
+    var startClarity = function () {
+      var mask = 'form, input, textarea, select, [data-ap], [data-t]' +
+        (document.body && document.body.classList.contains('pg-diag') ? ', main' : '');
+      document.querySelectorAll(mask).forEach(function (el) { el.setAttribute('data-clarity-mask', 'True'); });
+      (function (c, l, a, r, i, t, y) {
+        c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+        t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+        y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+      })(window, document, 'clarity', 'script', C.clarity);
+      window.clarity('identify', anon);
+      window.clarity('set', 'fbt_test', isTest ? '1' : '0');
+      window.clarity('set', 'fbt_version', VERSION);
+      if (src) window.clarity('set', 'fbt_source', src);
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startClarity);
+    else startClarity();
+  }
 })();

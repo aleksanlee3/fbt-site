@@ -31,14 +31,8 @@
   function count() { return LIST.filter(function (m) { return got[m.id]; }).length; }
   function full() { return count() === TOTAL; }
 
-  function botEvent(id) {
-    var token = FBT.store.get('fbt_token', '');
-    if (!C.botApi || !token) return;
-    try {
-      fetch(C.botApi.replace(/\/$/, '') + '/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token, event: 'medal', data: { id: id, total: count() } }), keepalive: true });
-    } catch (e) { /* без сервера — пропускаем */ }
-  }
+  // 09.10: через общий FBT.event — с номером события, версией сайта и пометкой теста
+  function botEvent(id) { FBT.event('medal', { id: id, total: count() }); }
 
   // ── Выдать наклейку ──
   var queue = [], showing = false, fresh = {};
