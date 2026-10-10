@@ -1,75 +1,629 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#F7F3EA">
-<title>Твой бизнес-профиль — интерактивный прототип для FBT</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Кто вы в бизнесе? Игра-тест — FBT Online</title>
+<meta name="description" content="12 жизненных ситуаций — и вы узнаете, какая работа в бизнесе вам по душе и с чего начать. 3 минуты, бесплатно, без регистрации.">
+<meta property="og:title" content="Кто вы в бизнесе? — игра от FBT Online">
+<meta property="og:description" content="12 ситуаций из жизни, 3 минуты. Узнайте свою роль в бизнесе и первый шаг на эту неделю.">
+<meta name="theme-color" content="#181818">
+<link rel="icon" href="../assets/logo/favicon-64.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/fbt.css">
+<link rel="stylesheet" href="../assets/p3.css">
+<link rel="stylesheet" href="../assets/ic-auto.css">
+<link rel="stylesheet" href="../assets/ic-theme.css">
+<link rel="stylesheet" href="../assets/ic-dark.css">
+<link rel="stylesheet" href="../assets/contrast.css">
 <style>
-:root{--paper:#f7f3ea;--sand:#efe6d5;--white:#fffefa;--ink:#2b2824;--muted:#786e60;--terra:#bb583b;--terra-d:#8b3828;--honey:#edbf67;--gold:#e9b04c;--line:#e1d6c3;--dark:#30281f;--soft:#f3eadc;--green:#56866b;--shadow:0 18px 52px rgba(66,43,24,.10)}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink);background:var(--paper)}body{background-image:radial-gradient(circle at 4% 12%,#ead8bd70 0 13%,transparent 35%),radial-gradient(circle at 95% 94%,#f2d6bb70 0 12%,transparent 35%)}button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #bd7652;outline-offset:3px}button:disabled{cursor:not-allowed;opacity:.42}.shell{max-width:1120px;margin:0 auto;min-height:100vh;display:grid;grid-template-columns:1fr 520px 1fr;gap:22px;padding:22px 24px 34px;align-items:start}.rail{position:sticky;top:22px;align-self:start;padding-top:24px}.rail.left{max-width:240px}.brand{display:flex;align-items:center;gap:11px;letter-spacing:.035em;font-weight:850;font-size:12px;text-transform:uppercase}.brandmark{height:38px;width:38px;border-radius:12px;background:var(--terra);color:white;display:grid;place-items:center;transform:rotate(-7deg);box-shadow:4px 4px 0 var(--honey);font-family:Georgia,serif;font-size:22px}.brand small{display:block;letter-spacing:.15em;font-weight:600;font-size:9px;color:#8a7b68;margin-top:3px}.rail p{font-size:13px;color:var(--muted);line-height:1.65;max-width:210px;margin-top:25px}.rail h3{font-family:Georgia,serif;font-weight:400;font-size:25px;line-height:1.1;margin-top:36px}.rail-note{background:#fff9ee;border:1px dashed #d9bb91;border-radius:14px;padding:14px;font-size:12px;line-height:1.6;color:#755d44}.rail.right{padding-top:82px}.right .tiny{font-size:11px;letter-spacing:.11em;font-weight:900;text-transform:uppercase;color:var(--terra)}.side-step{display:flex;gap:12px;border-bottom:1px solid var(--line);padding:17px 0;font-size:13px;color:#746b61;line-height:1.45}.side-step strong{color:var(--ink);font-size:12px}.num{display:grid;place-items:center;width:26px;height:26px;border:1px solid #cdbca1;border-radius:50%;flex-shrink:0;font-weight:850;font-size:11px;color:var(--terra)}
-.phone{background:var(--white);border-radius:28px;box-shadow:var(--shadow);border:1px solid #e8dbc7;overflow:hidden;min-height:690px;position:relative;display:flex;flex-direction:column}.phone-header{display:flex;align-items:center;justify-content:space-between;padding:19px 24px 14px;border-bottom:1px solid #ede5d8}.header-left{display:flex;align-items:center;gap:8px;font-weight:900;font-size:11px;letter-spacing:.12em}.dot{width:10px;height:10px;border-radius:50%;background:var(--terra);box-shadow:13px 0 0 var(--honey)}.tiny-tag{font-size:10px;color:#8f7257;background:#f2e8d8;border-radius:99px;padding:6px 10px}.main{padding:24px;flex:1;min-height:590px}.overline{font-size:10px;letter-spacing:.15em;font-weight:850;text-transform:uppercase;color:var(--terra);display:flex;align-items:center;gap:8px}.overline:before{content:'';height:2px;width:20px;background:var(--honey)}h1,h2,h3,p{margin-top:0}h1,h2,.display{font-family:Georgia,'Times New Roman',serif;letter-spacing:-.04em;font-weight:700}h1{font-size:43px;line-height:1.03;margin:16px 0 15px}h2{font-size:32px;line-height:1.10;margin:14px 0 11px}.lead{font-size:14px;line-height:1.7;color:#72685e}.em{color:var(--terra)}.scene{height:205px;margin:22px -8px 23px;border-radius:20px;background:linear-gradient(135deg,#f9edda,#f1dcc0);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}.scene .swirl{position:absolute;inset:0;opacity:.2;background-image:repeating-radial-gradient(circle at 58% 57%,transparent 0 17px,#b97c4b 18px 19px, transparent 20px 36px)}.scene svg{position:relative;width:100%;height:100%}.scene .scrib{stroke:#3d302a;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;fill:none}.scene .label{font:bold 12px ui-sans-serif,sans-serif;fill:#5b4434}.micro{display:flex;align-items:center;gap:7px;color:#8e7e6e;font-size:12px;margin:10px 0 19px}.micro span{display:inline-flex;align-items:center;gap:7px}.micro span+span:before{content:'·';margin-right:1px}.btn{width:100%;border:0;border-radius:13px;min-height:53px;padding:12px 17px;background:var(--terra);color:white;font-weight:850;font-size:14px;box-shadow:0 5px 0 #873926;transition:transform .13s,box-shadow .13s}.btn:not(:disabled):active{transform:translateY(3px);box-shadow:0 2px 0 #873926}.btn.alt{background:var(--dark);box-shadow:0 5px 0 #17120d}.btn.ghost{background:transparent;box-shadow:none;border:1px solid #d5c6b2;color:var(--ink)}.btn.light{background:#f1e0c5;color:#413122;box-shadow:none}.btn+.btn{margin-top:12px}.disclaimer{margin-top:17px;color:#968a7b;font-size:11px;line-height:1.6}.footer{display:flex;align-items:center;justify-content:space-between;padding:13px 24px 18px;border-top:1px solid #ede5d8;color:#a29382;font-size:10px}.footer a{color:inherit}.progress-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.progress-txt{font-size:11px;font-weight:750;color:#8d8073}.bar{width:100%;height:7px;background:#efeadf;border-radius:99px;overflow:hidden;margin:16px 0 28px}.bar>div{height:100%;border-radius:99px;background:var(--terra);transition:width .23s}.q-icon{display:grid;place-items:center;width:88px;height:88px;border-radius:27px;background:#f6e8d2;margin:26px 0 20px;position:relative;border:2px solid #ead2ad;transform:rotate(-5deg)}.q-icon svg{width:55px;height:55px;stroke:#45342d;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;fill:none}.q-title{font-family:Georgia,serif;font-weight:bold;font-size:29px;line-height:1.2;letter-spacing:-.035em}.q-sub{margin-top:17px;font-size:13px;line-height:1.6;color:var(--muted)}.rate-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:20px}.rate{min-height:67px;border:1.5px solid #e0d2bf;border-radius:12px;background:#fffaf2;color:#67594c;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;font-weight:800;font-size:17px}.rate small{font-size:9px;line-height:1.1;font-weight:600;color:#8b7e70;text-align:center}.rate.selected{background:#f9dfb8;border-color:var(--terra);color:#854129;box-shadow:0 0 0 1px var(--terra)}.choice-grid{display:grid;gap:9px;margin:22px 0}.choice{border:1.5px solid #e5d9c9;background:#fffaf1;border-radius:13px;text-align:left;padding:14px 14px;font-size:13px;line-height:1.35;color:#463c32;display:flex;align-items:center;gap:11px}.choice .circle{height:22px;width:22px;border:1.5px solid #cab89e;border-radius:50%;display:grid;place-items:center;flex-shrink:0}.choice.selected{background:#f7e3c4;border-color:var(--terra);color:#673522}.choice.selected .circle{background:var(--terra);border-color:var(--terra);color:white}.q-actions{display:flex;align-items:center;gap:12px;margin-top:30px}.q-actions>.btn{flex:1;width:auto}.small-link{background:none;border:0;font-size:12px;color:#917f69;text-decoration:underline;text-underline-offset:3px;padding:12px 4px}.nav-back{border:0;background:transparent;display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#8b7a68;padding:0}.pill{display:inline-block;font-size:11px;font-weight:850;background:#efe2cd;color:#8c5139;border-radius:99px;padding:7px 10px}.result-head{padding:18px 15px 14px;border-radius:17px;background:linear-gradient(135deg,#f3e6d0 4%,#fdf7ee 83%);border:1px solid #ebdbc6;text-align:center}.result-star{width:77px;height:77px;margin:-5px auto 12px;background:#eabf76;border-radius:24px;display:grid;place-items:center;transform:rotate(-7deg);box-shadow:7px 6px 0 #d69b7c}.result-star svg{height:50px;width:50px;stroke:#523529;stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round;fill:none}.result-head h2{font-size:33px;margin:9px auto}.result-head .lead{margin-bottom:0}.interest-list{display:grid;gap:10px;margin:22px 0}.interest-row{display:grid;grid-template-columns:118px 1fr 28px;gap:9px;align-items:center;font-size:12px}.interest-row strong{font-size:12px}.interest-line{height:9px;background:#f1e8da;border-radius:20px;overflow:hidden}.interest-line i{display:block;height:100%;background:#c27253;border-radius:20px}.interest-row small{font-size:11px;color:#967e66;text-align:right}.insight{border-left:3px solid var(--honey);background:#fff8ee;padding:13px 14px;margin:18px 0;border-radius:0 10px 10px 0;color:#665646;font-size:12px;line-height:1.6}.cardmini{padding:14px;border:1px solid var(--line);border-radius:14px;background:#fffdfa;margin:12px 0}.cardmini h3{font-family:Georgia,serif;font-size:21px;margin:3px 0 8px}.cardmini p{font-size:12px;line-height:1.65;color:#71665c;margin:0}.cardmini strong{font-size:12px}.text-header{font-weight:900;font-size:11px;color:#8a5b43;letter-spacing:.11em;text-transform:uppercase;margin:26px 0 9px}.split{display:grid;grid-template-columns:1fr 1fr;gap:9px}.split .btn{min-height:45px;box-shadow:none;font-size:12px;margin:0}.sheet{background:#fbf0df;border:1px solid #e5cead;border-radius:16px;padding:18px;margin:17px 0}.sheet small{display:block;font-weight:800;color:#8b563c;font-size:11px;margin-bottom:8px}.sheet p{font-size:13px;line-height:1.6;color:#57493d;margin:0}.select-note{font-size:11px;color:#8c7c6d;margin-top:14px}.caption{font-size:10px;color:#988878;line-height:1.55;margin-top:12px}.textarea{width:100%;background:#fffaf2;border:1px solid #d8c8b3;border-radius:13px;min-height:120px;padding:15px;font-size:14px;color:#43372f;resize:vertical;margin-top:16px}.decision-row{display:flex;align-items:center;justify-content:space-between;gap:7px;border-bottom:1px solid #efe4d6;padding:12px 0}.decision-row label{font-size:12px;flex:1;color:#594b3e}.tri{display:flex;gap:3px}.tri button{background:#f6eee0;border:1px solid #e4d4bc;border-radius:8px;padding:7px 8px;font-size:10px;color:#7c6d5e}.tri button.selected{background:#bd6448;border-color:#bd6448;color:white}.check{display:flex;align-items:start;gap:10px;font-size:13px;line-height:1.5;border-radius:12px;padding:13px;background:#f6ebd8}.check input{margin-top:4px;accent-color:var(--terra);width:18px;height:18px}.notice{background:#f4efea;border-radius:12px;padding:14px;font-size:11px;line-height:1.7;color:#786d63;margin:17px 0}.result-footer-note{margin-top:14px;font-size:11px;color:#847464;line-height:1.55}.accenttext{color:var(--terra-d)}.route-list{display:grid;gap:12px;margin:17px 0}.route{border:1px solid #e9dcca;border-radius:12px;padding:13px 14px;display:flex;gap:13px}.route .round{display:grid;place-items:center;flex-shrink:0;width:29px;height:29px;border-radius:50%;background:#efdec4;color:#9a553e;font-weight:900;font-size:12px}.route h3{font-size:13px;margin:0 0 3px;font-family:inherit}.route p{font-size:11px;color:#807364;line-height:1.5;margin:0}.no-print{}
-@media(max-width:950px){.shell{grid-template-columns:1fr;max-width:600px;padding:12px 12px 22px;gap:0}.rail{display:none}.phone{min-height:calc(100svh - 24px);border-radius:22px}.main{min-height:calc(100svh - 164px)}}@media(max-width:390px){h1{font-size:37px}h2{font-size:29px}.main{padding:21px 17px}.phone-header,.footer{padding-left:17px;padding-right:17px}.rate-grid{gap:5px}.q-title{font-size:26px}.interest-row{grid-template-columns:105px 1fr 24px}}@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* Игра «Кто вы в бизнесе?» · v2 (10.10.2026, Claude) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
+body.ic .g-scr { padding: 40px 0 72px; }
+.g-wrap { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+.g-panel { padding: 28px 24px; border-radius: 24px; background: var(--card); border: 1px solid var(--line-3); }
+body.ic.ic-dark .g-panel { background: #232325; border-color: rgba(255,255,255,.10); }
+.g-hero { position: relative; border-radius: 24px; overflow: hidden; background: #232325; padding: 28px 22px 24px; color: #fff; }
+.g-hero .eyebrow { color: #FF6B6B; }
+.g-hero h1 { margin-top: 14px; font-size: clamp(40px, 11vw, 60px); line-height: 1; font-weight: 600; letter-spacing: -.035em; color: #fff; }
+.g-hero h1 span { display: block; color: #A2C3CD; }
+.g-hero p { margin-top: 16px; font-size: 18px; line-height: 1.5; color: #D6D6DA; }
+.g-faces { margin-top: 22px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.g-faces div { aspect-ratio: 1; border-radius: 16px; background: #FBF7F0; display: grid; place-items: center; transform: rotate(var(--r, 0deg)); }
+.g-faces img { width: 78%; height: 78%; object-fit: contain; }
+.g-faces div:nth-child(1){--r:-4deg}.g-faces div:nth-child(2){--r:3deg}.g-faces div:nth-child(3){--r:-2deg}.g-faces div:nth-child(4){--r:4deg}
+.g-pills { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+.g-pills span { height: 34px; padding: 0 13px; display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; background: rgba(255,255,255,.08); color: #F2F2F4; font-size: 15px; font-weight: 500; }
+.g-pills b { color: #FF6B6B; font-weight: 700; }
+.g-how { margin-top: 18px; display: grid; gap: 10px; }
+.g-how div { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: 16px; background: var(--card); border: 1px solid var(--line-2); font-size: 16px; line-height: 1.45; }
+body.ic.ic-dark .g-how div { background: #232325; border-color: rgba(255,255,255,.08); color: #E6E6EA; }
+.g-how i { flex-shrink: 0; width: 30px; height: 30px; border-radius: 999px; display: grid; place-items: center; font-style: normal; font-weight: 700; color: #fff; background: #C60000; }
+.g-how div:nth-child(2) i { background: #5A6E7A; } .g-how div:nth-child(3) i { background: #2C3A42; }
+.g-note { margin-top: 14px; font-size: 14px; line-height: 1.5; color: var(--dim); }
+body.ic.ic-dark .g-note { color: #9A9AA0; }
+
+/* Вопрос */
+.g-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 15px; }
+.g-part { height: 30px; padding: 0 12px; display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; background: var(--tint); font-size: 14px; font-weight: 600; }
+body.ic.ic-dark .g-part { background: rgba(255,255,255,.08); color: #E6E6EA; }
+.g-part i { width: 9px; height: 9px; border-radius: 999px; background: var(--pc, #C60000); }
+.g-segs { margin-top: 14px; display: grid; grid-template-columns: repeat(var(--n, 12), minmax(0,1fr)); gap: 5px; }
+.g-segs span { height: 6px; border-radius: 3px; background: var(--line-3); }
+body.ic.ic-dark .g-segs span { background: rgba(255,255,255,.12); }
+body.ic .g-segs span.done { background: #C60000; } body.ic .g-segs span.now { background: #FF6B6B; }
+.g-scene { margin-top: 22px; display: flex; gap: 14px; align-items: flex-start; }
+.g-ico { flex-shrink: 0; width: 76px; height: 76px; border-radius: 20px; background: #FBF7F0; display: grid; place-items: center; transform: rotate(-4deg); box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+.g-ico img { width: 80%; height: 80%; object-fit: contain; }
+.g-lab { font-size: 12px; font-weight: 700; letter-spacing: .1em; color: var(--accent); }
+body.ic.ic-dark .g-lab { color: #FF6B6B; }
+.g-story { margin-top: 6px; font-size: 18px; line-height: 1.45; color: var(--text-2); }
+body.ic.ic-dark .g-story { color: #D6D6DA; }
+.g-q { margin-top: 20px; font-size: clamp(24px, 6.4vw, 30px); line-height: 1.2; font-weight: 600; letter-spacing: -.015em; }
+body.ic.ic-dark .g-q { color: #fff; }
+.g-opts { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.g-opts .opt { min-height: 60px; padding-top: 13px; padding-bottom: 13px; text-align: left; line-height: 1.35; border-radius: 16px; border-width: 1.5px; font-size: 17px; font-weight: 500; }
+.g-opts .opt.is-picked { background: #C60000 !important; border-color: #C60000 !important; color: #fff !important; }
+.g-opts .opt.is-picked .radio { border-color: #fff; } .g-opts .opt.is-picked .radio::after { background: #fff; }
+.g-foot { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line-2); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+body.ic.ic-dark .g-foot { border-color: rgba(255,255,255,.08); }
+.g-foot .btn { height: 44px; padding: 0 18px; font-size: 16px; }
+.g-skip { background: none; border: 0; color: var(--dim); font: inherit; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+body.ic.ic-dark .g-skip { color: #9A9AA0; }
+
+/* Результат */
+.g-res { border-radius: 24px; background: #232325; color: #fff; padding: 26px 22px; text-align: center; }
+.g-res .eyebrow { color: #FF6B6B; }
+.g-res-ico { margin: 18px auto 0; display: flex; justify-content: center; gap: 10px; }
+.g-res-ico div { width: 96px; height: 96px; border-radius: 24px; background: #FBF7F0; display: grid; place-items: center; transform: rotate(-5deg); }
+.g-res-ico div + div { transform: rotate(5deg); }
+.g-res-ico img { width: 80%; height: 80%; object-fit: contain; }
+.g-res h2 { margin-top: 18px; font-size: clamp(34px, 9vw, 48px); line-height: 1.05; font-weight: 600; letter-spacing: -.03em; color: #fff; }
+.g-res h2 span { display: block; color: #A2C3CD; }
+.g-res p { margin-top: 12px; font-size: 17px; line-height: 1.5; color: #D6D6DA; }
+.g-h3 { margin-top: 34px; font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--accent); }
+body.ic.ic-dark .g-h3 { color: #FF6B6B; }
+.g-bars { margin-top: 14px; display: grid; gap: 12px; }
+.g-bar { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: center; }
+.g-bar img { width: 34px; height: 34px; border-radius: 10px; background: #FBF7F0; padding: 3px; object-fit: contain; }
+.g-bar b { display: flex; justify-content: space-between; font-size: 16px; font-weight: 600; }
+.g-bar b small { font-weight: 500; color: var(--dim); font-size: 14px; }
+body.ic.ic-dark .g-bar b { color: #F2F2F4; }
+body.ic.ic-dark .g-bar b small { color: #9A9AA0; }
+.g-bar u { display: block; margin-top: 6px; height: 8px; border-radius: 4px; background: var(--line-3); overflow: hidden; text-decoration: none; }
+body.ic.ic-dark .g-bar u { background: rgba(255,255,255,.10); }
+.g-bar u i { display: block; height: 100%; border-radius: 4px; background: #5A6E7A; }
+.g-bar.top u i { background: #C60000; }
+.g-card { margin-top: 14px; padding: 20px; border-radius: 20px; background: var(--card); border: 1px solid var(--line-2); }
+body.ic.ic-dark .g-card { background: #232325; border-color: rgba(255,255,255,.08); }
+.g-card h3 { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 600; }
+body.ic.ic-dark .g-card h3 { color: #fff; }
+.g-card h3 img { width: 44px; height: 44px; border-radius: 12px; background: #FBF7F0; padding: 4px; object-fit: contain; }
+.g-card p { margin-top: 10px; font-size: 16px; line-height: 1.55; color: var(--text-2); }
+body.ic.ic-dark .g-card p { color: #D6D6DA; }
+.g-card ul { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.g-card li { display: flex; gap: 10px; font-size: 16px; line-height: 1.45; }
+body.ic.ic-dark .g-card li { color: #E6E6EA; }
+.g-card li::before { content: ''; flex-shrink: 0; margin-top: 7px; width: 8px; height: 8px; border-radius: 99px; background: #C60000; }
+.g-step { margin-top: 14px; padding: 20px; border-radius: 20px; background: #C60000; color: #fff; }
+.g-step small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .1em; opacity: .85; }
+.g-step p { margin-top: 8px; font-size: 18px; line-height: 1.45; font-weight: 500; color: #fff; }
+.g-conf { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+.g-conf div { padding: 14px; border-radius: 16px; background: var(--card); border: 1px solid var(--line-2); font-size: 15px; line-height: 1.4; }
+body.ic.ic-dark .g-conf div { background: #232325; border-color: rgba(255,255,255,.08); color: #D6D6DA; }
+.g-conf b { display: block; font-size: 16px; margin-bottom: 4px; }
+body.ic.ic-dark .g-conf b { color: #fff; }
+.g-btns { margin-top: 18px; display: grid; gap: 10px; }
+.g-btns .btn { width: 100%; justify-content: center; }
+.g-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.g-fbt { margin-top: 30px; padding: 24px 20px; border-radius: 24px; background: #2C3A42; color: #fff; }
+.g-fbt .eyebrow { color: #A2C3CD; }
+.g-fbt h3 { margin-top: 10px; font-size: 26px; line-height: 1.15; font-weight: 600; color: #fff; }
+.g-fbt p { margin-top: 10px; font-size: 16px; line-height: 1.55; color: #DCE6EA; }
+.g-fbt .btn { margin-top: 16px; width: 100%; justify-content: center; }
+.g-status { min-height: 20px; font-size: 14px; text-align: center; color: var(--dim); }
+body.ic.ic-dark .g-status { color: #9A9AA0; }
+
+/* Семейная часть */
+.g-matrix { margin-top: 16px; display: grid; gap: 10px; }
+.g-mrow { padding: 12px; border-radius: 14px; border: 1.5px solid var(--line-3); }
+body.ic.ic-dark .g-mrow { border-color: rgba(255,255,255,.12); }
+.g-mrow > span { display: block; font-size: 16px; font-weight: 600; }
+body.ic.ic-dark .g-mrow > span { color: #F2F2F4; }
+.g-tri { margin-top: 8px; display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+.g-tri button { min-height: 40px; border-radius: 10px; border: 1.5px solid var(--line-3); background: var(--bg-2); color: var(--text); font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; }
+body.ic.ic-dark .g-tri button { background: #181818; border-color: rgba(255,255,255,.14); color: #E6E6EA; }
+.g-tri button.on { background: #C60000; border-color: #C60000; color: #fff; }
+.g-text { width: 100%; min-height: 120px; margin-top: 16px; padding: 14px; border-radius: 14px; border: 1.5px solid var(--line-3); background: var(--bg-2); color: var(--text); font: inherit; font-size: 16px; resize: vertical; }
+body.ic.ic-dark .g-text { background: #181818; border-color: rgba(255,255,255,.14); color: #F2F2F4; }
+.g-check { margin-top: 16px; display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: 14px; background: var(--tint); font-size: 16px; line-height: 1.45; }
+body.ic.ic-dark .g-check { background: rgba(255,255,255,.06); color: #E6E6EA; }
+.g-check input { margin-top: 3px; width: 20px; height: 20px; accent-color: #C60000; flex-shrink: 0; }
+.g-mini { margin-top: 6px; font-size: 15px; color: var(--dim); }
+body.ic.ic-dark .g-mini { color: #9A9AA0; }
+@media (prefers-reduced-motion: reduce) { .g-faces div, .g-ico, .g-res-ico div { transform: none; } }
 </style>
 </head>
-<body>
-<div class="shell">
-<aside class="rail left"><div class="brand"><div class="brandmark">i</div><div>IMPACT CONSULTING<small>СЕМЕЙНЫЙ БИЗНЕС · FBT</small></div></div><h3>Узнать себя.<br>Найти свою роль.<br><span class="em">Начать действовать.</span></h3><p>Отдельная Instagram-игра — мягкая точка входа к развитию предпринимательских навыков и семейного бизнеса.</p><div class="rail-note">Реальный UX-прототип, а не валидированный психологический тест. Все ответы обрабатываются только в открытой странице, без отправки на сервер.</div></aside>
-<section class="phone" aria-label="Интерактивная игра"><div class="phone-header"><span class="header-left"><i class="dot"></i><span style="margin-left:13px">МОЙ БИЗНЕС-ПРОФИЛЬ</span></span><span class="tiny-tag">ДЕМО · 01</span></div><main class="main" id="app" aria-live="polite"><div class="overline">Игра FBT</div><h1>Кто ты <span class="em">в бизнесе?</span></h1><p class="lead">Чтобы пройти интерактивную игру, откройте её как обычный сайт в браузере. Встроенный просмотрщик файлов может блокировать сценарии.</p><a class="btn" style="display:block;text-align:center;text-decoration:none" href="https://fbt-online.pages.dev/igra-profil/">Открыть игру в Safari ↗</a></main><div class="footer"><span>IMPACT CONSULTING · FBT</span><span>Гипотеза продукта · 2026</span></div></section>
-<aside class="rail right"><div class="tiny">Как устроена игра</div><div class="side-step"><span class="num">01</span><div><strong>Узнай себя</strong><br>Ответь на вопросы о задачах, которые тебе интересны</div></div><div class="side-step"><span class="num">02</span><div><strong>Получи свой профиль</strong><br>Два ведущих направления и маленький эксперимент</div></div><div class="side-step"><span class="num">03</span><div><strong>Подключи семью</strong><br>Обсудите цели, зоны ответственности и решения</div></div><div class="side-step"><span class="num">04</span><div><strong>Перейди к практике</strong><br>Узнай, как FBT помогает развивать системный семейный бизнес</div></div><p style="margin-top:20px">Этот прототип демонстрирует UX и логику короткого теста A из исследования Perplexity. Точность и стабильность профилей ещё не установлены.</p></aside>
+<body class="ic ic-dark pg-diag">
+<script src="../assets/theme.js"></script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<div class="topbar">
+  <header class="hdr">
+    <div class="wrap">
+      <a class="brand" href="../index.html"><img class="brand-logo" src="../assets/logo/impact-consulting.png" alt="" width="34" height="34"><b>IMPACT CONSULTING</b><i></i><span>FBT Online</span></a>
+      <nav class="hdr-nav">
+        <a class="keep" href="../programma.html">О программе</a>
+      </nav>
+    </div>
+  </header>
 </div>
+
+<main id="app" aria-live="polite">
+  <!-- Первый экран виден и без JavaScript (защита от пустого экрана во встроенных просмотрщиках) -->
+  <section class="ic-top g-scr">
+    <div class="g-wrap">
+      <div class="g-hero">
+        <div class="eyebrow">ИГРА ОТ FBT ONLINE</div>
+        <h1>Кто вы<span>в бизнесе?</span></h1>
+        <p>12 ситуаций из жизни. Отвечайте, как поступили бы на самом деле, — и узнаете, какая работа в бизнесе вам по душе.</p>
+      </div>
+      <noscript><p class="g-note">Чтобы пройти игру, откройте страницу в браузере (Safari или Chrome): fbt-online.pages.dev/igra-profil/</p></noscript>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap"><span class="foot-c"><span>© 2026 Impact Consulting · FBT Online.</span><span>Все права защищены.</span></span><a href="../privacy.html">Политика конфиденциальности</a></div>
+</footer>
+
 <script>
-(() => {
+(function () {
 'use strict';
-const E=document.getElementById('app');
-const icons={search:'<circle cx="32" cy="27" r="14"/><path d="m43 39 13 14M23 28q4-9 13-8"/>',create:'<path d="M31 7 36 26 55 31 36 36 31 55 26 36 7 31 26 26Z"/><path d="M48 8v12m-6-6h12"/>',chat:'<path d="M8 16q5-8 21-8h9q17 0 17 16v7q0 15-17 15H28L15 55v-12Q8 37 8 29Z"/><path d="M20 26h23m-23 8h16"/>',sale:'<path d="M11 30 28 15 40 27 54 13M43 13h11v11"/><path d="M12 47h41"/>',op:'<circle cx="32" cy="32" r="11"/><path d="M32 7v10m0 30v10M7 32h10m30 0h10M14 14l8 8m20 20 8 8M50 14l-8 8M22 42l-8 8"/>',coord:'<circle cx="32" cy="13" r="7"/><circle cx="12" cy="49" r="7"/><circle cx="52" cy="49" r="7"/><path d="M28 20 17 42m21-22 11 22M20 49h24"/>',teach:'<path d="M9 13h23a10 10 0 0 1 10 10v31H18a9 9 0 0 0-9 3zM42 22h10v34H28m0-34v28"/><path d="M17 25h14m-14 9h12"/>',test:'<path d="M12 10h39v45H12zM21 24l4 4 9-10M21 41l4 4 9-10M39 26h7m-7 17h7"/>',family:'<circle cx="21" cy="19" r="8"/><circle cx="44" cy="19" r="8"/><path d="M6 53v-9q0-15 15-15t15 15v9M31 53v-9q0-15 13-15t14 15v9"/>',help:'<circle cx="32" cy="32" r="23"/><path d="M24 24q2-11 11-10 12 1 10 13-1 8-12 12v4M33 51h1"/>'};
-const svg=(name)=>`<svg viewBox="0 0 64 64" aria-hidden="true">${icons[name]||icons.create}</svg>`;
-const tasks=[
-{id:'A-I1',code:'IN',icon:'search',text:'Разобраться, почему клиенты выбирают один товар, а не другой'},
-{id:'A-I2',code:'CR',icon:'create',text:'Придумать новый продукт или необычный способ подать знакомую услугу'},
-{id:'A-I3',code:'CL',icon:'chat',text:'Поговорить с потенциальными клиентами и выяснить, что им нужно'},
-{id:'A-I4',code:'SA',icon:'sale',text:'Представить предложение клиенту и попробовать договориться о покупке'},
-{id:'A-I5',code:'OP',icon:'op',text:'Настроить повторяемый процесс, чтобы работа выполнялась без постоянных сбоев'},
-{id:'A-I6',code:'CO',icon:'coord',text:'Скоординировать людей, сроки и ресурсы, чтобы запустить проект'},
-{id:'A-I7',code:'TE',icon:'teach',text:'Объяснить человеку сложную идею простыми словами и помочь ему применить её'},
-{id:'A-I8',code:'IN',icon:'test',text:'Проверить простую идею: кому она нужна и какое решение уже используют'}
+var APP = document.getElementById('app');
+var IC = '../assets/icons/';
+
+/* ── Профили (игровые названия — гипотеза продукта, не научные типы) ── */
+var P = {
+  IN: { name: 'Исследователь', icon: 'insayt',
+    desc: 'Вам интересно докопаться до сути: почему люди покупают, что им мешает, какая идея сработает. Вы сначала разбираетесь, потом действуете.',
+    tasks: ['Узнавать, что нужно клиентам', 'Сравнивать варианты и цены', 'Проверять идею до того, как вкладывать деньги'],
+    step: 'Поговорите с 5 людьми, которые могли бы купить ваш товар или услугу. Спросите, что им сейчас неудобно. Запишите ответы.' },
+  CR: { name: 'Создатель', icon: 'vozmozhnost',
+    desc: 'Вам нравится придумывать: новый товар, необычную подачу, свою услугу. Идеи приходят легко, и хочется сразу сделать первую версию.',
+    tasks: ['Придумывать товары и услуги', 'Делать первую пробную версию', 'Оформлять предложение так, чтобы его захотели'],
+    step: 'Сделайте простую пробную версию своей идеи — фото, описание, образец — и покажите её 5 знакомым. Спросите: «Купили бы?»' },
+  CL: { name: 'Коммуникатор', icon: 'klient',
+    desc: 'Вам интересны люди. Вы легко начинаете разговор, слушаете и понимаете, что человеку на самом деле нужно.',
+    tasks: ['Общаться с клиентами', 'Узнавать, что им нужно', 'Помогать после покупки, чтобы приходили снова'],
+    step: 'Позвоните или напишите трём своим клиентам или знакомым. Спросите, что им понравилось и что можно сделать лучше.' },
+  SA: { name: 'Переговорщик', icon: 'prodazha',
+    desc: 'Вас заводит договариваться: о цене, об условиях, о сделке. Возражения не пугают — наоборот, интересно найти решение.',
+    tasks: ['Продавать и рассказывать о пользе товара', 'Договариваться с поставщиками и партнёрами', 'Отвечать на сомнения клиентов'],
+    step: 'Расскажите о своём предложении трём людям за 1 минуту. Попросите честно сказать, что их смутило.' },
+  OP: { name: 'Систематизатор', icon: 'process',
+    desc: 'Вам важно, чтобы всё работало чётко и без сбоев. Вы видите, где теряются время и деньги, и наводите порядок.',
+    tasks: ['Наводить порядок в работе', 'Писать понятные правила и инструкции', 'Следить за качеством'],
+    step: 'Найдите одну ошибку, которая повторяется в работе. Запишите, почему она случается, и придумайте одно простое правило против неё.' },
+  CO: { name: 'Организатор', icon: 'komanda',
+    desc: 'Вы умеете собрать людей вокруг дела: кто что делает, к какому сроку, где взять нужное. С вами проекты доходят до конца.',
+    tasks: ['Распределять задачи между людьми', 'Следить за сроками', 'Запускать новое направление или точку'],
+    step: 'Возьмите одно небольшое дело на 1–2 недели. Распишите, кто что делает и к какому дню, и доведите его до конца.' },
+  TE: { name: 'Наставник', icon: 'nastavnik',
+    desc: 'Вам нравится объяснять и видеть, как у человека начинает получаться. Свой опыт вы можете превратить в понятный урок.',
+    tasks: ['Обучать сотрудников и клиентов', 'Писать инструкции и памятки', 'Делать из своего опыта услугу или курс'],
+    step: 'Объясните одну рабочую тему знакомому так, чтобы он смог повторить сам. Спросите, что было непонятно.' }
+};
+
+/* ── 12 вопросов. Смысл — банк A исследования (A-I1…A-I8, A-E1, A-E2, A-C1, A-C2), подача — ситуации из жизни.
+      Баллы ответов: 4 — очень интересно / уверен(а), 3 — скорее да, 1 — скорее нет, 0 — совсем нет.
+      Порядок ответов перемешивается, чтобы «правильный» вариант не угадывался. ── */
+var Q = [
+  { id: 'A-I1', kind: 'i', code: 'IN', icon: 'insayt',
+    story: 'На одной улице две лавки с самсой. У одной всегда очередь, у другой почти пусто. Говорят, самса там одинаковая.',
+    q: 'Что у вас в голове?',
+    a: [['Обязательно разберусь, в чём дело: посмотрю, послушаю людей, сравню', 4],
+        ['Любопытно — прикину пару версий, пока иду мимо', 3],
+        ['Отмечу про себя и пойду дальше', 1],
+        ['Возьму там, где нет очереди, и всё', 0]] },
+  { id: 'A-I2', kind: 'i', code: 'CR', icon: 'vozmozhnost',
+    story: 'Подруга печёт торты на заказ, но заказов мало. Она просит: «Помоги придумать что-то новое».',
+    q: 'Как вы отреагируете?',
+    a: [['С радостью! Сразу накидаю идей: новый вкус, наборы к празднику, красивая упаковка', 4],
+        ['Предложу пару идей, если она расскажет подробнее', 3],
+        ['Лучше подскажу, у кого можно подсмотреть идеи', 1],
+        ['Придумывать — не моё, помогу ей по-другому', 0]] },
+  { id: 'A-I3', kind: 'i', code: 'CL', icon: 'klient',
+    story: 'Вы собираетесь открыть небольшое дело. Опытный знакомый советует: «Сначала поговори с будущими клиентами — узнай, чего им не хватает».',
+    q: 'Как вам такая задача?',
+    a: [['Отлично! Люблю расспрашивать людей и слушать их истории', 4],
+        ['Поговорю с несколькими — интересно, что скажут', 3],
+        ['Сделаю, раз надо, но без особой радости', 1],
+        ['Пусть лучше кто-то другой поговорит и расскажет мне', 0]] },
+  { id: 'A-I4', kind: 'i', code: 'SA', icon: 'prodazha',
+    story: 'Вы нашли хорошего поставщика, но цена у него высокая. Можно попробовать договориться о скидке.',
+    q: 'Что вы почувствуете?',
+    a: [['Азарт! Люблю договариваться и находить выгодные условия', 4],
+        ['Попробую — вдруг получится', 3],
+        ['Неловко. Скорее соглашусь на его цену или поищу другого', 1],
+        ['Попрошу кого-то договориться вместо меня', 0]] },
+  { id: 'A-I5', kind: 'i', code: 'OP', icon: 'process',
+    story: 'В небольшом кафе, где вы работаете, каждую неделю что-то идёт не так: то хлеб забыли заказать, то перепутали заказ.',
+    q: 'Что вам захочется сделать?',
+    a: [['Навести порядок: списки, правила, кто за что отвечает — чтобы больше не повторялось', 4],
+        ['Поправить самое главное, чтобы стало полегче', 3],
+        ['Решать каждый раз по ходу дела', 1],
+        ['Такие мелочи утомляют — пусть ими занимается кто-то другой', 0]] },
+  { id: 'A-I6', kind: 'i', code: 'CO', icon: 'komanda',
+    story: 'Через месяц большой семейный той. Нужно всё успеть: ресторан, музыка, приглашения, кто встречает гостей.',
+    q: 'Какая роль вам ближе?',
+    a: [['Беру организацию на себя: распределю задачи и прослежу, чтобы всё успели', 4],
+        ['Помогу составить план, если кто-то будет главным', 3],
+        ['Скажите, что сделать, — и я сделаю свою часть', 1],
+        ['Лучше я просто приду гостем', 0]] },
+  { id: 'A-I7', kind: 'i', code: 'TE', icon: 'nastavnik',
+    story: 'Соседка открыла маленький магазин и не может разобраться, как принимать оплату по QR-коду. Просит помочь.',
+    q: 'Как вы поступите?',
+    a: [['Сяду рядом и объясню по шагам, пока у неё не получится самой', 4],
+        ['Покажу, как это делаю я', 3],
+        ['Сделаю всё за неё — так быстрее', 1],
+        ['Посоветую посмотреть видео в интернете', 0]] },
+  { id: 'A-I8', kind: 'i', code: 'IN', icon: 'diagnostika',
+    story: 'Вам пришла идея: возить домашние обеды в офисы. Пока это только идея.',
+    q: 'Что сделаете первым?',
+    a: [['Сначала проверю: кому это нужно, кто уже так делает и сколько берёт', 4],
+        ['Спрошу пару знакомых, что они думают', 3],
+        ['Если чувствую, что идея хорошая, — сразу начну', 1],
+        ['Отложу: идей много, а времени мало', 0]] },
+  { id: 'A-E1', kind: 'e', icon: 'doverie',
+    story: 'Перед вами незнакомый человек — возможный клиент. За 10 минут разговора нужно понять, что его на самом деле беспокоит.',
+    q: 'Как вы себя чувствуете?',
+    a: [['Спокойно. Я справлюсь', 4], ['Скорее справлюсь, хоть и немного волнуюсь', 3],
+        ['Будет тяжеловато', 1], ['Очень волнуюсь — не знаю, с чего начать', 0]] },
+  { id: 'A-E2', kind: 'e', icon: 'plan',
+    story: 'В понедельник вы написали план на неделю: пять важных дел.',
+    q: 'Что будет к пятнице?',
+    a: [['Всё сделано — я так обычно и живу', 4], ['Почти всё, одно-два дела перенесу', 3],
+        ['Половина, остальное съест текучка', 1], ['Планы — не про меня, живу по обстоятельствам', 0]] },
+  { id: 'A-C1', kind: 'c', icon: 'doroga', fixed: true,
+    story: 'Последние два вопроса — про вашу ситуацию. Они не меняют результат, но помогают дать точный совет.',
+    q: 'Где вы сейчас?',
+    a: [['Пока присматриваюсь, своего дела нет'], ['Есть идея, но ещё не начинал(а)'], ['Уже пробую продавать'], ['Веду свой бизнес'], ['Работаю в семейном деле']] },
+  { id: 'A-C2', kind: 'c', icon: 'semya', fixed: true,
+    story: 'Многие дела начинаются вдвоём: с супругом, братом, сестрой, родителями или близким другом.',
+    q: 'Есть ли рядом человек, с кем вы могли бы делать общее дело?',
+    a: [['Нет, я сам(а) по себе'], ['Может быть, есть кто-то на примете'], ['Да, мы уже это обсуждаем или работаем вместе']] }
 ];
-const conf=[{id:'A-E1',text:'Насколько уверены, что сможете провести разговор с потенциальным клиентом и выяснить его проблему?',icon:'chat'}, {id:'A-E2',text:'Насколько уверены, что сможете составить план ближайших действий и выполнить его за неделю?',icon:'coord'}];
-const stages=['Только изучаю варианты','Есть идея','Тестирую продажи','Веду бизнес','Участвую в семейном деле','Другое'];
-const famInterest=['Нет','Возможно','Да, уже обсуждаем'];
-const profiles={IN:{name:'Исследователь',icon:'search',desc:'Тебе интересно выяснять, что происходит на самом деле, и сравнивать варианты решений.',role:'Исследование спроса, клиентские интервью, проверка гипотез',ideas:'Услуги, торговля, цифровые продукты — если интересна исследовательская часть',step:'Поговори с 3–5 потенциальными клиентами и запиши, какую проблему они пытаются решить'},CR:{name:'Создатель',icon:'create',desc:'Тебя привлекает придумывание и пробное воплощение новых решений.',role:'Создание предложения, продукта, прототипа и контента',ideas:'Творческие услуги, товары, образовательные или цифровые продукты',step:'Сделай простой макет предложения и покажи его 5 целевым людям'},CL:{name:'Коммуникатор',icon:'chat',desc:'Тебе может нравиться понимать потребности людей и сопровождать их.',role:'Клиентский сервис, сопровождение, выявление потребностей',ideas:'Услуги, торговля, консультации — при наличии навыков',step:'Проведи один разговор с клиентом и составь карту его потребностей'},SA:{name:'Переговорщик',icon:'sale',desc:'Тебе интересны презентация предложения, обсуждение условий и договорённости.',role:'Переговоры, продажи, партнёрства, презентации',ideas:'Разные сферы, где важны продажи и партнёрства',step:'Проверь свою презентацию предложения и попроси честную обратную связь'},OP:{name:'Оператор',icon:'op',desc:'Тебя могут привлекать понятные процессы, качество и устойчивый результат.',role:'Операции, контроль качества, улучшение процессов',ideas:'Производство, торговля, сервис, франшиза — после проверки экономики',step:'Найди повторяющийся сбой, опиши процесс и предложи маленькое улучшение'},CO:{name:'Координатор',icon:'coord',desc:'Тебе интересно соединять людей и ресурсы, чтобы доводить инициативы до результата.',role:'Координация команды, запуск проектов, организация работ',ideas:'Услуги, проекты развития, запуск новых точек или направлений',step:'Организуй небольшой проект с двумя исполнителями и понятными сроками'},TE:{name:'Наставник',icon:'teach',desc:'Тебе может быть интересно объяснять сложные вещи и помогать людям применять знания.',role:'Обучение, инструкции, сопровождение в освоении навыков',ideas:'Образование и консультации — если подтверждены знания и спрос',step:'Объясни одну тему человеку и попроси повторить действие самостоятельно'}};
-const familyQs=[
-{id:'F1',title:'В каком качестве ты связан(а) с делом?',subtitle:'Можно пока не участвовать в семейном бизнесе.',type:'single',options:['Член семьи','Собственник','Управляющий или сотрудник','Несколько ролей','Пока не участвую']},
-{id:'F2',title:'Какие задачи тебе хотелось бы попробовать?',type:'single',options:['Клиенты','Продукт','Процессы','Координация','Обучение','Финансы и ресурсы','Другое']},
-{id:'F3',title:'Какие результаты для тебя важнее?',subtitle:'Выбери не больше двух.',type:'multi',max:2,options:['Доход','Самостоятельность','Преемственность','Рабочие места','Семейные ценности','Общественная польза','Другое']},
-{id:'F4',title:'Как принимать важные решения?',subtitle:'Для каждого вопроса отметь ожидание: вместе, делегировать или пока не ясно.',type:'matrix',options:['Крупные расходы','Найм','Продукт','Ежедневные операции','Стратегия']},
-{id:'F5',title:'Какой вклад ты готов(а) обсудить в ближайший месяц?',subtitle:'Это только намерение, а не обязательство.',type:'multi',max:4,options:['Время','Навыки','Связи','Капитал','Пока никакой','Другое']},
-{id:'F6',title:'Что помогло бы отделять семейные разговоры от рабочих решений?',subtitle:'Необязательный личный ответ. Не попадёт в общую карту.',type:'text'},
-{id:'F7',title:'Какой небольшой совместный эксперимент вы готовы обсудить?',type:'single',options:['Интервью с клиентами','Тест предложения','Описание процесса','Обсуждение ролей','Другое']}
+var PART = { i: ['Ситуации', '#C60000'], e: ['Уверенность', '#5A6E7A'], c: ['О вас', '#A2C3CD'] };
+
+/* ── Семейная часть: 7 вопросов (F1–F7), простым языком ── */
+var F = [
+  { id: 'F1', t: 'single', q: 'Кем вы приходитесь вашему общему делу?', s: 'Если вы ещё не начали — ответьте, как видите себя.',
+    o: ['Член семьи, помогаю', 'Владелец или совладелец', 'Руковожу или работаю в деле', 'Всё сразу', 'Пока не участвую'] },
+  { id: 'F2', t: 'single', q: 'За что вам хотелось бы отвечать?', s: 'Выберите одно — самое близкое.',
+    o: ['Клиенты и продажи', 'Товар или услуга', 'Порядок в работе', 'Люди и задачи', 'Обучение людей', 'Деньги и закупки'] },
+  { id: 'F3', t: 'multi', max: 2, q: 'Ради чего вам это дело?', s: 'Выберите не больше двух.',
+    o: ['Доход для семьи', 'Свобода и самостоятельность', 'Передать дело детям', 'Дать работу людям', 'Сохранить семейные ценности', 'Польза для людей'] },
+  { id: 'F4', t: 'matrix', q: 'Кто должен решать?', s: 'Для каждого вопроса отметьте, как вам кажется правильным.',
+    o: ['Большие траты', 'Кого взять на работу', 'Что продавать', 'Ежедневные дела', 'Куда развиваться'] },
+  { id: 'F5', t: 'multi', max: 4, q: 'Что вы готовы вложить в ближайший месяц?', s: 'Это не обещание — просто ваше намерение.',
+    o: ['Своё время', 'Свои умения', 'Знакомства', 'Деньги', 'Пока ничего'] },
+  { id: 'F6', t: 'text', q: 'Как не смешивать домашние разговоры и рабочие вопросы?', s: 'Ваша идея. Этот ответ увидите только вы — в общую карту он не попадёт.' },
+  { id: 'F7', t: 'single', q: 'С чего вы могли бы начать вместе — без больших денег?',
+    o: ['Поговорить с клиентами', 'Попробовать продать пробную партию', 'Расписать, как устроена работа', 'Договориться, кто за что отвечает'] }
 ];
-let data={screen:'intro',i:0,answers:{},fam:[{},{}],pass:0,fi:0,consent:[false,false]};
-function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function render(){let s=data.screen; E.innerHTML=({intro:renderIntro,quiz:renderQuiz,result:renderResult,familyIntro:renderFamilyIntro,familyQuestion:renderFamilyQuestion,familyConsent:renderFamilyConsent,familySwitch:renderFamilySwitch,familyResult:renderFamilyResult,fbt:renderFbt})[s](); window.scrollTo(0,0); E.querySelectorAll('[data-action]').forEach(b=>b.addEventListener('click',()=>act(b.dataset.action,b.dataset.value)));const text=E.querySelector('#free-text');if(text)text.addEventListener('input',e=>{data.fam[data.pass].F6=e.target.value;});}
-const btn=(label,action,klass='btn',extra='')=>`<button class="${klass}" data-action="${action}" ${extra}>${label}</button>`;
-function start(){data={screen:'quiz',i:0,answers:{},fam:[{},{}],pass:0,fi:0,consent:[false,false]};render();}
-function drawHero(){return `<div class="scene"><div class="swirl"></div><svg viewBox="0 0 420 205"><path d="M40 154c74 0 82-92 171-90 76 2 98 78 167 22" fill="none" stroke="#b98364" stroke-width="4" stroke-dasharray="8 9" stroke-linecap="round"/><circle cx="89" cy="151" r="30" fill="#fff9eb" stroke="#3d302a" stroke-width="3"/><path d="M75 157c9-18 26-18 33-4m-29-15q10 7 21 0" fill="none" stroke="#3d302a" stroke-width="3" stroke-linecap="round"/><path d="M191 22 205 56 240 66 206 77 192 111 180 76 147 66 180 57Z" fill="#edbf67" stroke="#3d302a" stroke-width="3" stroke-linejoin="round"/><rect x="265" y="103" width="93" height="68" rx="8" fill="#fff9eb" stroke="#3d302a" stroke-width="3" transform="rotate(6 310 137)"/><path d="M286 138h49m-39-14h27m-18 24h33" stroke="#b96643" stroke-width="3" stroke-linecap="round"/><path d="M53 52h57l11-13 11 13h25v34H53Z" fill="#edc48f" stroke="#3d302a" stroke-width="3" stroke-linejoin="round"/><path d="M77 67h56" stroke="#3d302a" stroke-width="3" stroke-linecap="round"/><path d="m349 36 8-17m9 28 16-6m-20 9 16 13" fill="none" stroke="#bb583b" stroke-width="4" stroke-linecap="round"/></svg></div>`;}
-function renderIntro(){return `<div class="overline">Игра-путешествие · FBT</div><h1>Кто ты <span class="em">в бизнесе?</span></h1><p class="lead">Не гадать о «предназначении», а найти задачи, которые тебе действительно интересны — и попробовать их в деле.</p>${drawHero()}<div class="micro"><span>12 коротких шагов</span><span>Без регистрации</span><span>Предварительный профиль</span></div>${btn('Узнать свой профиль →','start')}<div class="disclaimer">Исследовательская игровая версия. Это не тест способностей, не психологический диагноз и не прогноз успеха. Основа — авторский банк A из исследования Perplexity.</div>`;}
-function quizSteps(){return [...tasks.map(t=>({kind:'interest',...t})),...conf.map(t=>({kind:'confidence',...t})),{kind:'stage',id:'A-C1'}, {kind:'familyInterest',id:'A-C2'}]}
-function renderQuiz(){const qs=quizSteps(),q=qs[data.i],n=data.i+1;let answer=data.answers[q.id];let isRate=['interest','confidence'].includes(q.kind);let title=q.kind==='stage'?'Где ты сейчас находишься?':q.kind==='familyInterest'?'Хочешь исследовать роль близких в бизнесе?':q.text;let helper=q.kind==='interest'?'Насколько тебе интересно заниматься этим?':q.kind==='confidence'?'Оцени уверенность, а не желание.':q.kind==='stage'?'Это влияет на рекомендации, но не меняет баллы профиля.':q.kind==='familyInterest'?'Семейная ветка добровольная — можно пройти позже.':'';let icon=q.icon|| (q.kind==='familyInterest'?'family':'help');let options=isRate?`<div class="rate-grid">${[0,1,2,3,4].map(v=>`<button class="rate ${answer===v?'selected':''}" data-action="answer" data-value="${v}">${v}<small>${(q.kind==='interest'?['совсем нет','скорее нет','зависит','скорее да','очень да']:['совсем нет','скорее нет','не знаю','скорее да','полностью'])[v]}</small></button>`).join('')}</div>`:`<div class="choice-grid">${(q.kind==='stage'?stages:famInterest).map((v,i)=>`<button class="choice ${answer===v?'selected':''}" data-action="answer" data-value="${i}"><span class="circle">${answer===v?'✓':''}</span>${esc(v)}</button>`).join('')}</div>`;return `<div class="progress-head"><button class="nav-back" data-action="back">← Назад</button><span class="progress-txt">ШАГ ${n} ИЗ ${qs.length}</span></div><div class="bar"><div style="width:${Math.round(n/qs.length*100)}%"></div></div><div class="overline">${q.kind==='interest'?'Часть 1 · Интерес':q.kind==='confidence'?'Часть 2 · Уверенность':'Часть 3 · Контекст'}</div><div class="q-icon">${svg(icon)}</div><div class="q-title">${esc(title)}</div><p class="q-sub">${esc(helper)}</p>${options}<div class="q-actions">${btn(n===qs.length?'Посмотреть результат →':'Продолжить →','nextQuiz','btn',answer===undefined?'disabled':'')}<button class="small-link" data-action="skipQuiz">Пропустить</button></div><div class="caption">«Не знаю» и пропуски сохраняются как неопределённость. Они не означают отсутствие интереса.</div>`;}
-function compute(){let scores={};for(let t of tasks){let a=data.answers[t.id];if(a===undefined||a===null)continue;(scores[t.code]??=[]).push(Number(a));}let agg=Object.entries(scores).map(([code,v])=>({code,avg:v.reduce((a,b)=>a+b,0)/v.length,n:v.length,uncertain:v.filter(x=>x===2).length})).sort((a,b)=>b.avg-a.avg||b.n-a.n);let answered=tasks.filter(t=>data.answers[t.id]!==undefined&&data.answers[t.id]!==null).length;let strong=agg.filter(x=>x.avg>=3);let ambiguous=strong.length>=3 && (strong[0].avg-strong[2].avg<=0.5);let leaders=ambiguous?[]:strong.slice(0,2);return {agg,answered,leaders,isEnough:answered>=6,ambiguous};}
-function renderResult(){const r=compute();const leaders=r.isEnough?r.leaders:[];const one=leaders[0];const two=leaders[1];const title=r.ambiguous?'Разные стороны бизнеса':leaders.length===0?'Карта интересов':leaders.length===1?profiles[one.code].name:profiles[one.code].name+' + '+profiles[two.code].name;const stage=data.answers['A-C1'];const familyPref=data.answers['A-C2'];let bars=r.agg.map(x=>`<div class="interest-row"><strong>${profiles[x.code].name}</strong><span class="interest-line"><i style="width:${(x.avg/4*100).toFixed(0)}%"></i></span><small>${x.avg.toFixed(1)}</small></div>`).join('');let chosen=leaders;return `<div class="overline">Твоя первая карта</div><div class="result-head"><div class="result-star">${svg(one?.code?profiles[one.code].icon:'search')}</div><span class="pill">Предварительные сигналы</span><h2>${esc(title)}</h2><p class="lead">${!r.isEnough?'Для уверенного описания пока не хватает ответов. Можно посмотреть отдельные интересы или пройти заново.':r.ambiguous?'Тебе интересно сразу несколько направлений. Игра не будет выбирать архетип случайным образом.':'По твоим ответам эти задачи оказались среди наиболее интересных.'}</p></div><div class="text-header">Твоя карта интересов</div><div class="interest-list">${bars||'<p class="lead">Ответов пока нет</p>'}</div><div class="insight">Это <strong>не рейтинг врождённых способностей</strong>. В короткой версии большинство направлений отражены одним вопросом. Высокий интерес не означает, что человек уже умеет выполнять задачу.</div>${chosen.map((x,i)=>`<div class="cardmini"><span class="pill">${i===0?'Первое направление':'Ещё одно направление'}</span><h3>${profiles[x.code].name}</h3><p>${profiles[x.code].desc}</p><p style="margin-top:9px"><b>Какие роли попробовать:</b> ${profiles[x.code].role}.</p></div>`).join('')}<div class="text-header">Небольшой шаг на эту неделю</div><div class="sheet"><small>ИЗ РАЗМЫШЛЕНИЙ — В ДЕЙСТВИЕ</small><p>${chosen.length?profiles[chosen[0].code].step+'.':'Выбери одну бизнес-задачу, которая тебя заинтересовала, и попробуй её выполнить.'}</p></div><div class="text-header">Куда двигаться дальше</div><div class="route-list"><div class="route"><div class="round">1</div><div><h3>Исследуй подходящие бизнес-роли</h3><p>${chosen.length?profiles[chosen[0].code].ideas+'.':'Выбери интересную задачу и проверь её на практике.'} Это направления для проверки, не рекомендация вкладывать деньги.</p></div></div><div class="route"><div class="round">2</div><div><h3>Добавь близкого человека</h3><p>Сравните ожидания и возможные роли в семейном деле — без оценки психологической совместимости.</p></div></div><div class="route"><div class="round">3</div><div><h3>От идеи к системному бизнесу</h3><p>Если интересен семейный бизнес, посмотри, как в этом помогает Family Business Training.</p></div></div></div>${btn('Исследовать семейные роли →','familyIntro')}${btn('Узнать о FBT','fbt','btn ghost')}<div class="split" style="margin-top:15px"><button class="btn light" data-action="download">↓ Карточка PNG</button><button class="btn light" data-action="copy">Скопировать текст</button></div><div id="copyStatus" class="caption" role="status"></div><button class="small-link" data-action="restart">Начать заново</button><div class="result-footer-note">${r.answered} из 8 интересов отмечены. ${stage?'Этап: '+esc(stage)+'. ':''}${familyPref?'Семейный интерес: '+esc(familyPref)+'.':''} Этот результат не является валидированной психометрической оценкой.</div>`;}
-function renderFamilyIntro(){return `<button class="nav-back" data-action="result">← К моему профилю</button><div style="height:20px"></div><div class="overline">Дополнительная глава</div><h1>А если <span class="em">вместе?</span></h1><p class="lead">Представь, что в бизнесе участвуют близкие. У каждого могут быть разные интересы, ресурсы и ожидания. Попробуем обсудить их без ярлыков.</p><div class="scene" style="height:172px"><svg viewBox="0 0 420 180"><circle cx="130" cy="54" r="20" fill="#f1b977" stroke="#493329" stroke-width="3"/><circle cx="282" cy="54" r="20" fill="#e8a992" stroke="#493329" stroke-width="3"/><path d="M96 144v-35q0-37 34-37 35 0 35 37v35M248 144v-35q0-37 34-37 35 0 35 37v35" fill="#fff4de" stroke="#493329" stroke-width="3"/><rect x="177" y="98" width="54" height="45" rx="5" fill="#e9bf6f" stroke="#493329" stroke-width="3"/><path d="M165 121h12m54 0h17" stroke="#493329" stroke-width="4" stroke-linecap="round"/><path d="M125 149h164" stroke="#be7651" stroke-width="5" stroke-linecap="round"/><path d="M185 87 205 70 226 87" fill="none" stroke="#be7651" stroke-width="4" stroke-linecap="round"/></svg></div><div class="cardmini"><h3>Как это работает</h3><p>Каждый из двух участников отдельно отвечает на 7 коротких вопросов о целях, задачах и договорённостях. После отдельного согласия игра покажет общие темы и вопросы для обсуждения.</p></div><div class="notice">Демонстрация на одном устройстве, без аккаунтов и сервера. Не передавайте телефон другому человеку, если на экране видны ваши личные ответы. Подробные ответы и свободные тексты не включаются в совместную карту.</div>${btn('Начать семейный модуль →','startFamily')}${btn('Позже','result','btn ghost')}`;}
-function renderFamilyQuestion(){const q=familyQs[data.fi],a=data.fam[data.pass][q.id],n=data.fi+1;let input='';if(q.type==='single')input=`<div class="choice-grid">${q.options.map((v,i)=>`<button class="choice ${a===v?'selected':''}" data-action="familyAnswer" data-value="${i}"><span class="circle">${a===v?'✓':''}</span>${esc(v)}</button>`).join('')}</div>`;if(q.type==='multi')input=`<div class="choice-grid">${q.options.map((v,i)=>`<button class="choice ${Array.isArray(a)&&a.includes(v)?'selected':''}" data-action="familyToggle" data-value="${i}"><span class="circle">${Array.isArray(a)&&a.includes(v)?'✓':''}</span>${esc(v)}</button>`).join('')}</div>`;if(q.type==='text')input=`<textarea id="free-text" class="textarea" placeholder="Можно оставить пустым — этот ответ не передаётся другому участнику.">${esc(a||'')}</textarea>`;if(q.type==='matrix')input=`<div style="margin-top:17px"><div style="font-size:10px;color:#8d7661">ВМЕСТЕ / ДЕЛЕГИРОВАТЬ / НЕ РЕШЕНО</div>${q.options.map((v,i)=>`<div class="decision-row"><label>${esc(v)}</label><div class="tri">${[['together','Вместе'],['delegate','Доверить'],['unknown','Не ясно']].map(([key,label])=>`<button class="${(a||{})[v]===key?'selected':''}" data-action="familyMatrix" data-value="${i}|${key}">${label}</button>`).join('')}</div></div>`).join('')}</div>`;let ready=q.type==='text'||(a!==undefined&&(q.type!=='multi'||a.length>0))||(q.type==='matrix'&&a&&Object.keys(a).length>0);return `<div class="progress-head"><button class="nav-back" data-action="familyBack">← Назад</button><span class="progress-txt">УЧАСТНИК ${data.pass+1} · ${n} ИЗ 7</span></div><div class="bar"><div style="width:${n/7*100}%"></div></div><div class="overline">Семейный сценарий</div><div class="q-icon">${svg(q.id==='F2'?'coord':q.id==='F3'?'family':q.id==='F4'?'op':'chat')}</div><div class="q-title">${esc(q.title)}</div><p class="q-sub">${esc(q.subtitle||'Выбирай то, что ближе твоей ситуации. Здесь нет правильного ответа.')}</p>${input}<div class="q-actions">${btn(n===7?'Продолжить →':'Дальше →','nextFamily','btn',ready?'':'disabled')}<button class="small-link" data-action="skipFamily">Пропустить</button></div>`;}
-function renderFamilyConsent(){const ok=data.consent[data.pass];return `<div class="overline">Личные границы</div><h2>Что попадёт в общую карту?</h2><p class="lead">Ответы участника ${data.pass+1} завершены. Для совместного отчёта нужны отдельные решения обоих участников.</p><div class="cardmini"><h3>Можно сравнить</h3><p>Предпочитаемые задачи (F2), до двух целей (F3), ожидания о принятии решений (F4) и выбранный эксперимент (F7).</p></div><div class="cardmini"><h3>Не включаем</h3><p>Свободный ответ F6, личные баллы основного теста, личные подробности и данные, на передачу которых нет отдельного согласия.</p></div><label class="check"><input type="checkbox" id="consent" ${ok?'checked':''}><span>Я согласен(на), чтобы перечисленные ответы участника ${data.pass+1} вошли в совместную карту, которую увидят оба.</span></label><p class="caption">Пожалуйста, не ставьте галочку за другого человека. На одном устройстве эта демоверсия не обеспечивает конфиденциальность между пользователями.</p><div style="margin-top:22px">${btn(data.pass===0?'Передать ход участнику 2 →':'Посмотреть общую карту →','familyApprove','btn',ok?'':'disabled')}${btn('Не создавать общую карту','familyDecline','btn ghost')}</div>`;}
-function renderFamilySwitch(){return `<div class="overline">Следующий участник</div><h1>Теперь <span class="em">твоя очередь</span></h1><div class="q-icon">${svg('family')}</div><p class="lead">Передай устройство второму человеку. Пусть он сам ответит на вопросы и решит, какие данные разрешает включить в общую карту.</p><div class="notice">На общем устройстве приватность ограничена: не используйте этот вариант для конфиденциальных семейных вопросов. В реальной версии у каждого будет собственная ссылка и согласие.</div>${btn('Я — участник 2. Начать →','secondFamily')}${btn('Вернуться к моему профилю','result','btn ghost')}`;}
-function renderFamilyResult(){const a=data.fam[0],b=data.fam[1],ok=data.consent.every(Boolean);if(!ok)return `<div class="overline">Семейная карта</div><h2>Общего отчёта нет</h2><p class="lead">Для сравнения нужно добровольное согласие обоих участников. Без согласия мы не объединяем ответы.</p>${btn('Вернуться к моему профилю','result')}`;const ga=Array.isArray(a.F3)?a.F3:[],gb=Array.isArray(b.F3)?b.F3:[];let shared=ga.filter(x=>gb.includes(x));let conflicts=[];for(let v of familyQs[3].options){let va=a.F4?.[v],vb=b.F4?.[v];if(va&&vb&&va!==vb)conflicts.push(v);}const stepA=a.F7,stepB=b.F7;return `<div class="overline">Карта для диалога</div><div class="result-head"><div class="result-star">${svg('family')}</div><span class="pill">Совместное обсуждение</span><h2>Вместе — <span class="em">по-разному</span></h2><p class="lead">Важны не одинаковые ответы, а ясные роли и договорённости.</p></div><div class="text-header">Что вы принесли в команду</div><div class="split"><div class="cardmini"><span class="pill">Участник 1</span><h3>${esc(a.F2||'Не указано')}</h3><p>Предпочитаемое направление задач</p></div><div class="cardmini"><span class="pill">Участник 2</span><h3>${esc(b.F2||'Не указано')}</h3><p>Предпочитаемое направление задач</p></div></div><div class="cardmini"><h3>Ваши общие цели</h3><p>${shared.length?esc(shared.join(', ')):'Совпадающие цели не отмечены. Это повод поговорить о разных приоритетах, а не знак несовместимости.'}</p></div><div class="cardmini"><h3>Где стоит договориться</h3><p>${conflicts.length?'Вы по-разному отметили решения: '+esc(conflicts.join(', '))+'.':'По отмеченным решениям явных различий не найдено либо данных недостаточно. Всё равно обсудите полномочия на практике.'}</p></div><div class="sheet"><small>ВАШ ПЕРВЫЙ СОВМЕСТНЫЙ ШАГ</small><p>Участник 1 выбрал «${esc(stepA||'не указано')}», участник 2 — «${esc(stepB||'не указано')}». Выберите один небольшой эксперимент, назначьте ответственных и дату обсуждения результата.</p></div><div class="notice">Это не тест семейной совместимости. Ответы сравниваются описательно: игра не оценивает отношения, право собственности и прибыльность.</div>${btn('Как FBT помогает семейному бизнесу →','fbt')}${btn('Вернуться к личной карте','result','btn ghost')}`;}
-function renderFbt(){return `<button class="nav-back" data-action="result">← К результату</button><div style="height:22px"></div><div class="overline">Следующая глава — FBT</div><h1>Бизнес, который <span class="em">работает на семью</span></h1><p class="lead">Понять свои интересы — хороший старт. Но чтобы создать устойчивый бизнес, нужно ещё научиться проверять идеи, выстраивать процессы, управлять финансами и договариваться о ролях.</p><div class="route-list"><div class="route"><div class="round">1</div><div><h3>Проверь бизнес-идею</h3><p>Понимание клиента, предложение, бизнес-модель и первые действия.</p></div></div><div class="route"><div class="round">2</div><div><h3>Построй работающую систему</h3><p>Продажи, финансы, процессы, время и взаимодействие команды.</p></div></div><div class="route"><div class="round">3</div><div><h3>Согласуй семейные роли</h3><p>Договорённости, ответственность и устойчивое развитие.</p></div></div></div><div class="sheet"><small>FAMILY BUSINESS TRAINING</small><p>Программа Impact Consulting для создания, систематизации и развития семейного бизнеса. Открытие сайта — отдельный шаг, не часть диагностики.</p></div><a href="https://fbt-online.pages.dev" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none" class="btn">Посмотреть программу FBT ↗</a>${btn('Вернуться к результату','result','btn ghost')}<p class="disclaimer">Демонстрационный переход. Новая игра ещё не подключена к реальному сайту, боту или существующей диагностике «Швейцарский компас».</p>`;}
-function act(action,value){const qs=quizSteps();switch(action){case 'start':start();return;case 'restart':start();return;case 'answer':{let q=qs[data.i];if(q.kind==='interest'||q.kind==='confidence')data.answers[q.id]=Number(value);else data.answers[q.id]=(q.kind==='stage'?stages:famInterest)[Number(value)];break;}case 'nextQuiz':if(data.i<qs.length-1){data.i++;}else{data.screen='result';}break;case 'skipQuiz':data.answers[qs[data.i].id]=null;if(data.i<qs.length-1)data.i++;else data.screen='result';break;case 'back':if(data.i>0)data.i--;else data.screen='intro';break;case 'result':data.screen='result';break;case 'familyIntro':data.screen='familyIntro';break;case 'fbt':data.screen='fbt';break;case 'startFamily':data.screen='familyQuestion';data.fi=0;data.pass=0;data.fam=[{},{}];data.consent=[false,false];break;case 'familyAnswer':data.fam[data.pass][familyQs[data.fi].id]=familyQs[data.fi].options[Number(value)];break;case 'familyToggle':{let q=familyQs[data.fi],v=q.options[Number(value)],arr=data.fam[data.pass][q.id]||[];if(arr.includes(v))arr=arr.filter(z=>z!==v);else if(arr.length<(q.max||20))arr=[...arr,v];data.fam[data.pass][q.id]=arr;break;}case 'familyMatrix':{let [i,mode]=value.split('|'),q=familyQs[data.fi],obj=data.fam[data.pass][q.id]||{};obj[q.options[Number(i)]]=mode;data.fam[data.pass][q.id]=obj;break;}case 'familyBack':if(data.fi>0)data.fi--;else data.screen=data.pass===0?'familyIntro':'familySwitch';break;case 'nextFamily':if(data.fi<6)data.fi++;else data.screen='familyConsent';break;case 'skipFamily':{let q=familyQs[data.fi];data.fam[data.pass][q.id]=null;if(data.fi<6)data.fi++;else data.screen='familyConsent';break;}case 'familyApprove':if(data.pass===0)data.screen='familySwitch';else data.screen='familyResult';break;case 'familyDecline':data.consent[data.pass]=false;data.screen='familyResult';break;case 'secondFamily':data.pass=1;data.fi=0;data.screen='familyQuestion';break;case 'download':downloadCard();return;case 'copy':copyCard();return;}render();let c=E.querySelector('#consent');if(c)c.addEventListener('change',e=>{data.consent[data.pass]=e.target.checked;render();});}
-function cardText(){const c=compute(),x=c.leaders;return `Мой предпринимательский профиль (игровая версия): ${x.map(p=>profiles[p.code].name).join(' + ')||'недостаточно данных'}.\nМой следующий шаг: ${x.length?profiles[x[0].code].step:'Проверить интересные мне задачи на практике'}.\nЭто предварительный профиль интересов, не оценка способностей. Игра FBT / Impact Consulting.`;}
-function copyCard(){const t=cardText();if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(()=>{let el=E.querySelector('#copyStatus');if(el)el.textContent='✓ Текст скопирован';}).catch(()=>fallbackCopy(t));}else fallbackCopy(t);}
-function fallbackCopy(t){const el=document.createElement('textarea');el.value=t;el.style.position='fixed';el.style.opacity='0';document.body.appendChild(el);el.select();try{document.execCommand('copy');const status=E.querySelector('#copyStatus');if(status)status.textContent='✓ Текст скопирован';}catch(e){const status=E.querySelector('#copyStatus');if(status)status.textContent='Не удалось скопировать автоматически';}el.remove();}
-function downloadCard(){let c=compute(),x=c.leaders.length?c.leaders:c.agg.slice(0,2);const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1350;const g=canvas.getContext('2d');g.fillStyle='#f7f3ea';g.fillRect(0,0,1080,1350);g.fillStyle='#edbf67';g.beginPath();g.arc(915,155,220,0,Math.PI*2);g.fill();g.fillStyle='#f4ddbc';g.beginPath();g.arc(80,1100,260,0,Math.PI*2);g.fill();g.fillStyle='#bb583b';g.fillRect(80,100,14,63);g.fillStyle='#42352a';g.font='bold 34px sans-serif';g.fillText('IMPACT CONSULTING   /   FBT',124,145);g.font='40px sans-serif';g.fillStyle='#915f48';g.fillText('МОЙ ПРЕДПРИНИМАТЕЛЬСКИЙ ПРОФИЛЬ',80,286);g.fillStyle='#30271f';const name=x.map(p=>profiles[p.code].name);g.font='bold 100px Georgia,serif';const lines=name.length?name:['Интересы'];let y=450;for(let line of lines){g.fillText(line,80,y);y+=125;}g.fillStyle='#bb583b';g.fillRect(80,690,660,8);g.font='40px sans-serif';g.fillStyle='#5a4b3c';g.fillText('Что мне интересно попробовать:',80,790);let words=(x.length?profiles[x[0].code].role:'Определить свои задачи').split(' '),line='',yy=865;g.font='32px sans-serif';for(let w of words){if(g.measureText(line+' '+w).width>850){g.fillText(line,80,yy);yy+=46;line=w;}else line+=(line?' ':'')+w;}g.fillText(line,80,yy);g.fillStyle='#8a7d6b';g.font='25px sans-serif';g.fillText('Предварительная игровая карта интересов, не диагноз.',80,1207);g.fillText('FBT · Найти роль. Проверить идею. Начать действовать.',80,1252);const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='moy_biznes_profil_FBT.png';a.click();}
-E.addEventListener('change',e=>{if(e.target.id==='consent'){data.consent[data.pass]=e.target.checked;render();}});
+var MX = [['together', 'Вместе'], ['one', 'Один отвечает'], ['unknown', 'Не решили']];
+
+function shuffleAll() {
+  var o = {};
+  Q.forEach(function (q) {
+    var idx = q.a.map(function (_, k) { return k; });
+    if (!q.fixed) for (var k = idx.length - 1; k > 0; k--) { var j = Math.floor(Math.random() * (k + 1)); var t = idx[k]; idx[k] = idx[j]; idx[j] = t; }
+    o[q.id] = idx;
+  });
+  return o;
+}
+function fresh() { return { scr: 'intro', i: 0, ans: {}, ord: shuffleAll(), fam: [{}, {}], pass: 0, fi: 0, ok: [false, false] }; }
+var S = fresh();
+
+function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function img(n) { return '<img src="' + IC + n + '.webp" alt="" loading="lazy">'; }
+function arrow() { return '<svg><use href="#i-right"/></svg>'; }
+function sec(inner) { return '<section class="ic-top g-scr"><div class="g-wrap">' + inner + '</div></section>'; }
+function opt(label, on, act, val) {
+  return '<button type="button" class="opt" role="radio" aria-checked="' + (on ? 'true' : 'false') + '" data-act="' + act + '" data-v="' + val + '"><span class="radio"></span>' + esc(label) + '</button>';
+}
+
+/* ── Экраны ── */
+function vIntro() {
+  return sec(
+    '<div class="g-hero">' +
+      '<div class="eyebrow">ИГРА ОТ FBT ONLINE</div>' +
+      '<h1>Кто вы<span>в бизнесе?</span></h1>' +
+      '<p>12 ситуаций из жизни. Отвечайте, как поступили бы на самом деле, — и узнаете, какая работа в бизнесе вам по душе.</p>' +
+      '<div class="g-faces">' + ['insayt', 'vozmozhnost', 'prodazha', 'komanda'].map(function (n) { return '<div>' + img(n) + '</div>'; }).join('') + '</div>' +
+      '<div class="g-pills"><span><b>12</b> ситуаций</span><span><b>3</b> минуты</span><span>Бесплатно</span><span>Без регистрации</span></div>' +
+      '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Начать игру' + arrow() + '</button>' +
+    '</div>' +
+    '<div class="g-how">' +
+      '<div><i>1</i><span>Читаете короткую ситуацию и выбираете, как поступили бы вы. Правильных ответов нет.</span></div>' +
+      '<div><i>2</i><span>Получаете свою роль в бизнесе — какая работа вам интересна больше всего.</span></div>' +
+      '<div><i>3</i><span>Забираете один простой шаг на эту неделю, чтобы проверить себя в деле.</span></div>' +
+    '</div>' +
+    '<p class="g-note">Это игра, а не научный тест. Она показывает, что вам интересно, но не оценивает способности и не обещает успех. Ответы остаются на вашем телефоне.</p>'
+  );
+}
+
+function vQuiz() {
+  var q = Q[S.i], n = S.i + 1, cur = S.ans[q.id], p = PART[q.kind];
+  var segs = Q.map(function (_, k) { return '<span class="' + (k < S.i ? 'done' : k === S.i ? 'now' : '') + '"></span>'; }).join('');
+  var opts = S.ord[q.id].map(function (k) { return opt(q.a[k][0], cur === k, 'ans', k); }).join('');
+  return sec(
+    '<div class="g-panel">' +
+      '<div class="g-top"><span class="mono muted">Шаг ' + n + ' из ' + Q.length + '</span><span class="g-part" style="--pc:' + p[1] + '"><i></i>' + p[0] + '</span></div>' +
+      '<div class="g-segs" style="--n:' + Q.length + '" aria-hidden="true">' + segs + '</div>' +
+      '<div class="g-scene"><div class="g-ico">' + img(q.icon) + '</div><div><div class="g-lab">' + (q.kind === 'c' ? 'О ВАС' : 'СИТУАЦИЯ') + '</div><p class="g-story">' + esc(q.story) + '</p></div></div>' +
+      '<h2 class="g-q">' + esc(q.q) + '</h2>' +
+      '<div class="g-opts" role="radiogroup" aria-label="Ваш ответ">' + opts + '</div>' +
+      '<div class="g-foot"><button type="button" class="btn btn--sm" data-act="back">← Назад</button><button type="button" class="g-skip" data-act="skip">Не могу выбрать</button></div>' +
+    '</div>'
+  );
+}
+
+function compute() {
+  var sc = {};
+  Q.forEach(function (q) {
+    if (q.kind !== 'i') return;
+    var k = S.ans[q.id]; if (k == null) return;
+    (sc[q.code] = sc[q.code] || []).push(q.a[k][1]);
+  });
+  var order = ['IN', 'CR', 'CL', 'SA', 'OP', 'CO', 'TE'];
+  var agg = Object.keys(sc).map(function (c) { var v = sc[c]; return { code: c, avg: v.reduce(function (a, b) { return a + b; }, 0) / v.length }; })
+    .sort(function (a, b) { return b.avg - a.avg || order.indexOf(a.code) - order.indexOf(b.code); });
+  var answered = Q.filter(function (q) { return q.kind === 'i' && S.ans[q.id] != null; }).length;
+  var strong = agg.filter(function (x) { return x.avg >= 3; });
+  var mode = answered < 5 ? 'few' : strong.length >= 3 && strong[0].avg - strong[2].avg <= 0.5 ? 'wide' : strong.length ? 'clear' : 'soft';
+  var leaders = mode === 'few' ? [] : mode === 'wide' ? strong.slice(0, 3) : (strong.length ? strong : agg).slice(0, 2);
+  return { agg: agg, answered: answered, leaders: leaders, mode: mode };
+}
+function confText(id) {
+  var k = S.ans[id]; if (k == null) return 'Вы пропустили этот вопрос.';
+  var v = Q.filter(function (q) { return q.id === id; })[0].a[k][1];
+  return v >= 3 ? 'Чувствуете себя уверенно — это хорошая опора.' : 'Пока непривычно. Это навык — он растёт с практикой.';
+}
+
+function vResult() {
+  var r = compute(), L = r.leaders, names = L.map(function (x) { return P[x.code].name; });
+  var title = r.mode === 'few' ? 'Пока мало ответов' : r.mode === 'wide' ? 'Вы — <span>универсал</span>' :
+    names.length === 2 ? names[0] + '<span>+ ' + names[1].toLowerCase() + '</span>' : esc(names[0] || '');
+  var lead = r.mode === 'few' ? 'Вы пропустили много ситуаций, поэтому роль определить нельзя. Пройдите ещё раз — это займёт 3 минуты.' :
+    r.mode === 'wide' ? 'Вам интересно сразу несколько сторон бизнеса: ' + names.join(', ').toLowerCase() + '. Так часто бывает у тех, кто начинает своё дело.' :
+    r.mode === 'soft' ? 'Ярко выраженной роли пока нет, но эти задачи откликнулись вам больше других.' :
+    'Эти задачи в бизнесе вам интереснее всего. В них проще найти своё место и не выгореть.';
+  var icons = (L.length ? L.slice(0, 2) : [{ code: 'IN' }]).map(function (x) { return '<div>' + img(P[x.code].icon) + '</div>'; }).join('');
+  var bars = r.agg.map(function (x) {
+    var top = L.some(function (y) { return y.code === x.code; });
+    var word = x.avg >= 3.5 ? 'очень интересно' : x.avg >= 3 ? 'интересно' : x.avg >= 1.5 ? 'иногда' : 'не ваше';
+    return '<div class="g-bar' + (top ? ' top' : '') + '">' + img(P[x.code].icon) + '<div><b>' + P[x.code].name + '<small>' + word + '</small></b><u><i style="width:' + Math.max(4, x.avg / 4 * 100).toFixed(0) + '%"></i></u></div></div>';
+  }).join('');
+  var cards = L.map(function (x) {
+    var p = P[x.code];
+    return '<div class="g-card"><h3>' + img(p.icon) + p.name + '</h3><p>' + p.desc + '</p><ul>' + p.tasks.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
+  }).join('');
+  var step = L.length ? P[L[0].code].step : 'Пройдите игру ещё раз и отвечайте на каждую ситуацию — так вы получите свою роль и первый шаг.';
+  var fam = S.ans['A-C2'];
+  return sec(
+    '<div class="g-res"><div class="eyebrow">ВАША РОЛЬ В БИЗНЕСЕ</div><div class="g-res-ico">' + icons + '</div><h2>' + title + '</h2><p>' + lead + '</p></div>' +
+    (L.length ? '<div class="g-h3">ЧТО ВАМ ПОДОЙДЁТ</div>' + cards : '') +
+    '<div class="g-h3">ШАГ НА ЭТУ НЕДЕЛЮ</div><div class="g-step"><small>ПРОВЕРЬТЕ СЕБЯ В ДЕЛЕ</small><p>' + step + '</p></div>' +
+    (r.agg.length ? '<div class="g-h3">ВСЕ 7 РОЛЕЙ</div><div class="g-bars">' + bars + '</div>' : '') +
+    '<div class="g-h3">ВАША УВЕРЕННОСТЬ</div><div class="g-conf"><div><b>Разговор с клиентом</b>' + confText('A-E1') + '</div><div><b>План на неделю</b>' + confText('A-E2') + '</div></div>' +
+    '<div class="g-btns"><div class="g-two"><button type="button" class="btn btn--sm" data-act="png">Сохранить картинку</button><button type="button" class="btn btn--sm" data-act="share">Поделиться</button></div><div class="g-status" id="gStatus" role="status"></div></div>' +
+    '<div class="g-card"><h3>' + img('semya') + 'А если вместе?</h3><p>' + (fam === 2 ? 'Вы уже обсуждаете общее дело с близким человеком. ' : '') +
+      'Пройдите короткую часть вдвоём — с супругом, родственником или другом. Увидите, в чём ваши цели совпадают и о чём стоит договориться заранее.</p>' +
+      '<button type="button" class="btn btn--primary btn--block mt-14" data-act="famIntro">Пройти вдвоём' + arrow() + '</button></div>' +
+    '<div class="g-fbt"><div class="eyebrow">FAMILY BUSINESS TRAINING</div><h3>Как создать устойчивый семейный бизнес в Узбекистане в 2026 году</h3>' +
+      '<p>Знать свою роль — хорошее начало. Дальше нужны понятная бизнес-модель, клиенты, финансы и договорённости в семье. Люба Бэй разбирает это в бесплатном видеоразборе.</p>' +
+      '<a class="btn btn--white" href="../index.html">Смотреть видеоразбор' + arrow() + '</a></div>' +
+    '<button type="button" class="g-skip mt-24" data-act="restart" style="display:block;margin-left:auto;margin-right:auto">Пройти заново</button>' +
+    '<p class="g-note" style="text-align:center">Это игра, а не научный тест: она показывает интересы, а не способности.</p>'
+  );
+}
+
+function vFamIntro() {
+  return sec(
+    '<button type="button" class="btn btn--sm" data-act="result">← К моей роли</button>' +
+    '<div class="g-res mt-20"><div class="eyebrow">ИГРА ВДВОЁМ</div><div class="g-res-ico"><div>' + img('semya') + '</div><div>' + img('komanda') + '</div></div>' +
+      '<h2>Дело <span>на двоих</span></h2><p>Каждый по очереди отвечает на 7 коротких вопросов: за что хочет отвечать, ради чего это дело и кто что решает. В конце — общая карта для разговора.</p></div>' +
+    '<div class="g-how"><div><i>1</i><span>Первым отвечаете вы, потом передаёте телефон близкому человеку.</span></div>' +
+      '<div><i>2</i><span>Каждый сам решает, показывать ли свои ответы в общей карте.</span></div>' +
+      '<div><i>3</i><span>Карта покажет, где вы совпадаете и о чём стоит договориться.</span></div></div>' +
+    '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="famStart">Начать' + arrow() + '</button>' +
+    '<p class="g-note">Это не проверка совместимости, а повод спокойно поговорить о ролях.</p>'
+  );
+}
+
+function vFamQ() {
+  var q = F[S.fi], a = S.fam[S.pass][q.id], n = S.fi + 1, input = '', ready;
+  if (q.t === 'single') input = '<div class="g-opts" role="radiogroup">' + q.o.map(function (v, k) { return opt(v, a === v, 'fAns', k); }).join('') + '</div>';
+  if (q.t === 'multi') input = '<div class="g-opts">' + q.o.map(function (v, k) { return opt(v, Array.isArray(a) && a.indexOf(v) > -1, 'fTog', k); }).join('') + '</div>';
+  if (q.t === 'text') input = '<textarea id="gText" class="g-text" placeholder="Можно оставить пустым">' + esc(a || '') + '</textarea>';
+  if (q.t === 'matrix') input = '<div class="g-matrix">' + q.o.map(function (v, k) {
+    return '<div class="g-mrow"><span>' + esc(v) + '</span><div class="g-tri">' + MX.map(function (m) { return '<button type="button" class="' + ((a || {})[v] === m[0] ? 'on' : '') + '" data-act="fMx" data-v="' + k + '|' + m[0] + '">' + m[1] + '</button>'; }).join('') + '</div></div>';
+  }).join('') + '</div>';
+  ready = q.t === 'text' || (q.t === 'multi' ? Array.isArray(a) && a.length > 0 : q.t === 'matrix' ? !!a && Object.keys(a).length > 0 : a != null);
+  var segs = F.map(function (_, k) { return '<span class="' + (k < S.fi ? 'done' : k === S.fi ? 'now' : '') + '"></span>'; }).join('');
+  var auto = q.t === 'single';
+  return sec(
+    '<div class="g-panel">' +
+      '<div class="g-top"><span class="mono muted">Вопрос ' + n + ' из 7</span><span class="g-part" style="--pc:' + (S.pass ? '#5A6E7A' : '#C60000') + '"><i></i>Участник ' + (S.pass + 1) + '</span></div>' +
+      '<div class="g-segs" style="--n:7" aria-hidden="true">' + segs + '</div>' +
+      '<h2 class="g-q">' + esc(q.q) + '</h2>' + (q.s ? '<p class="g-mini">' + esc(q.s) + '</p>' : '') + input +
+      '<div class="g-foot"><button type="button" class="btn btn--sm" data-act="fBack">← Назад</button>' +
+        (auto ? '<button type="button" class="g-skip" data-act="fSkip">Пропустить</button>' :
+          '<button type="button" class="btn btn--primary btn--sm" data-act="fNext"' + (ready ? '' : ' disabled') + '>Дальше' + arrow() + '</button>') +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function vFamOk() {
+  var ok = S.ok[S.pass];
+  return sec(
+    '<div class="g-panel"><div class="g-lab">УЧАСТНИК ' + (S.pass + 1) + ' ГОТОВ</div><h2 class="g-q">Показать ваши ответы в общей карте?</h2>' +
+    '<div class="g-card"><h3>Покажем</h3><ul><li>За что хотите отвечать</li><li>Ради чего это дело</li><li>Кто что решает</li><li>С чего начать вместе</li></ul></div>' +
+    '<div class="g-card"><h3>Не покажем</h3><p>Вашу роль из игры, ответ про домашние и рабочие разговоры и всё остальное.</p></div>' +
+    '<label class="g-check"><input type="checkbox" id="gOk"' + (ok ? ' checked' : '') + '><span>Да, я согласен(на) показать эти ответы второму участнику.</span></label>' +
+    '<div class="g-btns"><button type="button" class="btn btn--primary btn--lg" data-act="fApprove"' + (ok ? '' : ' disabled') + '>' + (S.pass === 0 ? 'Передать телефон' : 'Показать общую карту') + arrow() + '</button>' +
+    '<button type="button" class="btn btn--sm" data-act="fDecline">Не показывать</button></div>' +
+    '<p class="g-note">Отмечайте только за себя.</p></div>'
+  );
+}
+
+function vFamSwitch() {
+  return sec(
+    '<div class="g-res"><div class="eyebrow">ВТОРОЙ УЧАСТНИК</div><div class="g-res-ico"><div>' + img('semya') + '</div></div>' +
+    '<h2>Теперь <span>ваша очередь</span></h2><p>Передайте телефон близкому человеку. Он ответит на те же 7 вопросов и сам решит, что показать.</p></div>' +
+    '<div class="g-btns"><button type="button" class="btn btn--primary btn--lg" data-act="fSecond">Я второй участник' + arrow() + '</button>' +
+    '<button type="button" class="btn btn--sm" data-act="result">Вернуться к моей роли</button></div>'
+  );
+}
+
+function vFamRes() {
+  var a = S.fam[0], b = S.fam[1];
+  if (!(S.ok[0] && S.ok[1])) return sec('<div class="g-panel"><h2 class="g-q">Общей карты нет</h2><p class="g-story">Карта появляется, только если оба участника согласились показать ответы. Ваши личные результаты остались при вас.</p><div class="g-btns"><button type="button" class="btn btn--primary btn--lg" data-act="result">К моей роли' + arrow() + '</button></div></div>');
+  var ga = a.F3 || [], gb = b.F3 || [];
+  var same = ga.filter(function (x) { return gb.indexOf(x) > -1; });
+  var diff = [], agree = [];
+  F[3].o.forEach(function (v) { var x = (a.F4 || {})[v], y = (b.F4 || {})[v]; if (x && y) (x === y ? agree : diff).push(v); });
+  function who(p, t) { return '<div><b>Участник ' + p + '</b>' + esc(t || 'не указано') + '</div>'; }
+  var start = a.F7 && a.F7 === b.F7 ? 'Вы оба выбрали: «' + esc(a.F7) + '». Договоритесь о дне и начните.' :
+    'Участник 1 предложил «' + esc(a.F7 || '—') + '», участник 2 — «' + esc(b.F7 || '—') + '». Выберите одно и попробуйте в ближайшие две недели.';
+  return sec(
+    '<div class="g-res"><div class="eyebrow">ВАША ОБЩАЯ КАРТА</div><div class="g-res-ico"><div>' + img('semya') + '</div><div>' + img('rol') + '</div></div>' +
+      '<h2>Вместе, <span>но каждый — в своём</span></h2><p>Хорошая команда — это не одинаковые ответы, а понятно разделённые роли.</p></div>' +
+    '<div class="g-h3">ЗА ЧТО ХОТИТЕ ОТВЕЧАТЬ</div><div class="g-conf">' + who(1, a.F2) + who(2, b.F2) + '</div>' +
+    '<div class="g-card"><h3>' + img('tsel') + 'Общие цели</h3><p>' + (same.length ? 'Вам обоим важно: ' + esc(same.join(', ').toLowerCase()) + '. Это ваша опора.' : 'Совпадений нет — это нормально. Расскажите друг другу, почему выбрали именно это.') + '</p></div>' +
+    '<div class="g-card"><h3>' + img('reshenie') + 'О чём договориться</h3><p>' + (diff.length ? 'Вы по-разному видите, кто решает: ' + esc(diff.join(', ').toLowerCase()) + '. Обсудите это до того, как вопрос станет острым.' : 'Явных расхождений нет' + (agree.length ? ' — вы одинаково видите: ' + esc(agree.join(', ').toLowerCase()) : '') + '. Всё равно проговорите это вслух.') + '</p></div>' +
+    '<div class="g-step"><small>ПЕРВЫЙ ОБЩИЙ ШАГ</small><p>' + start + '</p></div>' +
+    '<div class="g-fbt"><div class="eyebrow">FAMILY BUSINESS TRAINING</div><h3>Бизнес, который работает на семью</h3><p>Как разделить роли в семье, договориться о деньгах и выстроить дело, которое можно передать детям, — об этом бесплатный видеоразбор Любы Бэй.</p><a class="btn btn--white" href="../index.html">Смотреть видеоразбор' + arrow() + '</a></div>' +
+    '<div class="g-btns"><button type="button" class="btn btn--sm" data-act="result">← К моей роли</button></div>'
+  );
+}
+
+var VIEWS = { intro: vIntro, quiz: vQuiz, result: vResult, famIntro: vFamIntro, famQ: vFamQ, famOk: vFamOk, famSwitch: vFamSwitch, famRes: vFamRes };
+function render() {
+  APP.innerHTML = VIEWS[S.scr]();
+  try { window.scrollTo(0, 0); } catch (e) {}
+  var t = document.getElementById('gText'); if (t) t.addEventListener('input', function () { S.fam[S.pass].F6 = t.value; });
+  var c = document.getElementById('gOk'); if (c) c.addEventListener('change', function () { S.ok[S.pass] = c.checked; render(); });
+}
+
+/* Выбор ответа — красная подсветка, лёгкая вибрация и пауза, как в диагностике */
+var busy = false;
+function pick(btn, then) {
+  if (busy) return; busy = true;
+  btn.classList.add('is-picked');
+  try { if (navigator.vibrate) navigator.vibrate(12); } catch (e) {}
+  setTimeout(function () { busy = false; then(); }, 380);
+}
+function nextQ() { if (S.i < Q.length - 1) S.i++; else S.scr = 'result'; render(); }
+function nextF() { if (S.fi < F.length - 1) S.fi++; else S.scr = 'famOk'; render(); }
+
+APP.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-act]'); if (!b || b.disabled || busy) return;
+  var act = b.getAttribute('data-act'), v = b.getAttribute('data-v');
+  switch (act) {
+    case 'start': case 'restart': S = fresh(); S.scr = 'quiz'; break;
+    case 'ans': S.ans[Q[S.i].id] = Number(v); pick(b, nextQ); return;
+    case 'skip': S.ans[Q[S.i].id] = null; nextQ(); return;
+    case 'back': if (S.i > 0) S.i--; else S.scr = 'intro'; break;
+    case 'result': S.scr = 'result'; break;
+    case 'png': card(); return;
+    case 'share': share(); return;
+    case 'famIntro': S.scr = 'famIntro'; break;
+    case 'famStart': S.scr = 'famQ'; S.fi = 0; S.pass = 0; S.fam = [{}, {}]; S.ok = [false, false]; break;
+    case 'fAns': S.fam[S.pass][F[S.fi].id] = F[S.fi].o[Number(v)]; pick(b, nextF); return;
+    case 'fTog': {
+      var q = F[S.fi], val = q.o[Number(v)], arr = (S.fam[S.pass][q.id] || []).slice();
+      var at = arr.indexOf(val); if (at > -1) arr.splice(at, 1); else if (arr.length < (q.max || 9)) arr.push(val);
+      S.fam[S.pass][q.id] = arr; break; }
+    case 'fMx': { var p = v.split('|'), qq = F[S.fi], o = S.fam[S.pass][qq.id] || {}; o[qq.o[Number(p[0])]] = p[1]; S.fam[S.pass][qq.id] = o; break; }
+    case 'fNext': nextF(); return;
+    case 'fSkip': S.fam[S.pass][F[S.fi].id] = null; nextF(); return;
+    case 'fBack': if (S.fi > 0) S.fi--; else S.scr = S.pass === 0 ? 'famIntro' : 'famSwitch'; break;
+    case 'fApprove': S.scr = S.pass === 0 ? 'famSwitch' : 'famRes'; break;
+    case 'fDecline': S.ok[S.pass] = false; S.scr = 'famRes'; break;
+    case 'fSecond': S.pass = 1; S.fi = 0; S.scr = 'famQ'; break;
+  }
+  render();
+});
+
+/* ── Карточка для сторис (1080×1920) в цветах Impact Consulting ── */
+function status(t) { var el = document.getElementById('gStatus'); if (el) el.textContent = t; }
+function shareText() {
+  var r = compute(), names = r.leaders.map(function (x) { return P[x.code].name; });
+  return 'Я прошёл(ла) игру «Кто вы в бизнесе?» от FBT Online. Моя роль: ' + (r.mode === 'wide' ? 'универсал (' + names.join(', ').toLowerCase() + ')' : names.join(' + ') || '—') +
+    '. А вы кто в бизнесе? ' + location.origin + location.pathname;
+}
+function wrapText(g, text, x, y, maxW, lh) {
+  var words = text.split(' '), line = '';
+  words.forEach(function (w) { var t = line ? line + ' ' + w : w; if (g.measureText(t).width > maxW && line) { g.fillText(line, x, y); y += lh; line = w; } else line = t; });
+  if (line) g.fillText(line, x, y); return y + lh;
+}
+function loadImg(src) { return new Promise(function (ok) { var i = new Image(); i.onload = function () { ok(i); }; i.onerror = function () { ok(null); }; i.src = src; }); }
+function card() {
+  var r = compute(), L = r.leaders.length ? r.leaders : r.agg.slice(0, 2);
+  var FF = "'Golos Text', -apple-system, Arial, sans-serif";
+  status('Готовлю картинку…');
+  var fonts = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('600 80px "Golos Text"'), document.fonts.load('500 40px "Golos Text"')]).catch(function () {}) : Promise.resolve();
+  fonts.then(function () { return Promise.all(L.slice(0, 2).map(function (x) { return loadImg(IC + P[x.code].icon + '.webp'); })); }).then(function (ims) {
+    var c = document.createElement('canvas'); c.width = 1080; c.height = 1920; var g = c.getContext('2d');
+    g.fillStyle = '#181818'; g.fillRect(0, 0, 1080, 1920);
+    g.fillStyle = '#C60000'; g.fillRect(90, 150, 12, 64);
+    g.fillStyle = '#FFFFFF'; g.font = '600 38px ' + FF; g.fillText('IMPACT CONSULTING · FBT ONLINE', 126, 196);
+    g.fillStyle = '#FF6B6B'; g.font = '600 40px ' + FF; g.fillText('МОЯ РОЛЬ В БИЗНЕСЕ', 90, 400);
+    ims.forEach(function (im, k) {
+      var x = 90 + k * 290, y = 470; g.save(); g.translate(x + 120, y + 120); g.rotate((k ? 5 : -5) * Math.PI / 180);
+      g.fillStyle = '#FBF7F0'; g.beginPath(); if (g.roundRect) g.roundRect(-120, -120, 240, 240, 50); else g.rect(-120, -120, 240, 240); g.fill();
+      if (im) g.drawImage(im, -96, -96, 192, 192); g.restore();
+    });
+    var names = r.mode === 'wide' ? ['Универсал'] : L.map(function (x) { return P[x.code].name; });
+    var y = 900;
+    names.forEach(function (n, k) { g.fillStyle = k ? '#A2C3CD' : '#FFFFFF'; g.font = '600 ' + (n.length > 12 ? 100 : 120) + 'px ' + FF; g.fillText((k ? '+ ' : '') + n, 90, y); y += 140; });
+    g.fillStyle = '#C60000'; g.fillRect(90, y - 40, 300, 10);
+    y += 60;
+    var p0 = L[0] ? P[L[0].code] : null;
+    var lines = r.mode === 'wide' ? r.leaders.map(function (x) { return P[x.code].name; }) : (p0 ? p0.tasks : []);
+    if (lines.length) { g.fillStyle = '#9A9AA0'; g.font = '600 34px ' + FF; g.fillText(r.mode === 'wide' ? 'МНЕ БЛИЗКИ РОЛИ:' : 'МНЕ ИНТЕРЕСНО:', 90, y); y += 70; g.font = '500 46px ' + FF;
+      lines.forEach(function (t) { g.fillStyle = '#C60000'; g.beginPath(); g.arc(104, y - 16, 10, 0, 7); g.fill(); g.fillStyle = '#F2F2F4'; y = wrapText(g, t, 136, y, 860, 60) + 10; }); }
+    g.fillStyle = '#232325'; g.fillRect(0, 1620, 1080, 300);
+    g.fillStyle = '#FFFFFF'; g.font = '600 52px ' + FF; g.fillText('А вы кто в бизнесе?', 90, 1730);
+    g.fillStyle = '#A2C3CD'; g.font = '500 38px ' + FF; g.fillText('fbt-online.pages.dev/igra-profil', 90, 1800);
+    c.toBlob(function (blob) {
+      if (!blob) { status('Не получилось сохранить картинку'); return; }
+      var file = null; try { file = new File([blob], 'kto-vy-v-biznese.png', { type: 'image/png' }); } catch (e) {}
+      if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({ files: [file], title: 'Кто вы в бизнесе?' }).then(function () { status('Готово'); }).catch(function () { status(''); });
+        return;
+      }
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'kto-vy-v-biznese.png'; document.body.appendChild(a); a.click(); a.remove();
+      status('Картинка сохранена');
+    }, 'image/png');
+  });
+}
+function share() {
+  var t = shareText();
+  if (navigator.share) { navigator.share({ title: 'Кто вы в бизнесе?', text: t }).catch(function () {}); return; }
+  if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(t).then(function () { status('Текст скопирован — вставьте его в сообщение'); }, function () { status(t); }); return; }
+  status(t);
+}
+
 render();
 })();
 </script>
-</body></html>
+</body>
+</html>
