@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="../assets/ic-dark.css">
 <link rel="stylesheet" href="../assets/contrast.css">
 <style>
-/* Игра «Кто вы в бизнесе?» · v2 (10.10.2026, Claude) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
+/* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
 body.ic .g-scr { padding: 40px 0 72px; }
 .g-wrap { max-width: 640px; margin: 0 auto; padding: 0 16px; }
 .g-panel { padding: 28px 24px; border-radius: 24px; background: var(--card); border: 1px solid var(--line-3); }
@@ -149,6 +149,65 @@ body.ic.ic-dark .g-final p { color: #fff; }
 .g-final small { display: block; margin-top: 12px; font-size: 16px; line-height: 1.5; color: var(--text-2); }
 body.ic.ic-dark .g-final small { color: #D6D6DA; }
 .g-card p + p { margin-top: 8px; }
+/* ── v4 (11.10.2026, Claude): яркие части, ответы с эмодзи, карта интересов как в диагностике ── */
+.g-ptabs { margin-top: 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.g-ptabs span { padding: 7px 4px; border-radius: 10px; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: .02em; background: var(--tint); color: var(--dim); border: 1.5px solid transparent; }
+body.ic.ic-dark .g-ptabs span { background: rgba(255,255,255,.06); color: #8E8E94; }
+.g-ptabs span.done { color: var(--pc); }
+body.ic.ic-dark .g-ptabs span.done { color: var(--pc); }
+.g-ptabs span.now { background: var(--pc) !important; color: #181818 !important; }
+.g-segs span.done, .g-segs span.now { background: var(--sc) !important; }
+.g-segs span.now { opacity: .55; }
+.g-scene2 { margin-top: 18px; padding: 18px 16px; border-radius: 20px; background: linear-gradient(135deg, #2B2B2E 0%, #1F1F21 100%); border-left: 5px solid var(--pc); display: flex; gap: 14px; align-items: flex-start; color: #fff; box-shadow: 0 10px 28px rgba(0,0,0,.18); }
+.g-scene2 .g-ico { width: 68px; height: 68px; box-shadow: none; }
+.g-scene2 .g-lab { color: var(--pc) !important; }
+.g-scene2 .g-story { color: #E6E6EA !important; margin-top: 6px; }
+.g-scene2.solo { align-items: center; }
+.g-opts .opt { display: flex; align-items: center; gap: 12px; padding-left: 12px; }
+.g-em { flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; line-height: 1; background: var(--tint); }
+body.ic.ic-dark .g-em { background: rgba(255,255,255,.08); }
+.g-opts .opt.is-picked .g-em { background: rgba(255,255,255,.22); }
+.g-opts .opt .radio { display: none; }
+.g-hint { margin-top: 10px; font-size: 14px; color: var(--dim); text-align: center; }
+body.ic.ic-dark .g-hint { color: #8E8E94; }
+/* Экран-заставка части */
+.g-gate { border-radius: 24px; background: #232325; color: #fff; padding: 30px 22px 24px; text-align: center; border-top: 6px solid var(--pc); }
+.g-gate .eyebrow { color: var(--pc) !important; }
+.g-gate h2 { margin-top: 12px; font-size: clamp(36px, 10vw, 52px); line-height: 1; font-weight: 600; letter-spacing: -.03em; color: #fff; }
+.g-gate p { margin-top: 14px; font-size: 18px; line-height: 1.5; color: #D6D6DA; }
+.g-gate .g-big { margin: 20px auto 0; width: 112px; height: 112px; border-radius: 28px; background: #FBF7F0; display: grid; place-items: center; transform: rotate(-4deg); }
+.g-gate .g-big img { width: 80%; height: 80%; object-fit: contain; }
+.g-gate .g-ptabs span { background: rgba(255,255,255,.06); color: #8E8E94; }
+.g-gate ul { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; text-align: left; }
+.g-gate li { display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,.06); font-size: 16px; line-height: 1.35; color: #EDEDF0; }
+.g-gate li b { flex-shrink: 0; font-size: 20px; }
+/* Карта интересов (инфографика) */
+.g-info { margin-top: 14px; padding: 22px 16px 18px; border-radius: 24px; background: #232325; color: #fff; }
+.g-info-cap { font-size: 13px; font-weight: 700; letter-spacing: .12em; color: #F2C46D; }
+.g-info-sub { margin-top: 6px; font-size: 15px; line-height: 1.45; color: #B8B8BE; }
+.g-info svg { display: block; width: 100%; max-width: 420px; height: auto; margin: 10px auto 0; }
+.g-leg { margin-top: 14px; display: grid; gap: 8px; }
+.g-lrow { display: grid; grid-template-columns: 36px 1fr auto; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 14px; background: rgba(255,255,255,.04); border: 1.5px solid transparent; }
+.g-lrow.top { background: rgba(198,0,0,.16); border-color: #C60000; }
+.g-lrow img { width: 36px; height: 36px; border-radius: 10px; background: #FBF7F0; padding: 3px; object-fit: contain; box-shadow: 0 0 0 2px var(--rc); }
+.g-lrow b { display: block; font-size: 16px; font-weight: 600; color: #fff; }
+.g-lrow small { display: block; margin-top: 1px; font-size: 13px; color: #A9A9AF; }
+.g-lrow.top small { color: #FFB4B4; }
+.g-meter { display: flex; gap: 4px; }
+.g-meter i { width: 14px; height: 14px; border-radius: 4px; background: rgba(255,255,255,.12); }
+.g-meter i.on { background: var(--rc); }
+.g-gauges { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.g-gauge { padding: 14px; border-radius: 16px; background: var(--card); border: 1px solid var(--line-2); font-size: 15px; line-height: 1.4; color: var(--text-2); }
+body.ic.ic-dark .g-gauge { background: #232325; border-color: rgba(255,255,255,.08); color: #D6D6DA; }
+.g-gauge.wide { grid-column: 1 / -1; }
+.g-gauge b { display: flex; align-items: center; gap: 8px; font-size: 16px; margin-bottom: 8px; color: var(--text); }
+body.ic.ic-dark .g-gauge b { color: #fff; }
+.g-gauge .g-meter { margin-bottom: 8px; }
+.g-gauge .g-meter i { flex: 1; height: 8px; width: auto; background: var(--line-3); }
+body.ic.ic-dark .g-gauge .g-meter i { background: rgba(255,255,255,.12); }
+.g-gauge .g-meter i.on { background: var(--rc); }
+.g-ex { margin-top: 18px; padding: 18px 14px 14px; border-radius: 20px; background: #232325; border: 1px dashed rgba(255,255,255,.18); }
+.g-ex .g-info-cap { text-align: left; }
 @media (prefers-reduced-motion: reduce) { .g-faces div, .g-ico, .g-res-ico div { transform: none; } }
 </style>
 </head>
@@ -253,55 +312,62 @@ var FAMLINE = {
   MA: 'Вы делаете продукт — близкие могут принимать заказы и общаться с клиентами.'
 };
 
-/* ── 12 вопросов. Смысл — банк A исследования (A-I1…A-I8, A-E1, A-E2, A-C1, A-C2), подача — ситуации из жизни.
+/* ── 17 вопросов. Смысл ситуаций — банк A исследования (A-I1…A-I8, A-E1, A-E2, A-C1, A-C2) + Мастер (M-I1), подача — жизненные ситуации.
       Баллы ответов: 4 — очень интересно / уверен(а), 3 — скорее да, 1 — скорее нет, 0 — совсем нет.
-      Порядок ответов перемешивается, чтобы «правильный» вариант не угадывался. ── */
+      e — эмодзи к ответам в исходном порядке. Порядок ответов перемешивается, чтобы «правильный» вариант не угадывался. ── */
 var Q = [
   { id: 'A-I1', kind: 'i', code: 'IN', icon: 'insayt',
-    story: 'На одной улице две лавки с самсой. У одной всегда очередь, у другой почти пусто. Говорят, самса там одинаковая.',
-    q: 'Что у вас в голове?',
-    a: [['Обязательно разберусь, в чём дело: посмотрю, послушаю людей, сравню', 4],
-        ['Любопытно — прикину пару версий, пока иду мимо', 3],
-        ['Отмечу про себя и пойду дальше', 1],
-        ['Возьму там, где нет очереди, и всё', 0]] },
+    story: 'На одной улице две лавки с самсой. У одной всегда очередь, у другой почти пусто. Люди говорят, что самса там одинаковая.',
+    q: 'О чём вы подумаете?',
+    e: ['🔍', '🤔', '🚶', '🛒'],
+    a: [['Мне станет интересно, в чём секрет. Посмотрю, послушаю людей, сравню', 4],
+        ['Прикину пару догадок, пока иду мимо', 3],
+        ['Замечу и пойду дальше', 1],
+        ['Ни о чём — куплю там, где нет очереди', 0]] },
   { id: 'A-I2', kind: 'i', code: 'CR', icon: 'vozmozhnost',
-    story: 'Подруга печёт торты на заказ, но заказов мало. Она просит: «Помоги придумать что-то новое».',
+    story: 'Подруга печёт торты на заказ, но заказов мало. Она просит: «Помоги придумать что-то новое, чтобы у меня покупали».',
     q: 'Как вы отреагируете?',
-    a: [['С радостью! Сразу накидаю идей: новый вкус, наборы к празднику, красивая упаковка', 4],
+    e: ['💡', '✍️', '👀', '🤷'],
+    a: [['С радостью! Сразу накидаю идей: новый вкус, наборы к празднику, красивая коробка', 4],
         ['Предложу пару идей, если она расскажет подробнее', 3],
-        ['Лучше подскажу, у кого можно подсмотреть идеи', 1],
+        ['Лучше подскажу, у кого можно подсмотреть', 1],
         ['Придумывать — не моё, помогу ей по-другому', 0]] },
   { id: 'A-I3', kind: 'i', code: 'CL', icon: 'klient',
-    story: 'Вы собираетесь открыть небольшое дело. Опытный знакомый советует: «Сначала поговори с будущими клиентами — узнай, чего им не хватает».',
-    q: 'Как вам такая задача?',
+    story: 'Вы хотите открыть маленькую кофейню у дома. Перед запуском нужно поговорить с 20 соседями: какой кофе пьют, сколько готовы платить, чего им не хватает.',
+    q: 'Как вам такое задание?',
+    e: ['🗣️', '🙂', '😐', '🙅'],
     a: [['Отлично! Люблю расспрашивать людей и слушать их истории', 4],
         ['Поговорю с несколькими — интересно, что скажут', 3],
         ['Сделаю, раз надо, но без особой радости', 1],
-        ['Пусть лучше кто-то другой поговорит и расскажет мне', 0]] },
+        ['Попрошу кого-то другого поговорить и рассказать мне', 0]] },
   { id: 'A-I4', kind: 'i', code: 'SA', icon: 'prodazha',
-    story: 'Вы нашли хорошего поставщика, но цена у него высокая. Можно попробовать договориться о скидке.',
-    q: 'Что вы почувствуете?',
-    a: [['Азарт! Люблю договариваться и находить выгодные условия', 4],
-        ['Попробую — вдруг получится', 3],
-        ['Неловко. Скорее соглашусь на его цену или поищу другого', 1],
-        ['Попрошу кого-то договориться вместо меня', 0]] },
+    story: 'Вы закупаете ткань на базаре для своего дела. Ткань хорошая, но продавец просит больше, чем вы рассчитывали.',
+    q: 'Что будете делать?',
+    e: ['🤝', '💬', '😳', '🙋'],
+    a: [['Поторгуюсь — мне это даже нравится, это как игра', 4],
+        ['Попробую попросить скидку — вдруг получится', 3],
+        ['Торговаться неловко. Заплачу или пойду к другому продавцу', 1],
+        ['Попрошу кого-то поторговаться вместо меня', 0]] },
   { id: 'A-I5', kind: 'i', code: 'OP', icon: 'process',
-    story: 'В небольшом кафе, где вы работаете, каждую неделю что-то идёт не так: то хлеб забыли заказать, то перепутали заказ.',
+    story: 'Вы помогаете в небольшом кафе. Каждую неделю что-то идёт не так: то хлеб забыли заказать, то перепутали заказ гостя.',
     q: 'Что вам захочется сделать?',
-    a: [['Навести порядок: списки, правила, кто за что отвечает — чтобы больше не повторялось', 4],
+    e: ['📋', '🔧', '🔁', '😩'],
+    a: [['Навести порядок: список дел, правила, кто за что отвечает — чтобы больше не повторялось', 4],
         ['Поправить самое главное, чтобы стало полегче', 3],
         ['Решать каждый раз по ходу дела', 1],
         ['Такие мелочи утомляют — пусть ими занимается кто-то другой', 0]] },
   { id: 'A-I6', kind: 'i', code: 'CO', icon: 'komanda',
     story: 'Через месяц большой семейный той. Нужно всё успеть: ресторан, музыка, приглашения, кто встречает гостей.',
     q: 'Какая роль вам ближе?',
+    e: ['📣', '🗓️', '✅', '🎉'],
     a: [['Беру организацию на себя: распределю задачи и прослежу, чтобы всё успели', 4],
-        ['Помогу составить план, если кто-то будет главным', 3],
-        ['Скажите, что сделать, — и я сделаю свою часть', 1],
+        ['Помогу составить план, если главным будет кто-то другой', 3],
+        ['Скажите, что сделать, — я сделаю свою часть', 1],
         ['Лучше я просто приду гостем', 0]] },
   { id: 'A-I7', kind: 'i', code: 'TE', icon: 'nastavnik',
     story: 'Соседка открыла маленький магазин и не может разобраться, как принимать оплату по QR-коду. Просит помочь.',
     q: 'Как вы поступите?',
+    e: ['📚', '👀', '⚡', '📱'],
     a: [['Сяду рядом и объясню по шагам, пока у неё не получится самой', 4],
         ['Покажу, как это делаю я', 3],
         ['Сделаю всё за неё — так быстрее', 1],
@@ -309,59 +375,83 @@ var Q = [
   { id: 'M-I1', kind: 'i', code: 'MA', icon: 'instrument',
     story: 'Тётя шьёт национальные платья на заказ. Говорит: «Посиди со мной неделю — научу кроить и шить. Будешь брать свои заказы».',
     q: 'Что вы ответите?',
+    e: ['🧵', '✂️', '😐', '🙅'],
     a: [['С радостью! Люблю делать руками и видеть готовую вещь', 4],
         ['Интересно попробовать, хотя бы ради опыта', 3],
         ['Если очень надо — помогу, но это не моё', 1],
         ['Нет, работа руками меня не тянет', 0]] },
   { id: 'A-I8', kind: 'i', code: 'IN', icon: 'diagnostika',
-    story: 'Вам пришла идея: возить домашние обеды в офисы. Пока это только идея.',
+    story: 'Вам пришла идея: возить домашние обеды в офисы. Пока это только идея, денег в неё ещё не вкладывали.',
     q: 'Что сделаете первым?',
+    e: ['🔎', '💬', '🚀', '⏳'],
     a: [['Сначала проверю: кому это нужно, кто уже так делает и сколько берёт', 4],
         ['Спрошу пару знакомых, что они думают', 3],
         ['Если чувствую, что идея хорошая, — сразу начну', 1],
         ['Отложу: идей много, а времени мало', 0]] },
   { id: 'A-E1', kind: 'e', icon: 'doverie',
-    story: 'Перед вами незнакомый человек — возможный клиент. За 10 минут разговора нужно понять, что его на самом деле беспокоит.',
-    q: 'Как вы себя чувствуете?',
-    a: [['Спокойно. Я справлюсь', 4], ['Скорее справлюсь, хоть и немного волнуюсь', 3],
-        ['Будет тяжеловато', 1], ['Очень волнуюсь — не знаю, с чего начать', 0]] },
+    story: 'В ваш магазин зашла покупательница. Долго смотрит, ничего не берёт. Нужно подойти и понять, что она на самом деле ищет.',
+    q: 'Как вам такая задача?',
+    e: ['😎', '🙂', '😬', '😰'],
+    a: [['Спокойно подойду и спрошу — справлюсь', 4], ['Подойду, хоть и немного волнуюсь', 3],
+        ['Будет тяжеловато', 1], ['Скорее не подойду — не знаю, что сказать', 0]] },
   { id: 'A-E2', kind: 'e', icon: 'plan',
-    story: 'В понедельник вы написали план на неделю: пять важных дел.',
+    story: 'В понедельник вы записали план на неделю: пять важных дел.',
     q: 'Что будет к пятнице?',
+    e: ['🏆', '👍', '🌀', '🌊'],
     a: [['Всё сделано — я так обычно и живу', 4], ['Почти всё, одно-два дела перенесу', 3],
-        ['Половина, остальное съест текучка', 1], ['Планы — не про меня, живу по обстоятельствам', 0]] },
+        ['Половина, остальное съест суета', 1], ['Планы — не про меня, живу по обстоятельствам', 0]] },
   { id: 'X-EXP', kind: 'x', icon: 'rezultat', lastFixed: true,
-    story: 'Дальше несколько вопросов о вас. Они не меняют вашу роль, но помогают подобрать идеи и советы.',
-    q: 'За что вам уже платили или говорили «спасибо» чаще всего?',
+    story: 'Вспомните последние год-два: работу, подработку, помощь родным и друзьям.',
+    q: 'За что вам чаще всего платили или говорили «спасибо»?',
+    e: ['💰', '🛠️', '📋', '🎨', '📚', '🤗', '🧩', '💼'],
     a: [['Нашёл, договорился, выгодно продал', 0, 'SA'], ['Сделал что-то своими руками', 0, 'MA'], ['Организовал людей или навёл порядок', 0, 'CO'],
         ['Придумал идею, сделал красиво', 0, 'CR'], ['Объяснил, научил, дал совет', 0, 'TE'], ['Выслушал, помог, поддержал человека', 0, 'CL'],
         ['Разобрался в сложном, нашёл причину', 0, 'IN'], ['Пока ничего из этого — работал(а) за зарплату', 0, '']] },
   { id: 'X-RISK', kind: 'x', icon: 'dengi', fixed: true,
     story: 'Представьте: у вас есть 25 миллионов сумов на своё дело.',
     q: 'Что вы с ними сделаете?',
+    e: ['🏗️', '🧪', '🌱'],
     a: [['Сразу вложу в товар или оборудование — без вложений не начать'], ['Немного потрачу, чтобы проверить спрос, остальное придержу'], ['Поищу, как начать почти без денег']] },
   { id: 'X-SALE', kind: 'x', icon: 'prodazha', fixed: true,
-    story: 'Нужно самому продать ваш товар незнакомому человеку.',
+    story: 'Вы сделали свой товар. Теперь его нужно продать незнакомым людям — в Instagram, на базаре или по телефону.',
     q: 'Для вас это…',
+    e: ['😄', '🤔', '😓'],
     a: [['Легко и даже приятно'], ['Смогу, если сам(а) верю в товар'], ['Тяжело — хочу, чтобы товар продавал себя сам']] },
   { id: 'X-WHY', kind: 'x', icon: 'tsel', fixed: true,
-    story: 'Ваше дело получилось.',
+    story: 'Прошёл год. Ваше дело получилось и работает.',
     q: 'Что для вас в этом главное?',
+    e: ['💵', '🕊️', '⭐', '❤️', '🏡'],
     a: [['Доход больше, чем на зарплате'], ['Свобода: сам(а) решаю, когда и как работать'], ['Имя, которое знают и уважают'], ['Польза людям'], ['Спокойствие и стабильность для семьи']] },
   { id: 'A-C1', kind: 'c', icon: 'doroga', fixed: true,
-    story: 'Последние два вопроса — про вашу ситуацию.',
     q: 'Где вы сейчас?',
+    e: ['👀', '💡', '🛍️', '🏪', '👨‍👩‍👧'],
     a: [['Пока присматриваюсь, своего дела нет'], ['Есть идея, но ещё не начинал(а)'], ['Уже пробую продавать'], ['Веду свой бизнес'], ['Работаю в семейном деле']] },
   { id: 'A-C2', kind: 'c', icon: 'semya', fixed: true,
     story: 'Многие дела начинаются вдвоём: с супругом, братом, сестрой, родителями или близким другом.',
     q: 'Есть ли рядом человек, с кем вы могли бы делать общее дело?',
+    e: ['🙋', '🤔', '🤝'],
     a: [['Нет, я сам(а) по себе'], ['Может быть, есть кто-то на примете'], ['Да, мы уже это обсуждаем или работаем вместе']] }
 ];
-var PART = { i: ['Ситуации', '#C60000'], e: ['Уверенность', '#5A6E7A'], x: ['Ваши условия', '#8FB3BF'], c: ['О вас', '#A2C3CD'] };
+/* ── 4 части игры: у каждой свой цвет, иконка и заставка ── */
+var PARTS = ['i', 'e', 'x', 'c'];
+var PART = {
+  i: { name: 'Ситуации', color: '#FF6B6B', icon: 'insayt', lab: 'СИТУАЦИЯ', how: 'Как бы вы поступили в жизненной истории.', title: 'Ситуации <span>из жизни</span>',
+       text: '9 коротких историй. Представьте себя на месте героя и выберите, как поступили бы на самом деле.',
+       list: [['🎯', 'Правильных ответов нет'], ['⚡', 'Отвечайте быстро — первое, что пришло в голову'], ['🔀', 'Ответы каждый раз в новом порядке']] },
+  e: { name: 'Уверенность', color: '#8FB3BF', icon: 'uverennost', lab: 'ВОПРОС', how: 'Насколько спокойно вам в деле.', title: 'Ваша <span>уверенность</span>',
+       text: '2 вопроса о том, насколько спокойно вы чувствуете себя в деле. Это не оценка — уверенность растёт с практикой.',
+       list: [['🗣️', 'Разговор с клиентом'], ['🗓️', 'План на неделю']] },
+  x: { name: 'Условия', color: '#F2C46D', icon: 'dengi', lab: 'О ВАС', how: 'Опыт, деньги и продажи — чтобы подобрать идеи.', title: 'Ваши <span>условия</span>',
+       text: '4 вопроса: опыт, деньги, продажи и что для вас главное. На роль они не влияют — по ним мы подберём идеи и советы.',
+       list: [['💼', 'Ваш опыт'], ['💰', 'Деньги на старт'], ['🛍️', 'Как вам продажи'], ['❤️', 'Ради чего дело']] },
+  c: { name: 'О вас', color: '#2BB5A0', icon: 'semya', lab: 'О ВАС', how: 'Где вы сейчас и с кем можно начать.', title: 'Ещё <span>2 вопроса</span>',
+       text: 'Последние вопросы — где вы сейчас и есть ли рядом близкий человек для общего дела. И сразу результат!',
+       list: [['📍', 'Где вы сейчас'], ['🤝', 'С кем можно начать']] }
+};
 
 /* ── Семейная часть: 7 вопросов (F1–F7), простым языком ── */
 var F = [
-  { id: 'F1', t: 'single', q: 'Кем вы приходитесь вашему общему делу?', s: 'Если вы ещё не начали — ответьте, как видите себя.',
+  { id: 'F1', t: 'single', q: 'Какое у вас место в общем деле?', s: 'Если вы ещё не начали — ответьте, как видите себя.',
     o: ['Член семьи, помогаю', 'Владелец или совладелец', 'Руковожу или работаю в деле', 'Всё сразу', 'Пока не участвую'] },
   { id: 'F2', t: 'single', q: 'За что вам хотелось бы отвечать?', s: 'Выберите одно — самое близкое.',
     o: ['Клиенты и продажи', 'Товар или услуга', 'Порядок в работе', 'Люди и задачи', 'Обучение людей', 'Деньги и закупки'] },
@@ -399,6 +489,50 @@ function opt(label, on, act, val) {
   return '<button type="button" class="opt" role="radio" aria-checked="' + (on ? 'true' : 'false') + '" data-act="' + act + '" data-v="' + val + '"><span class="radio"></span>' + esc(label) + '</button>';
 }
 
+/* ── Цвета ролей и порядок на карте интересов (соседние роли — похожие задачи) ── */
+var RC = { IN: '#4FA3F7', CR: '#B57BFF', MA: '#9BCB6B', OP: '#8FB3BF', CO: '#FF6B6B', SA: '#F2C46D', CL: '#2BB5A0', TE: '#F59E5B' };
+var AX = ['IN', 'CR', 'MA', 'OP', 'CO', 'SA', 'CL', 'TE'];
+function word(v) { return v == null ? 'пропущено' : v >= 3.5 ? 'очень интересно' : v >= 3 ? 'интересно' : v >= 1.5 ? 'иногда' : 'не ваше'; }
+function dots(v) { return v == null ? 0 : v >= 3.5 ? 4 : v >= 3 ? 3 : v >= 1.5 ? 2 : v > 0 ? 1 : 0; }
+function meter(n, color) { var h = '<span class="g-meter" style="--rc:' + color + '">'; for (var k = 0; k < 4; k++) h += '<i class="' + (k < n ? 'on' : '') + '"></i>'; return h + '</span>'; }
+/* Карта интересов: 8 осей, значения 0–4, иконки ролей по кругу — как радар в диагностике «Швейцарский компас» */
+function radarGeo(CX, CY, R) {
+  return function (k, v) { var a = (-90 + k * 45) * Math.PI / 180; return [CX + Math.cos(a) * R * v / 4, CY + Math.sin(a) * R * v / 4]; };
+}
+function radarSVG(vals, tops, label) {
+  var CX = 180, CY = 180, R = 112, pt = radarGeo(CX, CY, R);
+  function f(p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }
+  var h = '<svg viewBox="0 0 360 360" role="img" aria-label="' + esc(label) + '">';
+  [4, 3, 2, 1].forEach(function (s) {
+    h += '<polygon points="' + AX.map(function (_, k) { return f(pt(k, s)); }).join(' ') + '" fill="' + (s === 4 ? 'rgba(255,255,255,.03)' : 'none') + '" stroke="rgba(255,255,255,' + (s === 4 ? '.30' : '.13') + ')" stroke-width="' + (s === 4 ? 1.4 : 1) + '"/>';
+  });
+  AX.forEach(function (_, k) { var p = pt(k, 4); h += '<line x1="' + CX + '" y1="' + CY + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '" stroke="rgba(255,255,255,.13)"/>'; });
+  var has = AX.some(function (c) { return vals[c] != null; });
+  if (has) {
+    h += '<polygon points="' + AX.map(function (c, k) { return f(pt(k, Math.max(0.25, vals[c] || 0))); }).join(' ') + '" fill="#C60000" fill-opacity=".28" stroke="#FF6B6B" stroke-width="2.6" stroke-linejoin="round"/>';
+    AX.forEach(function (c, k) {
+      if (vals[c] == null) return;
+      var p = pt(k, Math.max(0.25, vals[c])), top = tops.indexOf(c) > -1;
+      if (top) h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="13" fill="none" stroke="' + RC[c] + '" stroke-opacity=".6" stroke-width="2"/>';
+      h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (top ? 7.5 : 5.5) + '" fill="' + RC[c] + '" stroke="#232325" stroke-width="2"/>';
+    });
+  }
+  var ip = radarGeo(CX, CY, R + 38);
+  AX.forEach(function (c, k) {
+    var p = ip(k, 4), top = tops.indexOf(c) > -1, s = top ? 46 : 40;
+    h += '<rect x="' + (p[0] - s / 2).toFixed(1) + '" y="' + (p[1] - s / 2).toFixed(1) + '" width="' + s + '" height="' + s + '" rx="12" fill="#FBF7F0" stroke="' + RC[c] + '" stroke-width="' + (top ? 4 : 2.5) + '"/>';
+    h += '<image href="' + IC + P[c].icon + '.webp" x="' + (p[0] - s * .4).toFixed(1) + '" y="' + (p[1] - s * .4).toFixed(1) + '" width="' + (s * .8) + '" height="' + (s * .8) + '"/>';
+  });
+  return h + '</svg>';
+}
+function legend(vals, tops, sorted) {
+  return '<div class="g-leg">' + sorted.map(function (c) {
+    var top = tops.indexOf(c) > -1;
+    return '<div class="g-lrow' + (top ? ' top' : '') + '" style="--rc:' + RC[c] + '">' + img(P[c].icon) + '<div><b>' + P[c].name + '</b><small>' + (top ? '★ ваша роль · ' : '') + word(vals[c]) + '</small></div>' + meter(dots(vals[c]), RC[c]) + '</div>';
+  }).join('') + '</div>';
+}
+var DEMO = { IN: 3, CR: 4, MA: 1, OP: 1.5, CO: 3, SA: 2, CL: 3.5, TE: 1 };
+
 /* ── Экраны ── */
 function vIntro() {
   return sec(
@@ -410,26 +544,56 @@ function vIntro() {
       '<div class="g-pills"><span><b>17</b> вопросов</span><span><b>4</b> минуты</span><span>Бесплатно</span><span>Без регистрации</span></div>' +
       '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Начать игру' + arrow() + '</button>' +
     '</div>' +
+    '<div class="g-ex"><div class="g-info-cap">ТАК БУДЕТ ВЫГЛЯДЕТЬ ВАШ РЕЗУЛЬТАТ</div><div class="g-info-sub">Пример: Создатель + Коммуникатор. Чем дальше точка от центра, тем интереснее вам эта работа.</div>' +
+      radarSVG(DEMO, ['CR', 'CL'], 'Пример карты интересов') + '</div>' +
+    '<div class="g-h3">КАК УСТРОЕНА ИГРА</div>' +
     '<div class="g-how">' +
-      '<div><i>1</i><span>Читаете короткую ситуацию и выбираете, как поступили бы вы. Правильных ответов нет.</span></div>' +
-      '<div><i>2</i><span>Получаете свою роль в бизнесе и идеи дел в Узбекистане, которые стоит проверить.</span></div>' +
-      '<div><i>3</i><span>Забираете один простой шаг на эту неделю, чтобы проверить себя в деле.</span></div>' +
+      PARTS.map(function (k, n) { var pp = PART[k], cnt = Q.filter(function (q) { return q.kind === k; }).length;
+        return '<div><i style="background:' + pp.color + ';color:#181818">' + (n + 1) + '</i><span><b>' + pp.name + '</b> · ' + cnt + ' ' + (cnt > 4 ? 'вопросов' : 'вопроса') + '. ' + pp.how + '</span></div>'; }).join('') +
     '</div>' +
+    '<div class="g-how"><div><i>🎁</i><span>В конце — ваша роль, карта интересов, идеи дел в Узбекистане и один простой шаг на эту неделю.</span></div></div>' +
     '<p class="g-note">Это игра, а не научный тест. Она показывает, что вам интересно, но не оценивает способности и не обещает успех. Ответы остаются на вашем телефоне.</p>'
   );
 }
 
+function ptabs(cur) {
+  var ci = PARTS.indexOf(cur);
+  return '<div class="g-ptabs" aria-hidden="true">' + PARTS.map(function (k, n) {
+    return '<span class="' + (n < ci ? 'done' : n === ci ? 'now' : '') + '" style="--pc:' + PART[k].color + '">' + PART[k].name + '</span>';
+  }).join('') + '</div>';
+}
+
+function vGate() {
+  var k = Q[S.i].kind, pp = PART[k], n = PARTS.indexOf(k) + 1;
+  return sec(
+    '<div class="g-gate" style="--pc:' + pp.color + '"><div class="eyebrow">ЧАСТЬ ' + n + ' ИЗ 4</div>' +
+      '<div class="g-big">' + img(pp.icon) + '</div>' +
+      '<h2>' + pp.title + '</h2><p>' + pp.text + '</p>' +
+      '<ul>' + pp.list.map(function (x) { return '<li><b>' + x[0] + '</b>' + x[1] + '</li>'; }).join('') + '</ul>' +
+      ptabs(k) +
+      '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="gateGo">' + (n === 1 ? 'Поехали' : 'Дальше') + arrow() + '</button>' +
+    '</div>' +
+    '<div class="g-foot" style="border:0"><button type="button" class="btn btn--sm" data-act="back">← Назад</button><span class="mono muted">Пройдено ' + S.i + ' из ' + Q.length + '</span></div>'
+  );
+}
+
 function vQuiz() {
-  var q = Q[S.i], n = S.i + 1, cur = S.ans[q.id], p = PART[q.kind];
-  var segs = Q.map(function (_, k) { return '<span class="' + (k < S.i ? 'done' : k === S.i ? 'now' : '') + '"></span>'; }).join('');
-  var opts = S.ord[q.id].map(function (k) { return opt(q.a[k][0], cur === k, 'ans', k); }).join('');
+  var q = Q[S.i], cur = S.ans[q.id], pp = PART[q.kind];
+  var inPart = Q.filter(function (x) { return x.kind === q.kind; }), pos = inPart.indexOf(q) + 1;
+  var segs = Q.map(function (x, k) { return '<span class="' + (k < S.i ? 'done' : k === S.i ? 'now' : '') + '" style="--sc:' + PART[x.kind].color + '"></span>'; }).join('');
+  var opts = S.ord[q.id].map(function (k) {
+    var e = q.e && q.e[k] ? '<span class="g-em" aria-hidden="true">' + q.e[k] + '</span>' : '';
+    return '<button type="button" class="opt" role="radio" aria-checked="' + (cur === k ? 'true' : 'false') + '" data-act="ans" data-v="' + k + '">' + e + '<span>' + esc(q.a[k][0]) + '</span></button>';
+  }).join('');
   return sec(
     '<div class="g-panel">' +
-      '<div class="g-top"><span class="mono muted">Шаг ' + n + ' из ' + Q.length + '</span><span class="g-part" style="--pc:' + p[1] + '"><i></i>' + p[0] + '</span></div>' +
+      '<div class="g-top"><span class="mono muted">Вопрос ' + (S.i + 1) + ' из ' + Q.length + '</span><span class="g-part" style="--pc:' + pp.color + '"><i></i>' + pp.name + '</span></div>' +
       '<div class="g-segs" style="--n:' + Q.length + '" aria-hidden="true">' + segs + '</div>' +
-      '<div class="g-scene"><div class="g-ico">' + img(q.icon) + '</div><div><div class="g-lab">' + (q.kind === 'c' || q.kind === 'x' ? 'О ВАС' : 'СИТУАЦИЯ') + '</div><p class="g-story">' + esc(q.story) + '</p></div></div>' +
+      '<div class="g-scene2' + (q.story ? '' : ' solo') + '" style="--pc:' + pp.color + '"><div class="g-ico">' + img(q.icon) + '</div><div><div class="g-lab">' + pp.lab + ' ' + pos + ' ИЗ ' + inPart.length + '</div>' +
+        (q.story ? '<p class="g-story">' + esc(q.story) + '</p>' : '<p class="g-story">Это поможет подобрать советы под вашу ситуацию.</p>') + '</div></div>' +
       '<h2 class="g-q">' + esc(q.q) + '</h2>' +
       '<div class="g-opts" role="radiogroup" aria-label="Ваш ответ">' + opts + '</div>' +
+      (q.kind === 'i' ? '<p class="g-hint">Правильных ответов нет — выбирайте, как есть.</p>' : '') +
       '<div class="g-foot"><button type="button" class="btn btn--sm" data-act="back">← Назад</button><button type="button" class="g-skip" data-act="skip">Не могу выбрать</button></div>' +
     '</div>'
   );
@@ -457,6 +621,10 @@ function confText(id) {
   return v >= 3 ? 'Чувствуете себя уверенно — это хорошая опора.' : 'Пока непривычно. Это навык — он растёт с практикой.';
 }
 
+function gauge(id, title) {
+  var k = S.ans[id], v = k == null ? null : qById(id).a[k][1], c = v == null ? '#8E8E94' : v >= 3 ? '#2BB5A0' : '#F2C46D';
+  return '<div class="g-gauge" style="--rc:' + c + '"><b>' + title + '</b>' + meter(v == null ? 0 : v === 4 ? 4 : v === 3 ? 3 : v === 1 ? 1 : 0, c) + confText(id) + '</div>';
+}
 function qById(id) { return Q.filter(function (q) { return q.id === id; })[0]; }
 function low1(t) { return t.charAt(0).toLowerCase() + t.slice(1); }
 function ideasFor(L) {
@@ -488,14 +656,16 @@ function vResult() {
     r.mode === 'soft' ? 'Ярко выраженной роли пока нет, но эти задачи откликнулись вам больше других.' :
     'Эти задачи в бизнесе вам интереснее всего. В них проще найти своё место и не выгореть.';
   var icons = (L.length ? L.slice(0, 2) : [{ code: 'IN' }]).map(function (x) { return '<div>' + img(P[x.code].icon) + '</div>'; }).join('');
-  var bars = r.agg.map(function (x) {
-    var top = L.some(function (y) { return y.code === x.code; });
-    var word = x.avg >= 3.5 ? 'очень интересно' : x.avg >= 3 ? 'интересно' : x.avg >= 1.5 ? 'иногда' : 'не ваше';
-    return '<div class="g-bar' + (top ? ' top' : '') + '">' + img(P[x.code].icon) + '<div><b>' + P[x.code].name + '<small>' + word + '</small></b><u><i style="width:' + Math.max(4, x.avg / 4 * 100).toFixed(0) + '%"></i></u></div></div>';
-  }).join('');
+  var vals = {}; r.agg.forEach(function (x) { vals[x.code] = x.avg; });
+  var tops = L.map(function (x) { return x.code; });
+  var sorted = r.agg.map(function (x) { return x.code; }).concat(AX.filter(function (c) { return vals[c] == null; }));
+  var info = r.agg.length ? '<div class="g-h3">ВАША КАРТА ИНТЕРЕСОВ</div><div class="g-info"><div class="g-info-cap">8 РОЛЕЙ В БИЗНЕСЕ</div>' +
+    '<div class="g-info-sub">Чем дальше точка от центра, тем интереснее вам эта работа. Крупные точки — ваши роли.</div>' +
+    radarSVG(vals, tops, 'Карта интересов: ' + sorted.map(function (c) { return P[c].name + ' — ' + word(vals[c]); }).join(', ')) +
+    legend(vals, tops, sorted) + '</div>' : '';
   var cards = L.map(function (x) {
     var p = P[x.code];
-    return '<div class="g-card"><h3>' + img(p.icon) + p.name + '</h3><p>' + p.desc + '</p><ul>' + p.tasks.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
+    return '<div class="g-card" style="border-left:5px solid ' + RC[x.code] + '"><h3>' + img(p.icon) + p.name + '</h3><p>' + p.desc + '</p><ul>' + p.tasks.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
   }).join('');
   var step = L.length ? P[L[0].code].step : 'Пройдите игру ещё раз и отвечайте на каждую ситуацию — так вы получите свою роль и первый шаг.';
   var fam = S.ans['A-C2'];
@@ -524,13 +694,13 @@ function vResult() {
   }
   return sec(
     '<div class="g-res"><div class="eyebrow">ВАША РОЛЬ В БИЗНЕСЕ</div><div class="g-res-ico">' + icons + '</div><h2>' + title + '</h2><p>' + lead + '</p></div>' +
+    info +
     (L.length ? '<div class="g-h3">ЧТО ВАМ ПОДОЙДЁТ</div>' + cards : '') +
     expBlock +
     '<div class="g-h3">ШАГ НА ЭТУ НЕДЕЛЮ</div><div class="g-step"><small>ПРОВЕРЬТЕ СЕБЯ В ДЕЛЕ</small><p>' + step + '</p></div>' +
     ideasBlock + giveBlock +
-    (r.agg.length ? '<div class="g-h3">ВСЕ 8 РОЛЕЙ</div><div class="g-bars">' + bars + '</div>' : '') +
-    '<div class="g-h3">ВАША УВЕРЕННОСТЬ</div><div class="g-conf"><div><b>Разговор с клиентом</b>' + confText('A-E1') + '</div><div><b>План на неделю</b>' + confText('A-E2') + '</div>' +
-      (S.ans['X-SALE'] != null ? '<div style="grid-column:1/-1"><b>Продажи</b>' + SALE[S.ans['X-SALE']] + '</div>' : '') + '</div>' +
+    '<div class="g-h3">ВАША УВЕРЕННОСТЬ</div><div class="g-gauges">' + gauge('A-E1', '🗣️ Разговор с клиентом', '') + gauge('A-E2', '🗓️ План на неделю', '') +
+      (S.ans['X-SALE'] != null ? '<div class="g-gauge wide" style="--rc:#F2C46D"><b>🛍️ Продажи</b>' + meter([4, 2, 1][S.ans['X-SALE']], '#F2C46D') + SALE[S.ans['X-SALE']] + '</div>' : '') + '</div>' +
     '<div class="g-btns"><div class="g-two"><button type="button" class="btn btn--sm" data-act="png">Сохранить картинку</button><button type="button" class="btn btn--sm" data-act="share">Поделиться</button></div><div class="g-status" id="gStatus" role="status"></div></div>' +
     '<div class="g-final"><p>Семейный бизнес не начинается всей семьёй за одним столом. Он начинается с одного человека, который решился сделать первый шаг.</p>' +
       (S.ans['X-WHY'] != null ? '<small>' + WHY[S.ans['X-WHY']] + '</small>' : '') + '</div>' +
@@ -626,7 +796,7 @@ function vFamRes() {
   );
 }
 
-var VIEWS = { intro: vIntro, quiz: vQuiz, result: vResult, famIntro: vFamIntro, famQ: vFamQ, famOk: vFamOk, famSwitch: vFamSwitch, famRes: vFamRes };
+var VIEWS = { intro: vIntro, gate: vGate, quiz: vQuiz, result: vResult, famIntro: vFamIntro, famQ: vFamQ, famOk: vFamOk, famSwitch: vFamSwitch, famRes: vFamRes };
 function render() {
   APP.innerHTML = VIEWS[S.scr]();
   try { window.scrollTo(0, 0); } catch (e) {}
@@ -642,17 +812,26 @@ function pick(btn, then) {
   try { if (navigator.vibrate) navigator.vibrate(12); } catch (e) {}
   setTimeout(function () { busy = false; then(); }, 380);
 }
-function nextQ() { if (S.i < Q.length - 1) S.i++; else S.scr = 'result'; render(); }
+function nextQ() {
+  if (S.i < Q.length - 1) { S.i++; S.scr = Q[S.i].kind !== Q[S.i - 1].kind ? 'gate' : 'quiz'; }
+  else S.scr = 'result';
+  render();
+}
 function nextF() { if (S.fi < F.length - 1) S.fi++; else S.scr = 'famOk'; render(); }
 
 APP.addEventListener('click', function (e) {
   var b = e.target.closest('[data-act]'); if (!b || b.disabled || busy) return;
   var act = b.getAttribute('data-act'), v = b.getAttribute('data-v');
   switch (act) {
-    case 'start': case 'restart': S = fresh(); S.scr = 'quiz'; break;
+    case 'start': case 'restart': S = fresh(); S.scr = 'gate'; break;
+    case 'gateGo': S.scr = 'quiz'; break;
     case 'ans': S.ans[Q[S.i].id] = Number(v); pick(b, nextQ); return;
     case 'skip': S.ans[Q[S.i].id] = null; nextQ(); return;
-    case 'back': if (S.i > 0) S.i--; else S.scr = 'intro'; break;
+    case 'back':
+      if (S.scr === 'gate') { if (S.i > 0) { S.i--; S.scr = 'quiz'; } else S.scr = 'intro'; }
+      else if (S.i > 0 && Q[S.i - 1].kind === Q[S.i].kind) S.i--;
+      else S.scr = 'gate';
+      break;
     case 'result': S.scr = 'result'; break;
     case 'png': card(); return;
     case 'share': share(); return;
@@ -687,34 +866,56 @@ function wrapText(g, text, x, y, maxW, lh) {
   if (line) g.fillText(line, x, y); return y + lh;
 }
 function loadImg(src) { return new Promise(function (ok) { var i = new Image(); i.onload = function () { ok(i); }; i.onerror = function () { ok(null); }; i.src = src; }); }
+function rr(g, x, y, w, h, r) { g.beginPath(); if (g.roundRect) g.roundRect(x, y, w, h, r); else g.rect(x, y, w, h); }
 function card() {
   var r = compute(), L = r.leaders.length ? r.leaders : r.agg.slice(0, 2);
   var FF = "'Golos Text', -apple-system, Arial, sans-serif";
+  var vals = {}; r.agg.forEach(function (x) { vals[x.code] = x.avg; });
+  var tops = L.map(function (x) { return x.code; });
   status('Готовлю картинку…');
   var fonts = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('600 80px "Golos Text"'), document.fonts.load('500 40px "Golos Text"')]).catch(function () {}) : Promise.resolve();
-  fonts.then(function () { return Promise.all(L.slice(0, 2).map(function (x) { return loadImg(IC + P[x.code].icon + '.webp'); })); }).then(function (ims) {
+  fonts.then(function () { return Promise.all(AX.map(function (c) { return loadImg(IC + P[c].icon + '.webp'); })); }).then(function (ims) {
     var c = document.createElement('canvas'); c.width = 1080; c.height = 1920; var g = c.getContext('2d');
     g.fillStyle = '#181818'; g.fillRect(0, 0, 1080, 1920);
-    g.fillStyle = '#C60000'; g.fillRect(90, 150, 12, 64);
-    g.fillStyle = '#FFFFFF'; g.font = '600 38px ' + FF; g.fillText('IMPACT CONSULTING · FBT ONLINE', 126, 196);
-    g.fillStyle = '#FF6B6B'; g.font = '600 40px ' + FF; g.fillText('МОЯ РОЛЬ В БИЗНЕСЕ', 90, 400);
-    ims.forEach(function (im, k) {
-      var x = 90 + k * 290, y = 470; g.save(); g.translate(x + 120, y + 120); g.rotate((k ? 5 : -5) * Math.PI / 180);
-      g.fillStyle = '#FBF7F0'; g.beginPath(); if (g.roundRect) g.roundRect(-120, -120, 240, 240, 50); else g.rect(-120, -120, 240, 240); g.fill();
-      if (im) g.drawImage(im, -96, -96, 192, 192); g.restore();
-    });
+    g.fillStyle = '#C60000'; g.fillRect(90, 130, 12, 60);
+    g.fillStyle = '#FFFFFF'; g.font = '600 36px ' + FF; g.fillText('IMPACT CONSULTING · FBT ONLINE', 126, 174);
+    g.fillStyle = '#FF6B6B'; g.font = '600 40px ' + FF; g.fillText('МОЯ РОЛЬ В БИЗНЕСЕ', 90, 300);
     var names = r.mode === 'wide' ? ['Универсал'] : L.map(function (x) { return P[x.code].name; });
-    var y = 900;
-    names.forEach(function (n, k) { g.fillStyle = k ? '#A2C3CD' : '#FFFFFF'; g.font = '600 ' + (n.length > 12 ? 100 : 120) + 'px ' + FF; g.fillText((k ? '+ ' : '') + n, 90, y); y += 140; });
-    g.fillStyle = '#C60000'; g.fillRect(90, y - 40, 300, 10);
-    y += 60;
-    var p0 = L[0] ? P[L[0].code] : null;
-    var lines = r.mode === 'wide' ? r.leaders.map(function (x) { return P[x.code].name; }) : (p0 ? p0.tasks : []);
-    if (lines.length) { g.fillStyle = '#9A9AA0'; g.font = '600 34px ' + FF; g.fillText(r.mode === 'wide' ? 'МНЕ БЛИЗКИ РОЛИ:' : 'МНЕ ИНТЕРЕСНО:', 90, y); y += 70; g.font = '500 46px ' + FF;
-      lines.forEach(function (t) { g.fillStyle = '#C60000'; g.beginPath(); g.arc(104, y - 16, 10, 0, 7); g.fill(); g.fillStyle = '#F2F2F4'; y = wrapText(g, t, 136, y, 860, 60) + 10; }); }
-    g.fillStyle = '#232325'; g.fillRect(0, 1620, 1080, 300);
-    g.fillStyle = '#FFFFFF'; g.font = '600 52px ' + FF; g.fillText('А вы кто в бизнесе?', 90, 1730);
-    g.fillStyle = '#A2C3CD'; g.font = '500 38px ' + FF; g.fillText('fbt-online.pages.dev/igra-profil', 90, 1800);
+    var y = 410;
+    names.forEach(function (n, k) { g.fillStyle = k ? '#A2C3CD' : '#FFFFFF'; g.font = '600 ' + (n.length > 12 ? 92 : 108) + 'px ' + FF; g.fillText((k ? '+ ' : '') + n, 90, y); y += 118; });
+    /* Карта интересов */
+    var CX = 540, CY = 1070, R = 290, pt = radarGeo(CX, CY, R);
+    g.fillStyle = '#232325'; rr(g, 50, 655, 980, 860, 48); g.fill();
+    [4, 3, 2, 1].forEach(function (lv) {
+      g.beginPath(); AX.forEach(function (_, k) { var p = pt(k, lv); if (k) g.lineTo(p[0], p[1]); else g.moveTo(p[0], p[1]); }); g.closePath();
+      g.strokeStyle = 'rgba(255,255,255,' + (lv === 4 ? .32 : .14) + ')'; g.lineWidth = lv === 4 ? 3 : 2; g.stroke();
+    });
+    AX.forEach(function (_, k) { var p = pt(k, 4); g.beginPath(); g.moveTo(CX, CY); g.lineTo(p[0], p[1]); g.strokeStyle = 'rgba(255,255,255,.14)'; g.lineWidth = 2; g.stroke(); });
+    g.beginPath(); AX.forEach(function (cd, k) { var p = pt(k, Math.max(0.25, vals[cd] || 0)); if (k) g.lineTo(p[0], p[1]); else g.moveTo(p[0], p[1]); }); g.closePath();
+    g.fillStyle = 'rgba(198,0,0,.32)'; g.fill(); g.strokeStyle = '#FF6B6B'; g.lineWidth = 6; g.lineJoin = 'round'; g.stroke();
+    AX.forEach(function (cd, k) {
+      if (vals[cd] == null) return; var p = pt(k, Math.max(0.25, vals[cd])), top = tops.indexOf(cd) > -1;
+      g.beginPath(); g.arc(p[0], p[1], top ? 20 : 14, 0, 7); g.fillStyle = RC[cd]; g.fill(); g.lineWidth = 5; g.strokeStyle = '#232325'; g.stroke();
+    });
+    var ip = radarGeo(CX, CY, R + 92);
+    AX.forEach(function (cd, k) {
+      var p = ip(k, 4), top = tops.indexOf(cd) > -1, sz = top ? 124 : 104;
+      g.fillStyle = '#FBF7F0'; rr(g, p[0] - sz / 2, p[1] - sz / 2, sz, sz, 28); g.fill();
+      g.lineWidth = top ? 10 : 6; g.strokeStyle = RC[cd]; g.stroke();
+      if (ims[k]) g.drawImage(ims[k], p[0] - sz * .4, p[1] - sz * .4, sz * .8, sz * .8);
+    });
+    /* Топ-3 роли подписями */
+    var t3 = r.agg.slice(0, 3), x = 90; g.font = '600 38px ' + FF;
+    t3.forEach(function (it) {
+      var label = P[it.code].name, w = g.measureText(label).width + 84;
+      if (x + w > 1000) return;
+      g.fillStyle = 'rgba(255,255,255,.08)'; rr(g, x, 1545, w, 76, 38); g.fill();
+      g.beginPath(); g.arc(x + 38, 1583, 13, 0, 7); g.fillStyle = RC[it.code]; g.fill();
+      g.fillStyle = '#F2F2F4'; g.fillText(label, x + 64, 1597); x += w + 16;
+    });
+    g.fillStyle = '#232325'; g.fillRect(0, 1680, 1080, 240);
+    g.fillStyle = '#FFFFFF'; g.font = '600 52px ' + FF; g.fillText('А вы кто в бизнесе?', 90, 1775);
+    g.fillStyle = '#A2C3CD'; g.font = '500 38px ' + FF; g.fillText('fbt-online.pages.dev/igra-profil', 90, 1845);
     c.toBlob(function (blob) {
       if (!blob) { status('Не получилось сохранить картинку'); return; }
       var file = null; try { file = new File([blob], 'kto-vy-v-biznese.png', { type: 'image/png' }); } catch (e) {}
