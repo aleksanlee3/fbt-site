@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="assets/fbt.css">
 <link rel="stylesheet" href="assets/medals.css">
 <link rel="stylesheet" href="assets/push.css">
-<link rel="stylesheet" href="assets/p1.css?v=5.23">
+<link rel="stylesheet" href="assets/p1.css?v=5.24">
 <link rel="stylesheet" href="assets/ic-auto.css">
 <link rel="stylesheet" href="assets/ic-theme.css">
 <link rel="stylesheet" href="assets/ic-dark.css"><!-- 06.10 v5.0: графит до отзывов (тёмная тема) --><!-- 06.10 v4.9: цвета Impact Consulting -->
@@ -61,7 +61,7 @@
       <div class="step is-muted route-full" data-show="unlocked" hidden><span class="dot">2</span>Пройти диагностику<span class="tag--timer"><svg width="15" height="15" class="acc"><use href="#i-lock"/></svg>после карты</span></div>
       <a class="step is-next route-full" href="diagnostika.html" data-show="got" hidden><span class="dot">2</span><span class="u">Пройти диагностику</span><span class="tag">Следующий шаг</span></a>
       <i class="route-line route-full"></i>
-      <a class="step is-muted route-full" href="programma.html"><span class="dot">3</span>Записаться на программу</a>
+      <div class="step is-muted route-full"><span class="dot">3</span>Разбор от куратора</div>
 
       <!-- Телефон -->
       <div class="route-compact">
@@ -72,7 +72,7 @@
           <a class="rc-badge rc-badge--acc" data-show="got" href="diagnostika.html" hidden>К диагностике →</a>
         </div>
         <div class="rc-line"><i class="now">1</i><b></b><i data-step2>2</i><b></b><i>3</i></div>
-        <div class="rc-lab"><span class="now">Видеоразбор</span><span>Диагностика</span><span>Программа</span></div>
+        <div class="rc-lab"><span class="now">Видеоразбор</span><span>Диагностика</span><span>Разбор</span></div>
       </div>
     </div>
   </section>
@@ -285,12 +285,12 @@
           <div class="btn btn--sm btn--block btn--locked" data-show="notGot"><svg><use href="#i-lock"/></svg>Откроется после карты</div>
           <a class="btn btn--sm btn--block btn--primary" data-show="got" href="diagnostika.html" hidden>Пройти диагностику<svg><use href="#i-right"/></svg></a>
         </div>
-        <div class="card stepcard" data-step="Запись">
-          <div class="row gap-14"><span class="stepnum">3</span><span class="note" style="color:var(--muted)">Когда будете готовы</span></div>
-          <h3 class="h3">Записаться на программу</h3>
-          <p class="muted">2,5 месяца с наставником: 5 модулей, задания и созвоны каждую неделю. Итог — план на 90 дней к устойчивому бизнесу.</p>
+        <div class="card stepcard" data-step="Разбор">
+          <div class="row gap-14"><span class="stepnum">3</span><span class="note" style="color:var(--muted)">Бесплатно · в Telegram</span></div>
+          <h3 class="h3">Получить разбор от куратора</h3>
+          <p class="muted">Куратор Александр посмотрит ваши ответы и запишет голосовой разбор в Telegram: что мешает бизнесу и какой шаг сделать первым.</p>
           <div class="grow"></div>
-          <div class="btn btn--sm btn--block btn--locked"><svg><use href="#i-lock"/></svg>После видеоразбора и диагностики</div>
+          <div class="btn btn--sm btn--block btn--locked"><svg><use href="#i-lock"/></svg>После диагностики</div>
         </div>
       </div>
       <p class="swipe-hint">← листайте →</p>
@@ -321,19 +321,54 @@
     </div>
   </section>
 
-  <!-- 05.10: «Уже рассматриваете обучение?» — в самом конце стр. 1 -->
-  <section class="sec sec--tight">
+  <!-- 13.10: вместо «Уже рассматриваете обучение?» — большой блок следующего шага (как под видео) -->
+  <section class="sec sec--tight end-cta">
     <div class="wrap">
-      <div class="also-card also-card--hi also-card--end">
-        <div class="also-txt">
-          <span class="also-ico vi-box" aria-hidden="true"><img class="vi" src="assets/icons/znanie.webp" alt="" loading="lazy" width="96" height="96"></span>
-          <div>
-            <b>Уже рассматриваете обучение?</b>
+      <div class="unlock card unlock--end">
+        <!-- 1. Видео ещё не досмотрено -->
+        <div class="unlock-row end-locked" data-show="locked">
+          <div class="unlock-txt">
+            <span class="end-cap">Ваш следующий шаг</span>
+            <div class="unlock-h">Досмотрите видеоразбор — и заберите карту действий</div>
+            <p class="muted">7 шагов от идеи до плана на 90 дней. Карта откроется в конце видео. Осталось: <span class="mono acc" data-text-of="timeLeft">03:00</span></p>
+          </div>
+          <div class="unlock-act">
+            <a class="btn btn--primary btn--lg" href="#video"><svg><use href="#i-up"/></svg>Досмотреть видео</a>
           </div>
         </div>
-        <div class="also-act">
-          <a class="btn btn--primary also-btn also-btn--main" href="programma.html"><span class="l-long">Смотреть программу</span><span class="l-short">О программе</span><svg><use href="#i-right"/></svg></a>
-          <a class="btn also-btn also-btn--tg" data-tg="contact"><svg><use href="#i-send"/></svg><span class="l-long">Обсудить в Telegram</span><span class="l-short">В Telegram</span></a>
+        <!-- 2. Видео досмотрено — карта -->
+        <div class="unlock-row" data-show="unlocked" hidden>
+          <div class="unlock-txt">
+            <div class="okline"><svg><use href="#i-check"/></svg>ВИДЕОРАЗБОР ПРОСМОТРЕН</div>
+            <div class="unlock-h">Заберите карту действий</div>
+            <ul class="mapgift">
+              <li><b>С чего начать</b> и какие шаги сделать, чтобы создать устойчивый семейный бизнес</li>
+              <li>7 шагов — от идеи до плана на 90 дней: на каждом вопрос, действие и результат</li>
+              <li>PDF пришлёт бот FBT в Telegram, бесплатно</li>
+            </ul>
+          </div>
+          <div class="unlock-act">
+            <span class="ringed"><a class="btn btn--primary btn--lg" data-bot="map" data-getmap><svg><use href="#i-send"/></svg>Забрать карту в Telegram</a></span>
+          </div>
+        </div>
+        <!-- 3. Карта получена — диагностика -->
+        <div class="unlock-row diag-hot" data-show="got" hidden>
+          <div class="unlock-txt">
+            <div class="dh-top">
+              <span class="dh-ok"><svg><use href="#i-check"/></svg>Карта уже в Telegram</span>
+              <span class="dh-step">Шаг 2 из 3</span>
+            </div>
+            <div class="unlock-h dh-h">Пройдите <em>экспресс-диагностику</em> — и получите голосовой разбор от куратора</div>
+            <ul class="dh-why">
+              <li><span class="dh-i"><svg><use href="#i-clock"/></svg></span><span><b>5 минут</b> — 10 простых вопросов, ответы «да», «частично» или «нет».</span></li>
+              <li><span class="dh-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span><b>Куратор Александр</b> посмотрит ответы и запишет голосовой разбор в Telegram: что мешает бизнесу и какой шаг сделать первым.</span></li>
+              <li><span class="dh-i"><svg><use href="#i-check"/></svg></span><span><b>Бесплатно</b> и ни к чему не обязывает.</span></li>
+            </ul>
+          </div>
+          <div class="unlock-act">
+            <span class="ringed"><a class="btn btn--primary btn--lg" href="diagnostika.html">Пройти диагностику<svg><use href="#i-right"/></svg></a></span>
+            <p class="dh-again">Бот не прислал карту? <a class="link-btn" data-bot="map" data-getmap>Открыть бот ещё раз</a></p>
+          </div>
         </div>
       </div>
     </div>
@@ -344,7 +379,7 @@
   <div class="wrap"><span class="foot-c"><span>© 2026 Impact Consulting · FBT Online.</span><span>Все права защищены.</span></span><a href="privacy.html">Политика конфиденциальности</a></div>
 </footer>
 
-<script src="assets/p1.js?v=5.23"></script>
+<script src="assets/p1.js?v=5.24"></script>
 <script src="assets/igra-cue.js"></script>
 </body>
 </html>

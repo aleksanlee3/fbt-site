@@ -539,3 +539,22 @@ body.ic .igra-arrow path.igra-arrow-p { stroke-width: 3.5; filter: none; }
 .dh-why li:nth-child(2) .dh-i { background: #C60000; }
 .dh-why li:last-child .dh-i { background: #A2C3CD; color: #181818; }
 .diag-hot .dh-lead b { color: #fff; }
+
+/* 13.10 (v5.24) · телефон: «Узнаёте себя?» не прилипает к карточкам (margin в карусели сбрасывал верхний отступ) */
+@media (max-width: 760px) {
+  .phr.mt-32 { margin-top: 26px; }
+  .phr .phrase { margin-top: 2px; }
+}
+/* 13.10 (v5.24) · нижний блок следующего шага вместо «Уже рассматриваете обучение?» */
+.end-cta .unlock--end { margin-top: 0; padding: 36px 40px; }
+.end-cap { display: inline-block; align-self: flex-start; padding: 6px 12px; border-radius: 999px; background: #C60000; color: #fff;
+  font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.unlock--end .unlock-h { font-size: 28px; line-height: 1.2; font-weight: 800; }
+.unlock--end .end-locked { border-left: 4px solid #C60000; padding-left: 22px; }
+.unlock--end .unlock-act .btn { min-width: 300px; }
+@media (max-width: 760px) {
+  .end-cta .unlock--end { padding: 24px 20px; }
+  .unlock--end .unlock-h { font-size: 23px; }
+  .unlock--end .end-locked { padding-left: 14px; }
+  .unlock--end .unlock-act .btn { min-width: 0; }
+}
