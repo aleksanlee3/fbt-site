@@ -15,14 +15,14 @@
 <link rel="stylesheet" href="assets/fbt.css">
 <link rel="stylesheet" href="assets/medals.css">
 <link rel="stylesheet" href="assets/push.css">
-<link rel="stylesheet" href="assets/p3.css">
+<link rel="stylesheet" href="assets/p3.css?v=5.25">
 <link rel="stylesheet" href="assets/ic-auto.css">
 <link rel="stylesheet" href="assets/ic-theme.css">
 <link rel="stylesheet" href="assets/ic-dark.css"><!-- 06.10 v5.0: графит до отзывов (тёмная тема) -->
 <link rel="stylesheet" href="assets/contrast.css"><!-- 07.10 v5.3: тёмный фон — светлый текст, светлый — тёмный -->
-<script src="config.js?v=5.23"></script>
-<script src="assets/fbt.js?v=5.18"></script>
-<script src="assets/medals.js?v=5.17"></script>
+<script src="config.js?v=5.25"></script>
+<script src="assets/fbt.js?v=5.25"></script>
+<script src="assets/medals.js?v=5.25"></script>
 <script src="assets/push.js"></script>
 </head>
 <body class="ic ic-dark pg-diag"><!-- 06.10 v5.1: диагностика в тёмной теме графитовая целиком. v5.0: цвета Impact Consulting; тёмная (по умолчанию) — графит сверху, светлая — графит только первый экран -->
@@ -161,8 +161,11 @@
         <div class="res-head">
           <div>
             <div class="eyebrow">ВАШ РЕЗУЛЬТАТ</div>
-            <h1 class="h1 res-h1">Профиль вашего бизнеса</h1>
-            <p class="sub">Самый короткий луч — первое место, которое стоит разобрать.</p>
+            <!-- 13.10 (Александр): уровень 1–5 и название профиля сверху — для интриги -->
+            <div class="lvl"><span class="lvl-bar" data-lvl aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="lvl-t">Уровень <b data-text-of="lvlN">3</b> из 5 · <span data-text-of="lvlName"></span></span></div>
+            <h1 class="h1 res-h1" data-text-of="archName">Профиль вашего бизнеса</h1>
+            <p class="sub res-arch" data-text-of="archText"></p>
+            <p class="res-note">Ниже — профиль вашего бизнеса по 5 направлениям. Самый короткий луч — первое место, которое стоит разобрать.</p>
           </div>
           <button type="button" class="btn btn--sm res-restart" data-restart>Пройти заново</button>
         </div>
@@ -189,38 +192,15 @@
             <div class="mp-syms" data-show="hasSym"><span>ВЫ ОТМЕТИЛИ</span><div class="chips" data-sym-chosen></div></div>
           </div>
         </div>
-        <a class="lesson-tip card--3" data-show="noVideo" href="index.html" hidden>
-          <b>Хотите понять, почему так происходит?</b>
-          <span>Посмотрите бесплатный 8-минутный видеоразбор Любы Бэй: как создать устойчивый семейный бизнес в Узбекистане в 2026 году. В конце — карта действий: с чего начать и какие шаги сделать.</span>
-          <em>Смотреть видеоразбор →</em>
-        </a>
       </div>
     </section>
 
     <section class="ic-top res-send">
       <div class="wrap">
-        <!-- 05.10 (правка Александра): сначала 5 заданий, потом отправка куратору -->
-        <div class="more more--hi" data-more>
-          <div class="more-top">
-            <span class="more-step">ШАГ 1 ИЗ 2 · ПЕРЕД ОТПРАВКОЙ КУРАТОРУ</span>
-            <span class="more-time"><svg><use href="#i-clock"/></svg>10 минут</span>
-          </div>
-          <b class="more-h">Пройдите вторую часть: 5 коротких заданий</b>
-          <p class="more-p">Вопросы показали, каким вы <i>видите</i> свой бизнес. Задания покажут, какой он <i>на самом деле</i>. Без них куратор увидит только половину картины — с ними разбор будет точнее и полезнее.</p>
-          <div class="more-bar" aria-hidden="true"><i data-tasks-bar></i></div>
-          <span class="more-count">Выполнено: <span data-text-of="tasksDone">0</span> из 5</span>
-          <!-- 07.10: стрелка «Продолжение диагностики» к кнопке — с отступом от кнопки, не вплотную -->
-          <div class="cue-down" aria-hidden="true"><span>Продолжение диагностики</span><svg viewBox="0 0 40 44"><use href="#i-arrow-down"/></svg></div>
-          <div class="more-btns">
-            <span class="ringed"><button type="button" class="btn btn--primary btn--lg" data-go="tasks"><span data-text-of="moreBtn">Пройти вторую часть</span><svg><use href="#i-right"/></svg></button></span>
-            <a class="more-skip" href="#send">пропустить</a>
-          </div>
-        </div>
-        <p class="more-next">↓ затем — отправьте всё куратору</p>
-
+        <!-- 13.10 (Александр): вторая часть (5 заданий) убрана — сразу отправка куратору -->
         <div class="send" id="send">
           <div class="send-l">
-            <div class="send-top"><span class="send-ico vi-box"><img class="vi" src="assets/icons/podderzhka.webp" alt="" loading="lazy" width="96" height="96"></span><span class="free">Шаг 2 из 2 · бесплатно</span></div>
+            <div class="send-top"><span class="send-ico vi-box"><img class="vi" src="assets/icons/podderzhka.webp" alt="" loading="lazy" width="96" height="96"></span><span class="free">Последний шаг · бесплатно</span></div>
             <h2 class="send-h">Отправьте результат куратору</h2>
             <p class="send-p">Сам по себе профиль — это только картинка. Куратор посмотрит ваши ответы и голосом объяснит, что с этим делать.</p>
             <div class="send-3">
@@ -260,82 +240,13 @@
     </section>
   </div>
 
-  <!-- ── Задания ─────────────────────────────────────── -->
-  <section class="ic-top scr" data-screen="tasks" id="tasks" hidden>
-    <div class="wrap tasks">
-      <button type="button" class="btn btn--sm back-sm" data-go="result">← К результату</button>
-      <div class="eyebrow mt-28">5 ЗАДАНИЙ · ПО ЖЕЛАНИЮ</div>
-      <div class="tasks-head"><h1 class="h1 tasks-h1">Проверьте себя на деле</h1><span class="done-pill">Выполнено <span data-text-of="tasksDone">0</span> из 5</span></div>
-      <p class="muted mt-14" style="font-size:18px">Эти задания показывают реальную ситуацию лучше, чем обычная самооценка. Пишите коротко и честно.</p>
-
-      <div class="task">
-        <span class="tn" style="background:var(--c-model)">1</span>
-        <div class="task-b">
-          <label class="task-h" for="t1">Бизнес-модель</label>
-          <span class="task-d">Закончите фразу «Я зарабатываю деньги, когда…». В одной строке: кто платит, за что и когда. Без запятых и пояснений.</span>
-          <input class="input" id="t1" type="text" data-t="t1" placeholder="Я зарабатываю деньги, когда…">
-        </div>
-      </div>
-      <div class="task">
-        <span class="tn" style="background:var(--c-marketing)">2</span>
-        <div class="task-b">
-          <label class="task-h" for="t2">Маркетинг</label>
-          <span class="task-d">Представьте, что я ваш клиент. Ответьте: «Почему я должен выбрать вас?» Одна строка. Не используйте слова «качество», «профессионализм» и «индивидуальный подход».</span>
-          <input class="input" id="t2" type="text" data-t="t2" placeholder="Вам стоит выбрать нас, потому что…">
-          <span class="alert" role="status" data-t2bad hidden>Попробуйте без слов «качество», «профессионализм» и «индивидуальный подход» — так ответ получится честнее.</span>
-        </div>
-      </div>
-      <div class="task">
-        <span class="tn" style="background:var(--c-people)">3</span>
-        <div class="task-b">
-          <span class="task-h">Лидерство и управление</span>
-          <span class="task-d">Назовите одного человека в команде, с которым вам труднее всего найти общий язык. Рядом напишите одно слово: что именно вас в нём бесит или не устраивает.</span>
-          <div class="grid g-2" style="gap:12px">
-            <div class="field"><label class="label" for="t3a">Человек (имя или роль)</label><input class="input" id="t3a" type="text" data-t="t3a"></div>
-            <div class="field"><label class="label" for="t3b">Одно слово</label><input class="input" id="t3b" type="text" data-t="t3b"></div>
-          </div>
-        </div>
-      </div>
-      <div class="task">
-        <span class="tn" style="background:var(--c-time)">4</span>
-        <div class="task-b" style="gap:12px">
-          <span class="task-h">Вы и люди вокруг</span>
-          <div class="row gap-16" style="justify-content:space-between;align-items:flex-start">
-            <span class="task-d">Выберите 8 слов, которые больше всего похожи на вас. Долго не думайте — первое впечатление самое точное.</span>
-            <span class="count mono" data-disc-count>Выбрано 0 из 8</span>
-          </div>
-          <div class="words" role="group" aria-label="Слова о себе" data-words></div>
-          <label class="task-q" for="t4">Что вам помогает управлять людьми и что мешает эффективно с ними взаимодействовать?</label>
-          <textarea class="textarea" id="t4" rows="3" data-t="t4" placeholder="Помогает: …  Мешает: …"></textarea>
-        </div>
-      </div>
-      <div class="task">
-        <span class="tn" style="background:var(--c-finance)">5</span>
-        <div class="task-b">
-          <span class="task-h">Время и приоритеты</span>
-          <span class="task-d">Запишите 5 задач, которые сейчас держите в голове. Затем расставьте их по важности: 1&nbsp;— самая важная, 5&nbsp;— наименее важная.</span>
-          <div class="t5head"><span>Задача</span><span>Важность: 1 → 5</span></div>
-          <div class="t5" data-t5></div>
-          <span class="t5hint" role="status" data-t5hint></span>
-        </div>
-      </div>
-
-      <div class="tasks-send">
-        <div><b>Готово? Отправьте всё куратору</b><span>Откроется чат с куратором в Telegram — результат и задания уже будут в сообщении. Это бесплатно.</span></div>
-        <div class="push">
-          <div class="nudge hide-sm" aria-hidden="true"><span>Разбор — бесплатно</span><svg><use href="#i-arrow-hand"/></svg></div>
-          <span class="ringed"><button type="button" class="btn btn--primary btn--lg" data-send><svg><use href="#i-send"/></svg>Отправить куратору</button></span>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ── Отправлено ──────────────────────────────────── -->
   <section class="ic-top scr" data-screen="sent" hidden>
     <div class="wrap sent">
       <div class="sent-ok"><svg><use href="#i-check"/></svg></div>
       <h1 class="h1 sent-h1">Чат с куратором открыт</h1>
-      <p class="sub">Результат и задания уже набраны в сообщении. Осталось нажать «Отправить» в Telegram — и куратор возьмёт вас на разбор.</p>
+      <p class="sub">Результат уже набран в сообщении. Осталось нажать «Отправить» в Telegram — и куратор возьмёт вас на разбор.</p>
       <div class="grid g-3 sent-3">
         <div class="card st1"><span class="st-ico vi-box"><img class="vi" src="assets/icons/delegirovanie.webp" alt="" loading="lazy" width="96" height="96"></span><div><span class="num">Шаг 1 · сейчас</span><b>Нажмите «Отправить» в чате — сообщение уже готово</b></div></div>
         <div class="card st2"><span class="st-ico vi-box"><img class="vi" src="assets/icons/nastavnik.webp" alt="" loading="lazy" width="96" height="96"></span><div><span class="num">Шаг 2 · куратор</span><b>Ответит голосовыми: главный провал, его причина и следующий шаг</b></div></div>
@@ -358,6 +269,6 @@
   <div class="wrap"><span class="foot-c"><span>© 2026 Impact Consulting · FBT Online.</span><span>Все права защищены.</span></span><a href="privacy.html">Политика конфиденциальности</a></div>
 </footer>
 
-<script src="assets/p3.js?v=5.17"></script>
+<script src="assets/p3.js?v=5.25"></script>
 </body>
 </html>

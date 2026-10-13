@@ -1,4 +1,4 @@
-/* Стр. 3 · Онлайн-диагностика «Швейцарский компас»: 10 вопросов, профиль, главная точка, задания, отправка куратору */
+/* Стр. 3 · Онлайн-диагностика «Швейцарский компас»: 10 вопросов, уровень и тип профиля, главная точка, отправка куратору (13.10: без заданий) */
 (function () {
   var C = FBT.cfg;
   var qs = new URLSearchParams(location.search);
@@ -106,6 +106,52 @@
     var ties = DIRS.filter(function (d, i) { return sc[i] === min; }).map(function (d) { return d.name; });
     return { sc: sc, weak: weak, perfect: perfect, complete: complete, ties: ties };
   }
+  // 13.10 (Александр): над профилем — уровень 1–5 и название профиля. Та же логика — в боте (fbt/diagnostic.py → archetype_key).
+  var LEVELS = ['', 'Ручное управление', 'Первые опоры', 'Растущий бизнес', 'Крепкий бизнес', 'Устойчивый бизнес'];
+  var ARCH = {
+    system: ['Устойчивая система', 'Деньги посчитаны, клиенты приходят, роли понятны. Задача — сохранить это при росте.'],
+    fresh: ['Бизнес с чистого листа', 'Бизнеса пока нет — значит, его можно сразу построить правильно.'],
+    manual: ['Всё на ручном управлении', 'Пока почти всё держится на вас. Начать можно с одного шага — с главной точки.'],
+    half: ['Всё работает наполовину', 'Явных провалов нет, но и сильных сторон тоже. Рост держится на ваших усилиях, а не на системе.'],
+    owner: ['Всё держится на владельце', 'Время и люди — самые слабые места. Стоит вам выпасть на неделю — работа встаёт.'],
+    no_profit: ['Продажи есть — прибыли не видно', 'Клиенты приходят, но сколько бизнес реально зарабатывает — неясно.'],
+    no_clients: ['Деньги посчитаны — клиентов мало', 'С цифрами порядок, но клиенты приходят нерегулярно.'],
+    idea: ['Хорошая идея без системы', 'Вы понимаете, на чём зарабатываете. Но маркетинг, деньги, время и люди пока на среднем уровне — бизнес растёт за счёт ваших усилий.'],
+    no_hands: ['Клиенты есть — рук не хватает', 'Спрос есть, но время и команда не успевают за ним.'],
+    one_gap: ['Сильный бизнес с одним провалом', 'Почти всё выстроено, но одно направление тянет вниз весь бизнес — {main}.'],
+    almost: ['Почти система', 'Большая часть бизнеса уже работает без ручного управления. Осталось подтянуть одно-два направления.'],
+    model: ['Непонятно, на чём зарабатываем', 'Сложно сказать, кто клиент и за что он платит. Из-за этого остальные усилия дают случайный результат.'],
+    marketing: ['Клиенты приходят случайно', 'Продажи зависят от случая и сарафана, их нельзя спланировать.'],
+    finance: ['Деньги без учёта', 'Неясно, сколько бизнес зарабатывает, а деньги семьи и бизнеса смешиваются.'],
+    time: ['Владелец в текучке', 'Текучка забирает почти всё время, на развитие его не остаётся.'],
+    people: ['Роли не договорены', 'Не ясно, кто за что отвечает, а сложные вопросы откладываются.'],
+    base: ['Крепкая основа с узким местом', 'Основа есть, но рост упирается в одно направление — {main}.']
+  };
+  function levelOf() {
+    var pts = st.answers.reduce(function (a, x) { return a + (x ? (x - 1) / 2 : 0); }, 0);   // нет 0 · частично 1 · да 2
+    return pts <= 4 ? 1 : pts <= 8 ? 2 : pts <= 12 ? 3 : pts <= 16 ? 4 : 5;
+  }
+  function archKey(sc) {
+    var m = sc[0], k = sc[1], f = sc[2], t = sc[3], p = sc[4];
+    var hi = sc.filter(function (x) { return x === 5; }).length, lo = sc.filter(function (x) { return x === 1; }).length;
+    if (hi === 5) return 'system';
+    if (lo === 5) return st.stage === 'none' || st.stage === 'launch' ? 'fresh' : 'manual';
+    if (hi === 0 && lo === 0) return 'half';
+    if (t === 1 && p === 1) return 'owner';
+    if (k === 5 && f === 1) return 'no_profit';
+    if (f === 5 && k === 1) return 'no_clients';
+    if (m === 5 && hi === 1 && lo === 0) return 'idea';
+    if (k === 5 && (t === 1 || p === 1)) return 'no_hands';
+    if (hi >= 3 && lo === 1) return 'one_gap';
+    if (hi >= 3) return 'almost';
+    for (var i = 0; i < 5; i++) if (sc[i] === 1) return DIRS[i].id;
+    return 'base';
+  }
+  function archetype() {
+    var r = calc(), a = ARCH[archKey(r.sc)];
+    return [a[0], a[1].replace('{main}', r.perfect ? '' : DIRS[r.weak].name.toLowerCase())];
+  }
+
   function tk() { return st.tasks; }
   function discKeys() { return Object.keys(tk().disc || {}); }
   function t2bad() { return /качеств|профессионал|индивидуальн/i.test(tk().t2 || ''); }
@@ -148,24 +194,14 @@
     return 'РАЗБОР\nЭтап: ' + stageText +
       (famText ? '\nСемья в бизнесе: ' + famText.toLowerCase() : '') +
       (painText ? '\nЧто мешает (по словам человека): ' + painText.toLowerCase() : '') +
+      '\nУровень: ' + levelOf() + ' из 5 · ' + LEVELS[levelOf()] +
+      '\nТип профиля: ' + archetype()[0] +
       '\nПрофиль: ' + DIRS.map(function (d, i) { return d.name + ' ' + r.sc[i]; }).join(' · ') +
       '\nГлавная точка: ' + (r.perfect ? 'не выделяется' : DIRS[r.weak].name) +
-      '\nПроявления: ' + syms +
-      '\nЗадания: ' + tasksDone() + ' из 5';
+      '\nПроявления: ' + syms;
   }
-  function chatText() {
-    var t = tk(), lines = [], words = chosenWords(), st5 = t5state(), s5 = st5.sorted;
-    if (t.t1.trim()) lines.push('1. Бизнес-модель: ' + t.t1.trim());
-    if (t.t2.trim()) lines.push('2. Почему выбирают нас: ' + t.t2.trim());
-    if (t.t3a.trim() || t.t3b.trim()) lines.push('3. Сложнее всего с: ' + t.t3a.trim() + (t.t3b.trim() ? ' — ' + t.t3b.trim() : ''));
-    var pt = personality();
-    if (pt || t.t4.trim()) lines.push('4. Тип личности: ' + (pt || 'не определён — выбрано слов: ' + words.length + ' из 8') + (t.t4.trim() ? '\nРабота с людьми: ' + t.t4.trim() : ''));
-    var t5lines = [];
-    [1, 2, 3, 4, 5].forEach(function (n) { var i = st5.rank.indexOf(n); if (i >= 0 && (t.t5[i] || '').trim()) t5lines.push(n + ') ' + t.t5[i].trim()); });
-    [0, 1, 2, 3, 4].forEach(function (i) { if (!st5.rank[i] && (t.t5[i] || '').trim()) t5lines.push('(без места) ' + t.t5[i].trim()); });
-    if (t5lines.length) lines.push('5. Задачи по важности: ' + t5lines.join('; '));
-    return 'Здравствуйте! Отправляю результат онлайн-диагностики FBT на разбор.\n\n' + summary().replace(/^РАЗБОР\n/, '') +
-      (lines.length ? '\n\n' + lines.join('\n') : '');
+  function chatText() {      // 13.10: заданий больше нет — в чат куратору уходит результат 10 вопросов
+    return 'Здравствуйте! Отправляю результат онлайн-диагностики FBT на разбор.\n\n' + summary().replace(/^РАЗБОР\n/, '');
   }
 
   // Код результата для бота (запасной режим без сервера): diag_<этап><идея>_<5 баллов>_<проявления>_t<задания>
@@ -364,97 +400,30 @@
     var chosen = SYMS.filter(function (s) { return st.sym[s[0]]; });
     $('[data-sym-chosen]').innerHTML = chosen.map(function (s) { return '<span class="chip"><i style="color:' + DIRS[s[2]].color + '"></i>' + s[1] + '</span>'; }).join('');
     $('[data-msg]').textContent = summary();
-    FBT.toggle({ notPerfect: !r.perfect, perfect: r.perfect, hasOthers: !r.perfect && r.ties.length > 1, hasSym: chosen.length > 0, noVideo: !FBT.sawVideo() });
+    var lv = levelOf(), arch = archetype();
+    FBT.text('lvlN', String(lv)); FBT.text('lvlName', LEVELS[lv]); FBT.text('archName', arch[0]); FBT.text('archText', arch[1]);
+    $$('[data-lvl] i').forEach(function (x, i) { x.classList.toggle('on', i < lv); });
+    FBT.toggle({ notPerfect: !r.perfect, perfect: r.perfect, hasOthers: !r.perfect && r.ties.length > 1, hasSym: chosen.length > 0 });
   }
 
-  function renderTasks() {
-    var t = tk();
-    $$('[data-t]').forEach(function (inp) { var k = inp.getAttribute('data-t'); if (document.activeElement !== inp) inp.value = t[k] || ''; });
-    $('#t2').classList.toggle('warn', t2bad());
-    $('[data-t2bad]').hidden = !t2bad();
-    var n = discKeys().length;
-    var cnt = $('[data-disc-count]'); cnt.textContent = 'Выбрано ' + n + ' из 8'; cnt.style.color = n === 8 ? 'var(--ok)' : 'var(--muted-2)';
-    var box = $('[data-words]'); box.innerHTML = '';
-    WORDS.forEach(function (key) {
-      var on = !!t.disc[key], full = n >= 8 && !on;
-      var b = el('button', 'word' + (full ? ' full' : ''), key.slice(2));
-      b.type = 'button'; b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      b.addEventListener('click', function () {
-        if (t.disc[key]) delete t.disc[key]; else if (Object.keys(t.disc).length < 8) t.disc[key] = true;
-        render();
-      });
-      box.appendChild(b);
-    });
-    var s5 = t5state(), rows = $('[data-t5]');
-    if (!rows.children.length) {
-      [0, 1, 2, 3, 4].forEach(function (i) {
-        var row = el('div', 't5row');
-        row.innerHTML = '<label class="sr-only" for="t5-' + (i + 1) + '">Задача ' + (i + 1) + '</label>' +
-          '<input class="input" id="t5-' + (i + 1) + '" type="text" placeholder="Задача" data-t5i="' + i + '">' +
-          '<div class="ranks" role="group" aria-label="Важность задачи ' + (i + 1) + '"></div>';
-        rows.appendChild(row);
-        row.querySelector('input').addEventListener('input', function (e) { t.t5[i] = e.target.value; save(); renderLight(); });
-      });
-    }
-    [0, 1, 2, 3, 4].forEach(function (i) {
-      var row = rows.children[i], inp = row.querySelector('input');
-      if (document.activeElement !== inp) inp.value = t.t5[i] || '';
-      inp.style.borderColor = s5.rank[i] === 1 ? '#2BB5A0' : '';
-      var rk = row.querySelector('.ranks'); rk.innerHTML = '';
-      [1, 2, 3, 4, 5].forEach(function (nn) {
-        var on = s5.rank[i] === nn, taken = !on && s5.rank.indexOf(nn) >= 0;
-        var b = el('button', 'rank' + (on ? ' on' : '') + (taken ? ' taken' : ''), String(nn));
-        b.type = 'button'; b.setAttribute('aria-pressed', on ? 'true' : 'false');
-        b.setAttribute('aria-label', 'Важность ' + nn + (nn === 1 ? ' — самая важная' : nn === 5 ? ' — наименее важная' : ''));
-        b.addEventListener('click', function () {
-          var arr = s5.rank.slice();
-          if (arr[i] === nn) arr[i] = 0; else { var j = arr.indexOf(nn); if (j >= 0) arr[j] = arr[i]; arr[i] = nn; }
-          t.t5rank = arr; render();
-        });
-        rk.appendChild(b);
-      });
-    });
-    var hint = $('[data-t5hint]');
-    hint.textContent = s5.ok ? 'Готово: самая важная задача — «' + t.t5[s5.rank.indexOf(1)].trim() + '».'
-      : s5.filled < 5 ? 'Заполнено задач: ' + s5.filled + ' из 5.' : 'Осталось поставить: ' + s5.left.join(', ') + '.';
-    hint.style.color = s5.ok ? 'var(--ok)' : 'var(--dim)';
-  }
-
-  // Лёгкое обновление без перерисовки полей ввода
-  function renderLight() {
-    FBT.text('tasksDone', String(tasksDone()));
-    $('#t2').classList.toggle('warn', t2bad());
-    $('[data-t2bad]').hidden = !t2bad();
-    var s5 = t5state(), hint = $('[data-t5hint]');
-    if (hint) {
-      hint.textContent = s5.ok ? 'Готово: самая важная задача — «' + tk().t5[s5.rank.indexOf(1)].trim() + '».'
-        : s5.filled < 5 ? 'Заполнено задач: ' + s5.filled + ' из 5.' : 'Осталось поставить: ' + s5.left.join(', ') + '.';
-      hint.style.color = s5.ok ? 'var(--ok)' : 'var(--dim)';
-    }
-    var m = $('[data-msg]'); if (m) m.textContent = summary();
-  }
+  // 13.10 (Александр): вторая часть диагностики (5 заданий) убрана с сайта и из бота
+  function renderLight() { var m = $('[data-msg]'); if (m) m.textContent = summary(); }
 
   function render() {
-    var steps = ['intro', 'stage', 'q', 'sym', 'result', 'tasks', 'sent'];
+    var steps = ['intro', 'stage', 'q', 'sym', 'result', 'sent'];
+    if (st.step === 'tasks') st.step = 'result';            // старая ссылка #tasks
     if (steps.indexOf(st.step) < 0) st.step = 'intro';
     // Нельзя открыть результат без ответов
     var answered = st.answers.every(function (x) { return x != null; });
-    if ((st.step === 'result' || st.step === 'tasks' || st.step === 'sent') && !answered) st.step = st.stage ? 'q' : 'intro';
+    if ((st.step === 'result' || st.step === 'sent') && !answered) st.step = st.stage ? 'q' : 'intro';
     $$('[data-screen]').forEach(function (s) { s.hidden = s.getAttribute('data-screen') !== st.step; });
     if (st.step === 'stage') renderStage();
     if (st.step === 'q') renderQ();
     if (st.step === 'sym') renderSym();
     if (st.step === 'result' || st.step === 'sent') { renderResult(); if (FBT.medal) FBT.medal('kompas'); }
-    if (FBT.medal && tasksDone() === 5) FBT.medal('tetrad');
-    if (st.step === 'tasks') renderTasks();
-    FBT.text('tasksDone', String(tasksDone()));
-    var nd = tasksDone(), mc = $('[data-more]'), mb = $('[data-tasks-bar]');
-    if (mc) mc.classList.toggle('is-done', nd === 5);
-    if (mb) mb.style.width = (nd * 20) + '%';
-    FBT.text('moreBtn', nd === 5 ? 'Изменить ответы' : nd > 0 ? 'Продолжить вторую часть' : 'Пройти вторую часть');
     FBT.text('pdfLabel', st.pdf ? 'PDF-разбор — в боте ✓' : 'Получить PDF-разбор в боте');
     FBT.text('rcBadge', { intro: '10 вопросов · 5 минут', stage: 'перед тестом', q: 'вопрос ' + (Math.min(st.qi, 9) + 1) + ' из 10', sym: 'последний шаг',
-      result: 'результат готов', tasks: 'задания · ' + tasksDone() + ' из 5', sent: 'отправлено куратору' }[st.step]);
+      result: 'результат готов', sent: 'отправлено куратору' }[st.step]);
     // знакомы с ботом — результат уже у него, открываем чат без /start
     $$('[data-pdf]').forEach(function (a) { a.href = FBT.linked() ? FBT.bot('') : FBT.bot(botCode()); a.target = '_blank'; a.rel = 'noopener'; });
     save();
@@ -468,7 +437,7 @@
       if (to === 'stage' && st.step === 'intro') { event('diag_start'); st.sq = 0; }
       if (to === 'result' && !st.sent1) { st.sent1 = true; pushToBot(false).then(function (r) { if (r && r.pushed && FBT.pushNotice) setTimeout(FBT.pushNotice.report, 3000); }); }   // часть 1 — в бот (если есть сервер)
       st.step = to;
-      if (to !== 'tasks' && location.hash === '#tasks') history.replaceState(null, '', location.pathname + location.search);
+      if (location.hash === '#tasks') history.replaceState(null, '', location.pathname + location.search);
       render(); window.scrollTo(0, 0); return;
     }
     if (e.target.closest('[data-sq-back]')) { if ((st.sq || 0) > 0) st.sq--; else st.step = 'intro'; render(); window.scrollTo(0, 0); return; }
@@ -480,21 +449,11 @@
     if (e.target.closest('[data-pdf]')) { st.pdf = true; setTimeout(render, 50); return; }
     if (e.target.closest('[data-send]')) {
       if (FBT.medal) FBT.medal('pismo');
-      if (tasksDone() > 0 && !st.sent2) {                   // часть 2 — в бот, потом отметка «отправил»
-        st.sent2 = true;
-        pushToBot(true, true).then(function () { event('diag_send'); });
-        if (FBT.pushNotice) setTimeout(FBT.pushNotice.sent, 2500);
-      } else event('diag_send');
+      event('diag_send');
       FBT.open(FBT.tg(C.curator, chatText()));
       st.step = 'sent'; render(); window.scrollTo(0, 0);
     }
   });
-  document.addEventListener('input', function (e) {
-    var k = e.target.getAttribute && e.target.getAttribute('data-t');
-    if (!k) return;
-    tk()[k] = e.target.value; save(); renderLight();
-  });
-  window.addEventListener('hashchange', function () { if (location.hash === '#tasks') { st.step = 'tasks'; render(); } });
 
   render();
 })();

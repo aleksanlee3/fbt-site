@@ -277,8 +277,7 @@
     sendLead();                                   // 07.10: заявка сразу сохраняется в боте и приходит куратору
     FBT.open(FBT.tg(C.curator, applyText()));
     st.sent = true; save(); renderApply();
-    if (FBT.medal) FBT.medal('drevo');
-    // бот: наклейка, кружок Любы об оплате, расчёт и счёт на предоплату
+    // бот: кружок Любы об оплате, расчёт и счёт на предоплату (13.10: артефакта за заявку больше нет)
     var pz = pricing();
     if (!pz.started && FBT.event) FBT.event('apply', { people: pz.g.n, phone: st.ap.phone.trim() });
   });

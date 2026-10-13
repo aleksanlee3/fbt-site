@@ -192,7 +192,7 @@
   // Предпросмотр всех уведомлений: добавить к адресу ?push
   if (/[?&]push\b/.test(location.search)) {
     var demo = [
-      function () { FBT.pushNotice.medal({ id: 'demo', name: 'Карта сокровищ' }, 2, 9); },
+      function () { FBT.pushNotice.medal({ id: 'demo', name: 'Карта сокровищ' }, 2, 6); },
       function () { FBT.push({ html: 'Карта действий уже в Telegram 🗺️ Откройте чат с ботом — PDF ждёт вас.' }); },
       function () { FBT.push({ html: '<strong>Ваш разбор готов.</strong> Профиль и PDF уже в Telegram — откройте бота.' }); },
       function () { FBT.push({ html: 'Письмо куратору отправлено ✉️ Александр посмотрит ответы и запишет вам голосовой разбор.' }); },
