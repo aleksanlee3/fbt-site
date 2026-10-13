@@ -12,7 +12,7 @@
 
   function TOTAL() { return TEST ? 30 : realLen; }
   function UNLOCK() { return TEST ? 30 : Math.min(TOTAL(), UNLOCK_CFG); }
-  // Сколько длится видео «для зрителя»: 3:00 → 10:00 → настоящая длина
+  // Сколько длится видео «для зрителя» в полоске плеера: 3:00 → 5:00 → настоящая длина
   function shownLen() {
     if (TEST) return 30;
     for (var i = 0; i < STAGES.length; i++) if (st.pos < STAGES[i] && STAGES[i] < realLen) return STAGES[i];
@@ -73,15 +73,15 @@
     var len = shownLen(), finalStage = len >= TOTAL();
     FBT.toggle({ locked: !open, unlocked: open && !got, got: got, notGot: !got, openAny: open });
     if (open) { var c2 = document.querySelector('[data-watch-cue]'); if (c2) c2.classList.add('is-off'); }  // урок досмотрен — стрелка не нужна
-    // До последнего этапа «осталось» считаем от показанной длины — не выдаём настоящую
-    FBT.text('timeLeft', fmt(finalStage ? UNLOCK() - st.pos : len - st.pos));
+    // 13.10: «осталось» — всегда от полной длины видео; поэтапной (3:00 → 5:00 → полная) остаётся только полоска в плеере
+    FBT.text('timeLeft', fmt(UNLOCK() - st.pos));
     FBT.text('posLabel', fmt(st.pos));
     FBT.text('lenLabel', fmt(len));
     FBT.text('step2Badge', got ? 'Карта в боте' : 'Доступ открыт');
     el.played.style.width = Math.min(100, st.pos / len * 100).toFixed(2) + '%';
     el.marker.style.left = (UNLOCK() / TOTAL() * 100).toFixed(2) + '%';
     el.marker.hidden = !finalStage;
-    el.progress.style.width = (open ? 100 : Math.min(100, st.pos / (finalStage ? UNLOCK() : len) * 100)).toFixed(1) + '%';
+    el.progress.style.width = (open ? 100 : Math.min(100, st.pos / UNLOCK() * 100)).toFixed(1) + '%';
     el.player.classList.toggle('is-playing', st.playing);
     var cue = document.querySelector('[data-watch-cue]');
     if (cue && st.playing && !el.player.classList.contains('is-yt')) cue.classList.add('is-off');  // демо/файл: начали смотреть — стрелка не нужна

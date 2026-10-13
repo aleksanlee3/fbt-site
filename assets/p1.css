@@ -262,6 +262,10 @@ html.fs-lock, html.fs-lock body { overflow: hidden; }
 
 /* «Три фразы» — узкое фото сверху */
 .phr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.phr--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }   /* 13.10: 4 проблемы */
+.phr--4 .phr-b { padding: 20px 20px 24px; }
+.phr--4 .phrase b { font-size: 20px; }
+@media (max-width: 1100px) and (min-width: 761px) { .phr--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .phr .phrase { padding: 0; overflow: hidden; gap: 0; }
 .phr-ph { display: block; height: 120px; overflow: hidden; }
 .phr-ph img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.85); }
