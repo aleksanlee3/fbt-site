@@ -19,7 +19,7 @@ window.FBT_CONFIG = {
   video: {
     // 'demo' — имитация плеера (видео ещё нет), 'youtube' — ролик YouTube, 'file' — mp4-файл
     type: 'youtube',
-    src: 'hmJsP-9rCdk',         // youtube: ID ролика (youtu.be/hmJsP-9rCdk); file: ссылка на .mp4
+    src: 'OSiC3Ik7mRE',         // youtube: ID ролика (youtu.be/OSiC3Ik7mRE, с 13.10; до этого hmJsP-9rCdk); file: ссылка на .mp4
     poster: 'assets/img/fbt-video-cover.png', // настоящая обложка видео
     length: 1951,               // запасная длительность 32:31; настоящую плеер берёт у YouTube сам
     unlockAt: 1930,             // фраза «Поздравляю, вы досмотрели» — 32:10
