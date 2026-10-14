@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="assets/ic-theme.css">
 <link rel="stylesheet" href="assets/ic-dark.css"><!-- 06.10 v5.0: графит до отзывов (тёмная тема) -->
 <link rel="stylesheet" href="assets/contrast.css"><!-- 07.10 v5.3: тёмный фон — светлый текст, светлый — тёмный -->
-<link rel="stylesheet" href="assets/p4-min.css?v=5.26"><!-- 14.10 v5.26: короткая страница программы, 9 блоков -->
+<link rel="stylesheet" href="assets/p4-min.css?v=5.27"><!-- 14.10 v5.26: короткая страница программы, 9 блоков -->
 <script src="config.js?v=5.25"></script>
 <script src="assets/fbt.js?v=5.25"></script>
 <script src="assets/medals.js?v=5.25"></script>
@@ -124,13 +124,33 @@
           <a class="btn btn--lg btn--ghost-lg" href="#program">Смотреть программу<svg><use href="#i-down"/></svg></a>
         </div>
       </div>
+      <!-- 14.10 v5.27 · карта стран вернулась (решение Александра) -->
+      <div class="geo4" aria-label="Страны, где проходит программа">
+        <div class="geo4-head"><span class="cap">ГДЕ ПРОХОДИТ FBT</span><b>Программа проходит в разных странах — от Швейцарии до Вьетнама</b></div>
+        <div class="world geo4-map">
+          <img src="assets/world-map.svg" alt="Карта: страны, где проходит программа FBT — от Швейцарии до Вьетнама">
+          <div class="wl" style="right:75.71%;top:19.64%;text-align:right"><b>Швейцария</b><small class="lime">родина методологии</small></div>
+          <div class="wl" style="right:72.05%;top:39.64%"><b>Албания</b></div>
+          <div class="wl" style="left:31.79%;top:36.43%"><b>Румыния</b></div>
+          <div class="wl" style="left:35.54%;top:29.29%"><b>Молдова</b></div>
+          <div class="wl" style="left:48.21%;top:32.5%;width:8.4%;text-align:center"><b>Казахстан</b></div>
+          <div class="wl" style="left:57.5%;top:43.57%"><b>Кыргызстан</b></div>
+          <div class="wl" style="right:50.36%;top:48.21%;text-align:right"><b style="color:#F6A48E">Узбекистан</b><small style="color:#F1E4D3">FBT · Impact Consulting</small></div>
+          <div class="wl" style="left:64.29%;top:61.61%"><b>Непал</b></div>
+          <div class="wl" style="left:80.8%;top:66.96%"><b>Вьетнам</b></div>
+        </div>
+        <div class="geo4-chips">
+          <span class="gc gc--home">🇨🇭 Швейцария · родина методологии</span>
+          <span class="gc gc--uz">🇺🇿 Узбекистан · Impact Consulting</span>
+          <span class="gc">🇰🇿 Казахстан</span><span class="gc">🇰🇬 Кыргызстан</span><span class="gc">🇷🇴 Румыния</span><span class="gc">🇲🇩 Молдова</span><span class="gc">🇦🇱 Албания</span><span class="gc">🇳🇵 Непал</span><span class="gc">🇻🇳 Вьетнам</span>
+        </div>
+      </div>
     </div>
     <div class="wrap">
       <div class="hm-trust">
         <span><b>Тысячи</b> прошли FBT в мире</span>
         <span><b>550+</b> из них — с Impact Consulting в СНГ</span>
         <span><b>Швейцария</b> — методология Swiss Create</span>
-        <span class="hm-geo" title="Страны, где проходит FBT">🇨🇭 🇺🇿 🇰🇿 🇰🇬 🇷🇴 🇲🇩 🇦🇱 🇳🇵 🇻🇳 <i>9 стран</i></span>
       </div>
     </div>
   </section>
@@ -196,13 +216,36 @@
     <div class="wrap">
       <div class="eyebrow">КАК ПРОХОДИТ ОБУЧЕНИЕ</div>
       <h2 class="h2 h2--md">Вы внедряете — наставник рядом</h2>
-      <div class="hm-feats">
+      <!-- 14.10 v5.27 · мокап платформы вернулся (решение Александра) -->
+      <div class="format hm-format">
+        <figure class="plat" aria-label="Платформа FBT Online: видеоразбор, задание и проверка наставником">
+          <div class="plat-bar"><i></i><i></i><i></i><span>Платформа FBT Online</span></div>
+          <div class="plat-body">
+            <div class="plat-side">
+              <span class="cap dim2">МОДУЛИ</span>
+              <div class="pm">0 · Идея</div>
+              <div class="pm on"><span>01 · Бизнес-модель</span><i><b style="width:60%"></b></i></div>
+              <div class="pm off">02 · Маркетинг</div><div class="pm off">03 · Финансы</div><div class="pm off">04 · Время</div><div class="pm off">05 · Люди</div>
+            </div>
+            <div class="plat-main">
+              <div class="plat-video has-poster"><img class="pv-img" src="assets/img/swot-lesson.jpg" alt="Видеоразбор SWOT-анализ: Люба Бэй и слайд с четырьмя квадратами" loading="lazy"><span><svg><use href="#i-play"/></svg></span><em>Модуль 1 · Видеоразбор 4 · SWOT-анализ</em><small>12:40</small><i><b></b></i></div>
+              <div class="plat-task">
+                <div class="row" style="justify-content:space-between"><span class="cap dim">ЗАДАНИЕ</span><span class="ok" style="font-size:12px;font-weight:600">✓ Проверено наставником</span></div>
+                <b>SWOT-анализ вашего бизнеса</b>
+                <div class="plat-fb"><span>Н</span><p>Сильные стороны описаны хорошо. Добавьте угрозы со стороны конкурентов — и перейдём к стратегии.</p></div>
+              </div>
+              <div class="plat-ai"><span>ИИ</span><p>Куратор: «Подсказать, как оценить конкурентов в вашей нише?»</p></div>
+            </div>
+          </div>
+        </figure>
+        <div class="hm-feats">
         <div class="hf hf1"><span class="ico vi-box"><img class="vi" src="assets/icons/znanie.webp" alt="" loading="lazy" width="96" height="96"></span><b>Видеоразборы на платформе</b><span>В удобное время — с телефона или компьютера</span></div>
         <div class="hf hf2"><span class="ico vi-box"><img class="vi" src="assets/icons/praktika.webp" alt="" loading="lazy" width="96" height="96"></span><b>Задания на своём бизнесе</b><span>На вашей идее или компании, а не на чужом кейсе</span></div>
         <div class="hf hf3 hf-key"><span class="ico vi-box"><img class="vi" src="assets/icons/nastavnik.webp" alt="" loading="lazy" width="96" height="96"></span><b>Наставник проверяет каждое задание</b><span>И говорит, что усилить и куда двигаться дальше</span></div>
         <div class="hf hf4"><span class="ico vi-box"><img class="vi" src="assets/icons/kalendar.webp" alt="" loading="lazy" width="96" height="96"></span><b>Созвоны каждую неделю</b><span>С вашим наставником и с Любой Бэй</span></div>
         <div class="hf hf5"><span class="ico vi-box"><img class="vi" src="assets/icons/avtomatizaciya.webp" alt="" loading="lazy" width="96" height="96"></span><b>ИИ-куратор</b><span>Подскажет, как применить инструмент у вас</span></div>
         <div class="hf hf6"><span class="ico vi-box"><img class="vi" src="assets/icons/komanda.webp" alt="" loading="lazy" width="96" height="96"></span><b>Сообщество FBT</b><span>Предприниматели, с которыми можно расти дальше</span></div>
+      </div>
       </div>
       <!-- 05.10 · Семья: главное со стр. 5, сама страница — по кнопке -->
       <div class="fam4 hm-fam" id="family">
@@ -366,6 +409,6 @@
   <div class="wrap"><span class="foot-c"><span>© 2026 Impact Consulting · FBT Online.</span><span>Все права защищены.</span></span><a href="privacy.html">Политика конфиденциальности</a></div>
 </footer>
 
-<script src="assets/p4.js?v=5.26"></script>
+<script src="assets/p4.js?v=5.27"></script>
 </body>
 </html>
