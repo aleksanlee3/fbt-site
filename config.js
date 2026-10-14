@@ -19,10 +19,10 @@ window.FBT_CONFIG = {
   video: {
     // 'demo' — имитация плеера (видео ещё нет), 'youtube' — ролик YouTube, 'file' — mp4-файл
     type: 'youtube',
-    src: 'OSiC3Ik7mRE',         // youtube: ID ролика (youtu.be/OSiC3Ik7mRE, с 13.10; до этого hmJsP-9rCdk); file: ссылка на .mp4
+    src: 'tVpbCS5VE6g',         // youtube: ID ролика (youtu.be/tVpbCS5VE6g, с 14.10; до этого OSiC3Ik7mRE, hmJsP-9rCdk); file: ссылка на .mp4
     poster: 'assets/img/fbt-video-cover.png', // настоящая обложка видео
-    length: 516,                // запасная длительность 8:36; настоящую плеер берёт у YouTube сам
-    unlockAt: 516,              // карта открывается в конце ролика (8:36)
+    length: 538,                // запасная длительность 8:58; настоящую плеер берёт у YouTube сам
+    unlockAt: 538,              // карта открывается в конце ролика (8:58)
     stages: [180, 300]          // полоска в плеере: 3:00 → 5:00 → полная; «осталось» всегда от полной длины
   },
 
