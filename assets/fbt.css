@@ -622,3 +622,15 @@ body.ic .cue-down--blue { color: #A2C3CD; }
 .btn-fam, body.ic .fam4 .btn-fam { background: #A2C3CD !important; color: #181818 !important; border: 0 !important; font-weight: 700; box-shadow: 0 10px 26px rgba(162,195,205,.25); }
 .btn-fam:hover { background: #B8D3DB; }
 .btn-fam svg { color: #181818; }
+
+/* 14.10 (v5.30) · Закреплён только маршрут: шапка (логотип, «О программе», тема) уходит вверх при прокрутке
+   и видна снова только вверху страницы. Высоту шапки считает assets/hdr-scroll.js. */
+.topbar.topbar--route { top: calc(env(safe-area-inset-top, 0px) - var(--hdr-h, 0px)); }
+.topbar.topbar--free { position: relative; }
+.topbar--route ~ main [id], .topbar--route ~ * [id] { scroll-margin-top: 110px; }
+/* маршрут на узком телефоне: плашка с таймером не вылезает за край */
+@media (max-width: 420px) {
+  .rc-top { gap: 8px; }
+  .rc-t { letter-spacing: .06em; font-size: 11px; }
+  .rc-badge { padding: 0 8px; font-size: 11px; gap: 4px; flex-shrink: 1; min-width: 0; }
+}
