@@ -1,0 +1,135 @@
+/* Стр. 4 · короткая страница программы (14.10, сайт v5.26).
+   9 блоков вместо 12: первый экран без карточки потока, ситуации одной строкой, «Как проходит» + «Семья» вместе,
+   наставники лентой, сомнения + FAQ одним списком, цена + заявка одним блоком. Подключается после contrast.css. */
+
+/* ── 1 · Первый экран ── */
+.p4m .hm .hero4-txt { max-width: 860px; }
+.p4m .hm .hero4-h1 { margin-top: 22px; }
+.p4m .hm .lead { margin-top: 18px; }
+.hm-facts { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.hm-facts li { display: flex; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 16px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10); }
+.hm-facts li > span:last-child { display: flex; flex-direction: column; gap: 2px; font-size: 14px; line-height: 1.35; color: #C7C7CC; }
+.hm-facts b { font-size: 17px; color: #fff; }
+.hm-ico { width: 42px; height: 42px; flex-shrink: 0; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; }
+.hm-ico svg { width: 22px; height: 22px; }
+.hm-ico--1 { background: #C60000; color: #fff; }
+.hm-ico--2 { background: #A2C3CD; color: #181818; }
+.hm-ico--3 { background: #5A6E7A; color: #fff; }
+.hm-price { margin-top: 22px; align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px; background: rgba(198,0,0,.16); border: 1px solid rgba(255,90,90,.45); font-size: 16px; color: #F5F5F7; }
+.hm-price b { color: #fff; }
+.hm-price em { font-style: normal; color: #C7C7CC; }
+.hm-dot { width: 8px; height: 8px; flex-shrink: 0; border-radius: 999px; background: #FF5A5A; animation: blink 1.6s ease-in-out infinite; }
+.hm-trust { position: relative; z-index: 1; margin-top: 44px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.12); display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: 15px; color: #C7C7CC; }
+.hm-trust b { color: #fff; }
+.hm-geo { letter-spacing: .08em; }
+.hm-geo i { font-style: normal; letter-spacing: 0; margin-left: 6px; color: #A2C3CD; font-weight: 600; }
+
+/* ── 2 · Что на выходе ── */
+.hm-out { margin-top: 8px; display: grid; grid-template-columns: 380px minmax(0, 1fr); gap: 32px; align-items: start; }
+.hm-sits { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.hm-sits li { display: flex; gap: 14px; align-items: center; padding: 12px 16px 12px 12px; border-radius: 18px; background: var(--card); border: 1px solid var(--line-2); box-shadow: inset 4px 0 0 var(--sc, #C60000); }
+.hm-sits img { width: 64px; height: 64px; flex-shrink: 0; border-radius: 14px; object-fit: cover; }
+.hm-sits li > div { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.hm-sits b { font-size: 17px; color: var(--text); }
+.hm-sits span { font-size: 15px; line-height: 1.4; color: var(--muted); }
+.hm-sits .s1 { --sc: #A2C3CD; } .hm-sits .s2 { --sc: #5A6E7A; } .hm-sits .s3w { --sc: #C60000; } .hm-sits .s4 { --sc: #F2C46D; }
+
+/* ── 3 · Программа ── */
+.p4m #program .ptrack { margin-top: 28px; }
+.p4m #program .mods { margin-top: 24px; }
+
+/* ── 4 · Как проходит + семья ── */
+.hm-feats { margin-top: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.hf { padding: 20px; border-radius: 20px; background: var(--card); border: 1px solid var(--line-2); border-top: 3px solid var(--hc, #A2C3CD); display: flex; flex-direction: column; gap: 6px; }
+.hf .ico { width: 48px; height: 48px; border-radius: 12px; margin-bottom: 6px; }
+.hf b { font-size: 17px; line-height: 1.3; color: var(--text); }
+.hf span:not(.ico) { font-size: 15px; line-height: 1.45; color: var(--muted); }
+.hf1 { --hc: #A2C3CD; } .hf2 { --hc: #5A6E7A; } .hf4 { --hc: #F2C46D; } .hf5 { --hc: #A2C3CD; } .hf6 { --hc: #5A6E7A; }
+body.ic .hf-key { background: #C60000; border-color: #C60000; }
+body.ic .hf-key b { color: #fff; }
+body.ic .hf-key span:not(.ico) { color: #FFE3E3; }
+.hm-fam { margin-top: 40px; }
+.hm-fam .ringed { width: 100%; margin-top: 10px; }
+
+/* ── 5 · Наставники ── */
+.hm-luba { margin-top: 32px; display: grid; grid-template-columns: 340px minmax(0, 1fr); border-radius: 24px; overflow: hidden; background: var(--card); border: 1px solid var(--line-2); }
+.hm-luba-ph { min-height: 260px; }
+.hm-luba-ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+.hm-luba-b { padding: 30px 32px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.hm-luba-b > b { font-size: 32px; line-height: 1.1; color: var(--text); }
+.hm-luba-sub { font-size: 16px; color: var(--muted); }
+.hm-luba-f { margin-top: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.hm-luba-f div { padding: 12px 14px; border-radius: 14px; background: var(--bg-2); border: 1px solid var(--line-2); display: flex; flex-direction: column; gap: 2px; }
+.hm-luba-f b { font-size: 22px; color: var(--accent-text); }
+.hm-luba-f span { font-size: 14px; color: var(--muted); }
+.hm-strip { margin-top: 20px; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 14px; }
+.hm-strip .mc { gap: 10px; }
+.hm-strip .mc-ph { border-radius: 18px; }
+.hm-strip .mc figcaption b { font-size: 15px; }
+.hm-strip .mc figcaption span { font-size: 13.5px; }
+
+/* ── 7 · Сомнения + FAQ ── */
+.hm-faq { display: flex; gap: 48px; align-items: flex-start; }
+.hm-faq-h { width: 360px; flex-shrink: 0; }
+
+/* ── 8 · Цена + заявка ── */
+.hm-buy { display: flex; gap: 56px; align-items: flex-start; }
+.hm-buy-l { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+.hm-buy-l .h2 { margin-top: 20px; }
+.hm-buy .seats-top { margin-top: 22px; gap: 12px; }
+.hm-buy .seats-top > span:first-child { color: var(--muted); font-weight: 500; }
+.hm-cdh { margin-top: 22px; font-size: 14px; font-weight: 600; color: var(--muted); }
+.hm-buy .cd > div { background: var(--card); border: 1px solid var(--line-2); }
+.hm-buy .steps3 { margin-top: 16px; }
+.hm-buy .calc { margin-top: 18px; }
+.hm-form-h { display: block; margin-bottom: 6px; font-size: 24px; line-height: 1.2; }
+.hm-after { list-style: none; margin: 22px 0 0; padding: 16px 0 0; border-top: 1px solid var(--line-2); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; font-size: 14px; line-height: 1.35; color: var(--muted); }
+.hm-after li { display: flex; gap: 8px; align-items: flex-start; }
+.hm-after span { width: 24px; height: 24px; flex-shrink: 0; border-radius: 999px; background: #A2C3CD; color: #181818; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+.p4m #apply { scroll-margin-top: 120px; }
+
+/* ── 9 · Ещё не готовы ── */
+.p4m #notyet .notyet { margin-top: 0; }
+
+/* ── Планшет ── */
+@media (max-width: 1100px) {
+  .hm-out { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .hm-out .res3 { flex-direction: row; }
+  .hm-out .res3 > * { flex: 1 1 0; min-width: 0; }
+  .hm-feats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hm-strip { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
+  .hm-strip .mc { flex: 0 0 160px; scroll-snap-align: start; }
+  .hm-buy { flex-direction: column; gap: 32px; }
+  .hm-buy .apply-card { width: 100%; }
+  .hm-faq { flex-direction: column; gap: 24px; }
+  .hm-faq-h { width: auto; }
+}
+/* ── Телефон ── */
+@media (max-width: 640px) {
+  .hm-facts { grid-template-columns: minmax(0, 1fr); gap: 8px; margin-top: 22px; }
+  .hm-facts li { padding: 10px 12px; }
+  .hm-price { font-size: 15px; border-radius: 16px; }
+  .hm-trust { margin-top: 32px; gap: 8px 18px; font-size: 14px; }
+  .hm-out .res3 { gap: 10px; }
+  .hm-out .res3-ph { height: 104px; }
+  .hm-out .res3-b { padding: 12px 14px; }
+  .hm-out .res3-i b { font-size: 16px; }
+  .hm-sits { grid-template-columns: minmax(0, 1fr); margin-top: 16px; gap: 10px; }
+  .hm-sits img { width: 56px; height: 56px; }
+  .hm-feats { gap: 10px; margin-top: 24px; }
+  .hf { padding: 14px; }
+  .hf .ico { width: 40px; height: 40px; }
+  .hf b { font-size: 15px; }
+  .hf span:not(.ico) { font-size: 13.5px; }
+  .hm-fam { margin-top: 28px; }
+  .hm-luba { grid-template-columns: minmax(0, 1fr); }
+  .hm-luba-ph { min-height: 0; aspect-ratio: 16 / 10; }
+  .hm-luba-b { padding: 22px 20px; }
+  .hm-luba-b > b { font-size: 28px; }
+  .hm-luba-f b { font-size: 17px; }
+  .hm-luba-f div { padding: 10px; }
+  .hm-strip .mc { flex-basis: 132px; }
+  .hm-faq-h { padding: 22px 20px; }
+  .hm-after { grid-template-columns: minmax(0, 1fr); }
+  .hm-buy .apply-card { padding: 24px 20px; }
+}
