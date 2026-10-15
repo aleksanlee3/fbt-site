@@ -115,3 +115,27 @@ body.ic:not(.ic-dark) :is(.sa-big-b > span, .sa-pain div > span) { color: #55555
 .sa-ans { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
 .sa-ans li { display: flex; gap: 10px; align-items: flex-start; font-size: 17px; line-height: 1.35; font-weight: 600; }
 .sa-ans svg { flex: 0 0 22px; width: 22px; height: 22px; padding: 4px; border-radius: 50%; background: #C60000; color: #fff; margin-top: 1px; }
+
+/* 15.10 v5.33 · «Узнаёте себя?» — 8 карточек с фото, лента листается вбок */
+.sa-swipe { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  padding: 4px 2px 14px; margin-left: -2px; margin-right: -2px; scrollbar-width: none; }
+.sa-swipe::-webkit-scrollbar { display: none; }
+.sa-swipe .sa-big { flex: 0 0 340px; scroll-snap-align: start; }
+.sa-swipe .sa-big-ph { height: 190px; }
+.sa-swipe .sa-big b { font-size: 24px; }
+@media (max-width: 640px) {
+  .sa-swipe { gap: 12px; margin-right: -16px; padding-right: 16px; }
+  .sa-swipe .sa-big { flex-basis: 84%; }
+  .sa-swipe .sa-big-ph { height: 170px; }
+  .sa-swipe .sa-big b { font-size: 23px; }
+}
+
+/* 15.10 v5.33 · шаг 1: выделенный подарок — инструкция из 7 шагов */
+.sa-gift { margin-top: 16px; padding: 16px 18px; border-radius: 18px; background: rgba(198,0,0,.07); border: 2px solid #C60000; }
+.sa-gift-top { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.sa-gift-i { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 12px; background: #C60000; display: grid; place-items: center; }
+.sa-gift-i svg { width: 22px; height: 22px; stroke: #fff; color: #fff; }
+.sa-gift small { font-size: 14px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #C60000; }
+.sa-gift p { margin: 0; font-size: 18px; line-height: 1.4; color: #1D1D1F; }
+.sa-gift b { color: #C60000; }
+.sa-swipe + .swipe-hint { display: block; margin-top: 6px; text-align: center; font-size: 14px; color: var(--dim); }
