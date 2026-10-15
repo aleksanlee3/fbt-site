@@ -25,8 +25,8 @@
 <script>try{localStorage.setItem("fbt_seg","a-posle-zapuska")}catch(e){}</script><!-- 15.10: метка сегмента А -->
 <script src="config.js?v=5.29"></script>
 <script src="assets/fbt.js?v=5.25"></script>
-<script src="assets/medals.js?v=5.31b"></script>
-<script src="assets/push.js?v=5.31"></script>
+<script src="assets/medals.js?v=5.36"></script>
+<script src="assets/push.js?v=5.36"></script>
 </head>
 <body class="ic ic-dark seg-a"><!-- 06.10 v5.0: цвета Impact Consulting; тёмная (по умолчанию) — графит сверху, светлая — графит только первый экран -->
 <script src="assets/theme.js"></script>
@@ -63,7 +63,7 @@
       <i class="route-line route-full"></i>
       <div class="step is-muted route-full" data-show="locked"><span class="dot">2</span>Пройти диагностику<span class="tag--timer"><svg width="15" height="15" class="acc"><use href="#i-clock"/></svg>после видеоразбора · <b data-text-of="timeLeft">03:00</b></span></div>
       <div class="step is-muted route-full" data-show="unlocked" hidden><span class="dot">2</span>Пройти диагностику<span class="tag--timer"><svg width="15" height="15" class="acc"><use href="#i-lock"/></svg>после карты</span></div>
-      <a class="step is-next route-full" href="diagnostika.html" data-show="got" hidden><span class="dot">2</span><span class="u">Пройти диагностику</span><span class="tag">Следующий шаг</span></a>
+      <a class="step is-next route-full" href="diagnostika-posle-zapuska.html" data-show="got" hidden><span class="dot">2</span><span class="u">Пройти диагностику</span><span class="tag">Следующий шаг</span></a>
       <i class="route-line route-full"></i>
       <div class="step is-muted route-full"><span class="dot">3</span>Разбор от куратора</div>
 
@@ -73,7 +73,7 @@
           <span class="rc-t">ВЫ НА ЭТАПЕ 1 ИЗ 3</span>
           <span class="rc-badge" data-show="locked">карта в конце видеоразбора · <b data-text-of="timeLeft">03:00</b></span>
           <span class="rc-badge rc-badge--acc" data-show="unlocked" hidden>заберите карту ↓</span>
-          <a class="rc-badge rc-badge--acc" data-show="got" href="diagnostika.html" hidden>К диагностике →</a>
+          <a class="rc-badge rc-badge--acc" data-show="got" href="diagnostika-posle-zapuska.html" hidden>К диагностике →</a>
         </div>
         <div class="rc-line"><i class="now">1</i><b></b><i data-step2>2</i><b></b><i>3</i></div>
         <div class="rc-lab"><span class="now">Видеоразбор</span><span>Диагностика</span><span>Разбор</span></div>
@@ -179,7 +179,7 @@
           <div class="unlock-act">
             <div class="push">
               <div class="cue-down" aria-hidden="true"><span>Жмите сюда · 5 минут</span><svg viewBox="0 0 40 44"><use href="#i-arrow-down"/></svg></div>
-              <span class="ringed"><a class="btn btn--primary btn--lg" href="diagnostika.html">Пройти диагностику<svg><use href="#i-right"/></svg></a></span>
+              <span class="ringed"><a class="btn btn--primary btn--lg" href="diagnostika-posle-zapuska.html">Пройти диагностику<svg><use href="#i-right"/></svg></a></span>
             </div>
             <p class="dh-again">Бот не прислал карту? <a class="link-btn" data-bot="map" data-getmap>Открыть бот ещё раз</a></p>
           </div>
@@ -294,7 +294,7 @@
 </svg></div>
           <div class="grow"></div>
           <div class="btn btn--sm btn--block btn--locked" data-show="notGot"><svg><use href="#i-lock"/></svg>Откроется после карты</div>
-          <a class="btn btn--sm btn--block btn--primary" data-show="got" href="diagnostika.html" hidden>Пройти диагностику<svg><use href="#i-right"/></svg></a>
+          <a class="btn btn--sm btn--block btn--primary" data-show="got" href="diagnostika-posle-zapuska.html" hidden>Пройти диагностику<svg><use href="#i-right"/></svg></a>
         </div>
         <div class="card stepcard" data-step="Разбор">
           <div class="row gap-14"><span class="stepnum">3</span><span class="note tg-note" style="color:var(--muted)">Бесплатно · в <svg class="tg-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#29A9EB"/><path d="M5.4 11.7l11.6-4.5c.54-.2 1 .13.83.94l-2 9.3c-.15.66-.54.82-1.1.51l-3-2.2-1.45 1.4c-.16.16-.3.3-.6.3l.21-3.05 5.55-5.01c.24-.21-.05-.33-.37-.12l-6.86 4.32-2.96-.92c-.64-.2-.65-.64.14-.95z" fill="#fff"/></svg>Telegram</span></div>
@@ -397,7 +397,7 @@
           <div class="unlock-act">
             <div class="push">
               <div class="cue-down" aria-hidden="true"><span>Жмите сюда · 5 минут</span><svg viewBox="0 0 40 44"><use href="#i-arrow-down"/></svg></div>
-              <span class="ringed"><a class="btn btn--primary btn--lg" href="diagnostika.html">Пройти диагностику<svg><use href="#i-right"/></svg></a></span>
+              <span class="ringed"><a class="btn btn--primary btn--lg" href="diagnostika-posle-zapuska.html">Пройти диагностику<svg><use href="#i-right"/></svg></a></span>
             </div>
             <p class="dh-again">Бот не прислал карту? <a class="link-btn" data-bot="map" data-getmap>Открыть бот ещё раз</a></p>
           </div>

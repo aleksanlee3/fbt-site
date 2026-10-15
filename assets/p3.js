@@ -71,6 +71,9 @@
   function labelOf(list, key) { var f = list.filter(function (o) { return o[0] === key; })[0]; return f ? f[1] : ''; }
   var SQ_TITLES = ['Что лучше всего описывает вашу ситуацию сейчас?', 'Кто участвует в вашем бизнесе или будет участвовать?',
     'Что сейчас больше всего мешает вашему бизнесу двигаться дальше?'];
+  // 15.10: копия диагностики для сегмента (diagnostika-posle-zapuska.html) задаёт свои заголовки; без SEG всё как раньше
+  var SEG = window.FBT_SEG || null;
+  if (SEG && SEG.sqTitles) SQ_TITLES = SEG.sqTitles;
   // Слова для задания 4. Ключ «буква:слово» нужен боту для PDF; человеку буквы и названия стилей не показываем.
   var WORDS = ['I:общительный', 'C:аналитичный', 'D:решительный', 'S:терпеливый', 'C:точный', 'S:надёжный',
     'D:прямой', 'I:вдохновляющий', 'S:командный игрок', 'D:соревновательный', 'C:любит правила', 'I:оптимистичный',
@@ -191,7 +194,7 @@
     var stageText = (labelOf(STAGES, st.stage) || '—').toLowerCase();
     var famText = labelOf(familyOpts(), st.family), painText = labelOf(PAINS, st.pain);
     var syms = SYMS.filter(function (s) { return st.sym[s[0]]; }).map(function (s) { return s[1].toLowerCase(); }).join(', ') || 'не отмечены';
-    return 'РАЗБОР\nЭтап: ' + stageText +
+    return 'РАЗБОР' + (SEG ? '\nСтраница: «' + SEG.name + '»' : '') + '\nЭтап: ' + stageText +
       (famText ? '\nСемья в бизнесе: ' + famText.toLowerCase() : '') +
       (painText ? '\nЧто мешает (по словам человека): ' + painText.toLowerCase() : '') +
       '\nУровень: ' + levelOf() + ' из 5 · ' + LEVELS[levelOf()] +
