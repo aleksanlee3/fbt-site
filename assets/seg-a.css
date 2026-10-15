@@ -1,0 +1,48 @@
+/* FBT Online · Сегмент А «После запуска» (posle-zapuska.html) · 15.10.2026
+   Блок «Не спешите снова тратить деньги»: что обычно делают ✕ → с чего начать ✓.
+   Работает в светлой и тёмной теме (секция светлая, не ic-top). */
+
+.sa-hl { color: var(--accent); }
+
+.sa-stop .h2 { max-width: 900px; }
+.sa-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+.sa-col { border-radius: 24px; padding: 32px 28px; position: relative; }
+.sa-col--no { background: var(--card-3, #F5F5F7); border: 1px solid var(--line-3, rgba(0,0,0,.14)); }
+.sa-col--yes { background: #181818; color: #F5F5F7; box-shadow: inset 0 6px 0 #C60000; }
+.sa-cap { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.sa-col--no .sa-cap { color: var(--muted-2, #55555A); }
+.sa-col--yes .sa-cap { color: #FF8585; }
+.sa-mark { width: 30px; height: 30px; border-radius: 50%; display: inline-grid; place-items: center; flex-shrink: 0; }
+.sa-mark svg { width: 16px; height: 16px; }
+.sa-col--no .sa-mark { background: rgba(110,110,115,.18); color: var(--muted-2, #55555A); }
+.sa-col--yes .sa-mark { background: #C60000; color: #fff; }
+
+.sa-list { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 14px; }
+.sa-list li { display: flex; align-items: center; gap: 16px; font-size: 20px; line-height: 1.3; font-weight: 600; }
+.sa-list li .vi-box.vi-box { width: 60px; height: 60px; }
+.sa-list li small { display: block; font-size: 16px; font-weight: 400; margin-top: 3px; }
+.sa-col--no .sa-list li { color: var(--text, #1D1D1F); }
+.sa-col--no .sa-list li b { text-decoration: line-through; text-decoration-color: rgba(198,0,0,.55); text-decoration-thickness: 2px; }
+.sa-col--no .sa-list li small { color: var(--muted, #6E6E73); }
+.sa-col--no .vi-box { opacity: .75; filter: grayscale(.6); }
+.sa-col--yes .sa-list li { color: #FFFFFF; }
+.sa-col--yes .sa-list li small { color: #C7C7CC; }
+.sa-col--yes .vi-box.vi-box { background: #F5F5F7 !important; }
+
+.sa-arrow { display: none; }
+.sa-foot { margin-top: 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; }
+.sa-foot p { font-size: 20px; font-weight: 600; margin: 0; max-width: 560px; }
+
+@media (max-width: 860px) {
+  .sa-cols { grid-template-columns: 1fr; gap: 0; margin-top: 32px; }
+  .sa-col { padding: 26px 20px; }
+  .sa-arrow { display: grid; place-items: center; height: 44px; color: var(--accent); }
+  .sa-arrow svg { width: 28px; height: 28px; }
+  .sa-list li { font-size: 18px; }
+  .sa-list li .vi-box.vi-box { width: 52px; height: 52px; }
+  .sa-foot p { font-size: 18px; }
+}
+
+/* Тёмная тема сайта: светлая секция становится тёмной — карточка «обычно» темнеет, «с чего начать» выделяется рамкой */
+body.theme-dark .sa-col--no, body.ic-dark .sa-col--no { color: inherit; }
+body.theme-dark .sa-col--yes { border: 1px solid rgba(255,255,255,.12); }

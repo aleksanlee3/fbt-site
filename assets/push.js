@@ -36,6 +36,7 @@
   var kind = isAndroid ? 'and' : 'ios';
 
   var page = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
+  if (page === 'posle-zapuska') page = 'index';   // 15.10: страница сегмента А ведёт себя как главная
 
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function ses(k, v) { try { if (v === undefined) return JSON.parse(sessionStorage.getItem(k) || 'null'); sessionStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } }
