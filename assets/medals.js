@@ -53,7 +53,7 @@
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 
   // На стр. 1 альбом не отвлекает от урока: кнопка появляется после минуты просмотра или первой наклейки (30.09)
-  var onLesson = /(^|\/)(index\.html|posle-zapuska\.html)?$/.test(location.pathname);   // 15.10: + страница сегмента А
+  var onLesson = /(^|\/)(index\.html|posle-zapuska(\.html)?)?$/.test(location.pathname);   // 15.10: + страница сегмента А
   FBT.albumShow = function () { if (fab) fab.classList.remove('is-wait'); };
   function buildFab() {
     fab = el('button', 'alb-fab');
