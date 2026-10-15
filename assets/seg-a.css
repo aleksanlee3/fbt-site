@@ -46,3 +46,72 @@
 /* Тёмная тема сайта: светлая секция становится тёмной — карточка «обычно» темнеет, «с чего начать» выделяется рамкой */
 body.theme-dark .sa-col--no, body.ic-dark .sa-col--no { color: inherit; }
 body.theme-dark .sa-col--yes { border: 1px solid rgba(255,255,255,.12); }
+
+/* ---------- 15.10 v5.32 · Карта действий предпринимателя (после видео и внизу) ---------- */
+.sa-map { display: flex; gap: 22px; align-items: center; }
+.sa-map-ph { position: relative; flex: 0 0 132px; height: 160px; border-radius: 16px; overflow: hidden; transform: rotate(-3deg);
+  box-shadow: 0 10px 26px rgba(0,0,0,.28); border: 3px solid #fff; }
+.sa-map-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sa-map-ph i { position: absolute; right: 8px; bottom: 8px; background: #C60000; color: #fff; font-style: normal; font-weight: 700; font-size: 13px; padding: 4px 9px; border-radius: 8px; letter-spacing: .04em; }
+.sa-map-t { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.sa-map-tag { align-self: flex-start; background: rgba(198,0,0,.12); color: #C60000; font-size: 13px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; }
+.sa-map-h { font-size: clamp(24px, 3vw, 34px); line-height: 1.08; font-weight: 700; text-transform: uppercase; letter-spacing: -.01em; }
+.unlock-txt .sa-map-p { font-size: 19px; line-height: 1.4; font-weight: 500; margin: 0; }
+.sa-map-steps { display: flex; align-items: center; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
+.sa-map-steps i { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 14px; font-weight: 700;
+  background: #C60000; color: #fff; }
+.sa-map-steps i:nth-child(even) { background: #5A6E7A; }
+.sa-map-steps span { margin-left: 6px; font-size: 15px; font-weight: 700; color: #C60000; }
+.unlock-txt .sa-map-left { margin: 6px 0 0; font-size: 16px; }
+/* тёмный первый экран */
+:is(body.ic .sec--hero, body.ic.ic-dark .ic-top) .sa-map-tag { background: rgba(255,133,133,.14); color: #FF8585; }
+:is(body.ic .sec--hero, body.ic.ic-dark .ic-top) .sa-map-h { color: #fff; }
+:is(body.ic .sec--hero, body.ic.ic-dark .ic-top) .sa-map-steps span { color: #FF8585; }
+:is(body.ic .sec--hero, body.ic.ic-dark .ic-top) .sa-map-steps i:nth-child(even) { background: #A2C3CD; color: #181818; }
+.unlock:has(.sa-map) { border: 2px solid rgba(198,0,0,.55) !important; }
+@media (max-width: 760px) {
+  .sa-map { display: grid; grid-template-columns: 76px 1fr; grid-template-areas: "ph tag" "ph h" "p p" "s s"; gap: 6px 14px; align-items: center; }
+  .sa-map-t { display: contents; }
+  .sa-map-ph { grid-area: ph; width: 76px; height: 94px; border-width: 2px; align-self: start; }
+  .sa-map-ph i { font-size: 11px; padding: 3px 6px; right: 5px; bottom: 5px; }
+  .sa-map-tag { grid-area: tag; justify-self: start; font-size: 11px; padding: 4px 9px; white-space: nowrap; align-self: end; }
+  .sa-map-h { grid-area: h; font-size: 21px; align-self: start; }
+  .unlock-txt .sa-map-p { grid-area: p; font-size: 18px; margin-top: 8px; }
+  .sa-map-steps { grid-area: s; }
+  .sa-map-steps i { width: 26px; height: 26px; font-size: 13px; }
+}
+
+/* ---------- 15.10 v5.32 · «Узнаёте себя?»: 2 главные боли крупно + 6 сеткой ---------- */
+.sa-top { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.sa-big { border-radius: 22px; overflow: hidden; background: #232325; border: 1px solid rgba(255,255,255,.06); display: flex; flex-direction: column; }
+.sa-big-ph { display: block; height: 170px; overflow: hidden; }
+.sa-big-ph img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.85); }
+.sa-big-b { padding: 0 26px 26px; display: flex; flex-direction: column; gap: 10px; }
+.sa-big .quote-ico { margin-top: -22px; width: 44px; height: 36px; padding: 8px 9px; border-radius: 12px; background: #C60000; fill: #fff; position: relative; }
+.sa-big b { font-size: 26px; line-height: 1.2; color: #fff; }
+.sa-big-b > span { font-size: 18px; line-height: 1.45; color: #C7C7CC; }
+.sa-pains { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+.sa-pain { display: flex; gap: 14px; align-items: center; padding: 18px; border-radius: 18px; background: #232325; border: 1px solid rgba(255,255,255,.06); }
+.sa-pain .vi-box.vi-box { width: 56px; height: 56px; background: #F5F5F7 !important; }
+.sa-pain b { display: block; font-size: 18px; line-height: 1.25; color: #fff; }
+.sa-pain div > span { display: block; margin-top: 4px; font-size: 15px; line-height: 1.4; color: #B4B4BA; }
+.sa-pain:nth-child(-n+3) { box-shadow: inset 4px 0 0 #C60000; }
+@media (max-width: 960px) { .sa-pains { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) {
+  .sa-top { grid-template-columns: 1fr; gap: 14px; }
+  .sa-big-ph { height: 130px; }
+  .sa-big b { font-size: 23px; }
+  .sa-big-b > span { font-size: 17px; }
+  .sa-pains { grid-template-columns: 1fr; gap: 10px; }
+  .sa-pain { padding: 14px 16px; }
+  .sa-pain b { font-size: 18px; }
+}
+/* светлая тема: блок «Узнаёте себя?» светлый */
+body.ic:not(.ic-dark) :is(.sa-big, .sa-pain) { background: #fff; border-color: rgba(29,29,31,.10); }
+body.ic:not(.ic-dark) :is(.sa-big b, .sa-pain b) { color: #1D1D1F; }
+body.ic:not(.ic-dark) :is(.sa-big-b > span, .sa-pain div > span) { color: #55555A; }
+
+/* ---------- 15.10 v5.32 · три шага: что даст диагностика и разбор ---------- */
+.sa-ans { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+.sa-ans li { display: flex; gap: 10px; align-items: flex-start; font-size: 17px; line-height: 1.35; font-weight: 600; }
+.sa-ans svg { flex: 0 0 22px; width: 22px; height: 22px; padding: 4px; border-radius: 50%; background: #C60000; color: #fff; margin-top: 1px; }
