@@ -139,3 +139,21 @@ body.ic:not(.ic-dark) :is(.sa-big-b > span, .sa-pain div > span) { color: #55555
 .sa-gift p { margin: 0; font-size: 18px; line-height: 1.4; color: #1D1D1F; }
 .sa-gift b { color: #C60000; }
 .sa-swipe + .swipe-hint { display: block; margin-top: 6px; text-align: center; font-size: 14px; color: var(--dim); }
+
+/* 15.10 v5.34 · заголовок: на телефоне ровно 3 строки, третья — серая */
+.hero-h1 .h1l { display: block; }
+@media (max-width: 640px) {
+  .seg-a .sec--hero .hero-h1 { font-size: min(31px, 5.45vw); letter-spacing: -0.015em; line-height: 1.15; }
+  .seg-a .sec--hero .hero-h1 .h1l { white-space: nowrap; }
+}
+@media (min-width: 641px) { .hero-h1 .h1l:nth-child(1) { display: inline; } .hero-h1 .h1l:nth-child(1)::after { content: " "; } .hero-h1 .h1l:nth-child(2) { display: inline; } }
+
+/* 15.10 v5.34 · шаг 2: пример профиля бизнеса (диаграмма) */
+.sa-radar { margin-top: 14px; padding: 12px 10px 6px; border-radius: 18px; background: #fff; border: 1px solid rgba(29,29,31,.10); text-align: center; }
+.sa-radar svg { display: block; width: 100%; height: auto; }
+.sa-radar-cap { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #5A6E7A; }
+
+/* 15.10 v5.34 · иконка Telegram */
+.tg-ico { width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin-right: .3em; flex: 0 0 auto; }
+.tg-note { display: inline-flex; align-items: center; gap: 0; }
+.tg-inline { white-space: nowrap; color: #1D1D1F; font-weight: 600; }
