@@ -49,6 +49,7 @@
   var STAGES = [['one', 'У меня есть действующий бизнес'], ['launch', 'Я запускаю бизнес сейчас'], ['none', 'Бизнеса пока нет, но планирую начать']];
   var STAGE_CODE = { one: 'o', launch: 'l', none: 'n', many: 'o' };
   function familyOpts() {
+    if (SEG && SEG.family) return SEG.family;               // 16.10: свой вопрос 2 у страницы сегмента
     return st.stage === 'none' ? [
       ['spouse', 'Планирую вести бизнес вместе с супругом / супругой'],
       ['relatives', 'Будут участвовать родители, дети, братья, сёстры или другие родственники'],
@@ -67,7 +68,7 @@
     ['scale', 'Не понимаю, как масштабировать бизнес', 'one'],
     ['succession', 'Думаю о передаче бизнеса детям / следующему поколению', 'one'],
     ['start', 'Только начинаю и хочу сразу построить всё правильно', 'launch none']];
-  function painOpts() { return PAINS.filter(function (p) { return p[2].split(' ').indexOf(st.stage || 'one') >= 0; }); }
+  function painOpts() { if (SEG && SEG.pains) return SEG.pains; return PAINS.filter(function (p) { return p[2].split(' ').indexOf(st.stage || 'one') >= 0; }); }
   function labelOf(list, key) { var f = list.filter(function (o) { return o[0] === key; })[0]; return f ? f[1] : ''; }
   var SQ_TITLES = ['Что лучше всего описывает вашу ситуацию сейчас?', 'Кто участвует в вашем бизнесе или будет участвовать?',
     'Что сейчас больше всего мешает вашему бизнесу двигаться дальше?'];
@@ -134,6 +135,16 @@
     var pts = st.answers.reduce(function (a, x) { return a + (x ? (x - 1) / 2 : 0); }, 0);   // нет 0 · частично 1 · да 2
     return pts <= 4 ? 1 : pts <= 8 ? 2 : pts <= 12 ? 3 : pts <= 16 ? 4 : 5;
   }
+  // 16.10 (Александр): уровень дробный — средний балл 10 ответов по шкале 1–5 (нет 1 · частично 3 · да 5), один знак.
+  // Название уровня — по целой части: 4,2 → «Крепкий бизнес».
+  function levelScore() {
+    var a = st.answers.filter(function (x) { return x != null; });
+    if (!a.length) return 1;
+    var v = a.reduce(function (s, x) { return s + x; }, 0) / a.length;
+    return Math.round(v * 10) / 10;
+  }
+  function levelText(v) { return String(v.toFixed(1)).replace('.', ','); }
+  function levelName(v) { return LEVELS[Math.max(1, Math.min(5, Math.floor(v)))]; }
   function archKey(sc) {
     var m = sc[0], k = sc[1], f = sc[2], t = sc[3], p = sc[4];
     var hi = sc.filter(function (x) { return x === 5; }).length, lo = sc.filter(function (x) { return x === 1; }).length;
@@ -192,12 +203,12 @@
   function summary() {
     var r = calc();
     var stageText = (labelOf(STAGES, st.stage) || '—').toLowerCase();
-    var famText = labelOf(familyOpts(), st.family), painText = labelOf(PAINS, st.pain);
+    var famText = labelOf(familyOpts(), st.family), painText = labelOf(painOpts(), st.pain);
     var syms = SYMS.filter(function (s) { return st.sym[s[0]]; }).map(function (s) { return s[1].toLowerCase(); }).join(', ') || 'не отмечены';
     return 'РАЗБОР' + (SEG ? '\nСтраница: «' + SEG.name + '»' : '') + '\nЭтап: ' + stageText +
-      (famText ? '\nСемья в бизнесе: ' + famText.toLowerCase() : '') +
-      (painText ? '\nЧто мешает (по словам человека): ' + painText.toLowerCase() : '') +
-      '\nУровень: ' + levelOf() + ' из 5 · ' + LEVELS[levelOf()] +
+      (famText ? '\n' + (SEG && SEG.famLabel || 'Семья в бизнесе') + ': ' + famText.toLowerCase() : '') +
+      (painText ? '\n' + (SEG && SEG.painLabel || 'Что мешает (по словам человека)') + ': ' + painText.toLowerCase() : '') +
+      '\nУровень: ' + levelText(levelScore()) + ' из 5 · ' + levelName(levelScore()) +
       '\nТип профиля: ' + archetype()[0] +
       '\nПрофиль: ' + DIRS.map(function (d, i) { return d.name + ' ' + r.sc[i]; }).join(' · ') +
       '\nГлавная точка: ' + (r.perfect ? 'не выделяется' : DIRS[r.weak].name) +
@@ -312,7 +323,7 @@
     var opts = sq === 0 ? STAGES : sq === 1 ? familyOpts() : painOpts();
     var cur = sq === 0 ? st.stage : sq === 1 ? st.family : st.pain;
     $('[data-sq-n]').textContent = (sq + 1) + ' из 3';
-    $('[data-sq-h]').textContent = sq === 2 && st.stage === 'none' ? 'Что для вас сейчас важнее всего?' : SQ_TITLES[sq];
+    $('[data-sq-h]').textContent = sq === 2 && st.stage === 'none' && !(SEG && SEG.pains) ? 'Что для вас сейчас важнее всего?' : SQ_TITLES[sq];
     $('[data-sq-segs]').innerHTML = [0, 1, 2].map(function (i) {
       return '<span style="background:' + (i < sq ? '#C60000' : i === sq ? '#FF8585' : 'rgba(128,128,134,.35)') + '"></span>';
     }).join('');
@@ -403,9 +414,13 @@
     var chosen = SYMS.filter(function (s) { return st.sym[s[0]]; });
     $('[data-sym-chosen]').innerHTML = chosen.map(function (s) { return '<span class="chip"><i style="color:' + DIRS[s[2]].color + '"></i>' + s[1] + '</span>'; }).join('');
     $('[data-msg]').textContent = summary();
-    var lv = levelOf(), arch = archetype();
-    FBT.text('lvlN', String(lv)); FBT.text('lvlName', LEVELS[lv]); FBT.text('archName', arch[0]); FBT.text('archText', arch[1]);
-    $$('[data-lvl] i').forEach(function (x, i) { x.classList.toggle('on', i < lv); });
+    var lv = levelScore(), arch = archetype();
+    FBT.text('lvlN', levelText(lv)); FBT.text('lvlName', levelName(lv)); FBT.text('archName', arch[0]); FBT.text('archText', arch[1]);
+    $$('[data-lvl] i').forEach(function (x, i) {        // 16.10: последняя полоска заполнена на дробную часть
+      var f = Math.max(0, Math.min(1, lv - i));
+      x.classList.toggle('on', f >= 1);
+      x.style.background = f > 0 && f < 1 ? 'linear-gradient(90deg,#C60000 ' + Math.round(f * 100) + '%,rgba(128,128,134,.35) ' + Math.round(f * 100) + '%)' : '';
+    });
     FBT.toggle({ notPerfect: !r.perfect, perfect: r.perfect, hasOthers: !r.perfect && r.ties.length > 1, hasSym: chosen.length > 0 });
   }
 

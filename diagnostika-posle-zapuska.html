@@ -21,6 +21,10 @@
 <link rel="stylesheet" href="assets/ic-theme.css">
 <link rel="stylesheet" href="assets/ic-dark.css"><!-- 06.10 v5.0: графит до отзывов (тёмная тема) -->
 <link rel="stylesheet" href="assets/contrast.css"><!-- 07.10 v5.3: тёмный фон — светлый текст, светлый — тёмный -->
+<style>/* 16.10: в шапке одна ссылка «Связаться в Telegram», как на «После запуска» */
+.hdr-tg { display: inline-flex; } .hdr-tg-l { margin-right: -3px; }
+@media (max-width: 640px) { .hdr-nav > a.hdr-tg { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; white-space: nowrap; } .hdr-nav > a.hdr-tg svg { width: 16px; height: 16px; } .hdr-tg-l { display: none; } }
+.next-card .btn svg { width: 18px; height: 18px; }</style>
 <script>try{localStorage.setItem("fbt_seg","a-posle-zapuska")}catch(e){}</script><!-- 15.10: метка сегмента А -->
 <script src="config.js?v=5.29"></script>
 <script src="assets/fbt.js?v=5.38"></script>
@@ -50,8 +54,7 @@
     <div class="wrap">
       <a class="brand" href="posle-zapuska.html"><img class="brand-logo" src="assets/logo/impact-consulting.png" alt="" width="34" height="34"><b>IMPACT CONSULTING</b><i></i><span>FBT Online</span></a>
       <nav class="hdr-nav">
-        <a class="keep" href="programma.html">О программе</a>
-        <a class="hdr-quiet" data-tg="contact"><svg><use href="#i-send"/></svg>Задать вопрос</a>
+        <a class="hdr-quiet hdr-tg" data-tg="contact"><svg><use href="#i-send"/></svg><span class="hdr-tg-l">Связаться в</span>Telegram</a>
       </nav>
     </div>
   </header>
@@ -83,7 +86,7 @@
         <div class="intro-ph photo"><img src="assets/img/roadmap.jpg" alt="" loading="eager"><span class="ph-tag">заглушка</span></div>
         <div class="eyebrow"><span class="funnel-only">ШАГ 2 ИЗ 3 · </span>ОНЛАЙН-ДИАГНОСТИКА БИЗНЕСА</div>
         <h1 class="h1 mt-20"><span>Почему клиентов мало,</span><span class="grey">и что пошло не так?</span></h1>
-        <p class="lead">Вы уже вложились в бизнес, а результата нет? Ответьте на 10&nbsp;простых вопросов — и увидите, где бизнес теряет клиентов и деньги и с чего начать исправлять. Без&nbsp;новых трат. Куратор разберёт результат бесплатно.</p>
+        <p class="lead">Вы уже вложились в бизнес, а результата нет? Ответьте на 10&nbsp;простых вопросов — и увидите, где бизнес теряет клиентов и деньги и с чего начать исправлять, не вкладывая деньги из своего кармана. Куратор разберёт вашу ситуацию бесплатно в&nbsp;Telegram.</p>
         <div class="pills mt-24">
           <span><svg><use href="#i-list"/></svg>10 вопросов</span>
           <span><svg><use href="#i-clock"/></svg>5 минут</span>
@@ -205,7 +208,7 @@
           <div class="send-l">
             <div class="send-top"><span class="send-ico vi-box"><img class="vi" src="assets/icons/podderzhka.webp" alt="" loading="lazy" width="96" height="96"></span><span class="free">Последний шаг · бесплатно</span></div>
             <h2 class="send-h">Узнайте, что исправить в первую очередь</h2>
-            <p class="send-p">Профиль показывает, где проблема. Отправьте его куратору — он послушает ваши ответы и голосом объяснит, что делать дальше. Без&nbsp;лишних трат.</p>
+            <p class="send-p">Профиль показывает, где проблема. Отправьте его куратору — он послушает ваши ответы и голосом объяснит, что делать дальше, — до того, как вы снова станете вкладывать в бизнес из своего кармана.</p>
             <div class="send-3">
               <div><i>1</i><p><b>Почему мало клиентов</b><span>Что пошло не так после запуска</span></p></div>
               <div><i>2</i><p><b>Что исправить сначала</b><span>Одна главная проблема и её причина</span></p></div>
@@ -233,10 +236,9 @@
       <div class="wrap">
         <div class="next-card">
           <div class="next-ph photo"><img src="assets/img/training.jpg" alt="Участники FBT на тренинге" loading="lazy"></div>
-          <div><span class="lime-cap">КОГДА БУДЕТЕ ГОТОВЫ</span><b>Записаться на программу FBT</b><span>Формат, модули, наставники, даты и стоимость — всё на одной странице.</span></div>
+          <div><span class="lime-cap">КОГДА БУДЕТЕ ГОТОВЫ</span><b>Записаться на программу FBT</b></div>
           <div class="row gap-14 btn-row" style="flex-wrap:wrap">
-            <a class="btn btn--white" href="programma.html">О программе FBT</a>
-            <a class="btn btn--forest" data-tg="contact">Написать в Telegram</a>
+            <a class="btn btn--forest" data-tg="contact"><svg><use href="#i-send"/></svg>Написать в Telegram</a>
           </div>
         </div>
       </div>
@@ -261,8 +263,8 @@
         <button type="button" class="link-quiet" style="background:none;border:0;font-size:16px;cursor:pointer" data-go="result">Вернуться к результату</button>
       </div>
       <div class="next-card mt-56" style="width:100%">
-        <div><span class="lime-cap">ПОКА ЖДЁТЕ ОТВЕТА</span><b>Записаться на программу FBT</b><span>Формат, модули, наставники, даты и стоимость — всё на одной странице.</span></div>
-        <a class="btn btn--white" href="programma.html">О программе FBT</a>
+        <div><span class="lime-cap">ПОКА ЖДЁТЕ ОТВЕТА</span><b>Записаться на программу FBT</b></div>
+        <a class="btn btn--forest" data-tg="contact"><svg><use href="#i-send"/></svg>Написать в Telegram</a>
       </div>
     </div>
   </section>
@@ -272,8 +274,14 @@
   <div class="wrap"><span class="foot-c"><span>© 2026 Impact Consulting · FBT Online.</span><span>Все права защищены.</span></span><a href="privacy.html">Политика конфиденциальности</a></div>
 </footer>
 
-<script>window.FBT_SEG = { key: "a-posle-zapuska", name: "После запуска", sqTitles: ["Где вы сейчас?", "Кто участвует в вашем бизнесе или будет участвовать?", "Что сейчас мешает больше всего?"] };</script><!-- 15.10: тексты сегмента А для p3.js -->
-<script src="assets/p3.js?v=5.36"></script>
+<script>window.FBT_SEG = { key: "a-posle-zapuska", name: "После запуска", sqTitles: ["Где вы сейчас?", "Вы работаете один или в партнёрстве?", "Какая ситуация ближе всего к вашей?"],
+  // 16.10 (Александр): новые вопросы 2 и 3 перед тестом
+  family: [["solo", "Работаю один"], ["family", "У меня семейный бизнес"], ["partners", "Работаю с партнёрами, семья не участвует"]],
+  pains: [["before", "Хочу открыть бизнес, но не знаю, с чего начать"], ["launch", "Открылся, теперь не знаю, что делать"],
+    ["survive", "Работаю, а денег нет"], ["self", "Всё держится на мне"], ["order", "Есть команда, но нет порядка"],
+    ["growth", "Бизнес работает, но дальше не растёт"]],
+  famLabel: "Как работает", painLabel: "Ситуация (по словам человека)" };</script><!-- 15.10: тексты сегмента А для p3.js -->
+<script src="assets/p3.js?v=5.40"></script>
 <script src="assets/typo.js?v=5.34" defer></script>
 </body>
 </html>
