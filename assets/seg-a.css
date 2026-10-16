@@ -169,3 +169,23 @@ body.ic:not(.ic-dark) :is(.sa-big-b > span, .sa-pain div > span) { color: #55555
 .sa-vwave i:nth-child(n+12) { background: #A9D8F2; }
 .sa-vt { font-size: 12px; color: #6B7A85; font-variant-numeric: tabular-nums; }
 .sa-vme { align-self: flex-end; padding: 8px 12px; border-radius: 16px 16px 4px 16px; background: #E1FEC6; font-size: 14px; line-height: 1.35; color: #1D1D1F; box-shadow: 0 1px 2px rgba(0,0,0,.08); max-width: 85%; }
+
+/* 16.10 v5.37 · шаг 1: обложка карты действий под плашкой */
+.sa-gift-img { display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,.18); }
+
+/* 16.10 v5.37 · «в» и значок Telegram не слипаются */
+.tg-note .tg-ico { margin-left: .35em; }
+
+/* 16.10 v5.37 · карта открыта, компьютер: надпись «Жмите» над кнопкой, стрелка показывает на кнопку, кнопка не вылезает за блок */
+@media (min-width: 901px) {
+  .unlock:has(.sa-map) .unlock-act { flex-shrink: 1; }
+  .unlock:has(.sa-map) .unlock-act .push { flex-direction: column; align-items: center; gap: 0; }
+  .unlock:has(.sa-map) .unlock-act .cue-down { margin: 0 0 24px; }
+  .unlock:has(.sa-map) .unlock-act .cue-down span { font-size: 30px; }
+  .unlock:has(.sa-map) .unlock-act .cue-down svg { transform: rotate(10deg); }
+}
+
+/* 16.10 v5.37 · в шапке одна ссылка «Связаться в Telegram» — видна и на телефоне */
+.hdr-tg { display: inline-flex; }
+.hdr-tg-l { margin-right: -3px; }
+@media (max-width: 640px) { .hdr-nav > a.hdr-tg { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; white-space: nowrap; } .hdr-nav > a.hdr-tg svg { width: 16px; height: 16px; } .hdr-tg-l { display: none; } }
