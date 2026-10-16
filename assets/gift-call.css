@@ -1,0 +1,38 @@
+/* 16.10 v5.41 · Подарок за 6 артефактов — личный созвон с Любой (вместо книги) */
+.igra-top { grid-template-columns: minmax(0, 440px) minmax(0, 1fr); }
+.igra-call { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 1600 / 1168;
+  box-shadow: 0 20px 50px rgba(198,0,0,.35), 0 0 0 1.5px rgba(255,133,133,.45); }
+.igra-call img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.02); transition: transform .6s ease; }
+.igra-call:hover img { transform: scale(1.06); }
+.igra-call::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, transparent 28%, transparent 70%, rgba(0,0,0,.45) 100%); pointer-events: none; }
+.igra-call-live, .igra-call-time { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 999px; font: 700 15px/1 Onest, sans-serif; color: #fff; }
+.igra-call-live { top: 14px; left: 14px; background: #C60000; box-shadow: 0 6px 18px rgba(198,0,0,.5); }
+.igra-call-live i { width: 9px; height: 9px; border-radius: 50%; background: #fff; animation: igra-live 1.4s ease-in-out infinite; }
+@keyframes igra-live { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.7); } }
+.igra-call-time { bottom: 14px; right: 14px; background: rgba(20,20,22,.72); backdrop-filter: blur(6px); }
+.igra-call-time svg { width: 17px; height: 17px; }
+
+.igra-perks { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; }
+.igra-perks li { display: flex; align-items: center; gap: 12px; }
+.igra-perks b { font-size: 18px; line-height: 1.3; color: inherit; font-weight: 600; }
+.ip-ico { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: #fff; }
+.ip-ico svg { width: 21px; height: 21px; }
+.ip-1 { background: #C60000; } .ip-2 { background: #2BB5A0; } .ip-3 { background: #E9A23B; }
+
+.igra-price { margin-top: 20px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding: 16px 20px;
+  border-radius: 18px; background: linear-gradient(135deg, #C60000 0%, #E8352B 100%); box-shadow: 0 12px 30px rgba(198,0,0,.3); color: #fff; }
+.igra-price s { font: 600 24px/1 Onest, sans-serif; color: rgba(255,255,255,.75); text-decoration-color: #fff; text-decoration-thickness: 2.5px; }
+.igra-price b { font: 800 32px/1 Onest, sans-serif; color: #fff; letter-spacing: -.01em; }
+.igra-price span { flex-basis: 100%; font-size: 16px; color: rgba(255,255,255,.9); }
+@media (min-width: 861px) {
+  .igra-top { align-items: stretch; }
+  .igra-call { aspect-ratio: auto; min-height: 100%; }
+  .igra-call img { position: absolute; inset: 0; object-position: 50% 30%; }
+}
+@media (max-width: 860px) {
+  .igra-top { grid-template-columns: 1fr; }
+  .igra-call { border-radius: 18px; }
+  .igra-call-live, .igra-call-time { font-size: 14px; padding: 7px 12px; }
+  .igra-perks b { font-size: 17px; }
+}

@@ -118,3 +118,8 @@
 .alb-it b { font-size: 17px; }
 @media (max-width: 420px) { .alb-it .pic { width: 100%; height: auto; } .alb-grid { gap: 8px; } }
 @media (prefers-reduced-motion: reduce) { .alb-pop img.alb-card { animation: none !important; } }
+
+/* 16.10 v5.41 · подарок — созвон с Любой: фото вместо обложки книги */
+.alb-call .alb-call-img { width: 92px; height: 92px; flex: none; object-fit: cover; border-radius: 18px; box-shadow: 0 6px 18px rgba(198,0,0,.35); }
+.alb-call s { opacity: .6; text-decoration-color: #E04848; text-decoration-thickness: 2px; }
+.alb-call em { font-style: normal; font-weight: 700; color: #C60000; }
