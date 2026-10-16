@@ -215,3 +215,15 @@ body.ic:not(.ic-dark) :is(.sa-big-b > span, .sa-pain div > span) { color: #55555
   .seg-a .rsteps .stepcard .h3 { min-height: 2.6em; }
   .seg-a .rsteps .stepcard > .muted { min-height: 4.6em; }
 }
+
+/* 16.10 v5.42 · «Карта действий предпринимателя» в шаге 1 — легче: светлая карточка, без красной рамки и капса */
+.sa-gift.sa-gift2 { display: flex; align-items: center; gap: 16px; margin-top: 18px; padding: 16px; border-radius: 18px;
+  background: #F5F5F7; border: 1px solid rgba(29,29,31,.08); }
+.sa-gift2 .sa-gift-img { width: 78px; flex: none; border-radius: 6px; transform: rotate(-3deg); box-shadow: 0 8px 18px rgba(0,0,0,.18); }
+.sa-gift2 .sa-gift-txt { min-width: 0; }
+.sa-gift2 .sa-gift-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #C60000; }
+.sa-gift2 .sa-gift-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #C60000; }
+.sa-gift2 .sa-gift-name { display: block; margin-top: 4px; font-size: 18px; line-height: 1.25; font-weight: 600; color: #1D1D1F; }
+.sa-gift2 p { margin: 6px 0 0; font-size: 15px; line-height: 1.4; color: #6E6E73; font-weight: 400; }
+.sa-gift2 .sa-gift-chips { display: flex; gap: 6px; margin-top: 10px; }
+.sa-gift2 .sa-gift-chips span { padding: 4px 10px; border-radius: 999px; background: #fff; border: 1px solid rgba(29,29,31,.1); font-size: 13px; font-weight: 600; color: #1D1D1F; }

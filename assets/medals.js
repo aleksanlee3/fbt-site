@@ -11,7 +11,7 @@
   var IMG = 'assets/medals/';
   var CARD = 'assets/medals/cards/';   // 06.10: карточки артефактов 4:5 «рисунок карандашом» (те же, что в боте)
   function card(m) { return CARD + m.img + '.webp'; }
-  var BOOK = 'assets/img/luba-call-sq.jpg';   // 16.10: подарок — созвон с Любой (вместо книги)
+  var BOOK = 'assets/img/luba-call-sq.jpg?v=2';   // 16.10: подарок — созвон с Любой (вместо книги)
 
   var LIST = [
     { id: 'shag',   img: '01-shag',   name: 'Первый шаг',        hint: 'Досмотрите видеоразбор Любы до конца', go: ['index.html', 'К видеоразбору'] },
