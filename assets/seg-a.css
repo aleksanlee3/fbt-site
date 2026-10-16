@@ -171,7 +171,11 @@ body.ic:not(.ic-dark) :is(.sa-big-b > span, .sa-pain div > span) { color: #55555
 .sa-vme { align-self: flex-end; padding: 8px 12px; border-radius: 16px 16px 4px 16px; background: #E1FEC6; font-size: 14px; line-height: 1.35; color: #1D1D1F; box-shadow: 0 1px 2px rgba(0,0,0,.08); max-width: 85%; }
 
 /* 16.10 v5.37 · шаг 1: обложка карты действий под плашкой */
-.sa-gift-img { display: block; width: 100%; height: auto; margin-top: 14px; border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,.18); }
+/* 16.10 v5.38 · обложка слева от текста — шаг 1 по высоте как шаги 2 и 3 */
+.sa-gift-row { display: flex; align-items: center; gap: 14px; }
+.sa-gift-img { flex: 0 0 auto; display: block; width: 92px; height: auto; border-radius: 8px; box-shadow: 0 8px 18px rgba(0,0,0,.22); transform: rotate(-3deg); }
+.sa-gift-row p { flex: 1; min-width: 0; font-size: 16px; line-height: 1.35; }
+.sa-gift-row .sa-gift-img { width: 84px; }
 
 /* 16.10 v5.37 · «в» и значок Telegram не слипаются */
 .tg-note .tg-ico { margin-left: .35em; }
@@ -189,3 +193,25 @@ body.ic:not(.ic-dark) :is(.sa-big-b > span, .sa-pain div > span) { color: #55555
 .hdr-tg { display: inline-flex; }
 .hdr-tg-l { margin-right: -3px; }
 @media (max-width: 640px) { .hdr-nav > a.hdr-tg { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; white-space: nowrap; } .hdr-nav > a.hdr-tg svg { width: 16px; height: 16px; } .hdr-tg-l { display: none; } }
+
+/* 16.10 v5.38 · компьютер: всё по центру и гармонично (телефон не меняется) */
+.br-d { display: none; }
+@media (min-width: 901px) {
+  .br-d { display: inline; }
+  .seg-a .sec--hero .wrap > .eyebrow,
+  .seg-a .sec--hero .hero-h1 { text-align: center; margin-left: auto; margin-right: auto; }
+  .seg-a .sec--hero .hero-h1 { max-width: 1100px; font-size: clamp(44px, 4.6vw, 64px); line-height: 1.08; }
+  .seg-a .sec--hero .hero-h1 > span { display: block; }
+  .seg-a .sec--hero .lead-story { max-width: 820px; margin-left: auto; margin-right: auto; text-align: center; font-size: 20px; line-height: 1.55; }
+  .seg-a .sec--hero .meta { justify-content: center; }
+  /* заголовки разделов — по центру */
+  .seg-a .ic-top.sec .wrap > .h2:first-child,
+  .seg-a #reviews .wrap > :is(.eyebrow, .h2, .sub),
+  .seg-a .sec--alt .wrap > :is(.eyebrow, .h2--xl) { text-align: center; margin-left: auto; margin-right: auto; }
+  .seg-a .sec--alt .wrap > .h2--xl > span { display: block; }
+  /* слова Любы — по центру, на всю ширину ленты */
+  .seg-a .lquote { margin-left: auto; margin-right: auto; max-width: 980px; }
+  /* три шага: блоки наполнены одинаково — всё лишнее уходит вниз к кнопке */
+  .seg-a .rsteps .stepcard .h3 { min-height: 2.6em; }
+  .seg-a .rsteps .stepcard > .muted { min-height: 4.6em; }
+}

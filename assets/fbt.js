@@ -207,15 +207,24 @@
 
 
   // ── Видеоотзывы выпускников (YouTube, вертикальные). Подписи — по названиям роликов на канале ──
+  // 16.10 v5.38: порядок — решение Александра; biz / a (было) / b (стало) — по расшифровкам роликов
   FBT.REVIEWS = [
-    { id: 'NGUKPFtwmiI', name: 'Ирина', place: 'Южная Корея' },
-    { id: 'FuIvvPfJZ58', name: 'Татьяна Ялышева', place: 'Выпускница FBT' },
-    { id: 'wXmNb0LaE-E', name: 'Дмитрий Морозов', place: 'Победитель тренинга' },
-    { id: '5iXz6a-isZ8', name: 'Выпускница FBT', place: '' },
-    { id: 'jRntkVMctD0', name: 'Выпускник FBT', place: '' },
-    { id: '4PWNwSsQsIE', name: 'Выпускник FBT', place: 'Душанбе, Таджикистан' },
-    { id: 'tV_5pNK2XRA', name: 'Выпускник FBT', place: '' },
-    { id: 'zpWKM2sYcxQ', name: 'Выпускница FBT', place: '' }
+    { id: 'wXmNb0LaE-E', name: 'Дмитрий Морозов', place: 'Победитель тренинга', biz: 'Соучредитель компании, продажа фармпрепаратов',
+      a: 'Компания ушла в убыток, в семье разладилось общение', b: 'Создали новый бренд «Провитамин», нашли и убрали убытки, наладили общение в семье' },
+    { id: 'jRntkVMctD0', name: 'Тимур', place: '', biz: 'Своя фирма: установка и обслуживание онлайн-касс',
+      a: 'Не было понимания, как вести бизнес', b: 'Разобрался в финансах, менеджменте и маркетинге, с наставником сразу применял всё в своей фирме' },
+    { id: 'tV_5pNK2XRA', name: 'Игорь Тен', place: '', biz: 'Агентство недвижимости «Тенкор», 15 лет в сфере',
+      a: 'Команду и процессы начал выстраивать только 2–3 года назад', b: 'Видит бизнес в цифрах, строит стратегию и сразу видит результат на команде' },
+    { id: 'FuIvvPfJZ58', name: 'Татьяна Ялышева', place: '', biz: 'Студия декора фарфора',
+      a: 'Считала цифры и маркетинг скучными, «не про творчество»', b: 'Внедряет инструменты, видит, что они работают, и нашла новые возможности для роста' },
+    { id: '4PWNwSsQsIE', name: 'Рамиз', place: 'Душанбе, Таджикистан', biz: 'Врач-стоматолог, частная клиника',
+      a: 'Не знал, как считать себестоимость и денежные потоки', b: 'Научился считать себестоимость, ликвидность и финансовые потоки, чтобы расширять бизнес' },
+    { id: '5iXz6a-isZ8', name: 'Рузанна', place: '', biz: 'Кофейня, открыта 2 месяца назад',
+      a: 'Новый бизнес и много вопросов в голове', b: 'Разложила всё по полочкам и поняла, кто её гости и что им предлагать' },
+    { id: 'NGUKPFtwmiI', name: 'Ирина', place: 'Южная Корея', biz: 'Свой бизнес в Южной Корее',
+      a: 'Ничего не знала о программе, прилетела на семинар', b: 'Поняла, как мотивировать людей и на чём строить бизнес, решила пройти все модули' },
+    { id: 'zpWKM2sYcxQ', name: 'Эльнара', place: '', biz: 'Тренер по маркетингу и менеджменту, сфера моды',
+      a: 'Не знала, с чего начать продвижение личного бренда', b: 'Поняла, кто её клиент, и строит стратегию выхода на свой сегмент' }
   ];
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   // Позиция просмотра каждого ролика — чтобы «на весь экран» продолжал с того же места
@@ -266,6 +275,50 @@
     document.body.appendChild(m);
   }
   var FULL_ICO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5"/><path d="M20 9V4h-5"/><path d="M4 15v5h5"/><path d="M20 15v5h-5"/></svg>';
+  // 16.10 v5.38: ленты «Узнаёте себя?» и т.п. — стрелки на компьютере + листание мышкой (перетаскиванием и колёсиком с Shift)
+  FBT.swipeNav = function () {
+    document.querySelectorAll('[data-swipe]').forEach(function (box) {
+      if (box.__nav) return; box.__nav = true;
+      var nav = document.createElement('div');
+      nav.className = 'revs-nav swipe-nav';
+      var arr = function (d) { return '<button type="button" class="revs-arr" data-dir="' + d + '" aria-label="' + (d < 0 ? 'Назад' : 'Дальше') + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' + (d < 0 ? '<path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/>' : '<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>') + '</svg></button>'; };
+      nav.innerHTML = arr(-1) + arr(1);
+      box.parentNode.insertBefore(nav, box);
+      var upd = function () {
+        var b = nav.querySelectorAll('.revs-arr');
+        b[0].disabled = box.scrollLeft < 8;
+        b[1].disabled = box.scrollLeft + box.clientWidth > box.scrollWidth - 8;
+      };
+      nav.addEventListener('click', function (e) {
+        var btn = e.target.closest('.revs-arr'); if (!btn) return;
+        box.scrollBy({ left: (+btn.getAttribute('data-dir')) * box.clientWidth * 0.8, behavior: 'smooth' });
+      });
+      box.addEventListener('scroll', upd, { passive: true });
+      window.addEventListener('resize', upd);
+      upd();
+    });
+    // Перетаскивание мышкой (только мышь; на телефоне — обычный свайп)
+    document.querySelectorAll('[data-swipe], [data-reviews]').forEach(function (box) {
+      if (box.__drag) return; box.__drag = true;
+      var down = false, moved = false, x0 = 0, s0 = 0;
+      box.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'mouse' || e.button !== 0 || e.target.closest('button, a, iframe')) return;
+        down = true; moved = false; x0 = e.clientX; s0 = box.scrollLeft;
+      });
+      window.addEventListener('pointermove', function (e) {
+        if (!down) return;
+        var dx = e.clientX - x0;
+        if (!moved && Math.abs(dx) > 5) { moved = true; box.classList.add('is-drag'); }
+        if (moved) { box.scrollLeft = s0 - dx; e.preventDefault(); }
+      });
+      window.addEventListener('pointerup', function () {
+        if (!down) return; down = false;
+        if (moved) { box.classList.remove('is-drag'); setTimeout(function () { moved = false; }, 0); }
+      });
+      box.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+      box.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    });
+  };
   FBT.renderReviews = function () {
     document.querySelectorAll('[data-reviews]').forEach(function (box) {
       var lim = parseInt(box.getAttribute('data-limit'), 10) || FBT.REVIEWS.length;
@@ -274,7 +327,8 @@
           '<span class="rv-cover"><img src="assets/img/rev/' + r.id + '.jpg" alt="" loading="lazy">' +
           '<button type="button" class="rv-play" data-rv-play aria-label="Смотреть отзыв: ' + esc(r.name) + '"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>' +
           '<button type="button" class="rv-full" data-rv-full aria-label="На весь экран">' + FULL_ICO + '</button></span>' +
-          '<span class="rv-t"><b>' + esc(r.name) + '</b>' + (r.place ? '<span>' + esc(r.place) + '</span>' : '') + '</span></div>';
+          '<span class="rv-t"><b>' + esc(r.name) + '</b>' + (r.biz ? '<span class="rv-biz">' + esc(r.biz) + (r.place ? ' · ' + esc(r.place) : '') + '</span>' : (r.place ? '<span>' + esc(r.place) + '</span>' : '')) + '</span>' +
+          (r.a ? '<span class="rv-ab"><span class="rv-a"><i>Было</i>' + esc(r.a) + '</span><span class="rv-b"><i>Стало</i>' + esc(r.b) + '</span></span>' : '') + '</div>';
       }).join('');
       // Карусель прокрутили — ролик, ушедший из вида, останавливаем
       if ('IntersectionObserver' in window) {
@@ -309,6 +363,7 @@
       window.addEventListener('resize', upd);
       upd();
     });
+    FBT.swipeNav();
     var all = document.querySelector('[data-reviews-all]');
     if (all && C.reviewsUrl) { all.href = C.reviewsUrl; all.hidden = false; }
   };
