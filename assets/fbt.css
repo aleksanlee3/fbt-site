@@ -655,3 +655,32 @@ body.ic .cue-down--blue { color: #A2C3CD; }
 [data-swipe].is-drag, [data-reviews].is-drag { cursor: grabbing; scroll-snap-type: none !important; scroll-behavior: auto; user-select: none; }
 [data-swipe] img, [data-reviews] img { -webkit-user-drag: none; }
 @media (max-width: 760px) { .swipe-nav { display: none; } }
+
+/* 16.10 v5.39 · отзывы: «Было | Стало» — слева направо, одна плашка, все карточки ровные */
+.revs { align-items: stretch; }
+.revs .rv { display: flex; flex-direction: column; }
+.rv-t .rv-biz { min-height: calc(2 * 1.35em); }
+.rv-ab { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 4px; position: relative;
+  border-radius: 18px; overflow: hidden; border: 1px solid var(--line-2); background: var(--card-2); box-shadow: var(--shadow); }
+.rv-ab > span { padding: 14px 14px 16px; border: 0 !important; border-radius: 0; font-size: 15px; line-height: 1.4; }
+.rv-ab i { display: flex; width: fit-content; align-items: center; gap: 6px; margin-bottom: 10px; padding: 4px 10px; border-radius: 999px;
+  font-style: normal; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.rv-a { background: transparent !important; color: var(--muted); padding-right: 22px !important; }
+.rv-a i { background: var(--line-2); color: var(--muted); }
+.rv-b { background: var(--accent) !important; color: #fff !important; font-weight: 600; padding-left: 22px !important; }
+.rv-b i { background: rgba(255,255,255,.22); color: #fff !important; }
+/* стрелка на стыке: белый кружок + стрелка цвета акцента */
+.rv-ab::after { content: ''; position: absolute; z-index: 1; left: 50%; top: 50%; width: 32px; height: 32px; margin: -16px 0 0 -16px; border-radius: 50%;
+  background: #fff; box-shadow: 0 3px 10px rgba(28,20,15,.22); }
+.rv-ab::before { content: ''; position: absolute; z-index: 2; left: 50%; top: 50%; width: 16px; height: 16px; margin: -8px 0 0 -8px; background: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat; }
+.theme-dark .rv-ab { background: var(--card-2); }
+.theme-dark .rv-b { background: var(--accent) !important; }
+.theme-dark .rv-b i { color: #fff !important; }
+@media (max-width: 760px) {
+  .revs .rv { flex-basis: 86% !important; }
+  .rv-ab > span { padding: 12px 12px 14px; font-size: 14px; }
+  .rv-a { padding-right: 20px !important; }
+  .rv-b { padding-left: 20px !important; }
+}
