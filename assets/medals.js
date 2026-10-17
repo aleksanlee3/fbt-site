@@ -192,7 +192,7 @@
       h += '<h2 class="alb-offer-h">Соберите ' + TOTAL + ' артефактов —<br>получите бесплатный созвон с&nbsp;Любой</h2>' +
         '<div class="alb-offer"><img class="alb-offer-img" src="' + BOOK + '" alt="Люба Бэй">' +
         '<p class="alb-offer-p">Любой вопрос о бизнесе,<br>до 10 минут<span class="alb-offer-pr"><s>$150</s> <em>бесплатно</em></span></p></div>';
-      h += '<p class="alb-how">За каждый шаг на сайте и вв боте — 1 артефакт.nbsp;боте —&nbsp;1&nbsp;артефакт.</p>';
+      h += '<p class="alb-how">За каждый шаг на сайте и в боте —&nbsp;1&nbsp;артефакт.</p>';
     }
     h += '<div class="alb-bar"><i style="width:' + (n / TOTAL * 100) + '%"></i></div>';
     h += '<p class="alb-cnt">У вас <b>' + n + '</b> из ' + TOTAL + '</p>';
