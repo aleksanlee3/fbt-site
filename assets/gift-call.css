@@ -85,3 +85,8 @@
   .igra-price b.igra-free { font-size: 48px; }
 }
 @media (prefers-reduced-motion: reduce) { .igra-call-gift { animation: none; } }
+
+/* 17.10 v5.45 · «$150» тем же рукописным шрифтом, что и «Бесплатно» */
+.igra-price s { font: 700 44px/1 var(--hand, 'Caveat', cursive); color: #8A8A90; transform: rotate(-3deg); display: inline-block;
+  text-decoration: line-through; text-decoration-color: #C60000; text-decoration-thickness: 3px; }
+@media (max-width: 860px) { .igra-price s { font-size: 40px; } }

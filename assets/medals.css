@@ -146,3 +146,5 @@
 .alb-prize-pr s { font: 600 20px/1 var(--font, Onest, sans-serif); color: #8A8A90; text-decoration-color: #C60000; text-decoration-thickness: 3px; }
 .alb-prize-pr em { font: 700 32px/1 var(--hand); font-style: normal; color: #C60000; transform: rotate(-3deg); display: inline-block; }
 @media (max-width: 420px) { .alb-offer-h { font-size: clamp(22px, 7.3vw, 29px); } .alb-prize-img { width: 64px; height: 64px; } }
+/* 17.10 v5.45 · «$150» рукописным, как «бесплатно» */
+.alb-prize-pr s { font: 700 28px/1 var(--hand); color: #8A8A90; display: inline-block; transform: rotate(-3deg); text-decoration-thickness: 2.5px; }
