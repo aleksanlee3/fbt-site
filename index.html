@@ -13,17 +13,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/fbt.css?v=5.39">
-<link rel="stylesheet" href="assets/medals.css?v=5.43">
+<link rel="stylesheet" href="assets/medals.css?v=5.44a">
 <link rel="stylesheet" href="assets/push.css">
 <link rel="stylesheet" href="assets/p1.css?v=5.24">
-<link rel="stylesheet" href="assets/gift-call.css?v=5.43"><!-- 16.10: подарок — созвон с Любой -->
+<link rel="stylesheet" href="assets/gift-call.css?v=5.44"><!-- 16.10: подарок — созвон с Любой -->
 <link rel="stylesheet" href="assets/ic-auto.css">
 <link rel="stylesheet" href="assets/ic-theme.css">
 <link rel="stylesheet" href="assets/ic-dark.css"><!-- 06.10 v5.0: графит до отзывов (тёмная тема) --><!-- 06.10 v4.9: цвета Impact Consulting -->
 <link rel="stylesheet" href="assets/contrast.css"><!-- 07.10 v5.3: тёмный фон — светлый текст, светлый — тёмный -->
 <script src="config.js?v=5.29"></script>
 <script src="assets/fbt.js?v=5.38"></script>
-<script src="assets/medals.js?v=5.43a"></script>
+<script src="assets/medals.js?v=5.44a"></script>
 <script src="assets/push.js"></script>
 </head>
 <body class="ic ic-dark"><!-- 06.10 v5.0: цвета Impact Consulting; тёмная (по умолчанию) — графит сверху, светлая — графит только первый экран -->
@@ -306,13 +306,14 @@
           <!-- 16.10 (Александр): вместо книги — личный созвон с Любой до 10 минут -->
           <div class="igra-call">
             <img src="assets/img/luba-call.jpg?v=2" alt="Люба Бэй" width="1600" height="900" loading="lazy">
+            <span class="igra-call-gift" aria-hidden="true"><img src="assets/icons/podarok.webp" alt="" width="96" height="96"></span><!-- 17.10: подарок «шевелится» над фото -->
             <span class="igra-call-live"><i></i>Созвон с Любой</span>
             <span class="igra-call-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>до 10 минут</span>
           </div>
           <div class="igra-txt">
             <div class="igra-head">
-              <span class="igra-ava" aria-hidden="true"><img src="assets/img/luba-call-sq.jpg?v=2" alt="" loading="lazy" width="120" height="120"></span><!-- 17.10: фото Любы вместо иконки подарка -->
-              <div class="eyebrow">КВЕСТ · ПОДАРОК ЗА 6 АРТЕФАКТОВ</div>
+              <span class="igra-kv" aria-hidden="true"><img src="assets/img/kvest-6.webp?v=1" alt="" loading="lazy" width="520" height="385"></span><!-- 17.10: картинка квеста «Собери 6 артефактов» -->
+              <div class="eyebrow">КВЕСТ · ПОДАРОК<br>ЗА&nbsp;6&nbsp;АРТЕФАКТОВ</div>
             </div>
             <h2 class="h2 igra-h"><span class="igra-l">Соберите <span class="igra-n">6&nbsp;артефактов,</span></span> <span class="igra-l">и&nbsp;Люба лично ответит</span> <span class="igra-l"><span class="igra-hl">на&nbsp;ваш вопрос</span></span></h2>
             <p class="sub">Каждый ваш шаг на сайте и в Telegram-боте приносит артефакт. Соберите все 6 — и получите живой созвон с Любой Бэй.</p>
@@ -321,7 +322,7 @@
               <li><span class="ip-ico ip-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 8.5a1.8 1.8 0 0 1 1.5 2.9c-.5.6-1.5.9-1.5 1.9"/><path d="M12 16h.01"/></svg></span><b>Любой ваш вопрос о бизнесе</b></li>
               <li><span class="ip-ico ip-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><b>До 10 минут — коротко и по делу</b></li>
             </ul>
-            <div class="igra-price"><s>$150</s><b>Бесплатно</b><span>для тех, кто соберёт все 6 артефактов</span></div>
+            <div class="igra-price"><s>$150</s><b class="igra-free">Бесплатно</b><span>для тех, кто соберёт все 6 артефактов</span></div>
             <div class="igra-slots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
             <button type="button" class="igra-cue" id="igra-cue"><span class="igra-cue-n">У вас <b data-igra-n>0</b> из 6</span><span class="igra-cue-t">Ваши артефакты — здесь</span></button>
           </div>

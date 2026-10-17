@@ -189,10 +189,9 @@
       h += '<h2 class="alb-h">Мои артефакты</h2>';
       h += '<p class="alb-sub">Квест пройден: все ' + TOTAL + ' артефактов собраны! Спасибо, что прошли путь до конца.</p>';
     } else {
-      h += '<h2 class="alb-offer-h">Соберите ' + TOTAL + ' артефактов —<br>получите бесплатный созвон с&nbsp;Любой</h2>' +
-        '<div class="alb-offer"><img class="alb-offer-img" src="' + BOOK + '" alt="Люба Бэй">' +
-        '<p class="alb-offer-p">Любой вопрос о бизнесе,<br>до 10 минут<span class="alb-offer-pr"><s>$150</s> <em>бесплатно</em></span></p></div>';
-      h += '<p class="alb-how">За каждый шаг на сайте и в боте —&nbsp;1&nbsp;артефакт.</p>';
+      h += '<span class="alb-kv">квест</span>' +
+        '<h2 class="alb-offer-h"><span>Соберите <span class="alb-six">' + TOTAL + '</span> артефактов —</span><span>получите <mark>бесплатный созвон</mark></span><span>с Любой</span></h2>';
+      h += '<p class="alb-how">За каждый шаг на сайте и в&nbsp;боте&nbsp;— 1&nbsp;артефакт.</p>';
     }
     h += '<div class="alb-bar"><i style="width:' + (n / TOTAL * 100) + '%"></i></div>';
     h += '<p class="alb-cnt">У вас <b>' + n + '</b> из ' + TOTAL + '</p>';
@@ -212,6 +211,13 @@
       });
       h += '</div>';
     });
+    if (!full()) {
+      // 17.10 v5.44: подарок — внизу окна, после всех артефактов
+      h += '<div class="alb-prize"><img class="alb-prize-img" src="' + BOOK + '" alt="Люба Бэй">' +
+        '<div class="alb-prize-t"><b>Ваш подарок за все ' + TOTAL + '</b>' +
+        '<span class="alb-prize-chips"><i>💬 любой вопрос о бизнесе</i><i>⏱ до 10 минут</i></span>' +
+        '<span class="alb-prize-pr"><s>$150</s> <em>бесплатно</em></span></div></div>';
+    }
     if (full()) {
       h += '<div class="alb-gift alb-call is-open"><img class="alb-call-img" src="' + BOOK + '" alt="Люба Бэй"><div><b>Ваш подарок: личный созвон с Любой</b>' +
         '<p>Любой вопрос о вашем бизнесе, до 10 минут. Напишите Александру — он договорится о времени.</p>' +

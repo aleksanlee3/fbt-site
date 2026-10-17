@@ -38,8 +38,6 @@
 }
 
 /* 17.10 v5.43 · Правки Александра: блок плотнее, $150 крупнее и зачёркнут, фото Любы вместо иконки подарка, заголовок в 3 строки */
-.igra-ava { flex: none; width: 64px; height: 64px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px #fff, 0 0 0 5px #C60000, 0 8px 18px rgba(198,0,0,.25); }
-.igra-ava img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; display: block; }
 .igra-h .igra-l { display: block; }
 .igra-txt .sub { margin-top: 10px; }
 .igra-perks { margin-top: 16px; }
@@ -54,7 +52,6 @@
   .igra { padding-top: 18px !important; padding-bottom: 16px !important; }
   .igra-top { gap: 14px; }
   .igra-head { gap: 12px; margin-bottom: 10px; }
-  .igra-ava { width: 52px; height: 52px; }
   .igra-h { font-size: clamp(22px, 6.6vw, 30px) !important; line-height: 1.12 !important; }
   .igra-h .igra-l { white-space: nowrap; }
   .igra-hl { text-underline-offset: 5px !important; }
@@ -68,3 +65,23 @@
   .igra-price b { font-size: 32px; }
   .igra-price span { font-size: 15px; }
 }
+
+/* 17.10 v5.44 · Подарок шевелится в углу фото; картинка квеста у надписи; «Бесплатно» рукописным */
+.igra-call-gift { position: absolute; z-index: 2; left: 14px; top: 14px; width: 66px; height: 66px; display: grid; place-items: center;
+  border-radius: 20px; background: rgba(255,255,255,.94); box-shadow: 0 8px 22px rgba(0,0,0,.35);
+  animation: igra-wiggle 3.2s ease-in-out infinite; transform-origin: 50% 80%; }
+.igra-call-gift img { width: 50px; height: 50px; display: block; }
+.igra-kv { flex: none; width: 132px; border-radius: 14px; overflow: hidden; background: #F4F1EA;
+  box-shadow: 0 0 0 1px rgba(29,29,31,.08), 0 8px 20px rgba(29,29,31,.12); transform: rotate(-2deg); }
+.igra-kv img { display: block; width: 100%; height: auto; }
+.igra-price b.igra-free { position: relative; font: 700 52px/1 var(--hand, 'Caveat', cursive); color: #C60000; letter-spacing: 0;
+  transform: rotate(-3deg); padding: 0 6px; z-index: 0; }
+.igra-price b.igra-free::after { content: ""; position: absolute; z-index: -1; left: 0; right: 0; bottom: 4px; height: 14px; border-radius: 8px;
+  background: rgba(198,0,0,.12); transform: skewX(-12deg); }
+@media (max-width: 860px) {
+  .igra-call-gift { left: 10px; top: 10px; width: 56px; height: 56px; border-radius: 16px; }
+  .igra-call-gift img { width: 42px; height: 42px; }
+  .igra-kv { width: 112px; border-radius: 12px; }
+  .igra-price b.igra-free { font-size: 48px; }
+}
+@media (prefers-reduced-motion: reduce) { .igra-call-gift { animation: none; } }
