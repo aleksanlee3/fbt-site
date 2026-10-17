@@ -36,3 +36,35 @@
   .igra-call-live, .igra-call-time { font-size: 14px; padding: 7px 12px; }
   .igra-perks b { font-size: 17px; }
 }
+
+/* 17.10 v5.43 · Правки Александра: блок плотнее, $150 крупнее и зачёркнут, фото Любы вместо иконки подарка, заголовок в 3 строки */
+.igra-ava { flex: none; width: 64px; height: 64px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px #fff, 0 0 0 5px #C60000, 0 8px 18px rgba(198,0,0,.25); }
+.igra-ava img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; display: block; }
+.igra-h .igra-l { display: block; }
+.igra-txt .sub { margin-top: 10px; }
+.igra-perks { margin-top: 16px; }
+.igra-perks li { padding: 9px 0; }
+.igra-price { margin-top: 16px; align-items: center; }
+.igra-price s { font: 600 34px/1 Onest, sans-serif; color: #8A8A90; text-decoration: line-through; text-decoration-color: #C60000; text-decoration-thickness: 4px; }
+.igra-price b { font-size: 36px; }
+.igra-price span { margin-top: 2px; }
+.igra-slots { margin-top: 12px; }
+.igra-cue { margin-top: 8px; }
+@media (max-width: 860px) {
+  .igra { padding-top: 18px !important; padding-bottom: 16px !important; }
+  .igra-top { gap: 14px; }
+  .igra-head { gap: 12px; margin-bottom: 10px; }
+  .igra-ava { width: 52px; height: 52px; }
+  .igra-h { font-size: clamp(22px, 6.6vw, 30px) !important; line-height: 1.12 !important; }
+  .igra-h .igra-l { white-space: nowrap; }
+  .igra-hl { text-underline-offset: 5px !important; }
+  .igra-txt .sub { font-size: 16px; line-height: 1.4; }
+  .igra-perks { margin-top: 12px; }
+  .igra-perks li { padding: 7px 0; gap: 12px; }
+  .ip-ico { width: 32px; height: 32px; }
+  .igra-perks b { font-size: 16.5px; }
+  .igra-price { margin-top: 12px; gap: 2px 12px; }
+  .igra-price s { font-size: 30px; }
+  .igra-price b { font-size: 32px; }
+  .igra-price span { font-size: 15px; }
+}

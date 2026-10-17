@@ -184,11 +184,18 @@
   function renderBook() {
     var n = count(), h = '';
     h += '<div class="alb-book"><button class="alb-x" type="button" aria-label="Закрыть">×</button>';
-    h += '<h2 class="alb-h">Мои артефакты</h2>';
-    h += '<p class="alb-sub">' + (full() ? 'Квест пройден: все ' + TOTAL + ' артефактов собраны! Спасибо, что прошли путь до конца.' :
-      'Квест: за каждый шаг — артефакт, на сайте и в боте. Соберите все ' + TOTAL + ' — и получите созвон с Любой: любой вопрос, до 10 минут, бесплатно.') + '</p>';
+    // 17.10 v5.43 (Александр): сверху сразу понятно — что собрать и что за это получить
+    if (full()) {
+      h += '<h2 class="alb-h">Мои артефакты</h2>';
+      h += '<p class="alb-sub">Квест пройден: все ' + TOTAL + ' артефактов собраны! Спасибо, что прошли путь до конца.</p>';
+    } else {
+      h += '<h2 class="alb-offer-h">Соберите ' + TOTAL + ' артефактов —<br>получите бесплатный созвон с&nbsp;Любой</h2>' +
+        '<div class="alb-offer"><img class="alb-offer-img" src="' + BOOK + '" alt="Люба Бэй">' +
+        '<p class="alb-offer-p">Любой вопрос о бизнесе,<br>до 10 минут<span class="alb-offer-pr"><s>$150</s> <em>бесплатно</em></span></p></div>';
+      h += '<p class="alb-how">За каждый шаг на сайте и вв боте — 1 артефакт.nbsp;боте —&nbsp;1&nbsp;артефакт.</p>';
+    }
     h += '<div class="alb-bar"><i style="width:' + (n / TOTAL * 100) + '%"></i></div>';
-    h += '<p class="alb-sub" style="margin:0">' + n + ' из ' + TOTAL + '</p>';
+    h += '<p class="alb-cnt">У вас <b>' + n + '</b> из ' + TOTAL + '</p>';
     ROWS.forEach(function (row) {
       h += '<div class="alb-row">' + row[0] + '</div><div class="alb-grid">';
       LIST.slice(row[1], row[1] + 3).forEach(function (m, i) {
@@ -209,9 +216,6 @@
       h += '<div class="alb-gift alb-call is-open"><img class="alb-call-img" src="' + BOOK + '" alt="Люба Бэй"><div><b>Ваш подарок: личный созвон с Любой</b>' +
         '<p>Любой вопрос о вашем бизнесе, до 10 минут. Напишите Александру — он договорится о времени.</p>' +
         '<a class="alb-go" href="#" data-alb-act="book">Записаться на созвон</a></div></div>';
-    } else {
-      h += '<div class="alb-gift alb-call"><img class="alb-call-img" src="' + BOOK + '" alt="Люба Бэй"><div><b>Подарок за все ' + TOTAL + ': личный созвон с Любой</b>' +
-        '<p>Любой вопрос, до 10 минут. <s>$150</s> <em>бесплатно</em>. Осталось собрать ' + (TOTAL - n) + '.</p></div></div>';
     }
     h += '<p class="alb-note">Артефакты общие для сайта и бота.</p></div>';
     book.innerHTML = h;
@@ -228,7 +232,7 @@
   var lastFocus = null;
   function openBook() {
     lastFocus = document.activeElement;
-    renderBook(); book.hidden = false; document.documentElement.style.overflow = 'hidden';
+    renderBook(); book.hidden = false; var bk = book.querySelector('.alb-book'); if (bk) bk.scrollTop = 0; document.documentElement.style.overflow = 'hidden';
     var hint = document.querySelector('.alb-hint'); if (hint) hint.remove();
     FBT.store.set('fbt_alb_seen', 1);
     book.querySelector('.alb-x').focus();
