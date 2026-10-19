@@ -77,7 +77,41 @@
   // 09.10: у каждого события — свой номер (eid): если браузер пришлёт его дважды, бот не засчитает повтор.
   var eidN = 0;
   function eid() { eidN += 1; return (Date.now().toString(36) + Math.random().toString(36).slice(2, 8) + eidN.toString(36)).slice(0, 40); }
+  // ── 19.10: Meta Pixel — шаги воронки как события Meta (для аудиторий ретаргета и отчётов рекламы) ──
+  // Включается, только если в config.js указан metaPixel: '<ID>'. Тестовые заходы не отправляются.
+  // Личных данных (имя, телефон, ответы диагностики) в пиксель не передаём — только название шага и страницу.
+  var pxPage = (location.pathname.split('/').pop() || 'index').replace('.html', '') || 'index';
+  var pxOn = !!(C.metaPixel && /^\d{10,20}$/.test(String(C.metaPixel)) && !isTest);
+  var pxOnce = {};
+  if (pxOn) {
+    (function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+      t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+    })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', String(C.metaPixel));
+    window.fbq('track', 'PageView', { page: pxPage });
+  }
+  function px(std, name, params, once) {
+    if (!pxOn || !window.fbq) return;
+    if (once) { if (pxOnce[once]) return; pxOnce[once] = 1; }
+    try { window.fbq(std ? 'track' : 'trackCustom', name, Object.assign({ page: pxPage }, params || {})); } catch (e) { /* без пикселя */ }
+  }
+  function pixelStep(name, data) {
+    data = data || {};
+    if (name === 'video_progress') {
+      px(true, 'ViewContent', { content_name: 'videorazbor' }, 'v0');
+      if (data.duration && data.sec >= data.duration * 0.5) px(false, 'Video50', {}, 'v50');
+    } else if (name === 'video_unlock') px(false, 'VideoComplete', {}, 'v100');
+    else if (name === 'map_take') px(false, 'MapTaken', {}, 'map');
+    else if (name === 'diag_start') px(false, 'DiagnosticStart', {}, 'dstart');
+    else if (name === 'diag_send') px(true, 'Lead', { content_name: 'send_to_alexander' }, 'lead');
+    else if (name === 'apply') px(true, 'SubmitApplication', {}, 'apply');
+    else if (name === 'bot_start') px(true, 'Contact', { content_name: String(data.start || '').slice(0, 30) });
+  }
+
   function event(name, data) {
+    pixelStep(name, data);
     var token = store.get('fbt_token', '');
     if (!C.botApi || !token) return;
     try {
