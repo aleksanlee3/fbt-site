@@ -90,3 +90,27 @@
 .igra-price s { font: 700 44px/1 var(--hand, 'Caveat', cursive); color: #8A8A90; transform: rotate(-3deg); display: inline-block;
   text-decoration: line-through; text-decoration-color: #C60000; text-decoration-thickness: 3px; }
 @media (max-width: 860px) { .igra-price s { font-size: 40px; } }
+
+/* 19.10 v5.48 · Закрытый бизнес-разбор с Любой (среда 12:00, Zoom, 7 мест): таймер до ближайшей встречи, цены нет */
+.rz-timer { margin-top: 18px; padding: 16px 18px 18px; border-radius: 18px; background: #181818; color: #fff;
+  box-shadow: 0 10px 28px rgba(0,0,0,.18); }
+.rz-when { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font: 500 16px/1.3 Onest, sans-serif; color: rgba(255,255,255,.78); }
+.rz-when b { color: #fff; font-weight: 700; }
+.rz-dot { width: 9px; height: 9px; border-radius: 50%; background: #FF3B30; box-shadow: 0 0 0 4px rgba(255,59,48,.25); animation: igra-live 1.6s ease-in-out infinite; }
+.rz-cd { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
+.rz-cd span { display: flex; flex-direction: column; align-items: center; padding: 10px 4px 8px; border-radius: 12px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); }
+.rz-cd b { font: 700 34px/1 Onest, sans-serif; letter-spacing: -.02em; font-variant-numeric: tabular-nums; color: #fff; }
+.rz-cd span:first-child b { color: #FF6B60; }
+.rz-cd i { margin-top: 6px; font: 500 13px/1 Onest, sans-serif; font-style: normal; color: rgba(255,255,255,.6); }
+.igra-price { margin-top: 14px; }
+.igra-price span { flex-basis: auto; flex: 1 1 220px; margin-top: 0; font-size: 16px; line-height: 1.35; }
+@media (max-width: 860px) {
+  .rz-timer { margin-top: 14px; padding: 14px 14px 14px; border-radius: 16px; }
+  .rz-when { font-size: 15px; }
+  .rz-cd { gap: 6px; }
+  .rz-cd b { font-size: 28px; }
+  .rz-cd i { font-size: 12px; }
+  .igra-price span { font-size: 15px; flex-basis: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .rz-dot { animation: none; } }

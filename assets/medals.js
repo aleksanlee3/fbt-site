@@ -1,4 +1,4 @@
-/* FBT Online — «Артефакты» (с 06.10, бывший «Семейный альбом»): 6 артефактов за шаги воронки, за все 6 — созвон с Любой (16.10, вместо книги).
+/* FBT Online — «Артефакты» (с 06.10, бывший «Семейный альбом»): 6 артефактов за шаги воронки, за все 6 — бесплатный закрытый бизнес-разбор с Любой (19.10; 16.10 — созвон 10 минут; до этого книга).
    13.10 (Александр): убраны «Домашнее задание», «Разговор за чаем», «Семейное древо» — квест кончается на отправке Александру.
    «Позвать друга» — личная ссылка на бота (start=ref_<id>, та же, что в боте); артефакт «Друг семьи» засчитывает бот,
    когда друг нажал «Старт», сайт получает его при сверке (GET /api/session → stickers).
@@ -11,7 +11,8 @@
   var IMG = 'assets/medals/';
   var CARD = 'assets/medals/cards/';   // 06.10: карточки артефактов 4:5 «рисунок карандашом» (те же, что в боте)
   function card(m) { return CARD + m.img + '.webp'; }
-  var BOOK = 'assets/img/luba-call-sq.jpg?v=2';   // 16.10: подарок — созвон с Любой (вместо книги)
+  var BOOK = 'assets/img/luba-call-sq.jpg?v=2';   // 19.10: подарок — закрытый бизнес-разбор с Любой (среда 12:00, Zoom, 7 мест)
+  function rzWhen() { var R = FBT.razbor || window.FBT_RAZBOR; return R ? R.label(R.next()) : 'среда, 12:00'; }
 
   var LIST = [
     { id: 'shag',   img: '01-shag',   name: 'Первый шаг',        hint: 'Досмотрите видеоразбор Любы до конца', go: ['index.html', 'К видеоразбору'] },
@@ -135,7 +136,7 @@
     var pop = el('div', 'alb-pop',
       '<img class="alb-card" src="' + card(m) + '" alt="' + m.name + '">' +
       '<div><small>Новый артефакт · ' + n + ' из ' + TOTAL + '</small><strong class="alb-sr">' + m.name + '</strong><span>' +
-      (n === TOTAL ? 'Все 6 собраны — квест пройден! Ваш подарок — созвон с Любой' : 'Добавлен в ваши артефакты') + '</span></div>');
+      (n === TOTAL ? 'Все 6 собраны — квест пройден! Вы приглашены на закрытый бизнес-разбор с Любой' : 'Добавлен в ваши артефакты') + '</span></div>');
     pop.setAttribute('role', 'status');
     pop.addEventListener('click', function () { hide(); openBook(); });
     document.body.appendChild(pop);
@@ -190,7 +191,7 @@
       h += '<p class="alb-sub">Квест пройден: все ' + TOTAL + ' артефактов собраны! Спасибо, что прошли путь до конца.</p>';
     } else {
       h += '<span class="alb-kv">квест</span>' +
-        '<h2 class="alb-offer-h"><span>Соберите <span class="alb-six">' + TOTAL + '</span> артефактов —</span><span>получите <mark>бесплатный созвон</mark></span><span>с Любой</span></h2>';
+        '<h2 class="alb-offer-h"><span>Соберите <span class="alb-six">' + TOTAL + '</span> артефактов —</span><span>попадите на <mark>закрытый разбор</mark></span><span>с Любой</span></h2>';
       h += '<p class="alb-how">За каждый шаг на сайте и в&nbsp;боте&nbsp;— 1&nbsp;артефакт.</p>';
     }
     h += '<div class="alb-bar"><i style="width:' + (n / TOTAL * 100) + '%"></i></div>';
@@ -215,13 +216,13 @@
       // 17.10 v5.44: подарок — внизу окна, после всех артефактов
       h += '<div class="alb-prize"><img class="alb-prize-img" src="' + BOOK + '" alt="Люба Бэй">' +
         '<div class="alb-prize-t"><b>Ваш подарок за все ' + TOTAL + '</b>' +
-        '<span class="alb-prize-chips"><i>💬 любой вопрос о бизнесе</i><i>⏱ до 10 минут</i></span>' +
-        '<span class="alb-prize-pr"><s>$150</s> <em>бесплатно</em></span></div></div>';
+        '<span class="alb-prize-chips"><i>👥 7 предпринимателей</i><i>💬 ваш вопрос Любе</i><i>🎥 Zoom</i></span>' +
+        '<span class="alb-prize-pr"><em>бесплатно</em> <small>ближайший: ' + rzWhen() + '</small></span></div></div>';
     }
     if (full()) {
-      h += '<div class="alb-gift alb-call is-open"><img class="alb-call-img" src="' + BOOK + '" alt="Люба Бэй"><div><b>Ваш подарок: личный созвон с Любой</b>' +
-        '<p>Любой вопрос о вашем бизнесе, до 10 минут. Напишите Александру — он договорится о времени.</p>' +
-        '<a class="alb-go" href="#" data-alb-act="book">Записаться на созвон</a></div></div>';
+      h += '<div class="alb-gift alb-call is-open"><img class="alb-call-img" src="' + BOOK + '" alt="Люба Бэй"><div><b>Вы приглашены на закрытый бизнес-разбор с Любой</b>' +
+        '<p>Живая встреча в Zoom, 7 предпринимателей. Ближайшая — ' + rzWhen() + '. Напишите Александру свой вопрос — он забронирует вам место и пришлёт ссылку.</p>' +
+        '<a class="alb-go" href="#" data-alb-act="book">Занять место</a></div></div>';
     }
     h += '<p class="alb-note">Артефакты общие для сайта и бота.</p></div>';
     book.innerHTML = h;
@@ -274,7 +275,7 @@
     if (a === 'share') { FBT.invite(); return; }
     if (a === 'copy') { copyRef(btn); return; }
     if (a === 'book' && full()) {
-      FBT.open(FBT.tg(C.curator, 'Здравствуйте! Я собрал(а) все 6 артефактов FBT и хочу записаться на созвон с Любой (до 10 минут).\nМой вопрос: '));
+      FBT.open(FBT.tg(C.curator, 'Здравствуйте! Я собрал(а) все 6 артефактов FBT и хочу на закрытый бизнес-разбор с Любой (' + rzWhen() + ').\nМой вопрос Любе: '));
     }
   }
 
