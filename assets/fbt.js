@@ -410,6 +410,8 @@
       window.clarity('set', 'fbt_test', isTest ? '1' : '0');
       window.clarity('set', 'fbt_version', VERSION);
       if (src) window.clarity('set', 'fbt_source', src);
+      // 19.10: метка страницы — фильтр записей и карт по странице воронки (главная, После запуска, диагностика…)
+      window.clarity('set', 'fbt_page', (location.pathname.replace(/\/(index)?(\.html)?$/, '') || '/').replace(/\.html$/, '') || '/');
     };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startClarity);
     else startClarity();
