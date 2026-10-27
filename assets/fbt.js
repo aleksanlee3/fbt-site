@@ -20,7 +20,7 @@
   }
 
   // 09.10: версия сайта — уходит с каждым событием в бот (по ней в Notion видно, при какой версии это было)
-  var VERSION = '5.51';
+  var VERSION = '5.52';
 
   // 09.10: тестовое прохождение. ?test, ?demo, ?reset в адресе или testMode в config.js — это сотрудник или проверка.
   // Отметка остаётся в браузере: все события отсюда идут с пометкой test, бот ставит человеку «Тест» в Notion.
@@ -108,15 +108,33 @@
     else if (name === 'diag_send') px(true, 'Lead', { content_name: 'send_to_alexander' }, 'lead');
     else if (name === 'apply') px(true, 'SubmitApplication', {}, 'apply');
     else if (name === 'bot_start') px(true, 'Contact', { content_name: String(data.start || '').slice(0, 30) });
+    // 27.10: система событий (track.js) — в Meta только важное, для аудиторий ретаргета
+    else if (name === 'tg_direct') px(false, 'TelegramDirect', { content_name: String(data.who || '').slice(0, 30) });
+    else if (name === 'scroll_depth' && data.pct === 75) px(false, 'Scroll75', {});
+    else if (name === 'time_mark' && data.sec === 60) px(false, 'EngagedVisit', {}, 'engaged');
+  }
+  // 27.10: события — пользовательскими событиями в Clarity (фильтр записей визитов). Частые не шлём.
+  var CL_SKIP = { ui_click: 1, video_progress: 1, diag_progress: 1, page_time: 1, utm: 1 };
+  function clarityEvent(name, data) {
+    if (!window.clarity || CL_SKIP[name]) return;
+    var n = name;
+    if (name === 'scroll_depth') n = 'scroll_' + data.pct;
+    else if (name === 'time_mark') n = 'time_' + data.sec;
+    else if (name === 'section_view') n = 'see_' + String(data.id || '').slice(0, 30);
+    try { window.clarity('event', n); } catch (e) { /* без Clarity */ }
   }
 
   function event(name, data) {
+    data = data || {};
     pixelStep(name, data);
+    clarityEvent(name, data);
     var token = store.get('fbt_token', '');
-    if (!C.botApi || !token) return;
+    if (!C.botApi) return;
+    // 27.10: без кода из бота (человек ещё не заходил в бота) — событие уходит по анонимному ID сайта, только в журнал
+    var body = token ? { token: token } : { anon: anon };
     try {
       fetch(C.botApi.replace(/\/$/, '') + '/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token, event: name, data: data || {}, eid: eid(), v: VERSION, test: isTest ? 1 : 0 }),
+        body: JSON.stringify(Object.assign(body, { event: name, data: data, eid: eid(), v: VERSION, test: isTest ? 1 : 0 })),
         keepalive: true });
     } catch (e) { /* без сервера — пропускаем */ }
   }

@@ -180,6 +180,8 @@
     var yt = null, ready = false, muted = true, RATES = [1, 1.25, 1.5], rateI = 0;
     lessonMuted = true;
     function setMuted(m) {
+      if (muted && !m) event('video_sound_on', { sec: Math.round(st.pos) });      // 27.10: включил звук
+      if (!muted && m) event('video_sound_off', { sec: Math.round(st.pos) });
       muted = m; lessonMuted = m;
       if (ready) { if (m) yt.mute(); else { yt.unMute(); yt.setVolume(100); } }
       soundBtn.hidden = !m;
@@ -226,6 +228,7 @@
       rateI = (rateI + 1) % RATES.length;
       rateBtn.textContent = String(RATES[rateI]).replace('.', ',') + '×';
       if (ready) yt.setPlaybackRate(RATES[rateI]);
+      event('video_speed', { rate: RATES[rateI], sec: Math.round(st.pos) });       // 27.10
     });
     // Во весь экран: настоящий полноэкранный режим, а где его нет (iPhone) — плеер на весь экран страницы
     var fsTarget = el.player;
@@ -239,6 +242,7 @@
     }
     fsBtn.addEventListener('click', function (e) {
       e.stopPropagation();
+      event('video_fullscreen', { on: fsOn() ? 0 : 1, sec: Math.round(st.pos) });   // 27.10: вошёл / вышел из полного экрана
       if (nativeFs()) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; }
       if (el.player.classList.contains('is-fs')) { pseudoFs(false); return; }
       var req = fsTarget.requestFullscreen || fsTarget.webkitRequestFullscreen;
@@ -273,6 +277,9 @@
             render();
           },
           onStateChange: function (e) {
+            // 27.10: запуск и пауза видео (YouTube: 1 — играет, 2 — пауза)
+            if (e.data === 1 && !st.playing) event('video_play', { sec: Math.round(st.pos), muted: muted ? 1 : 0 });
+            if (e.data === 2 && st.playing) event('video_pause', { sec: Math.round(st.pos) });
             st.playing = e.data === 1;
             if (e.data === 1) { var d = yt.getDuration(); if (d && d > 60) realLen = d; }
             if (e.data === 0) { st.pos = TOTAL(); videoEnd(); }
