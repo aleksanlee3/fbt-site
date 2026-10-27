@@ -11,7 +11,7 @@
   var IMG = 'assets/medals/';
   var CARD = 'assets/medals/cards/';   // 06.10: карточки артефактов 4:5 «рисунок карандашом» (те же, что в боте)
   function card(m) { return CARD + m.img + '.webp'; }
-  var BOOK = 'assets/img/luba-call-sq.jpg?v=2';   // 19.10: подарок — закрытый бизнес-разбор с Любой (среда 12:00, Zoom, 7 мест)
+  var BOOK = 'assets/img/luba-call-sq.jpg?v=3';   // 19.10: подарок — закрытый бизнес-разбор с Любой (среда 12:00, Zoom, 7 мест)
   function rzWhen() { var R = FBT.razbor || window.FBT_RAZBOR; return R ? R.label(R.next()) : 'среда, 12:00'; }
 
   var LIST = [
