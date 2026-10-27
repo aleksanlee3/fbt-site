@@ -227,3 +227,8 @@ body.ic:not(.ic-dark) :is(.sa-big-b > span, .sa-pain div > span) { color: #55555
 .sa-gift2 p { margin: 6px 0 0; font-size: 15px; line-height: 1.4; color: #6E6E73; font-weight: 400; }
 .sa-gift2 .sa-gift-chips { display: flex; gap: 6px; margin-top: 10px; }
 .sa-gift2 .sa-gift-chips span { padding: 4px 10px; border-radius: 999px; background: #fff; border: 1px solid rgba(29,29,31,.1); font-size: 13px; font-weight: 600; color: #1D1D1F; }
+
+/* 27.10 v5.53 · «Узнаёте себя?»: новые фото 16:9 — без обрезки сцены, человек в кадре (фокус из crop-map ChatGPT) */
+.sa-swipe .sa-big-ph { height: auto; aspect-ratio: 16 / 9; }
+.sa-swipe .sa-big-ph img { object-fit: cover; object-position: var(--focus-x, 50%) var(--focus-y, 50%); filter: none; }
+@media (max-width: 640px) { .sa-swipe .sa-big-ph { height: auto; } }
