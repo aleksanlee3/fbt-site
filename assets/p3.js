@@ -132,10 +132,10 @@
     base: ['Крепкая основа с узким местом', 'Основа есть, но рост упирается в одно направление — {main}.']
   };
   function levelOf() {
-    var pts = st.answers.reduce(function (a, x) { return a + (x ? (x - 1) / 2 : 0); }, 0);   // нет 0 · частично 1 · да 2
-    return pts <= 4 ? 1 : pts <= 8 ? 2 : pts <= 12 ? 3 : pts <= 16 ? 4 : 5;
+    var pts = st.answers.reduce(function (a, x) { return a + (x ? x - 1 : 0); }, 0);   // 27.10: нет 0 · скорее нет 1 · частично 2 · скорее да 3 · да 4 (0…40)
+    return pts <= 8 ? 1 : pts <= 16 ? 2 : pts <= 24 ? 3 : pts <= 32 ? 4 : 5;
   }
-  // 16.10 (Александр): уровень дробный — средний балл 10 ответов по шкале 1–5 (нет 1 · частично 3 · да 5), один знак.
+  // 16.10 (Александр): уровень дробный — средний балл 10 ответов по шкале 1–5 (нет 1 · скорее нет 2 · частично 3 · скорее да 4 · да 5), один знак.
   // Название уровня — по целой части: 4,2 → «Крепкий бизнес».
   function levelScore() {
     var a = st.answers.filter(function (x) { return x != null; });
@@ -147,18 +147,21 @@
   function levelName(v) { return LEVELS[Math.max(1, Math.min(5, Math.floor(v)))]; }
   function archKey(sc) {
     var m = sc[0], k = sc[1], f = sc[2], t = sc[3], p = sc[4];
-    var hi = sc.filter(function (x) { return x === 5; }).length, lo = sc.filter(function (x) { return x === 1; }).length;
+    // 27.10: шкала 1–5 — «сильно» = 4–5 (да / скорее да), «слабо» = 1–2 (нет / скорее нет), 3 — середина
+    function H(x) { return x >= 4; } function L(x) { return x > 0 && x <= 2; }
+    var hi = sc.filter(H).length, lo = sc.filter(L).length;
     if (hi === 5) return 'system';
     if (lo === 5) return st.stage === 'none' || st.stage === 'launch' ? 'fresh' : 'manual';
     if (hi === 0 && lo === 0) return 'half';
-    if (t === 1 && p === 1) return 'owner';
-    if (k === 5 && f === 1) return 'no_profit';
-    if (f === 5 && k === 1) return 'no_clients';
-    if (m === 5 && hi === 1 && lo === 0) return 'idea';
-    if (k === 5 && (t === 1 || p === 1)) return 'no_hands';
+    if (L(t) && L(p)) return 'owner';
+    if (H(k) && L(f)) return 'no_profit';
+    if (H(f) && L(k)) return 'no_clients';
+    if (H(m) && hi === 1 && lo === 0) return 'idea';
+    if (H(k) && (L(t) || L(p))) return 'no_hands';
     if (hi >= 3 && lo === 1) return 'one_gap';
     if (hi >= 3) return 'almost';
-    for (var i = 0; i < 5; i++) if (sc[i] === 1) return DIRS[i].id;
+    var low = Math.min.apply(null, sc);
+    for (var i = 0; i < 5; i++) if (L(sc[i]) && sc[i] === low) return DIRS[i].id;
     return 'base';
   }
   function archetype() {
@@ -363,7 +366,8 @@
       return '<span style="background:' + bg + '"></span>';
     }).join('');
     var box = $('[data-q-opts]'); box.innerHTML = ''; box.removeAttribute('data-busy');
-    [['Нет', 1], ['Частично', 3], ['Да', 5]].forEach(function (o) {
+    // 27.10 (Александр): 5 ответов вместо 3 — точнее профиль. Баллы 5 · 4 · 3 · 2 · 1 (та же шкала в боте)
+    [['Да', 5], ['Скорее да', 4], ['Частично', 3], ['Скорее нет', 2], ['Нет', 1]].forEach(function (o) {
       var on = st.answers[qi] === o[1];
       var b = el('button', 'qopt', o[0]);
       b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on ? 'true' : 'false');
