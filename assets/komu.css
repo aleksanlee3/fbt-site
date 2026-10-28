@@ -33,4 +33,5 @@ body.ic.ic-dark .ic-top .komu-note { border-color: rgba(255,255,255,.22); }
 @media (max-width: 900px) {
   .komu-grid { grid-template-columns: 1fr; gap: 18px; }
   .komu-ph { aspect-ratio: 16 / 9; }
+  .komu-lead { text-align: left; margin-left: 0; }
 }
