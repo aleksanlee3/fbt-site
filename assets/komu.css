@@ -1,11 +1,11 @@
 /* 28.10 v5.56: блок «Кому подходит» — производство, торговля, сфера услуг (главная и «После запуска») */
-.komu-lead { font-size: clamp(18px, 2.2vw, 22px); line-height: 1.45; color: var(--text-2, inherit); max-width: 720px; margin: 12px 0 0; }
+.komu-lead { font-size: clamp(18px, 2.2vw, 22px); line-height: 1.45; color: var(--text-2, inherit); max-width: 720px; margin: 12px auto 0; text-align: center; }
 .komu-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 32px; }
 .komu-card { position: relative; display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line-3); border-radius: 22px; overflow: hidden; }
 .komu-card::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: var(--k-acc); z-index: 2; }
 .komu-ph { display: block; position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #2C2C2E; }
 .komu-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.komu-num { position: absolute; left: 16px; bottom: 14px; display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: var(--k-acc); color: #fff; font-weight: 700; font-size: 15px; letter-spacing: .02em; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+.komu-num { position: absolute; left: 16px; bottom: 14px; display: inline-flex; align-items: center; gap: 8px; min-width: 44px; justify-content: center; padding: 8px 14px; border-radius: 999px; font-size: 17px; background: var(--k-acc); color: #fff; font-weight: 700; font-size: 15px; letter-spacing: .02em; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
 .komu-b { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
 .komu-b h3 { margin: 0; font-size: clamp(24px, 2.6vw, 30px); line-height: 1.15; font-weight: 800; color: var(--text-strong, var(--text)); }
 .komu-pain { margin: 0; font-size: 18px; line-height: 1.4; color: var(--text); }
