@@ -1,4 +1,4 @@
-/* Стр. 3 · Онлайн-диагностика «Швейцарский компас»: 10 вопросов, уровень и тип профиля, главная точка, отправка куратору (13.10: без заданий) */
+/* 29.10 v5.57: объяснения по ответам, честные статусы (аудит CJM). Стр. 3 · Онлайн-диагностика «Швейцарский компас»: 10 вопросов, уровень и тип профиля, главная точка, отправка куратору (13.10: без заданий) */
 (function () {
   var C = FBT.cfg;
   var qs = new URLSearchParams(location.search);
@@ -43,6 +43,33 @@
     [4, 'Каждый в команде (и в семье, если она участвует) знает свою роль и за что отвечает.'],
     [4, 'С партнёрами, командой или семьёй мы спокойно обсуждаем сложные вопросы и принимаем решения.']
   ];
+  // 29.10 (аудит R1): объяснение строим по тем ответам, которые человек дал сам, — вывод не должен противоречить ответу.
+  // [что сказать при «Нет / Скорее нет», что сказать при «Частично»]
+  var GAPS = [
+    ['сложно одной фразой сказать, кто ваш клиент и за что он платит', 'не до конца ясно, кто ваш клиент и за что он платит'],
+    ['непонятно, на чём именно бизнес зарабатывает', 'не до конца понятно, на чём именно бизнес зарабатывает'],
+    ['неясно, кому вы продаёте и что волнует этих людей', 'не до конца ясно, кому вы продаёте и что волнует этих людей'],
+    ['непонятно, откуда приходят клиенты и как повторить этот способ', 'не всегда понятно, откуда приходят клиенты и как повторить этот способ'],
+    ['деньги семьи и бизнеса лежат вместе', 'деньги семьи и бизнеса разделены не до конца'],
+    ['пока неясно, какая прибыль и сколько нужно продать, чтобы не уйти в минус', 'не до конца понятно, какая прибыль и сколько нужно продать, чтобы не уйти в минус'],
+    ['текучка забирает почти всё время, на развитие его не остаётся', 'на развитие бизнеса остаётся мало времени'],
+    ['трудно выбрать главное и довести важные задачи до конца', 'не всегда получается выбрать главное и довести важные задачи до конца'],
+    ['не у каждого в команде понятна роль и ответственность', 'роли и ответственность договорены не у всех'],
+    ['сложные вопросы трудно обсуждать спокойно', 'сложные вопросы обсуждать спокойно получается не всегда']
+  ];
+  // Слабые ответы направления: «Нет / Скорее нет» — всегда; «Частично» — если он самый низкий в паре
+  function gapIdx(d) {
+    var a = st.answers[2 * d], b = st.answers[2 * d + 1];
+    var low = Math.min(a == null ? 9 : a, b == null ? 9 : b);
+    return [2 * d, 2 * d + 1].filter(function (i) { var v = st.answers[i]; return v != null && (v <= 2 || (v === 3 && v === low)); });
+  }
+  function gapText(d) {
+    var g = gapIdx(d).map(function (i) { return GAPS[i][st.answers[i] <= 2 ? 0 : 1]; });
+    return g.join(', а также ');
+  }
+  function cap(t) { return t ? t.charAt(0).toUpperCase() + t.slice(1) : t; }
+  function whyOf(d) { var g = gapText(d); return g ? 'Вы отметили, что ' + g + '.' : DIRS[d].why; }
+
   var SYMS = [['s1', 'Мало клиентов', 1], ['s2', 'Продажи скачут', 1], ['s3', 'Неясно, кому продаём', 1], ['s4', 'Не понимаем прибыль', 2],
     ['s5', 'Деньги смешаны', 2], ['s6', 'Все перегружены', 3], ['s7', 'Задачи зависают', 3], ['s8', 'Роли пересекаются', 4], ['s9', 'Часто спорим', 4]];
   // 07.10 (решение Александра, вариант A): 3 вопроса перед тестом — стадия, кто из семьи участвует, что мешает.
@@ -164,9 +191,27 @@
     for (var i = 0; i < 5; i++) if (L(sc[i]) && sc[i] === low) return DIRS[i].id;
     return 'base';
   }
+  // 29.10 (аудит R1): если слабо только одно из двух утверждений — заголовок о нём, а не о другом
+  var ARCH_ALT = {
+    marketing: [2, 'Неясно, кому продаём'],          // «откуда клиенты» в порядке, слабо «кому продаём»
+    finance: [4, 'Деньги семьи и бизнеса вместе'],   // прибыль посчитана, слабо «деньги отдельно»
+    time: [7, 'Важное не доводится до конца'],
+    people: [9, 'Сложные разговоры откладываются']
+  };
+  var ARCH_DIR = { model: 0, marketing: 1, finance: 2, time: 3, people: 4 };
   function archetype() {
-    var r = calc(), a = ARCH[archKey(r.sc)];
-    return [a[0], a[1].replace('{main}', r.perfect ? '' : DIRS[r.weak].name.toLowerCase())];
+    var r = calc(), key = archKey(r.sc), a = ARCH[key];
+    var name = a[0], text = a[1].replace('{main}', r.perfect ? '' : DIRS[r.weak].name.toLowerCase());
+    if (ARCH_DIR[key] != null) {
+      var d = ARCH_DIR[key], gi = gapIdx(d), alt = ARCH_ALT[key];
+      if (alt && gi.length === 1 && gi[0] === alt[0]) name = alt[1];
+      if (gi.length) text = cap(gapText(d)) + '.';
+    }
+    if (key === 'no_profit' && gapIdx(2).length) text = 'Клиенты приходят, но в деньгах есть пробел: ' + gapText(2) + '.';
+    if (key === 'no_profit' && gapIdx(2).length === 1 && gapIdx(2)[0] === 4) name = 'Продажи есть — деньги смешаны';
+    if (key === 'no_clients' && gapIdx(1).length === 1 && gapIdx(1)[0] === 2) name = 'Деньги посчитаны — неясно, кому продаём';
+    if (key === 'no_clients' && gapIdx(1).length) text = 'С цифрами порядок, но с клиентами есть пробел: ' + gapText(1) + '.';
+    return [name, text];
   }
 
   function tk() { return st.tasks; }
@@ -413,8 +458,10 @@
       return '<div class="brow' + (weak ? ' weak' : '') + '"><span class="bn">' + d.name + '</span><span class="bt"><i style="width:' + (r.sc[i] * 20) + '%;background:' + d.color + '"></i></span><span class="bs">' + r.sc[i] + '/5</span></div>';
     }).join('');
     $('[data-mp-dot]').style.background = main.color;
-    FBT.text('mpName', main.name); FBT.text('mpStop', main.stop); FBT.text('mpWhy', main.why); FBT.text('mpStep', main.step); FBT.text('mpCost', main.cost); FBT.text('mpFix', main.fix);
-    FBT.text('mpOthers', 'На том же уровне: ' + r.ties.filter(function (n) { return n !== main.name; }).join(', ') + '.');
+    FBT.text('mpName', main.name); FBT.text('mpStop', main.stop); FBT.text('mpWhy', whyOf(r.weak)); FBT.text('mpStep', main.step); FBT.text('mpCost', main.cost); FBT.text('mpFix', main.fix);
+    // 29.10 (аудит R2): при равных баллах объясняем, почему предлагаем начать именно с этого направления
+    FBT.text('mpOthers', 'Столько же баллов у направлений: ' + r.ties.filter(function (n) { return n !== main.name; }).join(', ') +
+      '. Предлагаем начать с направления «' + main.name + '» — в программе FBT разбор идёт в таком порядке. Если сейчас важнее другое, напишите об этом куратору.');
     var chosen = SYMS.filter(function (s) { return st.sym[s[0]]; });
     $('[data-sym-chosen]').innerHTML = chosen.map(function (s) { return '<span class="chip"><i style="color:' + DIRS[s[2]].color + '"></i>' + s[1] + '</span>'; }).join('');
     $('[data-msg]').textContent = summary();
@@ -443,9 +490,9 @@
     if (st.step === 'q') renderQ();
     if (st.step === 'sym') renderSym();
     if (st.step === 'result' || st.step === 'sent') { renderResult(); if (FBT.medal) FBT.medal('kompas'); }
-    FBT.text('pdfLabel', st.pdf ? 'PDF-разбор — в боте ✓' : 'Получить PDF-разбор в боте');
+    FBT.text('pdfLabel', st.pdf ? 'Открыть бота с PDF ещё раз' : 'Получить PDF-разбор в боте');   // 29.10: клик ≠ доставка
     FBT.text('rcBadge', { intro: '10 вопросов · 5 минут', stage: 'перед тестом', q: 'вопрос ' + (Math.min(st.qi, 9) + 1) + ' из 10', sym: 'последний шаг',
-      result: 'результат готов', sent: 'отправлено куратору' }[st.step]);
+      result: 'результат готов', sent: 'чат с куратором открыт' }[st.step]);
     // знакомы с ботом — результат уже у него, открываем чат без /start
     $$('[data-pdf]').forEach(function (a) { a.href = FBT.linked() ? FBT.bot('') : FBT.bot(botCode()); a.target = '_blank'; a.rel = 'noopener'; });
     save();

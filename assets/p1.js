@@ -77,7 +77,7 @@
     FBT.text('timeLeft', fmt(UNLOCK() - st.pos));
     FBT.text('posLabel', fmt(st.pos));
     FBT.text('lenLabel', fmt(len));
-    FBT.text('step2Badge', got ? 'Карта в боте' : 'Доступ открыт');
+    FBT.text('step2Badge', got ? 'Карта ждёт в боте' : 'Доступ открыт');
     el.played.style.width = Math.min(100, st.pos / len * 100).toFixed(2) + '%';
     el.marker.style.left = (UNLOCK() / TOTAL() * 100).toFixed(2) + '%';
     el.marker.hidden = !finalStage;
