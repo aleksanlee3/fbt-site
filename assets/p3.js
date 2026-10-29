@@ -461,7 +461,7 @@
     FBT.text('mpName', main.name); FBT.text('mpStop', main.stop); FBT.text('mpWhy', whyOf(r.weak)); FBT.text('mpStep', main.step); FBT.text('mpCost', main.cost); FBT.text('mpFix', main.fix);
     // 29.10 (аудит R2): при равных баллах объясняем, почему предлагаем начать именно с этого направления
     FBT.text('mpOthers', 'Столько же баллов у направлений: ' + r.ties.filter(function (n) { return n !== main.name; }).join(', ') +
-      '. Предлагаем начать с направления «' + main.name + '» — в программе FBT разбор идёт в таком порядке. Если сейчас важнее другое, напишите об этом куратору.');
+      '. Предлагаем начать с направления «' + main.name + '» — по методике FBT разбор начинается с него. Если сейчас важнее другое, напишите об этом куратору.');
     var chosen = SYMS.filter(function (s) { return st.sym[s[0]]; });
     $('[data-sym-chosen]').innerHTML = chosen.map(function (s) { return '<span class="chip"><i style="color:' + DIRS[s[2]].color + '"></i>' + s[1] + '</span>'; }).join('');
     $('[data-msg]').textContent = summary();
