@@ -22,7 +22,8 @@ window.FBT_CONFIG = {
     src: 'pQeg-okJDs8',         // youtube: ID ролика (youtu.be/pQeg-okJDs8, с 14.10 14:45; до этого tVpbCS5VE6g, OSiC3Ik7mRE, hmJsP-9rCdk); file: ссылка на .mp4
     poster: 'assets/img/fbt-video-cover.png', // настоящая обложка видео
     length: 525,                // запасная длительность 8:45; настоящую плеер берёт у YouTube сам
-    unlockAt: 525,              // карта открывается в конце ролика (8:45)
+    unlockAt: 525,              // конец ролика (8:45): событие video_unlock и артефакт
+    mapOpen: true,              // 02.11: карту можно забрать сразу, без досмотра (решение Александра). false — вернуть блокировку
     stages: [180, 300]          // полоска в плеере: 3:00 → 5:00 → полная; «осталось» всегда от полной длины
   },
 

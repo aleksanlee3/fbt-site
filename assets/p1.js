@@ -6,6 +6,7 @@
   var TEST = !!C.testMode || !!C.videoTest || qs.has('test');
   var realLen = Math.max(60, Number(V.length) || 1800);                // уточняется у плеера
   var UNLOCK_CFG = Math.max(30, Number(V.unlockAt) || 1770);
+  var MAP_OPEN = !!V.mapOpen;   // 02.11: карта доступна сразу, без досмотра видео
   var STAGES = (V.stages || [180, 600]).map(Number).filter(function (s) { return s > 0; }).sort(function (a, b) { return a - b; });
   var demoSpeed = Math.max(1, Math.min(600, Number(qs.get('demo')) || 1));
   if (qs.has('reset')) { FBT.store.set('fbt_p1', {}); FBT.store.set('fbt_map', 0); }
@@ -69,10 +70,10 @@
   function render() {
     if (st.pos >= UNLOCK() && !st.reached) { st.reached = true; event('video_unlock', { sec: Math.round(st.pos), duration: Math.round(TOTAL()) }); if (FBT.medal) FBT.medal('shag'); }
     if (st.pos >= 60 && FBT.albumShow) FBT.albumShow();   // альбом на стр. 1 — только после минуты урока (30.09)
-    var open = st.reached, got = open && st.gotMap;
+    var open = st.reached || MAP_OPEN, got = open && st.gotMap;
     var len = shownLen(), finalStage = len >= TOTAL();
     FBT.toggle({ locked: !open, unlocked: open && !got, got: got, notGot: !got, openAny: open });
-    if (open) { var c2 = document.querySelector('[data-watch-cue]'); if (c2) c2.classList.add('is-off'); }  // урок досмотрен — стрелка не нужна
+    if (st.reached) { var c2 = document.querySelector('[data-watch-cue]'); if (c2) c2.classList.add('is-off'); }  // урок досмотрен — стрелка не нужна
     // 13.10: «осталось» — всегда от полной длины видео; поэтапной (3:00 → 5:00 → полная) остаётся только полоска в плеере
     FBT.text('timeLeft', fmt(UNLOCK() - st.pos));
     FBT.text('posLabel', fmt(st.pos));
@@ -263,7 +264,7 @@
         videoId: V.src,
         host: 'https://www.youtube-nocookie.com',
         playerVars: { origin: location.origin, controls: 0, disablekb: 1, fs: 0, rel: 0, iv_load_policy: 3, playsinline: 1, modestbranding: 1,
-                      autoplay: 1, mute: 1, start: Math.floor(st.pos > 5 && st.pos < TOTAL() - 5 ? st.pos : 0) },
+                      autoplay: 1, mute: 1, cc_load_policy: 1, cc_lang_pref: 'ru', hl: 'ru', start: Math.floor(st.pos > 5 && st.pos < TOTAL() - 5 ? st.pos : 0) },
         events: {
           onReady: function () {
             ready = true;
