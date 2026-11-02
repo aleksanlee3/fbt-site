@@ -151,3 +151,10 @@
 /* 19.10 v5.48 · подарок — закрытый бизнес-разбор: дата ближайшей среды вместо цены */
 .alb-prize-pr { flex-wrap: wrap; align-items: center; }
 .alb-prize-pr small { font: 500 13px/1.3 var(--font, Onest, sans-serif); color: #5A5550; }
+
+/* 02.11 v5.67 · кнопка квеста: пазл вместо подарка, кольцо и счётчик — в фирменном красном */
+.alb-fab .ring .fg { stroke: #E5322D; }
+.alb-fab .ring .bg { stroke: rgba(255,255,255,.14); }
+.alb-fab b { background: #E5322D; color: #fff; font: 800 13px/1.25 Onest, sans-serif; letter-spacing: .02em; padding: 3px 8px; transform: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,.35); border: 2px solid #121214; }
+.alb-fab { filter: drop-shadow(0 8px 18px rgba(0,0,0,.4)); }

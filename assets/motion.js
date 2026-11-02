@@ -291,10 +291,12 @@
         y = c * 16; sc2 = 1 - c * 0.05; r = TILT[i % TILT.length] * Math.min(d, 1);
         o = d > 3 ? 0 : d > 2 ? 3 - d : 1;
       }
+      var key = x.toFixed(1) + '|' + y.toFixed(1) + '|' + r.toFixed(2) + '|' + sc2.toFixed(3) + '|' + o.toFixed(2);
+      if (k._mk === key) return; k._mk = key;
       st.translate = x.toFixed(1) + 'px ' + y.toFixed(1) + 'px';
       st.rotate = r.toFixed(2) + 'deg';
       st.scale = sc2.toFixed(3);
-      st.opacity = o.toFixed(3);
+      st.opacity = o.toFixed(2);
     });
   }
   function frameScene(sc, rt) {

@@ -65,7 +65,7 @@
     if (onLesson && !count()) fab.classList.add('is-wait');
     fab.type = 'button';
     fab.innerHTML = '<svg class="ring" viewBox="0 0 74 74" aria-hidden="true"><circle class="bg" cx="37" cy="37" r="34"/><circle class="fg" cx="37" cy="37" r="34"/></svg>' +
-      '<img src="' + IMG + 'gift-box.svg" alt="" width="60" height="60"><b></b>';
+      '<img src="' + IMG + 'quest-puzzle.svg" alt="" width="60" height="60"><b></b>';
     fab.addEventListener('click', openBook);
     document.body.appendChild(fab);
     updateFab(false);
@@ -77,7 +77,7 @@
     fg.style.strokeDasharray = L; fg.style.strokeDashoffset = L * (1 - n / TOTAL);
     fab.querySelector('b').textContent = n + '/' + TOTAL;
     // 06.10: в кружке — подарок (карточка 4:5 в маленьком круге не читается), прогресс — кольцом и «N/9»
-    fab.querySelector('img').src = IMG + (full() ? 'gift-book.svg' : 'gift-box.svg');
+    fab.querySelector('img').src = IMG + (full() ? 'quest-puzzle-done.svg' : 'quest-puzzle.svg');
     fab.setAttribute('aria-label', 'Мои артефакты: ' + n + ' из ' + TOTAL);
     if (bump) { fab.classList.remove('is-bump'); void fab.offsetWidth; fab.classList.add('is-bump'); }
   }

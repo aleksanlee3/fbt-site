@@ -114,3 +114,10 @@ body .rv.is-on .rv-cover { aspect-ratio: 9 / 16 !important; }
 }
 /* слабый телефон: без размытий вообще */
 .mo-lite * { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+
+/* v5.67 · Тряска на iPhone (Александр 02.11 21:46: «Узнаёте себя?» дрожит вверх-вниз). Прилипающий блок без своего
+   слоя Safari перерисовывает отдельно от прокрутки — блок отстаёт на кадр и дёргается. Даём каждому прилипающему блоку
+   свой слой: он едет вместе с прокруткой, без рывков. */
+.mo .mo-scene-pin, .mo .mo-hpin-sec, .sa3-pin {
+  -webkit-transform: translateZ(0); transform: translateZ(0); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.mo .mo-scene--deck .mo-scene-deck > [data-mo-card] { will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
