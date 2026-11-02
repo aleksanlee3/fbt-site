@@ -30,7 +30,7 @@
 <script src="assets/track.js?v=5.52"></script>
 <script src="assets/medals.js?v=5.51"></script>
 <script src="assets/push.js?v=5.36"></script>
-<link rel="stylesheet" href="assets/motion.css?v=5.61"><!-- 02.11: движение блоков при прокрутке -->
+<link rel="stylesheet" href="assets/motion.css?v=5.62"><!-- 02.11: движение блоков при прокрутке -->
 </head>
 <body class="ic ic-dark seg-a"><!-- 06.10 v5.0: цвета Impact Consulting; тёмная (по умолчанию) — графит сверху, светлая — графит только первый экран -->
 <script src="assets/theme.js"></script>
@@ -166,7 +166,7 @@
     <div class="wrap">
       <h2 class="h2">Кому подходит</h2>
       <p class="komu-lead">Вы открыли бизнес, вложили деньги и&nbsp;хотите, чтобы он начал приносить прибыль.</p>
-      <div class="komu-grid">
+      <div class="komu-grid" data-mo-scene="down">
         <article class="komu-card komu-c1">
           <span class="komu-ph"><img src="assets/img/semya-hero.jpg" alt="Семейная пекарня с тандыром" loading="lazy" width="1600" height="893"><span class="komu-num">01</span></span>
           <div class="komu-b">
@@ -201,7 +201,7 @@
       <h2 class="h2">Узнаёте себя?</h2>
       <!-- 15.10: 8 болей сегмента А, самые сильные — первыми -->
       <!-- 15.10 v5.34: 8 болей — тревожные фото (Unsplash), заголовок в 2 строки по смыслу, листаются вбок -->
-      <div class="sa-swipe mt-32" data-swipe>
+      <div class="sa-swipe mt-32" data-swipe data-mo-scene="mix">
       <!-- 28.10 v5.54: 8 реальных фото (Pexels/Unsplash, подборка ChatGPT; источники — Notion «Узнаёте себя? · 8 реальных фотографий»), 1280×720, 16:9, кадр по центру -->
         <div class="sa-big"><span class="sa-big-ph"><img src="assets/img/pain/01-no-sales.webp?v=5.54" alt="Открыл бизнес, а продаж нет" loading="lazy" width="1280" height="720"></span><div class="sa-big-b"><b>Открыл бизнес,<br>а продаж нет</b><span>Всё готово, деньги вложены — а покупателей почти нет.</span></div></div>
         <div class="sa-big"><span class="sa-big-ph"><img src="assets/img/pain/02-monthly-loss.webp?v=5.54" alt="Каждый месяц — в минус" loading="lazy" width="1280" height="720"></span><div class="sa-big-b"><b>Каждый месяц&nbsp;—<br>в минус</b><span>Аренда, зарплаты, закупка. Выручки не хватает, докладываете свои.</span></div></div>
@@ -258,7 +258,7 @@
       <div class="eyebrow">ОТЗЫВЫ ВЫПУСКНИКОВ</div>
       <h2 class="h2">Что говорят те, кто уже прошёл FBT</h2>
       <p class="sub">Живые видео от выпускников FBT. Нажмите на отзыв, чтобы посмотреть.</p>
-      <div class="revs" data-reviews></div>
+      <div class="revs" data-reviews data-mo-fx="flyalt"></div>
     </div>
   </section>
 
@@ -439,6 +439,6 @@
 <script src="assets/steps-arc.js?v=5.59"></script>
 <script src="assets/typo.js?v=5.34" defer></script>
 <script src="assets/razbor.js?v=5.48"></script>
-<script src="assets/motion.js?v=5.61" defer></script>
+<script src="assets/motion.js?v=5.62" defer></script>
 </body>
 </html>

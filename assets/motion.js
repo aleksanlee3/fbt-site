@@ -1,4 +1,7 @@
-/* FBT Online · движение блоков при прокрутке · v5.61 · 02.11.2026
+/* FBT Online · движение блоков при прокрутке · v5.62 · 02.11.2026
+   v5.62 (правки Александра 02.11): «Кому подходит» и «Узнаёте себя?» — сцена: прилипает целиком, сначала крупный
+   заголовок по центру, потом карточки сменяют друг друга (data-mo-scene="down" — сверху, "mix" — с разных сторон);
+   отзывы больше не прилипают (зависание на телефоне) — обычная колонка, карточки залетают слева и справа.
    Образец — yaas-energy.com. Решения Александра 02.11:
    — весь сайт динамичный, у разных блоков разные направления движения;
    — человек только листает вниз: ничего не надо свайпать вбок, всё происходит само от прокрутки.
@@ -25,6 +28,7 @@
   var marked = new Set();
   var items = [];    // { el, horiz, shift, stack }
   var pins = [];     // ленты вбок, которые двигает прокрутка
+  var scenes = [];   // сцены: заголовок + карточки сменяют друг друга
   var par = [];      // фото с приближением
 
   function visible(el) { return el.offsetParent !== null && el.offsetWidth > 0; }
@@ -85,10 +89,10 @@
   function setupGroup(g, section) {
     var cs = getComputedStyle(g.box);
     var scrollX = (cs.overflowX === 'auto' || cs.overflowX === 'scroll') && g.box.scrollWidth - g.box.clientWidth > 40;
-    if (scrollX) { setupPin(g, section); return; }
-
     var lefts = g.kids.map(function (k) { return k.getBoundingClientRect().left; });
     var oneCol = lefts.every(function (l) { return Math.abs(l - lefts[0]) < 20; });
+    if (g.box.hasAttribute('data-mo-scene') && (scrollX || oneCol)) { setupScene(g, section); return; }
+    if (scrollX) { setupPin(g, section); return; }
     var vh = window.innerHeight;
     var tall = g.kids.every(function (k) { return k.offsetHeight > 260 && k.offsetHeight < vh * 0.82; });
 
@@ -105,7 +109,7 @@
       return;
     }
 
-    var fx = EFFECTS[gi++ % EFFECTS.length];
+    var fx = g.box.getAttribute('data-mo-fx') || EFFECTS[gi++ % EFFECTS.length];
     g.box.setAttribute('data-mo-group', fx);
     // номер карточки в своём ряду — чтобы в ряду они залетали по очереди
     var tops = g.kids.map(function (k) { return Math.round(k.getBoundingClientRect().top); });
@@ -161,10 +165,75 @@
     pin.sec.style.top = pin.top + 'px';
   }
 
+
+  // ── Сцена: заголовок крупно по центру → карточки по одной сменяют друг друга ──
+  // Откуда прилетает каждая карточка: [сдвиг X, сдвиг Y, поворот, масштаб]
+  var DIRS = {
+    down: [['0px', '-95vh', '-7deg', '1'], ['0px', '-95vh', '7deg', '1']],
+    mix: [['-110vw', '0px', '-14deg', '1'], ['0px', '-95vh', '9deg', '1'], ['110vw', '0px', '14deg', '1'], ['0px', '0px', '0deg', '.35'],
+          ['0px', '95vh', '-8deg', '1'], ['-95vw', '-75vh', '-22deg', '1'], ['0px', '0px', '0deg', '1.7'], ['95vw', '75vh', '20deg', '1']]
+  };
+  function setupScene(g, section) {
+    var box = g.box, mode = box.getAttribute('data-mo-scene') || 'mix', dirs = DIRS[mode] || DIRS.mix;
+    var parent = box.parentNode;
+    var head = section.querySelector('h2, .h2');
+    if (!head || head.parentNode !== parent) head = box;
+    var outer = document.createElement('div'); outer.className = 'mo-scene';
+    var pin = document.createElement('div'); pin.className = 'mo-scene-pin';
+    parent.insertBefore(outer, head);
+    outer.appendChild(pin);
+    // в сцену переносим всё от заголовка до карточек включительно (заголовок, подзаголовок, карточки)
+    var n = outer.nextSibling;
+    while (n) { var nx = n.nextSibling; pin.appendChild(n); if (n === box) break; n = nx; }
+    if (head !== box) head.classList.add('mo-scene-h');
+    box.setAttribute('data-mo-group', 'scene');
+    box.classList.add('mo-scene-deck');
+    marked.add(box);
+    var cards = g.kids;
+    cards.forEach(function (k, i) {
+      var d = dirs[i % dirs.length];
+      k.setAttribute('data-mo-card', '');
+      k.style.setProperty('--dx', d[0]); k.style.setProperty('--dy', d[1]);
+      k.style.setProperty('--dr', d[2]); k.style.setProperty('--ds', d[3]);
+      k.style.zIndex = String(i + 1);
+      marked.add(k);
+    });
+    var sc = { outer: outer, pin: pin, deck: box, head: head !== box ? head : null, cards: cards, top: 0, run: 1 };
+    scenes.push(sc);
+    measureScene(sc);
+  }
+  function measureScene(sc) {
+    var vh = window.innerHeight;
+    sc.outer.style.height = '';
+    var H = sc.pin.offsetHeight;
+    var bar = document.querySelector('.route, .hdr');
+    var barH = bar ? Math.max(0, Math.min(160, bar.getBoundingClientRect().bottom)) : 0;
+    // вся сцена (заголовок + карточка) — по центру экрана под верхней плашкой
+    var top = barH + Math.max(8, (vh - barH - H) / 2);
+    if (top + H > vh) top = Math.max(vh - H - 8, Math.min(barH + 8, vh - H));
+    sc.top = top;
+    sc.run = vh * (0.35 + sc.cards.length * 0.62);
+    sc.outer.style.height = (H + sc.run) + 'px';
+    sc.pin.style.top = top + 'px';
+    // пока карточек нет — заголовок опущен на середину места под карточки и крупнее
+    sc.pin.style.setProperty('--hd', Math.round(sc.deck.offsetHeight / 2) + 'px');
+  }
+  function frameScene(sc) {
+    var n = sc.cards.length;
+    var t = clamp((sc.top - sc.outer.getBoundingClientRect().top) / sc.run);
+    var f = t * (n + 0.55);
+    var e = sc.cards.map(function (k, i) { return clamp((f - i - 0.3) / 0.7); });
+    sc.pin.style.setProperty('--h', (1 - ease(e[0])).toFixed(3));
+    sc.cards.forEach(function (k, i) {
+      k.style.setProperty('--e', ease(e[i]).toFixed(3));
+      k.style.setProperty('--l', (i + 1 < n ? ease(e[i + 1]) : 0).toFixed(3));
+    });
+  }
+
   // ── Фото в рамке: приближение ──
   function setupParallax(section) {
     section.querySelectorAll('img').forEach(function (img) {
-      if (skipped(img) || img.closest('[data-mo-group="hpin"], [data-mo-group="stack"]')) return;
+      if (skipped(img) || img.closest('[data-mo-group="hpin"], [data-mo-group="stack"], [data-mo-group="scene"]')) return;
       var box = img.parentElement;
       if (!box || img.offsetWidth < 240 || getComputedStyle(box).overflow === 'visible') return;
       img.classList.add('mo-par'); par.push(img);
@@ -177,6 +246,7 @@
     ticking = false;
     var vh = window.innerHeight, vw = window.innerWidth;
 
+    scenes.forEach(frameScene);
     pins.forEach(function (pin) {
       var t = clamp((pin.top - pin.wrap.getBoundingClientRect().top) / (pin.run || 1));
       pin.box.scrollLeft = Math.round(t * pin.travel);
@@ -224,8 +294,11 @@
       });
     });
     window.addEventListener('scroll', ask, { passive: true });
-    window.addEventListener('resize', function () { pins.forEach(measurePin); ask(); });
-    window.addEventListener('load', function () { pins.forEach(measurePin); ask(); });   // картинки догрузились — пересчитать высоты
+    var remeasure = function () { scenes.forEach(measureScene); pins.forEach(measurePin); ask(); };
+    var lastW = window.innerWidth;
+    // на телефоне при прокрутке прячется адресная строка и меняется высота — пересчитываем только при смене ширины
+    window.addEventListener('resize', function () { if (window.innerWidth !== lastW) { lastW = window.innerWidth; remeasure(); } });
+    window.addEventListener('load', remeasure);   // картинки догрузились — пересчитать высоты   // картинки догрузились — пересчитать высоты
     frame();
   }
 

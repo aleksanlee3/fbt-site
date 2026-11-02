@@ -27,7 +27,7 @@
 <script src="assets/track.js?v=5.52"></script>
 <script src="assets/medals.js?v=5.51"></script>
 <script src="assets/push.js"></script>
-<link rel="stylesheet" href="assets/motion.css?v=5.61"><!-- 02.11: движение блоков при прокрутке -->
+<link rel="stylesheet" href="assets/motion.css?v=5.62"><!-- 02.11: движение блоков при прокрутке -->
 </head>
 <body class="ic ic-dark"><!-- 06.10 v5.0: цвета Impact Consulting; тёмная (по умолчанию) — графит сверху, светлая — графит только первый экран -->
 <script src="assets/theme.js"></script>
@@ -213,7 +213,7 @@
     <div class="wrap">
       <h2 class="h2">Кому подходит</h2>
       <p class="komu-lead">Вы открыли бизнес, вложили деньги и&nbsp;хотите, чтобы он начал приносить прибыль.</p>
-      <div class="komu-grid">
+      <div class="komu-grid" data-mo-scene="down">
         <article class="komu-card komu-c1">
           <span class="komu-ph"><img src="assets/img/semya-hero.jpg" alt="Семейная пекарня с тандыром" loading="lazy" width="1600" height="893"><span class="komu-num">01</span></span>
           <div class="komu-b">
@@ -246,7 +246,7 @@
   <section class="ic-top sec">
     <div class="wrap">
       <h2 class="h2">Узнаёте себя?</h2>
-      <div class="phr phr--4 mt-32">
+      <div class="phr phr--4 mt-32" data-mo-scene="mix">
         <div class="card card--3 phrase"><span class="phr-ph"><img src="assets/img/stage-doubt.jpg" alt="" loading="lazy" style="object-position:50% 35%"></span><div class="phr-b"><svg class="quote-ico"><use href="#i-quote"/></svg><b>Открыл бизнес, вложился — и не знаю, что делать дальше</b><span>Деньги вложены, дело открыто, а клиентов мало. Непонятно, за что браться, чтобы вложения вернулись.</span></div></div>
         <div class="card card--3 phrase"><span class="phr-ph"><img src="assets/img/if-noidea.jpg" alt="" loading="lazy" style="object-position:50% 30%"></span><div class="phr-b"><svg class="quote-ico"><use href="#i-quote"/></svg><b>Денег не хватает, а продажи то есть, то нет</b><span>Выручка за месяц хорошая, а в конце месяца снова не хватает на зарплаты и аренду.</span></div></div>
         <div class="card card--3 phrase"><span class="phr-ph"><img src="assets/img/if-idea.jpg" alt="" loading="lazy" style="object-position:50% 45%"></span><div class="phr-b"><svg class="quote-ico"><use href="#i-quote"/></svg><b>Без меня всё развалится</b><span>Вы в отпуске, а телефон звонит каждый час: без вас не решают даже мелочи.</span></div></div>
@@ -298,7 +298,7 @@
       <div class="eyebrow">ОТЗЫВЫ ВЫПУСКНИКОВ</div>
       <h2 class="h2">Что говорят те, кто уже прошёл FBT</h2>
       <p class="sub">Живые видео от выпускников FBT. Нажмите на отзыв, чтобы посмотреть.</p>
-      <div class="revs" data-reviews></div>
+      <div class="revs" data-reviews data-mo-fx="flyalt"></div>
     </div>
   </section>
 
@@ -444,6 +444,6 @@
 <script src="assets/igra-cue.js?v=5.25"></script>
 <script src="assets/typo.js?v=5.34" defer></script>
 <script src="assets/razbor.js?v=5.48"></script>
-<script src="assets/motion.js?v=5.61" defer></script>
+<script src="assets/motion.js?v=5.62" defer></script>
 </body>
 </html>
