@@ -92,7 +92,7 @@
 .sa3-cover { position: relative; height: 112px; width: auto; border-radius: 4px; transform: rotate(-6deg) translateX(-34px);
   box-shadow: 0 14px 26px rgba(0,0,0,.45), 0 0 0 2px rgba(255,255,255,.9); }
 .sa3-pdf { position: absolute; right: 12px; top: 14px; display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px 7px 8px;
-  border-radius: 10px; background: rgba(0,0,0,.28); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border-radius: 10px; background: rgba(0,0,0,.38);
   color: #fff; font-size: 13px; font-weight: 700; border: 1px solid rgba(255,255,255,.25); }
 .sa3-pdf svg { width: 16px; height: 16px; }
 .sa3-tg { position: absolute; right: 14px; bottom: 14px; width: 44px; height: 44px; border-radius: 50%;

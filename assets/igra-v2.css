@@ -13,10 +13,10 @@
   background: linear-gradient(90deg, transparent 60%, var(--igv-bg) 100%); }
 #igra .igv-live { position: absolute; left: 18px; top: 18px; z-index: 1; display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 14px 8px 12px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #fff;
-  background: rgba(20,20,22,.55); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.18); }
+  background: rgba(20,20,22,.72); border: 1px solid rgba(255,255,255,.18); }
 #igra .igv-live i { width: 9px; height: 9px; border-radius: 50%; background: #FF3B30; box-shadow: 0 0 0 4px rgba(255,59,48,.25);
   animation: igv-live 1.6s ease-in-out infinite; }
-@keyframes igv-live { 50% { box-shadow: 0 0 0 7px rgba(255,59,48,0); } }
+@keyframes igv-live { 50% { opacity: .35; } }
 
 #igra .igv-body { padding: 40px 44px 34px 28px; }
 #igra .igv-eyebrow { display: flex; align-items: center; gap: 12px; margin: 0; font-size: 14px; font-weight: 800; letter-spacing: .14em;
@@ -66,7 +66,7 @@
   #igra .igv-photo img { aspect-ratio: 4 / 3; object-position: 50% 18%; }
   #igra .igv-photo::after { background: linear-gradient(180deg, transparent 55%, var(--igv-bg) 100%); }
   #igra .igv-body { padding: 4px 22px 24px; }
-  #igra .igv-h { font-size: 30px; max-width: none; }
+  #igra .igv-h { font-size: 28px; max-width: none; }
   #igra .igv-sub { font-size: 18px; }
   #igra .igv-facts dt { font-size: 26px; }
   #igra .igv-facts dd { font-size: 15px; }

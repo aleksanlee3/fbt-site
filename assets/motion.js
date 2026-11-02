@@ -16,11 +16,22 @@
    4. Заголовки h1/h2 появляются по словам, фото в рамках плавно приближаются.
    Не трогаем: страницы диагностики (body.pg-diag), секцию «3 шага» (#shagi, свой скрипт steps-arc.js), шапку,
    плеер, формы. При «уменьшить движение» анимаций нет. Стили — assets/motion.css. */
+/* v5.65 · 02.11 (Александр: «анимация лагает, нужно, чтобы шло и на простых телефонах»): облегчение без смены вида.
+   — Положение блоков меряется один раз (и при изменении страницы), а не на каждом кадре: на кадре только арифметика от scrollY.
+   — Сначала все замеры, потом все записи — браузер не пересчитывает раскладку посреди кадра.
+   — Движение пишется прямо в translate / rotate / scale / opacity, без CSS-переменных (они наследуются и заставляли
+     пересчитывать стили всех вложенных элементов).
+   — Приближение фото при прокрутке — только на компьютере. Карусель без filter (тяжёлый) — затемнение через прозрачность.
+   — Слабый телефон (≤4 ядер или ≤4 ГБ памяти): заголовки без разбивки по словам, абзацы просто плавно появляются. */
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var body = document.body;
   if (reduce || !body || body.classList.contains('pg-diag') || !('IntersectionObserver' in window)) return;
   document.documentElement.classList.add('mo');
+  var nav = window.navigator || {};
+  var lite = (nav.hardwareConcurrency && nav.hardwareConcurrency <= 4) || (nav.deviceMemory && nav.deviceMemory <= 4);
+  if (lite) document.documentElement.classList.add('mo-lite');
+  var desktop = window.innerWidth >= 1000;
 
   var EFFECTS = ['fan', 'flyalt', 'flip', 'tilt', 'zoom', 'rise'];
   var SKIP = '#shagi, .player, header, .hdr, .route, form, [data-mo-skip], .igra-cue';
@@ -36,11 +47,43 @@
   function inMarked(el) { for (var p = el.parentElement; p && p !== body; p = p.parentElement) if (marked.has(p)) return true; return false; }
   function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function ease(t) { return 1 - Math.pow(1 - t, 3); }
+  // единицы из CSS-переменных → px / deg
+  function num(v, ax) {
+    v = String(v || '').trim(); if (!v) return 0;
+    var n = parseFloat(v); if (isNaN(n)) return 0;
+    if (/vw$/.test(v)) return n * window.innerWidth / 100;
+    if (/vh$/.test(v)) return n * window.innerHeight / 100;
+    return n;
+  }
   function add(el, fx, opt) {
     opt = opt || {};
     el.setAttribute('data-mo', fx);
     marked.add(el);
-    items.push({ el: el, horiz: !!opt.horiz, shift: opt.shift || 0, stack: opt.stack || null, last: -1 });
+    var it = { el: el, fx: fx, horiz: !!opt.horiz, shift: opt.shift || 0, stack: opt.stack || null, last: -1, top: 0, h: 0, live: false };
+    items.push(it);
+  }
+  function readFx(it) {
+    var cs = getComputedStyle(it.el);
+    it.tx = num(cs.getPropertyValue('--tx')); it.ty = num(cs.getPropertyValue('--ty'));
+    it.tr = num(cs.getPropertyValue('--tr')); var ts = cs.getPropertyValue('--ts'); it.ts = ts.trim() ? parseFloat(ts) : 1;
+    it.flip = it.fx === 'flip';
+    // элементы внутри «прилипающих» частей меряем по-живому (их место на странице меняется при прокрутке)
+    it.live = it.stack != null || it.horiz || !!it.el.closest('.mo-hpin-sec, .mo-scene-pin');
+  }
+  function docTop(el) { var t = 0; while (el) { t += el.offsetTop; el = el.offsetParent; } return t; }
+  function applyItem(it, p) {
+    var q = 1 - p, st = it.el.style;
+    // блок на месте — снимаем всё: он снова обычный, браузеру нечего перерисовывать
+    if (p >= 1) { st.opacity = ''; st.translate = ''; st.rotate = ''; st.scale = ''; st.willChange = ''; it.el.classList.add('mo-done'); return; }
+    if (it.el.classList.contains('mo-done')) it.el.classList.remove('mo-done');
+    st.willChange = p > 0 ? 'transform, opacity' : '';
+    st.opacity = Math.max(0, Math.min(1, p * 1.4 - 0.2)).toFixed(3);
+    if (it.flip) { st.rotate = 'x ' + (80 * q).toFixed(2) + 'deg'; }
+    else {
+      st.translate = (it.tx * q).toFixed(1) + 'px ' + (it.ty * q).toFixed(1) + 'px';
+      st.rotate = (it.tr * q).toFixed(2) + 'deg';
+    }
+    st.scale = (1 - (1 - it.ts) * q).toFixed(3);
   }
 
   // ── Заголовки по словам (по времени, когда заголовок попал в кадр) ──
@@ -48,6 +91,7 @@
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('mo-in'); io.unobserve(e.target); } });
   }, { threshold: 0.2 });
   function splitWords(h, variant) {
+    if (lite) return;
     if (h.dataset.moWords) return;
     h.dataset.moWords = variant;
     var n = 0;
@@ -193,8 +237,7 @@
     cards.forEach(function (k, i) {
       var d = dirs[i % dirs.length];
       k.setAttribute('data-mo-card', '');
-      k.style.setProperty('--dx', d[0]); k.style.setProperty('--dy', d[1]);
-      k.style.setProperty('--dr', d[2]); k.style.setProperty('--ds', d[3]);
+      k._mo = { dx: d[0], dy: d[1], dr: parseFloat(d[2]), ds: parseFloat(d[3]) };
       k.style.zIndex = String(i + 1);
       marked.add(k);
     });
@@ -219,44 +262,55 @@
     sc.outer.style.height = (H + sc.run) + 'px';
     sc.pin.style.top = top + 'px';
     // пока карточек нет — заголовок опущен на середину места под карточки и крупнее
-    sc.pin.style.setProperty('--hd', Math.round(sc.deck.offsetHeight / 2) + 'px');
+    sc.hd = Math.round(sc.deck.offsetHeight / 2);
+    sc.lead = sc.pin.querySelector('.komu-lead');
+    sc.cards.forEach(function (k) { if (k._mo) { k._mo.x = num(k._mo.dx); k._mo.y = num(k._mo.dy); } });
+  }
+  function setHead(sc, h) {
+    if (sc.head) { sc.head.style.translate = '0 ' + (sc.hd * h).toFixed(1) + 'px'; sc.head.style.scale = (1 + 0.25 * h).toFixed(3); }
+    if (sc.lead) sc.lead.style.opacity = (1 - h).toFixed(3);
   }
   // v5.64 · Карусель («Узнаёте себя?»): карточки стоят на кольце, как кинолента; прокрутка вниз поворачивает кольцо —
   // центральная карточка крупно, соседние уходят вглубь и в стороны, дальние гаснут. Образец — реклама газировки (исходник Александра).
-  function frameCarousel(sc) {
+  function frameCarousel(sc, rt) {
     var n = sc.cards.length;
-    var t = clamp((sc.top - sc.outer.getBoundingClientRect().top) / sc.run);
+    var t = clamp((sc.top - rt) / sc.run);
     var f = t * (n - 1 + 0.75);
     var e0 = ease(clamp(f / 0.75));
     var pos = Math.max(0, Math.min(n - 1, f - 0.75));
-    sc.pin.style.setProperty('--h', (1 - e0).toFixed(3));
-    var w = sc.deck.offsetWidth;
+    setHead(sc, 1 - e0);
+    var w = sc.w;
     sc.cards.forEach(function (k, i) {
       var d = i - pos, a = Math.abs(d), s = d < 0 ? -1 : 1;
       var x = s * Math.min(a, 2.6) * w * 0.56;
       var z = -Math.min(a, 2.6) * 0.75 * w - (1 - e0) * 1.4 * w;
       var ry = -s * Math.min(a, 1.5) * 40;
       k.style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,' + z.toFixed(1) + 'px) rotateY(' + ry.toFixed(2) + 'deg)';
-      k.style.opacity = (e0 * clamp(1 - (a - 1.4) / 1.1)).toFixed(3);
-      k.style.filter = 'brightness(' + (1 - 0.55 * clamp(a)).toFixed(3) + ')';
+      k.style.opacity = (e0 * (1 - 0.5 * clamp(a)) * clamp(1 - (a - 1.4) / 1.1)).toFixed(3);
       k.style.zIndex = String(100 - Math.round(a * 10));
     });
   }
-  function frameScene(sc) {
-    if (sc.mode === 'carousel') return frameCarousel(sc);
+  function frameScene(sc, rt) {
+    // сцена далеко от экрана — ничего не пишем
+    if (rt > window.innerHeight * 1.5 || rt + sc.outer.offsetHeight < -window.innerHeight * 0.5) { if (sc.idle) return; sc.idle = true; } else sc.idle = false;
+    if (sc.mode === 'carousel') return frameCarousel(sc, rt);
     var n = sc.cards.length;
-    var t = clamp((sc.top - sc.outer.getBoundingClientRect().top) / sc.run);
+    var t = clamp((sc.top - rt) / sc.run);
     var f = t * (n + 0.55);
-    var e = sc.cards.map(function (k, i) { return clamp((f - i - 0.3) / 0.7); });
-    sc.pin.style.setProperty('--h', (1 - ease(e[0])).toFixed(3));
+    var e = sc.cards.map(function (k, i) { return ease(clamp((f - i - 0.3) / 0.7)); });
+    setHead(sc, 1 - e[0]);
     sc.cards.forEach(function (k, i) {
-      k.style.setProperty('--e', ease(e[i]).toFixed(3));
-      k.style.setProperty('--l', (i + 1 < n ? ease(e[i + 1]) : 0).toFixed(3));
+      var m = k._mo, ei = e[i], l = i + 1 < n ? e[i + 1] : 0, q = 1 - ei, st = k.style;
+      st.translate = (m.x * q).toFixed(1) + 'px ' + (m.y * q).toFixed(1) + 'px';
+      st.rotate = (m.dr * q).toFixed(2) + 'deg';
+      st.scale = ((m.ds + (1 - m.ds) * ei) * (1 - 0.1 * l)).toFixed(3);
+      st.opacity = (Math.min(1, ei * 2.5) * (1 - l)).toFixed(3);
     });
   }
 
   // ── Фото в рамке: приближение ──
   function setupParallax(section) {
+    if (!desktop || lite) return;
     section.querySelectorAll('img').forEach(function (img) {
       if (skipped(img) || img.closest('[data-mo-group="hpin"], [data-mo-group="stack"], [data-mo-group="scene"]')) return;
       var box = img.parentElement;
@@ -269,39 +323,54 @@
   var ticking = false;
   function frame() {
     ticking = false;
-    var vh = window.innerHeight, vw = window.innerWidth;
-
-    scenes.forEach(frameScene);
-    pins.forEach(function (pin) {
-      var t = clamp((pin.top - pin.wrap.getBoundingClientRect().top) / (pin.run || 1));
-      pin.box.scrollLeft = Math.round(t * pin.travel);
-    });
-
+    var vh = window.innerHeight, vw = window.innerWidth, y = window.scrollY || window.pageYOffset;
+    // 1) только замеры
+    var sr = scenes.map(function (sc) { return sc.outer.getBoundingClientRect().top; });
+    var pr = pins.map(function (pin) { return pin.wrap.getBoundingClientRect().top; });
+    var res = [];
     items.forEach(function (it) {
-      var r = it.el.getBoundingClientRect(), p;
-      if (it.stack != null) {
-        // карточка стопки: от низа экрана до своего места наверху
-        p = clamp((vh - r.top) / Math.max(1, vh - it.stack - 40));
-      } else if (r.bottom < -40) p = 1;
-      else if (r.top > vh + 40) p = 0;
+      var top, left = 0;
+      if (it.live) { var r = it.el.getBoundingClientRect(); top = r.top; left = r.left; }
+      else { top = it.top - y; if (top > vh + 60 || top + it.h < -60) { if (it.last === (top > 0 ? 0 : 1)) return; } }
+      var p;
+      if (it.stack != null) p = clamp((vh - top) / Math.max(1, vh - it.stack - 40));
+      else if (top + it.h < -40) p = 1;
+      else if (top > vh + 40) p = 0;
       else {
-        p = clamp((vh - r.top) / (vh * 0.4));
-        if (it.horiz) p = Math.min(p, clamp((vw - r.left) / (vw * 0.5)));
+        p = clamp((vh - top) / (vh * 0.4));
+        if (it.horiz) p = Math.min(p, clamp((vw - left) / (vw * 0.5)));
         p = clamp((p - it.shift) / (1 - it.shift));
       }
-      p = ease(p);
-      if (Math.abs(p - it.last) < 0.003) return;
-      it.last = p;
-      it.el.style.setProperty('--p', p.toFixed(3));
+      p = (p === 0 || p === 1) ? p : ease(p);
+      if (Math.abs(p - it.last) < 0.004 && p !== 0 && p !== 1) return;
+      if (p === it.last) return;
+      res.push([it, p]);
     });
-
-    par.forEach(function (img) {
-      var r = img.getBoundingClientRect();
+    var pq = par.map(function (img) { return img.getBoundingClientRect(); });
+    // 2) только записи
+    scenes.forEach(function (sc, i) { frameScene(sc, sr[i]); });
+    pins.forEach(function (pin, i) {
+      var t = clamp((pin.top - pr[i]) / (pin.run || 1));
+      var sl = Math.round(t * pin.travel);
+      if (sl !== pin.sl) { pin.sl = sl; pin.box.scrollLeft = sl; }
+    });
+    res.forEach(function (r) { r[0].last = r[1]; applyItem(r[0], r[1]); });
+    par.forEach(function (img, i) {
+      var r = pq[i];
       if (r.bottom < -100 || r.top > vh + 100) return;
       var q = clamp((vh - r.top) / (vh + r.height));
-      img.style.setProperty('--ps', (1.16 - q * 0.16).toFixed(3));
-      img.style.setProperty('--py', ((0.5 - q) * 24).toFixed(1) + 'px');
+      img.style.scale = (1.16 - q * 0.16).toFixed(3);
+      img.style.translate = '0 ' + ((0.5 - q) * 24).toFixed(1) + 'px';
     });
+  }
+  // запомнить, где на странице стоит каждый блок (без учёта сдвигов анимации)
+  function measureItems() {
+    var y = window.scrollY || window.pageYOffset;
+    items.forEach(function (it) {
+      if (it.live) return;
+      it.top = docTop(it.el); it.h = it.el.offsetHeight;
+    });
+    scenes.forEach(function (sc) { sc.w = sc.deck.offsetWidth; });
   }
   function ask() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
 
@@ -318,8 +387,18 @@
         add(el, el.matches('.player') ? 'pop' : 'soft', { shift: 0 });
       });
     });
+    items.forEach(readFx);
+    measureItems();
     window.addEventListener('scroll', ask, { passive: true });
-    var remeasure = function () { scenes.forEach(measureScene); pins.forEach(measurePin); ask(); };
+    var remeasure = function () { scenes.forEach(measureScene); pins.forEach(measurePin); measureItems(); items.forEach(function (it) { it.last = -1; }); ask(); };
+    // страница поменяла высоту (догрузились картинки, отзывы) — пересчитать места, не чаще раза в 300 мс
+    if ('ResizeObserver' in window) {
+      var rt = 0, lastH = document.body.offsetHeight;
+      new ResizeObserver(function () {
+        var h = document.body.offsetHeight; if (Math.abs(h - lastH) < 4) return; lastH = h;
+        clearTimeout(rt); rt = setTimeout(remeasure, 300);
+      }).observe(document.body);
+    }
     var lastW = window.innerWidth;
     // на телефоне при прокрутке прячется адресная строка и меняется высота — пересчитываем только при смене ширины
     window.addEventListener('resize', function () { if (window.innerWidth !== lastW) { lastW = window.innerWidth; remeasure(); } });

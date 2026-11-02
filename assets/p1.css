@@ -569,3 +569,6 @@ body.ic .watch-cue-a { width: 40px; height: 52px; margin-top: 2px; }
   body.ic .watch-cue-t { font-size: 38px; }
   body.ic .watch-cue-a { width: 34px; height: 44px; }
 }
+
+/* 02.11 v5.65 · рамка вокруг видео больше не «дышит» (анимация тени перерисовывала весь плеер каждый кадр — тормозило на простых телефонах) */
+.watch-cue + .player { animation: none !important; box-shadow: 0 0 0 3px var(--accent), 0 0 0 9px color-mix(in srgb, var(--accent) 25%, transparent); }

@@ -3,13 +3,9 @@
    Каждое движение задаёт стартовое смещение: --tx --ty (сдвиг), --tr (поворот), --ts (масштаб).
    Отдельные свойства translate / rotate / scale складываются с собственными transform блоков и не ломают их. */
 
-.mo [data-mo] {
-  --q: calc(1 - var(--p, 0));
-  opacity: calc(var(--p, 0) * 1.4 - .2);
-  translate: calc(var(--tx, 0px) * var(--q)) calc(var(--ty, 0px) * var(--q));
-  rotate: calc(var(--tr, 0deg) * var(--q));
-  scale: calc(1 - (1 - var(--ts, 1)) * var(--q));
-}
+/* v5.65: --tx --ty --tr --ts скрипт читает один раз, а движение пишет сам в translate / rotate / scale / opacity
+   (без пересчёта CSS-переменных на каждом кадре — так легче на простых телефонах). */
+.mo [data-mo]:not(.mo-done) { opacity: 0; }
 
 /* 1 · веер: из центра группы (на телефоне — слева/справа) */
 .mo [data-mo="fan"]    { --tx: var(--fx, 0px); --ty: var(--fy, 40px); --tr: var(--fr, 6deg); --ts: .86; }
@@ -18,7 +14,7 @@
 .mo [data-mo="flyalt"].mo-even { --tx: 90px;  --ty: 10px; --tr: 5deg; }
 /* 3 · переворот сверху вниз, как лист */
 .mo [data-mo-group="flip"] { perspective: 1000px; }
-.mo [data-mo="flip"] { transform-origin: 50% 0; rotate: x calc(80deg * var(--q)); }
+.mo [data-mo="flip"] { transform-origin: 50% 0; }
 /* 4 · падают сверху с наклоном */
 .mo [data-mo="tilt"].mo-odd  { --ty: -60px; --tr: 8deg; }
 .mo [data-mo="tilt"].mo-even { --ty: -60px; --tr: -8deg; }
@@ -48,21 +44,17 @@
 .mo [data-mo-words="left"]:not(.mo-in) .mo-w { opacity: 0; translate: -.8em 0; }
 
 /* Фото в рамке: плавное приближение */
-.mo img.mo-par { scale: var(--ps, 1.08); translate: 0 var(--py, 0); will-change: scale, translate; }
+.mo img.mo-par { scale: 1.08; }
 
 /* v5.62 · Сцена «Кому подходит» / «Узнаёте себя?»: прилипает целиком, карточки сменяют друг друга в одной ячейке */
 .mo .mo-scene-pin { position: sticky; }
-.mo .mo-scene-h { text-align: center; translate: 0 calc(var(--hd, 0px) * var(--h, 1)); scale: calc(1 + .25 * var(--h, 1));
+.mo .mo-scene-h { text-align: center;
   font-size: clamp(40px, 7vw, 64px) !important; line-height: 1.08; position: relative; z-index: 0; }
-.mo .mo-scene-pin .komu-lead { text-align: center; opacity: calc(1 - var(--h, 1)); margin-left: auto; margin-right: auto; }
+.mo .mo-scene-pin .komu-lead { text-align: center; margin-left: auto; margin-right: auto; }
 .mo .mo-scene-deck { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; overflow: visible !important;
   max-width: 620px; margin: 22px auto 0 !important; padding: 0 !important; gap: 0 !important; scroll-snap-type: none !important; }
 .mo .mo-scene-deck > [data-mo-card] { grid-area: 1 / 1; width: 100%; margin: 0 !important; align-self: start;
-  translate: calc(var(--dx, 0px) * (1 - var(--e, 0))) calc(var(--dy, 0px) * (1 - var(--e, 0)));
-  rotate: calc(var(--dr, 0deg) * (1 - var(--e, 0)));
-  scale: calc((var(--ds, 1) + (1 - var(--ds, 1)) * var(--e, 0)) * (1 - .1 * var(--l, 0)));
-  opacity: calc(min(1, var(--e, 0) * 2.5) * (1 - var(--l, 0)));
-  box-shadow: 0 18px 50px rgba(0,0,0,.35); will-change: translate, rotate, scale, opacity; }
+  opacity: 0; box-shadow: 0 18px 50px rgba(0,0,0,.35); will-change: transform; }
 .mo .mo-scene + .swipe-hint { display: none !important; }
 .mo .mo-scene + .komu-note { margin-top: 28px; }
 
@@ -105,5 +97,19 @@ body .rv.is-on .rv-cover { aspect-ratio: 9 / 16 !important; }
 .mo .mo-scene--carousel { overflow-x: clip; }
 .mo .mo-scene--carousel .mo-scene-deck { perspective: 1100px; perspective-origin: 50% 40%; transform-style: preserve-3d; max-width: 520px; }
 .mo .mo-scene--carousel .mo-scene-deck > [data-mo-card] { translate: none; rotate: none; scale: none; width: 86%; justify-self: center;
-  transform-origin: 50% 50%; backface-visibility: hidden; position: relative; will-change: transform, opacity, filter; }
+  transform-origin: 50% 50%; backface-visibility: hidden; position: relative; }
 @media (max-width: 640px) { .mo .mo-scene--carousel .mo-scene-deck > [data-mo-card] { width: 80%; } }
+
+/* v5.65 · слабый телефон: лишние тени у движущихся карточек убираем — их перерисовка самая дорогая */
+.mo-lite .mo-scene-deck > [data-mo-card] { box-shadow: 0 8px 20px rgba(0,0,0,.3); }
+.mo-lite [data-mo-group="stack"] > [data-mo="stack"] { box-shadow: none; }
+
+/* v5.65 · Лёгкая прокрутка на телефонах: размытие под верхней плашкой пересчитывалось на каждом кадре прокрутки —
+   самое тяжёлое место на простых телефонах. На телефоне плашка просто плотная, без размытия. */
+@media (max-width: 999px) {
+  .topbar, body.ic .topbar { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  body.ic.ic-dark .topbar { background: rgba(24,24,24,.98) !important; }
+  body.ic:not(.ic-dark) .topbar { background: rgba(245,245,247,.98) !important; }
+}
+/* слабый телефон: без размытий вообще */
+.mo-lite * { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
