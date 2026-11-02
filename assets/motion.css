@@ -1,0 +1,44 @@
+/* FBT Online · движение блоков при прокрутке · 02.11.2026 (v5.60) — пара к assets/motion.js
+   Используем отдельные свойства translate / rotate / scale: они складываются с собственными
+   transform элементов и не ломают их (наклоны карточек, hover и т.п.). Всё включается только при html.mo. */
+
+.mo [data-mo] {
+  transition: opacity .7s ease, translate .95s cubic-bezier(.2,.8,.2,1), rotate .95s cubic-bezier(.2,.8,.2,1), scale .95s cubic-bezier(.2,.8,.2,1);
+  transition-delay: calc(var(--i, 0) * 95ms);
+}
+.mo [data-mo].mo-in { opacity: 1; translate: 0 0; rotate: 0deg; scale: 1; }
+
+/* 1 · веер: стопкой из центра группы → по местам */
+.mo [data-mo="fan"]:not(.mo-in) { opacity: 0; translate: var(--fx, 0) var(--fy, 40px); rotate: var(--fr, 6deg); scale: .86; }
+/* 2 · слева-справа по очереди */
+.mo [data-mo="flyalt"]:not(.mo-in):nth-child(odd)  { opacity: 0; translate: -70px 10px; rotate: -4deg; }
+.mo [data-mo="flyalt"]:not(.mo-in):nth-child(even) { opacity: 0; translate: 70px 10px; rotate: 4deg; }
+/* 3 · переворот сверху вниз */
+.mo [data-mo-group="flip"] { perspective: 1000px; }
+.mo [data-mo="flip"] { transform-origin: 50% 0; }
+.mo [data-mo="flip"]:not(.mo-in) { opacity: 0; rotate: x 75deg; }
+/* 4 · падают сверху с наклоном */
+.mo [data-mo="tilt"]:not(.mo-in) { opacity: 0; translate: 0 -46px; rotate: 7deg; }
+.mo [data-mo="tilt"]:not(.mo-in):nth-child(even) { rotate: -7deg; }
+/* 5 · зум из глубины */
+.mo [data-mo="zoom"]:not(.mo-in) { opacity: 0; scale: .72; }
+/* 6 · подъём снизу */
+.mo [data-mo="rise"]:not(.mo-in) { opacity: 0; translate: 0 80px; rotate: 2deg; }
+/* ленты вбок: въезжают справа / раскачиваются */
+.mo [data-mo="slide"]:not(.mo-in) { opacity: 0; translate: 140px 0; rotate: 3deg; }
+.mo [data-mo="swing"] { transform-origin: 50% 0; }
+.mo [data-mo="swing"]:not(.mo-in) { opacity: 0; rotate: -9deg; translate: 0 30px; }
+/* видео: всплывает */
+.mo [data-mo="pop"]:not(.mo-in) { opacity: 0; scale: .9; translate: 0 30px; }
+/* одиночные блоки: мягко */
+.mo [data-mo="soft"] { transition-duration: .6s, .8s, .8s, .8s; }
+.mo [data-mo="soft"]:not(.mo-in) { opacity: 0; translate: 0 26px; }
+
+/* Заголовки по словам: чётные секции — снизу, нечётные — слева */
+.mo .mo-w { display: inline-block; transition: opacity .55s ease, translate .8s cubic-bezier(.2,.8,.2,1), rotate .8s cubic-bezier(.2,.8,.2,1);
+  transition-delay: calc(var(--w, 0) * 55ms); }
+.mo [data-mo-words="up"]:not(.mo-in) .mo-w { opacity: 0; translate: 0 .7em; rotate: 5deg; }
+.mo [data-mo-words="left"]:not(.mo-in) .mo-w { opacity: 0; translate: -.8em 0; }
+
+/* Фото в рамке: плавное приближение при прокрутке (значения считает motion.js) */
+.mo img.mo-par { scale: var(--ps, 1.08); translate: 0 var(--py, 0); transition: none; will-change: scale, translate; }
