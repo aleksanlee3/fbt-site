@@ -376,7 +376,7 @@
       var lim = parseInt(box.getAttribute('data-limit'), 10) || FBT.REVIEWS.length;
       box.innerHTML = FBT.REVIEWS.slice(0, lim).map(function (r) {
         return '<div class="rv" data-rv="' + r.id + '">' +
-          '<span class="rv-cover"><img src="assets/img/rev/' + r.id + '.jpg" alt="" loading="lazy">' +
+          '<span class="rv-cover"><img src="assets/img/rev/' + r.id + '.jpg?v=6" alt="Отзыв: ' + esc(r.name) + '" loading="lazy">' +
           '<button type="button" class="rv-play" data-rv-play aria-label="Смотреть отзыв: ' + esc(r.name) + '"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>' +
           '<button type="button" class="rv-full" data-rv-full aria-label="На весь экран">' + FULL_ICO + '</button></span>' +
           '<span class="rv-t"><b>' + esc(r.name) + '</b>' + (r.biz ? '<span class="rv-biz">' + esc(r.biz) + (r.place ? ' · ' + esc(r.place) : '') + '</span>' : (r.place ? '<span>' + esc(r.place) + '</span>' : '')) + '</span>' +
