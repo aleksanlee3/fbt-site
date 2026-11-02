@@ -1,32 +1,48 @@
-/* FBT Online · движение блоков при прокрутке · 02.11.2026 (v5.60)
-   Образец — yaas-energy.com: у каждого блока своё движение. Решение Александра 02.11: «весь сайт динамичный,
-   направления движения разные».
-   Как работает: на каждой странице скрипт находит группы одинаковых карточек (komu, отзывы, «Узнаёте себя?»,
-   таймлайн, FAQ…) и по очереди даёт им разные движения из набора EFFECTS — соседние группы никогда не двигаются
-   одинаково. Заголовки h1/h2 появляются по словам, одиночные блоки — мягко поднимаются, большие фото в рамках
-   плавно приближаются при прокрутке. Секция «3 шага» (#shagi) анимируется своим скриптом (steps-arc.js).
-   Не трогаем: страницы диагностики (body.pg-diag), шапку, плеер, формы; при «уменьшить движение» — ничего.
-   Стили — assets/motion.css. Если что-то сломалось — убрать подключение motion.js, страница останется как была. */
+/* FBT Online · движение блоков при прокрутке · v5.61 · 02.11.2026
+   Образец — yaas-energy.com. Решения Александра 02.11:
+   — весь сайт динамичный, у разных блоков разные направления движения;
+   — человек только листает вниз: ничего не надо свайпать вбок, всё происходит само от прокрутки.
+   Что делает скрипт:
+   1. Ленты, которые листаются вбок («Узнаёте себя?», отзывы, наставники…): секция прилипает к экрану,
+      и прокрутка вниз сама двигает ленту влево; карточки залетают по очереди.
+   2. Крупные карточки в одну колонку (Производство / Торговля / Сфера услуг на телефоне): прилипают стопкой,
+      каждая следующая залетает с другой стороны и ложится сверху — как фото в образце.
+   3. Остальные группы карточек и блоки: движение привязано к прокрутке (идёт вместе с пальцем и откатывается
+      при прокрутке вверх), соседние группы — разными способами: веер, слева-справа, переворот, падение с наклоном,
+      зум, подъём.
+   4. Заголовки h1/h2 появляются по словам, фото в рамках плавно приближаются.
+   Не трогаем: страницы диагностики (body.pg-diag), секцию «3 шага» (#shagi, свой скрипт steps-arc.js), шапку,
+   плеер, формы. При «уменьшить движение» анимаций нет. Стили — assets/motion.css. */
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || !('IntersectionObserver' in window)) return;
   var body = document.body;
-  if (!body || body.classList.contains('pg-diag')) return;
+  if (reduce || !body || body.classList.contains('pg-diag') || !('IntersectionObserver' in window)) return;
   document.documentElement.classList.add('mo');
 
-  // Порядок движений для групп карточек: веер, слева-справа, переворот, падение с наклоном, зум, подъём
   var EFFECTS = ['fan', 'flyalt', 'flip', 'tilt', 'zoom', 'rise'];
-  var SCROLL_EFFECTS = ['slide', 'swing'];   // для лент, которые листаются вбок
-  var SKIP = '#shagi, .player, header, .hdr, .route, form, .push-wrap, [data-mo-skip], .igra-cue, script, style';
-  var gi = 0, si = 0, sec = 0;
+  var SKIP = '#shagi, .player, header, .hdr, .route, form, [data-mo-skip], .igra-cue';
+  var gi = 0, sec = 0;
   var marked = new Set();
+  var items = [];    // { el, horiz, shift, stack }
+  var pins = [];     // ленты вбок, которые двигает прокрутка
+  var par = [];      // фото с приближением
 
   function visible(el) { return el.offsetParent !== null && el.offsetWidth > 0; }
   function skipped(el) { return !!el.closest(SKIP); }
   function inMarked(el) { for (var p = el.parentElement; p && p !== body; p = p.parentElement) if (marked.has(p)) return true; return false; }
-  function mark(el, fx, i) { el.setAttribute('data-mo', fx); if (i != null) el.style.setProperty('--i', String(i)); marked.add(el); }
+  function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function ease(t) { return 1 - Math.pow(1 - t, 3); }
+  function add(el, fx, opt) {
+    opt = opt || {};
+    el.setAttribute('data-mo', fx);
+    marked.add(el);
+    items.push({ el: el, horiz: !!opt.horiz, shift: opt.shift || 0, stack: opt.stack || null, last: -1 });
+  }
 
-  // ── Заголовки по словам ──
+  // ── Заголовки по словам (по времени, когда заголовок попал в кадр) ──
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('mo-in'); io.unobserve(e.target); } });
+  }, { threshold: 0.2 });
   function splitWords(h, variant) {
     if (h.dataset.moWords) return;
     h.dataset.moWords = variant;
@@ -34,10 +50,9 @@
     (function walk(node) {
       [].slice.call(node.childNodes).forEach(function (c) {
         if (c.nodeType === 3) {
-          var parts = c.textContent.split(/( +)/);
-          if (parts.length < 1 || !c.textContent.trim()) return;
+          if (!c.textContent.trim()) return;
           var frag = document.createDocumentFragment();
-          parts.forEach(function (t) {
+          c.textContent.split(/( +)/).forEach(function (t) {
             if (!t) return;
             if (/^ +$/.test(t)) { frag.appendChild(document.createTextNode(t)); return; }
             var s = document.createElement('span'); s.className = 'mo-w'; s.style.setProperty('--w', String(n++)); s.textContent = t;
@@ -48,6 +63,7 @@
       });
     })(h);
     marked.add(h);
+    io.observe(h);
   }
 
   // ── Группы одинаковых карточек ──
@@ -60,104 +76,160 @@
       var key = function (k) { return k.tagName + '.' + String(k.className || '').split(' ')[0]; };
       var same = kids.filter(function (k) { return key(k) === key(kids[0]); });
       if (same.length < 2 || same.length < kids.length * 0.6) return;
-      // берём самый внешний подходящий контейнер — вложенные карточки не анимируем дважды
       for (var i = 0; i < out.length; i++) if (out[i].box.contains(p)) return;
       out.push({ box: p, kids: same });
     });
     return out;
   }
 
-  function setupGroup(g) {
+  function setupGroup(g, section) {
     var cs = getComputedStyle(g.box);
-    var scrollX = cs.overflowX === 'auto' || cs.overflowX === 'scroll';
-    var fx = scrollX ? SCROLL_EFFECTS[si++ % SCROLL_EFFECTS.length] : EFFECTS[gi++ % EFFECTS.length];
-    g.box.setAttribute('data-mo-group', fx);
-    if (fx === 'fan') {
-      // карточки стартуют «стопкой» в центре группы и разлетаются по местам с наклоном
-      var b = g.box.getBoundingClientRect(), cx = b.left + b.width / 2, cy = b.top + Math.min(b.height, 420) / 2;
-      var oneCol = g.kids.every(function (k) { return Math.abs(k.getBoundingClientRect().left - g.kids[0].getBoundingClientRect().left) < 20; });
+    var scrollX = (cs.overflowX === 'auto' || cs.overflowX === 'scroll') && g.box.scrollWidth - g.box.clientWidth > 40;
+    if (scrollX) { setupPin(g, section); return; }
+
+    var lefts = g.kids.map(function (k) { return k.getBoundingClientRect().left; });
+    var oneCol = lefts.every(function (l) { return Math.abs(l - lefts[0]) < 20; });
+    var vh = window.innerHeight;
+    var tall = g.kids.every(function (k) { return k.offsetHeight > 260 && k.offsetHeight < vh * 0.82; });
+
+    // Стопка: крупные карточки в одну колонку (телефон)
+    if (oneCol && tall && g.kids.length >= 3 && g.kids.length <= 6) {
+      g.box.setAttribute('data-mo-group', 'stack');
       g.kids.forEach(function (k, i) {
-        var r = k.getBoundingClientRect();
-        var dx = cx - (r.left + r.width / 2), dy = cy - (r.top + r.height / 2);
-        if (oneCol) { dx = (i % 2 ? 1 : -1) * Math.min(160, r.width * 0.45); dy = -40; }   // телефон: одна колонка — разлёт слева/справа
-        k.style.setProperty('--fx', Math.round(dx * 0.85) + 'px');
-        k.style.setProperty('--fy', Math.round(Math.max(-260, Math.min(260, dy * 0.85)) + 40) + 'px');
-        k.style.setProperty('--fr', ((i % 2 ? 1 : -1) * (6 + (i % 3) * 3)) + 'deg');
-        mark(k, fx, Math.min(i, 5));
+        var top = 70 + i * 14;
+        k.style.setProperty('--st', top + 'px');
+        k.style.setProperty('--sx', ((i % 2 ? 1 : -1) * 75) + 'vw');
+        k.style.setProperty('--sr', ((i % 2 ? 1 : -1) * 11) + 'deg');
+        add(k, 'stack', { stack: top });
       });
-      watch(g.box, g.kids);
       return;
     }
-    g.kids.forEach(function (k, i) { mark(k, fx, scrollX ? Math.min(i, 3) : Math.min(i, 6)); watch(k); });
+
+    var fx = EFFECTS[gi++ % EFFECTS.length];
+    g.box.setAttribute('data-mo-group', fx);
+    // номер карточки в своём ряду — чтобы в ряду они залетали по очереди
+    var tops = g.kids.map(function (k) { return Math.round(k.getBoundingClientRect().top); });
+    var b = g.box.getBoundingClientRect(), cx = b.left + b.width / 2, cy = b.top + Math.min(b.height, 420) / 2;
+    g.kids.forEach(function (k, i) {
+      var rank = 0; for (var j = 0; j < i; j++) if (Math.abs(tops[j] - tops[i]) < 12) rank++;
+      k.classList.add(i % 2 ? 'mo-even' : 'mo-odd');
+      if (fx === 'fan') {
+        var r = k.getBoundingClientRect();
+        var dx = cx - (r.left + r.width / 2), dy = cy - (r.top + r.height / 2);
+        if (oneCol) { dx = (i % 2 ? 1 : -1) * Math.min(170, r.width * 0.5); dy = 40; }
+        k.style.setProperty('--fx', Math.round(dx * 0.85) + 'px');
+        k.style.setProperty('--fy', Math.round(Math.max(-260, Math.min(260, dy * 0.85)) + 40) + 'px');
+        k.style.setProperty('--fr', ((i % 2 ? 1 : -1) * (7 + (i % 3) * 3)) + 'deg');
+      }
+      add(k, fx, { shift: Math.min(rank, 4) * 0.14 });
+    });
   }
 
-  // ── Наблюдатель: элемент в кадре → класс .mo-in ──
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      var list = e.target._moList || [e.target];
-      list.forEach(function (el) { el.classList.add('mo-in'); });
-      io.unobserve(e.target);
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-  function watch(target, list) { if (list) target._moList = list; io.observe(target); }
+  // ── Лента вбок: секция прилипает, прокрутка вниз двигает ленту ──
+  function setupPin(g, section) {
+    var box = g.box;
+    g.box.setAttribute('data-mo-group', 'hpin');
+    box.style.scrollSnapType = 'none';
+    var wrap = document.createElement('div');
+    wrap.className = 'mo-hpin';
+    section.parentNode.insertBefore(wrap, section);
+    wrap.appendChild(section);
+    section.classList.add('mo-hpin-sec');
+    var pin = { wrap: wrap, sec: section, box: box, travel: 0, top: 0, H: 0 };
+    pins.push(pin);
+    measurePin(pin);
+    g.kids.forEach(function (k, i) { k.classList.add(i % 2 ? 'mo-even' : 'mo-odd'); add(k, i % 2 ? 'hfly2' : 'hfly', { horiz: true }); });
+  }
+  function measurePin(pin) {
+    var vh = window.innerHeight;
+    pin.wrap.style.height = '';
+    pin.sec.style.top = '';
+    pin.H = pin.sec.offsetHeight;
+    pin.travel = Math.max(0, pin.box.scrollWidth - pin.box.clientWidth);
+    var sr = pin.sec.getBoundingClientRect();
+    var off = pin.box.getBoundingClientRect().top - sr.top;
+    var h2 = pin.sec.querySelector('h2, .h2');
+    var hOff = h2 ? h2.getBoundingClientRect().top - sr.top : off;
+    var bar = document.querySelector('.route, .hdr');
+    var barH = bar ? Math.min(160, bar.getBoundingClientRect().bottom) : 0;
+    // прилипаем так, чтобы заголовок секции был виден под верхней плашкой, а лента — целиком на экране
+    var t = barH + 12 - hOff;
+    if (t + off + pin.box.offsetHeight > vh) t = vh - 16 - off - pin.box.offsetHeight;   // не влезает — прижимаем ленту к низу
+    pin.top = Math.min(barH + 12, Math.max(vh - pin.H, t));
+    pin.run = pin.travel * 1.15;
+    pin.wrap.style.height = (pin.H + pin.run) + 'px';
+    pin.sec.style.top = pin.top + 'px';
+  }
 
-  // ── Фото в рамке: плавное приближение при прокрутке ──
-  var par = [];
+  // ── Фото в рамке: приближение ──
   function setupParallax(section) {
     section.querySelectorAll('img').forEach(function (img) {
-      if (skipped(img) || img.closest('[data-mo-group="slide"],[data-mo-group="swing"]')) return;
+      if (skipped(img) || img.closest('[data-mo-group="hpin"], [data-mo-group="stack"]')) return;
       var box = img.parentElement;
       if (!box || img.offsetWidth < 240 || getComputedStyle(box).overflow === 'visible') return;
       img.classList.add('mo-par'); par.push(img);
     });
   }
+
+  // ── Кадр: всё считается от положения прокрутки ──
   var ticking = false;
-  function scrub() {
+  function frame() {
     ticking = false;
-    var vh = window.innerHeight;
-    // Подстраховка: всё, что уже на экране по высоте (кроме лент вбок), показываем, даже если наблюдатель промолчал
-    marked.forEach(function (el) {
-      if (el.classList.contains('mo-in') || el.closest('[data-mo-group="slide"],[data-mo-group="swing"]')) return;
-      var r = el.getBoundingClientRect();
-      if (r.top < vh * 0.92 && r.bottom > 0 && el.offsetParent) el.classList.add('mo-in');
+    var vh = window.innerHeight, vw = window.innerWidth;
+
+    pins.forEach(function (pin) {
+      var t = clamp((pin.top - pin.wrap.getBoundingClientRect().top) / (pin.run || 1));
+      pin.box.scrollLeft = Math.round(t * pin.travel);
     });
+
+    items.forEach(function (it) {
+      var r = it.el.getBoundingClientRect(), p;
+      if (it.stack != null) {
+        // карточка стопки: от низа экрана до своего места наверху
+        p = clamp((vh - r.top) / Math.max(1, vh - it.stack - 40));
+      } else if (r.bottom < -40) p = 1;
+      else if (r.top > vh + 40) p = 0;
+      else {
+        p = clamp((vh - r.top) / (vh * 0.4));
+        if (it.horiz) p = Math.min(p, clamp((vw - r.left) / (vw * 0.5)));
+        p = clamp((p - it.shift) / (1 - it.shift));
+      }
+      p = ease(p);
+      if (Math.abs(p - it.last) < 0.003) return;
+      it.last = p;
+      it.el.style.setProperty('--p', p.toFixed(3));
+    });
+
     par.forEach(function (img) {
       var r = img.getBoundingClientRect();
       if (r.bottom < -100 || r.top > vh + 100) return;
-      var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));   // 0 — внизу экрана, 1 — ушло вверх
-      img.style.setProperty('--ps', (1.16 - p * 0.16).toFixed(3));
-      img.style.setProperty('--py', ((0.5 - p) * 24).toFixed(1) + 'px');
+      var q = clamp((vh - r.top) / (vh + r.height));
+      img.style.setProperty('--ps', (1.16 - q * 0.16).toFixed(3));
+      img.style.setProperty('--py', ((0.5 - q) * 24).toFixed(1) + 'px');
     });
   }
-  function ask() { if (!ticking) { ticking = true; requestAnimationFrame(scrub); } }
+  function ask() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
 
-  // ── Обход секций ──
   function setup() {
     var sections = [].slice.call(document.querySelectorAll('main section, main > div, body > section'))
-      .filter(function (s) { return !skipped(s) && !s.closest('main section section'); });
+      .filter(function (s) { return !skipped(s) && !s.parentElement.closest('main section'); });
     sections.forEach(function (s) {
       var odd = sec++ % 2;
-      s.querySelectorAll('h1, .h1, h2, .h2').forEach(function (h) {
-        if (skipped(h) || h.dataset.moWords) return;
-        splitWords(h, odd ? 'left' : 'up');
-        watch(h, [h]);
-      });
-      findGroups(s).forEach(setupGroup);
+      s.querySelectorAll('h1, .h1, h2, .h2').forEach(function (h) { if (!skipped(h)) splitWords(h, odd ? 'left' : 'up'); });
+      findGroups(s).forEach(function (g) { setupGroup(g, s); });
       setupParallax(s);
-      // одиночные блоки: подзаголовки, абзацы, кнопки, фото, карточки
       s.querySelectorAll('.lead, .eyebrow, p, .btn, figure, blockquote, .card, .player, .sa-map, .watch-cue, ul, ol').forEach(function (el, i) {
-        if (marked.has(el) || inMarked(el) || el.closest('#shagi, header, .route, form') || !visible(el)) return;
-        if (el.matches('.player')) { mark(el, 'pop', 1); watch(el); return; }
-        if (el.closest('[data-mo-group]')) return;
-        mark(el, 'soft', Math.min(i % 4, 3)); watch(el);
+        if (marked.has(el) || inMarked(el) || el.closest('#shagi, header, .route, form, [data-mo-group]') || !visible(el)) return;
+        add(el, el.matches('.player') ? 'pop' : 'soft', { shift: 0 });
       });
     });
     window.addEventListener('scroll', ask, { passive: true });
-    window.addEventListener('resize', ask);
-    scrub();
-    setTimeout(ask, 1500);
+    window.addEventListener('resize', function () { pins.forEach(measurePin); ask(); });
+    window.addEventListener('load', function () { pins.forEach(measurePin); ask(); });   // картинки догрузились — пересчитать высоты
+    frame();
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup); else setup();
+  // Запуск после всех обработчиков загрузки: отзывы и другие блоки дорисовываются скриптами сайта
+  function start() { setTimeout(setup, 0); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();

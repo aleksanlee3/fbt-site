@@ -1,44 +1,51 @@
-/* FBT Online · движение блоков при прокрутке · 02.11.2026 (v5.60) — пара к assets/motion.js
-   Используем отдельные свойства translate / rotate / scale: они складываются с собственными
-   transform элементов и не ломают их (наклоны карточек, hover и т.п.). Всё включается только при html.mo. */
+/* FBT Online · движение блоков при прокрутке · v5.61 · 02.11.2026 — пара к assets/motion.js
+   --p (0…1) считает скрипт по положению прокрутки: 0 — блок ещё внизу, 1 — на месте.
+   Каждое движение задаёт стартовое смещение: --tx --ty (сдвиг), --tr (поворот), --ts (масштаб).
+   Отдельные свойства translate / rotate / scale складываются с собственными transform блоков и не ломают их. */
 
 .mo [data-mo] {
-  transition: opacity .7s ease, translate .95s cubic-bezier(.2,.8,.2,1), rotate .95s cubic-bezier(.2,.8,.2,1), scale .95s cubic-bezier(.2,.8,.2,1);
-  transition-delay: calc(var(--i, 0) * 95ms);
+  --q: calc(1 - var(--p, 0));
+  opacity: calc(var(--p, 0) * 1.4 - .2);
+  translate: calc(var(--tx, 0px) * var(--q)) calc(var(--ty, 0px) * var(--q));
+  rotate: calc(var(--tr, 0deg) * var(--q));
+  scale: calc(1 - (1 - var(--ts, 1)) * var(--q));
 }
-.mo [data-mo].mo-in { opacity: 1; translate: 0 0; rotate: 0deg; scale: 1; }
 
-/* 1 · веер: стопкой из центра группы → по местам */
-.mo [data-mo="fan"]:not(.mo-in) { opacity: 0; translate: var(--fx, 0) var(--fy, 40px); rotate: var(--fr, 6deg); scale: .86; }
-/* 2 · слева-справа по очереди */
-.mo [data-mo="flyalt"]:not(.mo-in):nth-child(odd)  { opacity: 0; translate: -70px 10px; rotate: -4deg; }
-.mo [data-mo="flyalt"]:not(.mo-in):nth-child(even) { opacity: 0; translate: 70px 10px; rotate: 4deg; }
-/* 3 · переворот сверху вниз */
+/* 1 · веер: из центра группы (на телефоне — слева/справа) */
+.mo [data-mo="fan"]    { --tx: var(--fx, 0px); --ty: var(--fy, 40px); --tr: var(--fr, 6deg); --ts: .86; }
+/* 2 · слева и справа по очереди */
+.mo [data-mo="flyalt"].mo-odd  { --tx: -90px; --ty: 10px; --tr: -5deg; }
+.mo [data-mo="flyalt"].mo-even { --tx: 90px;  --ty: 10px; --tr: 5deg; }
+/* 3 · переворот сверху вниз, как лист */
 .mo [data-mo-group="flip"] { perspective: 1000px; }
-.mo [data-mo="flip"] { transform-origin: 50% 0; }
-.mo [data-mo="flip"]:not(.mo-in) { opacity: 0; rotate: x 75deg; }
+.mo [data-mo="flip"] { transform-origin: 50% 0; rotate: x calc(80deg * var(--q)); }
 /* 4 · падают сверху с наклоном */
-.mo [data-mo="tilt"]:not(.mo-in) { opacity: 0; translate: 0 -46px; rotate: 7deg; }
-.mo [data-mo="tilt"]:not(.mo-in):nth-child(even) { rotate: -7deg; }
+.mo [data-mo="tilt"].mo-odd  { --ty: -60px; --tr: 8deg; }
+.mo [data-mo="tilt"].mo-even { --ty: -60px; --tr: -8deg; }
 /* 5 · зум из глубины */
-.mo [data-mo="zoom"]:not(.mo-in) { opacity: 0; scale: .72; }
+.mo [data-mo="zoom"]   { --ts: .7; --ty: 20px; }
 /* 6 · подъём снизу */
-.mo [data-mo="rise"]:not(.mo-in) { opacity: 0; translate: 0 80px; rotate: 2deg; }
-/* ленты вбок: въезжают справа / раскачиваются */
-.mo [data-mo="slide"]:not(.mo-in) { opacity: 0; translate: 140px 0; rotate: 3deg; }
-.mo [data-mo="swing"] { transform-origin: 50% 0; }
-.mo [data-mo="swing"]:not(.mo-in) { opacity: 0; rotate: -9deg; translate: 0 30px; }
-/* видео: всплывает */
-.mo [data-mo="pop"]:not(.mo-in) { opacity: 0; scale: .9; translate: 0 30px; }
-/* одиночные блоки: мягко */
-.mo [data-mo="soft"] { transition-duration: .6s, .8s, .8s, .8s; }
-.mo [data-mo="soft"]:not(.mo-in) { opacity: 0; translate: 0 26px; }
+.mo [data-mo="rise"]   { --ty: 110px; --tr: 3deg; }
+/* ленты вбок (секция прилипает): карточки залетают справа — по очереди сверху и снизу */
+.mo [data-mo="hfly"]   { --tx: 160px; --ty: -40px; --tr: 9deg;  --ts: .9; }
+.mo [data-mo="hfly2"]  { --tx: 160px; --ty: 40px;  --tr: -9deg; --ts: .9; }
+/* стопка: прилипают сверху, каждая следующая залетает с другой стороны */
+.mo [data-mo-group="stack"] > [data-mo="stack"] { position: sticky; top: var(--st, 70px); align-self: start;
+  --tx: var(--sx, -75vw); --ty: 60px; --tr: var(--sr, -11deg); box-shadow: 0 -12px 40px rgba(0,0,0,.35); }
+/* видео всплывает, одиночные блоки — мягко снизу */
+.mo [data-mo="pop"]    { --ts: .88; --ty: 30px; }
+.mo [data-mo="soft"]   { --ty: 34px; }
 
-/* Заголовки по словам: чётные секции — снизу, нечётные — слева */
+/* Лента вбок, двигаемая прокруткой */
+.mo .mo-hpin-sec { position: sticky; }
+.mo [data-mo-group="hpin"] { scroll-behavior: auto; }
+.mo .mo-hpin-sec .swipe-hint { display: none; }   /* лента едет сама — «листайте» не нужно */
+
+/* Заголовки по словам: через секцию — снизу или слева */
 .mo .mo-w { display: inline-block; transition: opacity .55s ease, translate .8s cubic-bezier(.2,.8,.2,1), rotate .8s cubic-bezier(.2,.8,.2,1);
   transition-delay: calc(var(--w, 0) * 55ms); }
 .mo [data-mo-words="up"]:not(.mo-in) .mo-w { opacity: 0; translate: 0 .7em; rotate: 5deg; }
 .mo [data-mo-words="left"]:not(.mo-in) .mo-w { opacity: 0; translate: -.8em 0; }
 
-/* Фото в рамке: плавное приближение при прокрутке (значения считает motion.js) */
-.mo img.mo-par { scale: var(--ps, 1.08); translate: 0 var(--py, 0); transition: none; will-change: scale, translate; }
+/* Фото в рамке: плавное приближение */
+.mo img.mo-par { scale: var(--ps, 1.08); translate: 0 var(--py, 0); will-change: scale, translate; }
