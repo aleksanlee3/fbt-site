@@ -198,7 +198,8 @@
       k.style.zIndex = String(i + 1);
       marked.add(k);
     });
-    var sc = { outer: outer, pin: pin, deck: box, head: head !== box ? head : null, cards: cards, top: 0, run: 1 };
+    var sc = { outer: outer, pin: pin, deck: box, head: head !== box ? head : null, cards: cards, top: 0, run: 1, mode: mode };
+    if (mode === 'carousel') { outer.classList.add('mo-scene--carousel'); cards.forEach(function (k) { k.style.zIndex = ''; }); }
     scenes.push(sc);
     measureScene(sc);
   }
@@ -212,13 +213,37 @@
     var top = barH + Math.max(8, (vh - barH - H) / 2);
     if (top + H > vh) top = Math.max(vh - H - 8, Math.min(barH + 8, vh - H));
     sc.top = top;
-    sc.run = vh * (0.35 + sc.cards.length * 0.62);
+    // v5.64: «Кому подходит» (down) — медленнее, карточка едет дольше; карусель — свой шаг на карточку
+    var per = sc.mode === 'down' ? 1.15 : sc.mode === 'carousel' ? 0.6 : 0.62;
+    sc.run = vh * (0.35 + sc.cards.length * per);
     sc.outer.style.height = (H + sc.run) + 'px';
     sc.pin.style.top = top + 'px';
     // пока карточек нет — заголовок опущен на середину места под карточки и крупнее
     sc.pin.style.setProperty('--hd', Math.round(sc.deck.offsetHeight / 2) + 'px');
   }
+  // v5.64 · Карусель («Узнаёте себя?»): карточки стоят на кольце, как кинолента; прокрутка вниз поворачивает кольцо —
+  // центральная карточка крупно, соседние уходят вглубь и в стороны, дальние гаснут. Образец — реклама газировки (исходник Александра).
+  function frameCarousel(sc) {
+    var n = sc.cards.length;
+    var t = clamp((sc.top - sc.outer.getBoundingClientRect().top) / sc.run);
+    var f = t * (n - 1 + 0.75);
+    var e0 = ease(clamp(f / 0.75));
+    var pos = Math.max(0, Math.min(n - 1, f - 0.75));
+    sc.pin.style.setProperty('--h', (1 - e0).toFixed(3));
+    var w = sc.deck.offsetWidth;
+    sc.cards.forEach(function (k, i) {
+      var d = i - pos, a = Math.abs(d), s = d < 0 ? -1 : 1;
+      var x = s * Math.min(a, 2.6) * w * 0.56;
+      var z = -Math.min(a, 2.6) * 0.75 * w - (1 - e0) * 1.4 * w;
+      var ry = -s * Math.min(a, 1.5) * 40;
+      k.style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,' + z.toFixed(1) + 'px) rotateY(' + ry.toFixed(2) + 'deg)';
+      k.style.opacity = (e0 * clamp(1 - (a - 1.4) / 1.1)).toFixed(3);
+      k.style.filter = 'brightness(' + (1 - 0.55 * clamp(a)).toFixed(3) + ')';
+      k.style.zIndex = String(100 - Math.round(a * 10));
+    });
+  }
   function frameScene(sc) {
+    if (sc.mode === 'carousel') return frameCarousel(sc);
     var n = sc.cards.length;
     var t = clamp((sc.top - sc.outer.getBoundingClientRect().top) / sc.run);
     var f = t * (n + 0.55);

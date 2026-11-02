@@ -100,3 +100,10 @@ body .rv-cover:hover .rv-play { filter: brightness(1.1); }
 body .rv:not(.is-on) .rv-full { display: none; }
 body .rv.is-on .rv-cover { aspect-ratio: 9 / 16 !important; }
 @media (max-width: 760px) { body .rv-play { height: 40px !important; font-size: 14px; } body .rv-play::after { content: 'Смотреть'; } }
+
+/* v5.64 · «Узнаёте себя?» — карусель-кинолента: карточки на кольце, прокрутка поворачивает его */
+.mo .mo-scene--carousel { overflow-x: clip; }
+.mo .mo-scene--carousel .mo-scene-deck { perspective: 1100px; perspective-origin: 50% 40%; transform-style: preserve-3d; max-width: 520px; }
+.mo .mo-scene--carousel .mo-scene-deck > [data-mo-card] { translate: none; rotate: none; scale: none; width: 86%; justify-self: center;
+  transform-origin: 50% 50%; backface-visibility: hidden; position: relative; will-change: transform, opacity, filter; }
+@media (max-width: 640px) { .mo .mo-scene--carousel .mo-scene-deck > [data-mo-card] { width: 80%; } }

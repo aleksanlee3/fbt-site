@@ -558,3 +558,14 @@ body.ic .igra-arrow path.igra-arrow-p { stroke-width: 3.5; filter: none; }
   .unlock--end .end-locked { padding-left: 14px; }
   .unlock--end .unlock-act .btn { min-width: 0; }
 }
+
+/* 02.11 v5.64 (Александр): подсказка под «Включите и посмотрите видео» убрана, блок плотнее — надпись, стрелка и сразу видео */
+.watch-cue { margin-top: 20px; }
+body.ic .watch-cue-t { font-size: 44px; line-height: .95; }
+body.ic .watch-cue-a { width: 40px; height: 52px; margin-top: 2px; }
+.watch-cue + .player { margin-top: 2px; }
+@media (max-width: 640px) {
+  .watch-cue { margin-top: 14px; }
+  body.ic .watch-cue-t { font-size: 38px; }
+  body.ic .watch-cue-a { width: 34px; height: 44px; }
+}

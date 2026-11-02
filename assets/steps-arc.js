@@ -14,7 +14,7 @@
   // d — место карточки на дуге относительно центра (0 — в центре, ±1 — соседние)
   function place(card, d, opened) {
     var w = wide();
-    var step = w ? 350 : Math.min(window.innerWidth * 0.62, 260);
+    var step = w ? 372 : Math.min(window.innerWidth * 0.8, 320);
     var x = d * step * opened;
     var rot = d * (w ? 9 : 7) * opened;
     var y = Math.abs(d) * Math.abs(d) * (w ? 22 : 26) * opened;

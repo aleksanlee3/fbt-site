@@ -1,0 +1,80 @@
+/* FBT Online · подарок за 6 артефактов (#igra) · v5.64 · 02.11.2026
+   Правка Александра: старый блок выглядел «нейросетевым» (розовые кружки-иконки, плитка с подарком, всё в одну колонку).
+   Новый вид — пригласительный билет: тёмная карточка, фото Любы, крупные факты, линия отрыва с вырезами по краям,
+   внизу «корешок» — таймер до ближайшей среды и ваши артефакты. Свои цвета, не зависят от темы сайта. */
+#igra.igv-sec { --igv-bg: #1C1C1E; --igv-line: rgba(255,255,255,.12); --igv-red: #E5322D; }
+#igra .igv { position: relative; max-width: 1000px; margin: 0 auto; border-radius: 28px; color: #fff;
+  background: radial-gradient(90% 70% at 100% 0%, rgba(229,50,45,.20), transparent 60%), var(--igv-bg);
+  border: 1px solid rgba(255,255,255,.10); box-shadow: 0 30px 80px rgba(0,0,0,.45); overflow: hidden; }
+#igra .igv-top { display: grid; grid-template-columns: 380px minmax(0, 1fr); gap: 0; }
+#igra .igv-photo { position: relative; margin: 0; }
+#igra .igv-photo img { display: block; width: 100%; height: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 20%; }
+#igra .igv-photo::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, transparent 60%, var(--igv-bg) 100%); }
+#igra .igv-live { position: absolute; left: 18px; top: 18px; z-index: 1; display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px 8px 12px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #fff;
+  background: rgba(20,20,22,.55); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.18); }
+#igra .igv-live i { width: 9px; height: 9px; border-radius: 50%; background: #FF3B30; box-shadow: 0 0 0 4px rgba(255,59,48,.25);
+  animation: igv-live 1.6s ease-in-out infinite; }
+@keyframes igv-live { 50% { box-shadow: 0 0 0 7px rgba(255,59,48,0); } }
+
+#igra .igv-body { padding: 40px 44px 34px 28px; }
+#igra .igv-eyebrow { display: flex; align-items: center; gap: 12px; margin: 0; font-size: 14px; font-weight: 800; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--igv-red); }
+#igra .igv-eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--igv-red); }
+#igra .igv-h { margin: 14px 0 0; font-size: 44px; line-height: 1.06; letter-spacing: -.02em; font-weight: 800; color: #fff !important; }
+#igra .igv-h > span { display: block; }
+#igra .igv-h em { font-style: normal; color: var(--igv-red); }
+#igra .igv-sub { margin: 16px 0 0; font-size: 19px; line-height: 1.45; color: rgba(255,255,255,.72); max-width: 520px; }
+
+#igra .igv-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 26px 0 0; border-top: 1px solid var(--igv-line); }
+#igra .igv-facts > div { padding: 16px 16px 14px 0; border-bottom: 1px solid var(--igv-line); }
+#igra .igv-facts > div:nth-child(2n) { padding-left: 18px; border-left: 1px solid var(--igv-line); }
+#igra .igv-facts dt { font-size: 30px; line-height: 1; font-weight: 800; letter-spacing: -.02em; color: #fff; }
+#igra .igv-facts > div:first-child dt { color: var(--igv-red); }
+#igra .igv-facts dd { margin: 6px 0 0; font-size: 16px; line-height: 1.3; color: rgba(255,255,255,.62); }
+
+/* Линия отрыва с вырезами по краям */
+#igra .igv-cut { position: relative; height: 0; margin: 0 26px; border-top: 2px dashed rgba(255,255,255,.22); }
+#igra .igv-cut::before, #igra .igv-cut::after { content: ""; position: absolute; top: -17px; width: 32px; height: 32px; border-radius: 50%;
+  background: #F5F5F7; box-shadow: none; } /* цвет страницы под блоком */
+#igra .igv-cut::before { left: -43px; } #igra .igv-cut::after { right: -43px; }
+
+#igra .igv-stub { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 22px; align-items: center; padding: 26px 40px 32px; }
+#igra .rz-timer { margin: 0; padding: 0; background: none; border: 0; box-shadow: none; }
+#igra .rz-when { font-size: 16px; color: rgba(255,255,255,.75); }
+#igra .rz-cd { gap: 8px; margin-top: 12px; }
+#igra .rz-cd span { padding: 12px 4px 10px; border-radius: 14px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10); }
+#igra .rz-cd b { font-size: 34px; color: #fff; }
+#igra .rz-cd span:first-child b { color: var(--igv-red); }
+#igra .rz-cd i { color: rgba(255,255,255,.55); font-size: 13px; }
+
+#igra .igv-pass { padding-left: 22px; border-left: 1px solid var(--igv-line); }
+#igra .igv-price b { display: block; font-size: 30px; line-height: 1; font-weight: 800; color: #fff; }
+#igra .igv-price span { display: block; margin-top: 6px; font-size: 16px; line-height: 1.35; color: rgba(255,255,255,.62); }
+#igra .igra-slots { display: flex; gap: 6px; margin-top: 16px; }
+#igra .igra-slots i { flex: 1; max-width: none; height: 10px; border-radius: 6px; background: rgba(255,255,255,.10) !important;
+  border: 1px solid rgba(255,255,255,.16) !important; box-shadow: none !important; }
+#igra .igra-slots i.on { background: var(--igv-red) !important; border-color: var(--igv-red) !important; box-shadow: 0 0 10px rgba(229,50,45,.5) !important; }
+#igra .igra-cue { margin-top: 12px; display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 0; border: 0; background: none; cursor: pointer; }
+#igra .igra-cue-n { font-size: 15px; color: rgba(255,255,255,.7) !important; }
+#igra .igra-cue-n b { color: #fff !important; }
+#igra .igra-cue-t { font: 700 26px/1.1 var(--hand, Caveat, cursive); color: #FF8585 !important; transform: rotate(-2deg); }
+
+@media (max-width: 900px) {
+  #igra .igv-top { grid-template-columns: minmax(0, 1fr); }
+  #igra .igv-photo img { aspect-ratio: 4 / 3; object-position: 50% 18%; }
+  #igra .igv-photo::after { background: linear-gradient(180deg, transparent 55%, var(--igv-bg) 100%); }
+  #igra .igv-body { padding: 4px 22px 24px; }
+  #igra .igv-h { font-size: 30px; max-width: none; }
+  #igra .igv-sub { font-size: 18px; }
+  #igra .igv-facts dt { font-size: 26px; }
+  #igra .igv-facts dd { font-size: 15px; }
+  #igra .igv-cut { margin: 0 18px; } #igra .igv-cut::before { left: -35px; } #igra .igv-cut::after { right: -35px; }
+  #igra .igv-stub { grid-template-columns: minmax(0, 1fr); padding: 22px 20px 26px; gap: 20px; }
+  #igra .igv-pass { padding-left: 0; border-left: 0; }
+  #igra .rz-cd b { font-size: 28px; }
+  #igra .igv { border-radius: 24px; }
+}
+@media (max-width: 370px) { #igra .igv-h { font-size: 27px; } }
+@media (prefers-reduced-motion: reduce) { #igra .igv-live i { animation: none; } }
