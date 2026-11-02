@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="assets/ic-dark.css"><!-- 06.10 v5.0: графит до отзывов (тёмная тема) --><!-- 06.10 v4.9: цвета Impact Consulting -->
 <link rel="stylesheet" href="assets/contrast.css">
 <link rel="stylesheet" href="assets/komu.css?v=5.56">
-<link rel="stylesheet" href="assets/seg-a.css?v=5.54"><link rel="stylesheet" href="assets/offer.css?v=5.58"><!-- 02.11: оффер на первом экране --><!-- 15.10: блоки сегмента А --><!-- 07.10 v5.3: тёмный фон — светлый текст, светлый — тёмный -->
+<link rel="stylesheet" href="assets/seg-a.css?v=5.54"><link rel="stylesheet" href="assets/offer.css?v=5.59"><link rel="stylesheet" href="assets/steps-arc.css?v=5.59"><!-- 02.11: подзаголовок; 3 шага на дуге --><!-- 15.10: блоки сегмента А --><!-- 07.10 v5.3: тёмный фон — светлый текст, светлый — тёмный -->
 <script>try{localStorage.setItem("fbt_seg","a-posle-zapuska")}catch(e){}</script><!-- 15.10: метка сегмента А -->
 <script src="config.js?v=5.58"></script>
 <script src="assets/fbt.js?v=5.52"></script>
@@ -96,27 +96,11 @@
       </h1>
       <p class="of-sub">Разберёмся, почему так происходит и&nbsp;что исправить первым.</p>
 
-      <!-- 02.11 v5.58: оффер на первом экране — что человек получает бесплатно (решение Александра 02.11) -->
-      <div class="of-box">
-        <div class="of-cap">Бесплатно для вас</div>
-        <ul class="of-list">
-          <li class="of-i1"><span class="of-ic"><svg><use href="#i-doc"/></svg></span><span><b>Карта действий</b>7 шагов на 90 дней. PDF сразу в&nbsp;Telegram</span></li>
-          <li class="of-i2"><span class="of-ic"><svg><use href="#i-clock"/></svg></span><span><b>Диагностика за 5 минут</b>Узнаете главную причину, почему нет прибыли</span></li>
-          <li class="of-i3"><span class="of-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span><b>Голосовой разбор куратора</b>Что сделать первым именно в&nbsp;вашем бизнесе</span></li>
-        </ul>
-        <div class="of-act">
-          <a class="btn btn--primary btn--lg of-btn" data-bot="map" data-getmap data-show="notGot"><svg><use href="#i-send"/></svg>Забрать карту бесплатно</a>
-          <a class="btn btn--primary btn--lg of-btn" href="diagnostika-posle-zapuska.html" data-show="got" hidden>Пройти диагностику<svg><use href="#i-right"/></svg></a>
-          <span class="of-note" data-show="notGot">Карта придёт в Telegram за 10 секунд</span>
-          <span class="of-note" data-show="got" hidden>Карта у вас в Telegram · следующий шаг — диагностика</span>
-        </div>
-      </div>
-
       <p class="lead lead-story"><span class="lead-tag" aria-hidden="true"><img src="assets/img/luba-avatar.jpg" alt=""><span>О чём видеоразбор</span></span>Семья Любы тоже вложила всё: продали машину, заняли ещё денег и купили оборудование за <span class="lead-hl">€40&nbsp;000</span> — и чуть не потеряли всё. Как они выбрались из этой ситуации и с чего начать именно вам — смотрите в видеоразборе.</p>
 
       <!-- 06.10: стрелка на видео — человек сразу понимает, куда смотреть и нажать -->
       <div class="watch-cue" data-watch-cue aria-hidden="true">
-        <span class="watch-cue-t">Люба рассказывает подробнее</span>
+        <span class="watch-cue-t">Смотрите это видео</span>
         <span class="watch-cue-s">нажмите на видео, чтобы включить звук</span>
         <svg class="watch-cue-a" viewBox="0 0 40 56" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c10 10 12 26 8 44"/><path d="M12 38l10 12l9-13"/></svg>
       </div>
@@ -137,70 +121,42 @@
       </div>
       <p class="demo-note note" data-demo-note hidden>Демо-плеер: видео ещё не загружено. Для проверки ускорьте: добавьте к адресу <span class="mono">?demo=60</span>.</p>
 
-      <div class="unlock card">
-        <!-- 15.10: карта действий предпринимателя — одинаково после видео и внизу страницы -->
-        <div class="unlock-row" data-show="locked">
-          <div class="unlock-txt">
-            <div class="sa-map">
-              <span class="sa-map-ph"><img src="assets/img/roadmap.jpg" alt="" loading="lazy"><i>PDF</i></span>
-              <div class="sa-map-t">
-                <span class="sa-map-tag">В подарок · бесплатно</span>
-                <b class="sa-map-h">Карта действий предпринимателя</b>
-                <p class="sa-map-p">Пошаговый план развития бизнеса из 7 шагов: от первых клиентов до плана работы на 90 дней.</p>
-              </div>
-            </div>
-            <p class="sa-map-left">Откроется в конце видео · осталось <span class="mono acc" data-text-of="timeLeft">03:00</span></p>
-            <div class="bar"><i data-progress></i></div>
-          </div>
-          <div class="unlock-act">
-            <button type="button" class="btn btn--lg btn--locked" disabled><svg><use href="#i-lock"/></svg>Забрать карту действий</button>
-          </div>
-        </div>
-        <div class="unlock-row" data-show="unlocked" hidden>
-          <div class="unlock-txt">
-            <div class="okline"><svg><use href="#i-check"/></svg>БЕСПЛАТНО · КАРТА ДОСТУПНА СРАЗУ</div>
-            <div class="sa-map">
-              <span class="sa-map-ph"><img src="assets/img/roadmap.jpg" alt="" loading="lazy"><i>PDF</i></span>
-              <div class="sa-map-t">
-                <span class="sa-map-tag">В подарок · бесплатно</span>
-                <b class="sa-map-h">Карта действий предпринимателя</b>
-                <p class="sa-map-p">Пошаговый план развития бизнеса из 7 шагов: от первых клиентов до плана работы на 90 дней.</p>
-              </div>
-            </div>
-          </div>
-          <div class="unlock-act">
-            <div class="push">
-              <div class="cue-down" aria-hidden="true"><span>Жмите · PDF бесплатно</span><svg viewBox="0 0 40 44"><use href="#i-arrow-down"/></svg></div>
-              <span class="ringed"><a class="btn btn--primary btn--lg" data-bot="map" data-getmap><svg><use href="#i-send"/></svg>Забрать карту в Telegram</a></span>
-            </div>
-          </div>
-        </div>
-        <!-- 3. Карта получена · 07.10 v5.9: яркий блок-прогрев на диагностику (только цвета IC: красный, графит, белый, серо-голубой) -->
-        <div class="unlock-row diag-hot" data-show="got" hidden>
-          <div class="unlock-txt">
-            <div class="dh-top">
-              <span class="dh-ok"><svg><use href="#i-check"/></svg>Карта у вас</span>
-              <span class="dh-step">Шаг 2 из 3</span>
-            </div>
-            <div class="unlock-h dh-h">Хотите пройти <em>экспресс-диагностику</em> бизнеса с живым куратором?</div>
-            <p class="dh-lead"><b>5 минут. Бесплатно.</b> Ответьте на 10 простых вопросов — и наш куратор Александр поможет разобраться, <b>что сейчас мешает вашему бизнесу</b>: где теряются клиенты и деньги, и какой шаг сделать первым — <b>прежде чем снова тратить</b>.</p>
-            <ul class="dh-why">
-              <li><span class="dh-i"><svg><use href="#i-clock"/></svg></span><span><b>Всего 5 минут</b> — 10 вопросов, на каждый — 5 вариантов ответа, от «да» до «нет». Ничего готовить и искать не нужно.</span></li>
-              <li><span class="dh-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span><b>Живой куратор, а не робот</b> — Александр посмотрит ваши ответы и запишет <b>голосовой разбор</b>: что мешает бизнесу и какой шаг сделать первым.</span></li>
-              <li><span class="dh-i"><svg><use href="#i-check"/></svg></span><span><b>Бесплатно и ни к чему не обязывает</b> — ничего покупать не нужно. Просто станет понятно, что делать дальше.</span></li>
-            </ul>
-            <p class="dh-meta">+ в подарок: PDF-разбор по 5 направлениям и новые артефакты для квеста</p>
-          </div>
-          <div class="unlock-act">
-            <div class="push">
-              <div class="cue-down" aria-hidden="true"><span>Жмите сюда · 5 минут</span><svg viewBox="0 0 40 44"><use href="#i-arrow-down"/></svg></div>
-              <span class="ringed"><a class="btn btn--primary btn--lg" href="diagnostika-posle-zapuska.html">Пройти диагностику<svg><use href="#i-right"/></svg></a></span>
-            </div>
-            <p class="dh-again">Бот не прислал карту? <a class="link-btn" data-bot="map" data-getmap>Открыть бот ещё раз</a></p>
-          </div>
-        </div>
-      </div>
+    </div>
+  </section>
 
+  <!-- 02.11 v5.59: 3 бесплатных шага на дуге (по образцу yaas-energy.com — карточки поворачиваются при прокрутке).
+       Заменяют блок «Бесплатно для вас» и карточку карты под видео. Стили — assets/steps-arc.css, движение — assets/steps-arc.js -->
+  <section class="ic-top sa3" id="shagi" aria-label="Три бесплатных шага">
+    <div class="sa3-pin">
+      <div class="sa3-head">
+        <span class="sa3-cap">Бесплатно</span>
+        <h2 class="sa3-h">Три шага, чтобы понять,<br class="br-m"> что делать с&nbsp;бизнесом</h2>
+      </div>
+      <div class="sa3-arc">
+        <article class="sa3-card sa3-c1">
+          <span class="sa3-n">01</span>
+          <h3 class="sa3-t">Заберите карту действий</h3>
+          <p class="sa3-p">7 шагов на 90 дней. PDF придёт в Telegram за 10 секунд.</p>
+          <span class="sa3-next" aria-hidden="true">дальше →</span>
+        </article>
+        <article class="sa3-card sa3-c2">
+          <span class="sa3-n">02</span>
+          <h3 class="sa3-t">Пройдите диагностику</h3>
+          <p class="sa3-p">5 минут. Узнаете главную причину, почему нет прибыли.</p>
+          <span class="sa3-next" aria-hidden="true">дальше →</span>
+        </article>
+        <article class="sa3-card sa3-c3">
+          <span class="sa3-n">03</span>
+          <h3 class="sa3-t">Получите голосовой разбор</h3>
+          <p class="sa3-p">Куратор скажет, что сделать первым именно в вашем бизнесе.</p>
+        </article>
+      </div>
+      <div class="sa3-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="sa3-act">
+        <a class="btn btn--primary btn--lg sa3-btn" data-bot="map" data-getmap data-show="notGot"><svg><use href="#i-send"/></svg>Забрать карту бесплатно</a>
+        <a class="btn btn--primary btn--lg sa3-btn" href="diagnostika-posle-zapuska.html" data-show="got" hidden>Пройти диагностику<svg><use href="#i-right"/></svg></a>
+        <span class="sa3-note" data-show="got" hidden>Карта у вас в Telegram · следующий шаг — диагностика</span>
+      </div>
     </div>
   </section>
 
@@ -479,6 +435,7 @@
 
 <script src="assets/p1.js?v=5.58"></script>
 <script src="assets/igra-cue.js?v=5.25"></script>
+<script src="assets/steps-arc.js?v=5.59"></script>
 <script src="assets/typo.js?v=5.34" defer></script>
 <script src="assets/razbor.js?v=5.48"></script>
 </body>

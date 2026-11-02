@@ -1,0 +1,70 @@
+/* FBT Online · «После запуска» · 3 бесплатных шага на дуге · 02.11.2026 (v5.59)
+   Образец — блок преимуществ yaas-energy.com: белые карточки на дуге, крупная цветная цифра,
+   при прокрутке дуга поворачивается и следующая карточка выезжает в центр.
+   Телефон: секция «прилипает» на время прокрутки трёх карточек. Компьютер: все три видны сразу.
+   Без анимации (prefers-reduced-motion) — карточки просто друг под другом. */
+
+.sa3 { position: relative; height: 230vh; height: 230svh; }
+.sa3-pin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 18px; padding: 72px 16px 24px; overflow: hidden; }
+
+.sa3-head { text-align: center; }
+.sa3-cap { display: inline-block; padding: 7px 16px; border-radius: 999px; background: #C60000; color: #fff;
+  font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.sa3-h { margin: 14px auto 0; max-width: 760px; font-size: 40px; line-height: 1.1; font-weight: 700; color: #fff; }
+
+.sa3-arc { position: relative; width: 100%; height: 340px; }
+.sa3-card { position: absolute; left: 50%; top: 10px; width: 300px; min-height: 300px; margin-left: -150px;
+  padding: 26px 24px 24px; border-radius: 22px; background: #FFFFFF; color: #181818;
+  box-shadow: 0 22px 50px rgba(0,0,0,.38); transform-origin: 50% 160%;
+  display: flex; flex-direction: column; will-change: transform; transition: opacity .25s; }
+.sa3-n { font-size: 84px; line-height: .9; font-weight: 800; letter-spacing: -.04em; }
+.sa3-t { margin: 16px 0 0; font-size: 26px; line-height: 1.12; font-weight: 800; }
+.sa3-p { margin: 12px 0 0; font-size: 18px; line-height: 1.4; color: #3A3A3C; }
+.sa3-next { margin-top: auto; padding-top: 16px; font-size: 15px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; opacity: .55; }
+
+/* Цвета шагов: красный · серо-голубой · графит (цвета Impact Consulting) */
+.sa3-c1 .sa3-n, .sa3-c1 .sa3-t { color: #C60000; }
+.sa3-c2 .sa3-n, .sa3-c2 .sa3-t { color: #4C6874; }
+.sa3-c3 .sa3-n, .sa3-c3 .sa3-t { color: #181818; }
+.sa3-c1 { background: linear-gradient(165deg, #FFFFFF 55%, #FCEDED 100%); }
+.sa3-c2 { background: linear-gradient(165deg, #FFFFFF 55%, #E9F2F5 100%); }
+.sa3-c3 { background: linear-gradient(165deg, #FFFFFF 55%, #EFEFF2 100%); }
+
+.sa3-dots { display: flex; gap: 8px; }
+.sa3-dots i { width: 8px; height: 8px; border-radius: 99px; background: rgba(255,255,255,.28); transition: width .25s, background .25s; }
+.sa3-dots i.on { width: 26px; background: #fff; }
+
+.sa3-act { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; max-width: 420px; }
+.sa3-btn { width: 100%; justify-content: center; font-size: 19px; }
+.sa3-note { font-size: 15px; color: #A2C3CD; text-align: center; }
+
+.br-m { display: none; }
+
+@media (max-width: 640px) {
+  .sa3-h { font-size: 27px; }
+  .br-m { display: inline; }
+  .sa3-arc { height: 300px; }
+  .sa3-card { width: 260px; min-height: 270px; margin-left: -130px; padding: 22px 20px 20px; transform-origin: 50% 50%; }
+  .sa3-n { font-size: 70px; }
+  .sa3-t { font-size: 23px; }
+  .sa3-p { font-size: 17px; }
+}
+
+/* Компьютер: три карточки помещаются — без «прилипания», дуга раскрывается при появлении */
+@media (min-width: 1000px) {
+  .sa3 { height: auto; }
+  .sa3-pin { position: relative; height: auto; padding: 96px 24px 88px; gap: 28px; }
+  .sa3-arc { height: 400px; max-width: 1100px; }
+  .sa3-card { width: 320px; margin-left: -160px; }
+  .sa3-dots { display: none; }
+}
+
+/* Без анимации — обычный список */
+@media (prefers-reduced-motion: reduce) {
+  .sa3 { height: auto; }
+  .sa3-pin { position: relative; height: auto; padding: 64px 16px; }
+  .sa3-arc { height: auto; display: grid; gap: 14px; justify-items: center; }
+  .sa3-card { position: relative; left: auto; top: auto; margin: 0; transform: none !important; opacity: 1 !important; min-height: 0; }
+  .sa3-next, .sa3-dots { display: none; }
+}
