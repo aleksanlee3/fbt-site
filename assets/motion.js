@@ -242,7 +242,7 @@
       marked.add(k);
     });
     var sc = { outer: outer, pin: pin, deck: box, head: head !== box ? head : null, cards: cards, top: 0, run: 1, mode: mode };
-    if (mode === 'carousel') { outer.classList.add('mo-scene--carousel'); cards.forEach(function (k) { k.style.zIndex = ''; }); }
+    if (mode === 'deck') { outer.classList.add('mo-scene--deck'); cards.forEach(function (k, i) { k.style.zIndex = String(100 - i); }); }
     scenes.push(sc);
     measureScene(sc);
   }
@@ -257,7 +257,7 @@
     if (top + H > vh) top = Math.max(vh - H - 8, Math.min(barH + 8, vh - H));
     sc.top = top;
     // v5.64: «Кому подходит» (down) — медленнее, карточка едет дольше; карусель — свой шаг на карточку
-    var per = sc.mode === 'down' ? 1.15 : sc.mode === 'carousel' ? 0.6 : 0.62;
+    var per = sc.mode === 'down' ? 1.15 : sc.mode === 'deck' ? 0.55 : 0.62;
     sc.run = vh * (0.35 + sc.cards.length * per);
     sc.outer.style.height = (H + sc.run) + 'px';
     sc.pin.style.top = top + 'px';
@@ -270,30 +270,37 @@
     if (sc.head) { sc.head.style.translate = '0 ' + (sc.hd * h).toFixed(1) + 'px'; sc.head.style.scale = (1 + 0.25 * h).toFixed(3); }
     if (sc.lead) sc.lead.style.opacity = (1 - h).toFixed(3);
   }
-  // v5.64 · Карусель («Узнаёте себя?»): карточки стоят на кольце, как кинолента; прокрутка вниз поворачивает кольцо —
-  // центральная карточка крупно, соседние уходят вглубь и в стороны, дальние гаснут. Образец — реклама газировки (исходник Александра).
-  function frameCarousel(sc, rt) {
+  // v5.66 · Колода («Узнаёте себя?», правка Александра 02.11 21:37 — карусель заменить другим стилем, заголовок не должен дрожать):
+  // карточки лежат стопкой, задние чуть выглядывают снизу и повёрнуты; прокрутка вниз «смахивает» верхнюю карточку
+  // по очереди влево и вправо, открывая следующую. Только плоские сдвиги и повороты (без 3D). Заголовок не трогаем вообще —
+  // он стоит на месте, ничего в нём не меняется при прокрутке.
+  var TILT = [-2.5, 3, -1.5, 2.5, -3, 1.5, -2, 3];
+  function frameDeck(sc, rt) {
     var n = sc.cards.length;
     var t = clamp((sc.top - rt) / sc.run);
-    var f = t * (n - 1 + 0.75);
-    var e0 = ease(clamp(f / 0.75));
-    var pos = Math.max(0, Math.min(n - 1, f - 0.75));
-    setHead(sc, 1 - e0);
-    var w = sc.w;
+    var pos = Math.max(0, Math.min(n - 1, t * (n - 1 + 0.7) - 0.3));   // первая карточка сначала немного стоит
+    var w = sc.w || 360;
     sc.cards.forEach(function (k, i) {
-      var d = i - pos, a = Math.abs(d), s = d < 0 ? -1 : 1;
-      var x = s * Math.min(a, 2.6) * w * 0.56;
-      var z = -Math.min(a, 2.6) * 0.75 * w - (1 - e0) * 1.4 * w;
-      var ry = -s * Math.min(a, 1.5) * 40;
-      k.style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,' + z.toFixed(1) + 'px) rotateY(' + ry.toFixed(2) + 'deg)';
-      k.style.opacity = (e0 * (1 - 0.5 * clamp(a)) * clamp(1 - (a - 1.4) / 1.1)).toFixed(3);
-      k.style.zIndex = String(100 - Math.round(a * 10));
+      var d = i - pos, st = k.style, s = i % 2 ? 1 : -1, x = 0, y = 0, r = 0, sc2 = 1, o = 1;
+      if (d <= -1) { o = 0; x = s * w * 1.3; r = s * 18; }
+      else if (d < 0) {                      // верхнюю карточку смахивают в сторону
+        var u = -d, q = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;   // плавно разгоняется и уходит
+        x = s * w * 1.25 * q; y = -24 * q; r = s * 16 * q; o = q < 0.55 ? 1 : 1 - (q - 0.55) / 0.45;
+      } else {                               // остальные — стопкой под ней
+        var c = Math.min(d, 3);
+        y = c * 16; sc2 = 1 - c * 0.05; r = TILT[i % TILT.length] * Math.min(d, 1);
+        o = d > 3 ? 0 : d > 2 ? 3 - d : 1;
+      }
+      st.translate = x.toFixed(1) + 'px ' + y.toFixed(1) + 'px';
+      st.rotate = r.toFixed(2) + 'deg';
+      st.scale = sc2.toFixed(3);
+      st.opacity = o.toFixed(3);
     });
   }
   function frameScene(sc, rt) {
     // сцена далеко от экрана — ничего не пишем
     if (rt > window.innerHeight * 1.5 || rt + sc.outer.offsetHeight < -window.innerHeight * 0.5) { if (sc.idle) return; sc.idle = true; } else sc.idle = false;
-    if (sc.mode === 'carousel') return frameCarousel(sc, rt);
+    if (sc.mode === 'deck') return frameDeck(sc, rt);
     var n = sc.cards.length;
     var t = clamp((sc.top - rt) / sc.run);
     var f = t * (n + 0.55);

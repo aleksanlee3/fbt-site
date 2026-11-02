@@ -93,12 +93,13 @@ body .rv:not(.is-on) .rv-full { display: none; }
 body .rv.is-on .rv-cover { aspect-ratio: 9 / 16 !important; }
 @media (max-width: 760px) { body .rv-play { height: 40px !important; font-size: 14px; } body .rv-play::after { content: 'Смотреть'; } }
 
-/* v5.64 · «Узнаёте себя?» — карусель-кинолента: карточки на кольце, прокрутка поворачивает его */
-.mo .mo-scene--carousel { overflow-x: clip; }
-.mo .mo-scene--carousel .mo-scene-deck { perspective: 1100px; perspective-origin: 50% 40%; transform-style: preserve-3d; max-width: 520px; }
-.mo .mo-scene--carousel .mo-scene-deck > [data-mo-card] { translate: none; rotate: none; scale: none; width: 86%; justify-self: center;
-  transform-origin: 50% 50%; backface-visibility: hidden; position: relative; }
-@media (max-width: 640px) { .mo .mo-scene--carousel .mo-scene-deck > [data-mo-card] { width: 80%; } }
+/* v5.66 · «Узнаёте себя?» — колода: стопка карточек, прокрутка смахивает верхнюю в сторону (вместо карусели).
+   Заголовок обычного размера и неподвижен — его не двигает скрипт. */
+.mo .mo-scene--deck { overflow-x: clip; }
+.mo .mo-scene--deck .mo-scene-h { translate: none !important; scale: none !important; }
+.mo .mo-scene--deck .mo-scene-deck { max-width: 520px; padding-bottom: 48px !important; }
+.mo .mo-scene--deck .mo-scene-deck > [data-mo-card] { width: 92%; justify-self: center; transform-origin: 50% 85%;
+  box-shadow: 0 14px 34px rgba(0,0,0,.45); background: #232325 !important; align-self: stretch !important; }
 
 /* v5.65 · слабый телефон: лишние тени у движущихся карточек убираем — их перерисовка самая дорогая */
 .mo-lite .mo-scene-deck > [data-mo-card] { box-shadow: 0 8px 20px rgba(0,0,0,.3); }
