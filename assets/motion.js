@@ -135,6 +135,7 @@
     var scrollX = (cs.overflowX === 'auto' || cs.overflowX === 'scroll') && g.box.scrollWidth - g.box.clientWidth > 40;
     var lefts = g.kids.map(function (k) { return k.getBoundingClientRect().left; });
     var oneCol = lefts.every(function (l) { return Math.abs(l - lefts[0]) < 20; });
+    if (g.box.getAttribute('data-mo-scene') === 'reveal') { setupReveal(g); return; }
     if (g.box.hasAttribute('data-mo-scene') && (scrollX || oneCol)) { setupScene(g, section); return; }
     if (scrollX) { setupPin(g, section); return; }
     var vh = window.innerHeight;
@@ -217,6 +218,26 @@
     mix: [['-110vw', '0px', '-14deg', '1'], ['0px', '-95vh', '9deg', '1'], ['110vw', '0px', '14deg', '1'], ['0px', '0px', '0deg', '.35'],
           ['0px', '95vh', '-8deg', '1'], ['-95vw', '-75vh', '-22deg', '1'], ['0px', '0px', '0deg', '1.7'], ['95vw', '75vh', '20deg', '1']]
   };
+  // v5.68 · «Узнаёте себя?» (Александр 02.11 21:57: колода на iPhone всё равно дрожит — нужна анимация без вибрации):
+  // без прилипания и без пересчёта на каждом кадре. Карточки идут столбиком; каждая, попав на экран, один раз
+  // плавно въезжает — по очереди слева и справа с лёгким поворотом. Это обычный CSS-переход, его ведёт сам телефон,
+  // поэтому дрожать нечему.
+  var rio = null;
+  function setupReveal(g) {
+    var box = g.box;
+    box.setAttribute('data-mo-group', 'reveal');
+    box.classList.add('mo-reveal');
+    var sec0 = box.closest('section'); if (sec0) sec0.classList.add('mo-reveal-sec');
+    marked.add(box);
+    if (!rio) rio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('mo-rv-in'); rio.unobserve(e.target); } });
+    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+    g.kids.forEach(function (k, i) {
+      k.classList.add('mo-rv', i % 2 ? 'mo-rv-r' : 'mo-rv-l');
+      marked.add(k);
+      rio.observe(k);
+    });
+  }
   function setupScene(g, section) {
     var box = g.box, mode = box.getAttribute('data-mo-scene') || 'mix', dirs = DIRS[mode] || DIRS.mix;
     var parent = box.parentNode;
