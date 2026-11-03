@@ -497,7 +497,7 @@
     FBT.text('rcBadge', { intro: '10 вопросов · 5 минут', stage: 'перед тестом', q: 'вопрос ' + (Math.min(st.qi, 9) + 1) + ' из 10', sym: 'последний шаг',
       result: 'результат готов', sent: 'чат с куратором открыт' }[st.step]);
     // знакомы с ботом — результат уже у него, открываем чат без /start
-    $$('[data-pdf]').forEach(function (a) { a.href = FBT.linked() ? FBT.bot('') : FBT.bot(botCode()); a.target = '_blank'; a.rel = 'noopener'; });
+    $$('[data-pdf]').forEach(function (a) { a.href = FBT.linked() ? FBT.bot('') : FBT.bot(st.diagId ? 'd_' + st.diagId : botCode()); a.target = '_blank'; a.rel = 'noopener'; });
     save();
   }
 
@@ -507,7 +507,7 @@
     if (go) {
       var to = go.getAttribute('data-go');
       if (to === 'stage' && st.step === 'intro') { event('diag_start'); st.sq = 0; }
-      if (to === 'result' && !st.sent1) { st.sent1 = true; pushToBot(false).then(function (r) { if (r && r.pushed && FBT.pushNotice) setTimeout(FBT.pushNotice.report, 3000); }); }   // часть 1 — в бот (если есть сервер)
+      if (to === 'result' && !st.sent1) { st.sent1 = true; pushToBot(false).then(function (r) { if (r && r.id) { st.diagId = r.id; save(); } if (r && r.pushed && FBT.pushNotice) setTimeout(FBT.pushNotice.report, 3000); }); }   // часть 1 — в бот (если есть сервер)
       st.step = to;
       if (location.hash === '#tasks') history.replaceState(null, '', location.pathname + location.search);
       render(); window.scrollTo(0, 0); return;
@@ -520,9 +520,12 @@
     }
     if (e.target.closest('[data-pdf]')) { st.pdf = true; setTimeout(render, 50); return; }
     if (e.target.closest('[data-send]')) {
-      if (FBT.medal) FBT.medal('pismo');
-      event('diag_send');
-      FBT.open(FBT.tg(C.curator, chatText()));
+      // 03.11 v5.73 (решение Александра): «Отправить куратору» ведёт через бота, а не сразу в личку.
+      // Бот (start=d_<id>) присылает профиль и PDF с кнопкой «Отправить куратору», а Александру — карточку
+      // «Новый разбор диагностики». Так человек попадает в базу бота, ему можно напомнить, а разбор виден куратору.
+      // Без сервера — запасной код результата diag_… (бот разберёт его сам). Кто уже в боте — бот уже прислал результат.
+      event('diag_to_bot');
+      FBT.open(FBT.linked() ? FBT.bot('') : FBT.bot(st.diagId ? 'd_' + st.diagId : botCode()));
       st.step = 'sent'; render(); window.scrollTo(0, 0);
     }
   });
