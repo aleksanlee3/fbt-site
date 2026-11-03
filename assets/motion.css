@@ -135,3 +135,72 @@ body .rv.is-on .rv-cover { aspect-ratio: 9 / 16 !important; }
 @media (min-width: 900px) { .mo .mo-reveal { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; max-width: 1000px; } }
 .mo .mo-reveal-sec { overflow-x: hidden; overflow-x: clip; }
 .mo .mo-reveal-sec h2.h2 { text-align: center; font-size: clamp(38px, 8vw, 60px); line-height: 1.08; }
+
+/* v5.69 · 03.11 · «Узнаёте себя?» по образцу icgroup.uz: номера на красной линии, карточка поднимается, фото раскрывается.
+   Всё — один раз по классу .mo-nd-in (CSS-переход), без расчётов на каждом кадре: легко и на простых телефонах. */
+.mo .mo-needs-sec { overflow-x: hidden; overflow-x: clip; }
+.mo .mo-needs-side { position: relative; padding-top: 22px; margin-bottom: 30px; }
+.mo .mo-needs-side::before { content: ''; position: absolute; top: 0; left: 0; width: 54px; height: 5px; border-radius: 3px; background: #C60000; }
+.mo .mo-needs-side h2.h2 { text-align: left; margin: 0; font-size: clamp(42px, 11vw, 72px); line-height: 1; letter-spacing: -.035em; }
+.mo .mo-needs-cnt { margin: 14px 0 0; font-size: 19px; line-height: 1.35; color: var(--muted, #6E6E73); }
+.mo .mo-needs { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 28px !important;
+  overflow: visible !important; scroll-snap-type: none !important; margin: 0 !important; padding: 0 0 0 54px !important;
+  grid-auto-flow: row !important; grid-template-rows: none !important; position: relative; }
+.mo .mo-needs + .swipe-hint, .mo .mo-needs-lay + .swipe-hint { display: none !important; }
+.mo .mo-needs > .mo-nd { position: relative; width: 100% !important; flex: none !important; margin: 0 !important; overflow: visible !important;
+  opacity: 0; transform: translate3d(0, 36px, 0); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+.mo .mo-needs > .mo-nd.mo-nd-in { opacity: 1; transform: none; }
+/* номер в кружке слева */
+.mo .mo-nd-n { position: absolute; left: -54px; top: 0; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+  font-style: normal; font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: .02em;
+  border: 2px solid #C9CDD6; background: var(--bg, #F5F5F7); color: #8E939E; z-index: 1;
+  transition: background .45s ease .25s, border-color .45s ease .25s, color .45s ease .25s, transform .45s cubic-bezier(.3,1.6,.5,1) .25s; transform: scale(.8); }
+.mo .mo-nd-in .mo-nd-n { background: #C60000; border-color: #C60000; color: #fff; transform: none; }
+/* серая линия-дорожка и красная линия, которая дорисовывается вниз к следующему номеру */
+.mo .mo-needs > .mo-nd:not(:last-child)::before, .mo .mo-needs > .mo-nd:not(:last-child)::after {
+  content: ''; position: absolute; left: -35px; top: 44px; width: 2px; height: calc(100% - 44px + 28px); border-radius: 1px; pointer-events: none; }
+.mo .mo-needs > .mo-nd:not(:last-child)::before { background: #DADDE3; }
+.mo .mo-needs > .mo-nd:not(:last-child)::after { background: #C60000; transform-origin: top; transform: scaleY(0);
+  transition: transform .9s cubic-bezier(.4,0,.2,1) .45s; }
+.mo .mo-needs > .mo-nd.mo-nd-in:not(:last-child)::after { transform: scaleY(1); }
+/* фото: целиком 16:9, раскрывается от центра */
+.mo .mo-needs .phr-ph, .mo .mo-needs .sa-big-ph { height: auto !important; aspect-ratio: 16 / 9; border-radius: 22px 22px 0 0; overflow: hidden; }
+.mo .mo-needs .phr-ph img, .mo .mo-needs .sa-big-ph img { width: 100%; height: 100%; object-fit: cover; filter: none;
+  clip-path: inset(14% 6% 14% 6% round 16px); transform: scale(1.08);
+  transition: clip-path 1s cubic-bezier(.2,.7,.2,1) .1s, transform 1.2s cubic-bezier(.2,.7,.2,1) .1s; }
+.mo .mo-nd-in .phr-ph img, .mo .mo-nd-in .sa-big-ph img { clip-path: inset(0 0 0 0 round 0px); transform: none; }
+/* текст крупно: заголовок карточки и пояснение */
+.mo .mo-needs .phrase b, .mo .mo-needs .sa-big b { font-size: clamp(23px, 6vw, 28px); line-height: 1.2; }
+.mo .mo-needs .phr-b > span, .mo .mo-needs .sa-big-b > span { font-size: 18px; line-height: 1.45; }
+.mo .mo-needs .phr-b { padding: 22px 24px 26px; }
+.mo .mo-needs .sa-big-b { padding: 20px 24px 26px; }
+@media (max-width: 520px) {
+  .mo .mo-needs { padding-left: 44px !important; gap: 24px !important; }
+  .mo .mo-nd-n { left: -44px; width: 34px; height: 34px; font-size: 13px; }
+  .mo .mo-needs > .mo-nd:not(:last-child)::before, .mo .mo-needs > .mo-nd:not(:last-child)::after { left: -28px; top: 38px; height: calc(100% - 38px + 24px); }
+  .mo .mo-needs .phr-b, .mo .mo-needs .sa-big-b { padding: 0 18px 22px; }
+  .mo .mo-needs .phr-b, .mo .mo-needs .sa-big-b { padding-top: 18px; }
+}
+/* компьютер: заголовок слева стоит на месте, список справа; карточки — фото слева, текст справа */
+@media (min-width: 1000px) {
+  .mo .mo-needs-lay { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 56px; align-items: start; }
+  .mo .mo-needs-side { position: sticky; top: 110px; margin: 0; }
+  .mo .mo-needs-side h2.h2 { font-size: clamp(56px, 5vw, 76px); max-width: 7ch; }
+  .mo .mo-needs { gap: 32px !important; }
+  .mo .mo-needs > .mo-nd { display: grid !important; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: stretch; }
+  .mo .mo-needs .phr-ph, .mo .mo-needs .sa-big-ph { aspect-ratio: auto; height: 100% !important; min-height: 230px; }
+  .mo .mo-needs .phr-b, .mo .mo-needs .sa-big-b { justify-content: center; }
+  .mo .mo-needs > .mo-nd:not(:last-child)::before, .mo .mo-needs > .mo-nd:not(:last-child)::after { height: calc(100% - 44px + 32px); }
+  .mo .mo-needs .phr-ph, .mo .mo-needs .sa-big-ph { border-radius: 22px 0 0 22px; }
+  .mo .mo-needs .phr-b, .mo .mo-needs .sa-big-b { padding: 26px 30px; }
+  .mo .mo-needs .quote-ico { margin-top: 0 !important; }
+  .mo .mo-needs .phrase b, .mo .mo-needs .sa-big b { font-size: 26px; }
+  @media (hover: hover) {
+    .mo .mo-needs > .mo-nd.mo-nd-in { transition: opacity .7s, transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s; }
+    .mo .mo-needs > .mo-nd.mo-nd-in:hover { transform: translateY(-5px); box-shadow: 0 24px 60px rgba(20,24,32,.12); }
+    .mo .mo-needs > .mo-nd:hover .phr-ph img, .mo .mo-needs > .mo-nd:hover .sa-big-ph img { transform: scale(1.035); transition-duration: .5s; transition-delay: 0s; }
+  }
+}
+/* тёмная тема: кружок и дорожка */
+body.ic-dark .mo-nd-n { background: #181818; border-color: #48494D; color: #8E8E93; }
+body.ic-dark .mo-needs > .mo-nd:not(:last-child)::before { background: #3A3A3D; }

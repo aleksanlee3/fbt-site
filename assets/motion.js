@@ -1,4 +1,4 @@
-/* FBT Online · движение блоков при прокрутке · v5.62 · 02.11.2026
+/* FBT Online · движение блоков при прокрутке · v5.69 · 03.11.2026
    v5.62 (правки Александра 02.11): «Кому подходит» и «Узнаёте себя?» — сцена: прилипает целиком, сначала крупный
    заголовок по центру, потом карточки сменяют друг друга (data-mo-scene="down" — сверху, "mix" — с разных сторон);
    отзывы больше не прилипают (зависание на телефоне) — обычная колонка, карточки залетают слева и справа.
@@ -135,6 +135,7 @@
     var scrollX = (cs.overflowX === 'auto' || cs.overflowX === 'scroll') && g.box.scrollWidth - g.box.clientWidth > 40;
     var lefts = g.kids.map(function (k) { return k.getBoundingClientRect().left; });
     var oneCol = lefts.every(function (l) { return Math.abs(l - lefts[0]) < 20; });
+    if (g.box.getAttribute('data-mo-scene') === 'needs') { setupNeeds(g, section); return; }
     if (g.box.getAttribute('data-mo-scene') === 'reveal') { setupReveal(g); return; }
     if (g.box.hasAttribute('data-mo-scene') && (scrollX || oneCol)) { setupScene(g, section); return; }
     if (scrollX) { setupPin(g, section); return; }
@@ -236,6 +237,39 @@
       k.classList.add('mo-rv', i % 2 ? 'mo-rv-r' : 'mo-rv-l');
       marked.add(k);
       rio.observe(k);
+    });
+  }
+  // v5.69 · «Узнаёте себя?» по образцу icgroup.uz (Александр 03.11: «там анимации прикольные, и сайт лёгкий, без зависаний»).
+  // Как у них: ничего не считается на каждом кадре прокрутки. Карточка попала на экран → ей один раз ставится класс,
+  // дальше всё делает CSS: карточка поднимается, фото «раскрывается» от центра, номер загорается красным,
+  // красная линия дорисовывается вниз к следующей карточке. На компьютере заголовок стоит слева, список — справа.
+  var nio = null;
+  function setupNeeds(g, section) {
+    var box = g.box;
+    box.setAttribute('data-mo-group', 'needs');
+    box.classList.add('mo-needs');
+    section.classList.add('mo-needs-sec');
+    marked.add(box);
+    var head = section.querySelector('h2, .h2');
+    if (head && head.parentNode === box.parentNode) {
+      var lay = document.createElement('div'); lay.className = 'mo-needs-lay';
+      var side = document.createElement('div'); side.className = 'mo-needs-side';
+      var cnt = document.createElement('p'); cnt.className = 'mo-needs-cnt';
+      cnt.textContent = g.kids.length + ' ' + (g.kids.length >= 5 ? 'частых ситуаций' : 'частые ситуации');
+      head.parentNode.insertBefore(lay, head);
+      side.appendChild(head); side.appendChild(cnt);
+      lay.appendChild(side); lay.appendChild(box);
+    }
+    if (!nio) nio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('mo-nd-in'); nio.unobserve(e.target); } });
+    }, { threshold: 0.22, rootMargin: '0px 0px -10% 0px' });
+    g.kids.forEach(function (k, i) {
+      k.classList.add('mo-nd');
+      var n = document.createElement('i'); n.className = 'mo-nd-n'; n.setAttribute('aria-hidden', 'true');
+      n.textContent = (i < 9 ? '0' : '') + (i + 1);
+      k.insertBefore(n, k.firstChild);
+      marked.add(k);
+      nio.observe(k);
     });
   }
   function setupScene(g, section) {
