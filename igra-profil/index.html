@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="../assets/ic-dark.css">
 <link rel="stylesheet" href="../assets/contrast.css">
 <link rel="stylesheet" href="../assets/ic-home.css?v=5.71">
-<link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.82">
+<link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.83">
 <style>
 /* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
 body.ic .g-scr { padding: 40px 0 72px; }
@@ -391,7 +391,7 @@ var REASONS = [
   ['delegirovanie', 'Узнаете, что лучше отдать', 'Партнёру, сотруднику или близкому.'],
   ['doroga', 'Получите первый шаг на эту неделю', 'Без больших вложений.']
 ];
-var IP = '../assets/img/arhetip/'; /* персонажи от ChatGPT; пока их нет — показываем 3D-иконку */
+var IP = '../assets/img/arhetip/'; /* v5.81: персонажи от ChatGPT (03.11); если файла нет — 3D-иконка */
 function pers(c, cls) {
   return '<img class="g-pers ' + (cls || '') + '" src="' + IP + SLUG[c] + '.webp" alt="' + P[c].name + '" loading="lazy" onerror="this.onerror=null;this.src=\'' + IA + P[c].icon + '.webp\';this.classList.add(\'is-ico\')">';
 }
@@ -652,7 +652,7 @@ function vIntro() {
     '<div class="g-block"><div class="g-sec-h">8 бизнес-архетипов.<span>Какой из них ваш?</span></div>' +
       GR.map(function (g) {
         return '<div class="g-group" style="--gc:' + g.color + '"><div class="g-group-h"><b>' + g.name + '</b><small>' + g.about + '</small></div><div class="g-types">' +
-          g.codes.map(function (c) { return '<div class="g-type"><div class="g-type-pic">' + pers(c) + '</div><b>' + P[c].name + '</b><small>' + TAG[c] + '</small></div>'; }).join('') + '</div></div>';
+          g.codes.map(function (c) { return '<a class="g-type" href="arhetip/' + SLUG[c] + '.html"><div class="g-type-pic">' + pers(c) + '</div><b>' + P[c].name + '</b><small>' + TAG[c] + '</small><em class="g-type-more">Подробнее →</em></a>'; }).join('') + '</div></div>';
       }).join('') +
       '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Узнать, какой мой' + arrow() + '</button></div>' +
     '<div class="g-block"><div class="g-sec-h">Как это<span>работает</span></div>' +
@@ -776,7 +776,7 @@ function vResult() {
     legend(vals, tops, sorted) + '</div>' : '';
   var cards = L.map(function (x) {
     var p = P[x.code];
-    return '<div class="g-card g-card--top"><h3>' + img(p.icon) + p.name + '</h3><p>' + p.desc + '</p><ul>' + p.tasks.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
+    return '<div class="g-card g-card--top"><h3>' + img(p.icon) + p.name + '</h3><p>' + p.desc + '</p><ul>' + p.tasks.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul><a class="g-more" href="arhetip/' + SLUG[x.code] + '.html">Всё про архетип «' + p.name + '» →</a></div>';
   }).join('');
   var plusBlock = main ? '<div class="g-h3" id="ch-plus">СИЛЬНЫЕ СТОРОНЫ И СЛЕПЫЕ ЗОНЫ</div><div class="g-pm">' +
     '<div class="g-card g-pm-plus"><h3>' + img('uverennost') + 'Ваши сильные стороны</h3><ul>' + PLUS[main].map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>' +

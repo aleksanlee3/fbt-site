@@ -198,3 +198,8 @@ body.g-light .g-meter i.on, body.g-light .g-gauge .g-meter i.on { background: va
 .g-type { min-width: 0; }
 .g-type { padding: 10px 10px 14px; }
 .g-type b { font-size: clamp(14px, 3.8vw, 18px); hyphens: manual; }
+
+/* v5.81 (03.11): карточки архетипов ведут на свои страницы igra-profil/arhetip/*.html */
+a.g-type { text-decoration: none; color: inherit; }
+.g-type-more { margin-top: 8px; font-style: normal; font-size: 15px; font-weight: 600; color: var(--g-red); }
+.g-more { display: inline-block; margin-top: 14px; font-size: 17px; font-weight: 600; color: var(--g-red); text-decoration: none; }

@@ -1,1 +1,1 @@
-Персонажи 8 архетипов от ChatGPT (issledovatel, sozdatel, kommunikator, torgovets, sistematizator, organizator, master, ekspert).webp. Пока файлов нет — игра показывает 3D-иконки.
+Персонажи 8 архетипов от ChatGPT (03.11.2026), из SVG на странице Notion «персонажи 8 архетипов». 800×1200, прозрачный фон.

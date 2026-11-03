@@ -1,0 +1,114 @@
+/* Страницы 8 бизнес-архетипов · v5.81 (03.11.2026, Claude).
+   Стиль игры и главной (icgroup.uz): светлый фон, графит, серо-голубой, красный — только главное.
+   Крупный текст, на телефоне — одна мысль на экран. Цвет группы — --gc на body. */
+
+body.ar {
+  --a-bg: #F5F5F7; --a-white: #FFFFFF; --a-ink: #181818; --a-muted: #5E6166; --a-line: #E3E4E8;
+  --a-red: #C60000; --a-slate: #5A6E7A; --a-slate-l: #EEF2F4; --a-shadow: 0 18px 48px rgba(20, 24, 32, .08);
+  background: var(--a-bg); color: var(--a-ink);
+}
+.ar-main { padding-bottom: 40px; }
+.ar-w { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+.ar-s { padding: 28px 0; }
+
+/* ── первый экран ── */
+.ar-hero { padding: 20px 0 12px; }
+.ar-hero-in { display: grid; gap: 4px; }
+.ar-hero-pic {
+  position: relative; border-radius: 28px; background: var(--a-white); border: 1px solid var(--a-line);
+  box-shadow: var(--a-shadow); overflow: hidden; aspect-ratio: 1 / 1; max-height: 360px; width: 100%;
+}
+.ar-hero-pic::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: var(--gc); }
+.ar-hero-pic .ar-pers, .ar-pair-pics .ar-pers, .ar-oc .ar-pers { position: absolute; left: 0; top: 5%; width: 100%; height: 92%; object-fit: contain; }
+/* весь персонаж виден целиком: картинка вписывается в рамку, ничего не обрезается */
+.ar-hero-txt { padding: 18px 4px 0; display: flex; flex-direction: column; align-items: flex-start; }
+.ar-back { font-size: 16px; font-weight: 600; color: var(--a-slate); text-decoration: none; }
+.ar-chip { margin-top: 16px; height: 34px; padding: 0 14px; display: inline-flex; align-items: center; border-radius: 999px; background: var(--a-white); border: 1px solid var(--a-line); font-size: 15px; font-weight: 600; color: var(--a-ink); }
+.ar-chip::before { content: ''; width: 10px; height: 10px; margin-right: 8px; border-radius: 999px; background: var(--gc); }
+.ar-hero h1 { position: relative; margin-top: 18px; padding-top: 22px; font-size: clamp(40px, 11vw, 64px); line-height: 1; font-weight: 700; letter-spacing: -.035em; color: var(--a-ink); overflow-wrap: anywhere; }
+.ar-hero h1::before { content: ''; position: absolute; left: 0; top: 0; width: 54px; height: 5px; border-radius: 3px; background: var(--a-red); }
+.ar-tag { margin-top: 16px; font-size: clamp(22px, 5.8vw, 28px); line-height: 1.3; font-weight: 600; color: var(--a-ink); }
+.ar-cta { margin-top: 24px; }
+.ar-free { margin-top: 10px; font-size: 16px; color: var(--a-muted); }
+@media (min-width: 760px) {
+  .ar-hero-pic { aspect-ratio: 3 / 4; max-height: none; }
+  .ar-hero-in { grid-template-columns: 300px 1fr; gap: 32px; align-items: center; }
+  .ar-hero-txt { padding-top: 0; }
+}
+
+/* ── заголовки блоков: красная полоска, вторая строка серо-голубая ── */
+.ar-h { position: relative; padding-top: 20px; font-size: clamp(30px, 8vw, 40px); line-height: 1.08; font-weight: 700; letter-spacing: -.025em; color: var(--a-ink); }
+.ar-h::before { content: ''; position: absolute; left: 0; top: 0; width: 44px; height: 4px; border-radius: 2px; background: var(--a-red); }
+.ar-h span { display: block; color: var(--a-slate); }
+.ar-big { margin-top: 18px; font-size: clamp(20px, 5.2vw, 24px); line-height: 1.45; color: var(--a-ink); }
+.ar-sub { margin-top: 12px; font-size: 17px; line-height: 1.45; color: var(--a-muted); }
+
+/* иконка 3D */
+.ar-ico { flex-shrink: 0; width: 56px; height: 56px; border-radius: 16px; background: var(--a-slate-l); display: grid; place-items: center; }
+.ar-ico img { width: 82%; height: 82%; object-fit: contain; }
+
+/* ── сильные стороны ── */
+.ar-list { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.ar-list li { display: flex; align-items: center; gap: 16px; padding: 18px; border-radius: 20px; background: var(--a-white); border: 1px solid var(--a-line); box-shadow: var(--a-shadow); }
+.ar-list b { font-size: clamp(19px, 5vw, 22px); line-height: 1.3; font-weight: 600; }
+.ar-plus li { border-left: 6px solid var(--gc); }
+
+/* ── слепые зоны ── */
+.ar-minus li { background: #2C3A42; border-color: #2C3A42; color: #fff; box-shadow: none; }
+.ar-minus i { flex-shrink: 0; width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center; font-style: normal; font-weight: 700; font-size: 22px; background: var(--a-red); color: #fff; }
+.ar-minus b { color: #fff; }
+
+/* ── какая работа подходит ── */
+.ar-tasks { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.ar-tasks li { display: flex; align-items: center; gap: 16px; padding: 18px; border-radius: 20px; background: var(--a-slate-l); }
+.ar-tasks i { flex-shrink: 0; font-style: normal; font-size: 34px; line-height: 1; font-weight: 700; letter-spacing: -.03em; color: var(--a-red); min-width: 48px; }
+.ar-tasks b { font-size: clamp(19px, 5vw, 22px); line-height: 1.3; font-weight: 600; }
+
+/* ── идеи дел ── */
+.ar-ideas { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.ar-ideas li { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 18px; background: var(--a-white); border: 1px solid var(--a-line); }
+.ar-ideas .ar-ico { width: 48px; height: 48px; }
+.ar-ideas span { display: flex; flex-direction: column; gap: 6px; }
+.ar-ideas b { font-size: 19px; line-height: 1.3; font-weight: 600; }
+.ar-ideas em { align-self: flex-start; padding: 3px 10px; border-radius: 999px; font-style: normal; font-size: 14px; font-weight: 600; background: #FBEAEA; color: var(--a-red); }
+.ar-ideas em.ok { background: var(--a-slate-l); color: #2C3A42; }
+
+/* ── пара ── */
+.ar-pair { margin-top: 20px; padding: 22px 18px; border-radius: 24px; background: var(--a-white); border: 1px solid var(--a-line); box-shadow: var(--a-shadow); }
+.ar-pair-pics { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.ar-pair-pics > div, .ar-pair-pics > a { width: 42%; text-align: center; text-decoration: none; color: var(--a-ink); }
+.ar-pair-pics span { position: relative; display: block; aspect-ratio: 3 / 4; border-radius: 18px; background: var(--a-bg); overflow: hidden; }
+.ar-pair-pics b { display: block; margin-top: 10px; font-size: 18px; font-weight: 700; }
+.ar-pair-pics > a b { color: var(--a-red); }
+.ar-pair-pics > i { font-style: normal; font-size: 34px; font-weight: 700; color: var(--a-red); }
+
+/* ── семья ── */
+.ar-fam { display: flex; gap: 16px; align-items: flex-start; padding: 22px 18px; border-radius: 24px; background: var(--a-white); border: 1px solid var(--a-line); border-top: 6px solid var(--a-slate); }
+.ar-fam h2 { font-size: clamp(24px, 6.4vw, 30px); line-height: 1.15; font-weight: 700; letter-spacing: -.02em; }
+.ar-fam p { margin-top: 10px; font-size: clamp(19px, 5vw, 22px); line-height: 1.45; }
+
+/* ── первый шаг ── */
+.ar-step { padding: 24px 20px; border-radius: 24px; background: #2C3A42; color: #fff; }
+.ar-step-h { display: flex; align-items: center; gap: 14px; }
+.ar-step-h .ar-ico { background: #fff; }
+.ar-step-h span { font-size: clamp(24px, 6.4vw, 30px); line-height: 1.1; font-weight: 700; letter-spacing: -.02em; }
+.ar-step p { margin-top: 18px; font-size: clamp(20px, 5.2vw, 23px); line-height: 1.45; color: #F2F2F4; }
+.ar-step { border-left: 6px solid var(--a-red); }
+
+/* ── финальный призыв ── */
+.ar-final .ar-w { padding-top: 28px; padding-bottom: 28px; border-radius: 28px; background: var(--a-white); border: 1px solid var(--a-line); box-shadow: var(--a-shadow); max-width: 728px; width: calc(100% - 32px); padding-left: 18px; padding-right: 18px; }
+.ar-final .ar-h, .ar-final .ar-big, .ar-final .ar-free { margin-left: 4px; margin-right: 4px; }
+.ar-final .ar-free { display: block; text-align: center; }
+
+/* ── все 8 архетипов ── */
+.ar-others { margin-top: 20px; display: grid; gap: 16px; }
+@media (min-width: 640px) { .ar-others { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ar-og-h { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 700; color: var(--a-ink); }
+.ar-og-h::before { content: ''; width: 10px; height: 10px; border-radius: 999px; background: var(--gc); }
+.ar-og-list { margin-top: 10px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.ar-oc { display: flex; flex-direction: column; padding: 10px 10px 12px; border-radius: 18px; background: var(--a-white); border: 1px solid var(--a-line); border-top: 4px solid var(--gc); text-decoration: none; color: var(--a-ink); min-width: 0; }
+.ar-oc span { position: relative; display: block; aspect-ratio: 3 / 4; border-radius: 12px; background: var(--a-bg); overflow: hidden; }
+.ar-oc b { margin-top: 10px; font-size: clamp(15px, 4vw, 18px); line-height: 1.2; font-weight: 700; overflow-wrap: anywhere; }
+.ar-oc.is-cur { outline: 3px solid var(--a-red); outline-offset: -3px; }
+.ar-oc.is-cur b { color: var(--a-red); }
+.ar-note { margin-top: 20px; font-size: 15px; line-height: 1.5; color: var(--a-muted); }
