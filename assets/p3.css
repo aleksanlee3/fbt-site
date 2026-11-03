@@ -439,7 +439,7 @@ body.ic:not(.ic-dark) .intro-cue { color: #C60000; }
 /* 03.11 v5.75: «Есть потенциал для роста» — зелёный знак-печать справа сверху (как знак качества) */
 .res-head { position: relative; }
 .res-stamp { position: absolute; right: 0; top: -6px; z-index: 2; width: 112px; height: 112px; border-radius: 50%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 2px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 2px; padding: 0 0 12px;
   color: #3DBE7E; border: 3px solid currentColor;
   background: rgba(47, 163, 107, .08); transform: rotate(-12deg); pointer-events: none; }
 .res-stamp::before { content: ''; position: absolute; inset: 9px; border-radius: 50%; border: 1.5px dashed currentColor; opacity: .7; }
@@ -450,3 +450,6 @@ body.ic:not(.ic-dark) .res-stamp { color: #1E8A55; background: rgba(30, 138, 85,
 @media (min-width: 761px) { .res-stamp { right: 190px; top: 0; width: 124px; height: 124px; } }
 /* блок отправки куратору — короткий */
 .send-h { margin-top: 14px; }
+
+/* 03.11 v5.76: блок отправки — только иконка и кнопка */
+.send-top + .send-h { display: none; }
