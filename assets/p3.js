@@ -260,8 +260,11 @@
       '\nТип профиля: ' + archetype()[0] +
       '\nПрофиль: ' + DIRS.map(function (d, i) { return d.name + ' ' + r.sc[i]; }).join(' · ') +
       '\nГлавная точка: ' + (r.perfect ? 'не выделяется' : DIRS[r.weak].name) +
-      '\nПроявления: ' + syms;
+      '\nПроявления: ' + syms + srcLine();
   }
+  // 03.11 v5.72: в сообщении куратору — откуда пришёл человек (метка ?s= в ссылке). Понятные названия меток:
+  var SRC_NAMES = { fbt_online_uz: 'сайт fbt-online.uz', fb_plov: 'реклама «Плов»', fb_ostrov: 'реклама «Остров»', fb_story: 'реклама «История»' };
+  function srcLine() { var s = FBT.src || ''; return s ? '\nОткуда: ' + (SRC_NAMES[s] || s) : ''; }
   function chatText() {      // 13.10: заданий больше нет — в чат куратору уходит результат 10 вопросов
     return 'Здравствуйте! Отправляю результат онлайн-диагностики FBT на разбор.\n\n' + summary().replace(/^РАЗБОР\n/, '');
   }
