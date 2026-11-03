@@ -134,3 +134,4 @@ body.ic.ic-home .rsteps { padding-top: 0; }
 body.ic.ic-home .rsteps .stepcard::before, body.ic.ic-home .rsteps .stepcard::after,
 body.ic.ic-home .rsteps .stepcard > .row::after { display: none !important; content: none !important; }
 @media (max-width: 760px) { body.ic.ic-home .rsteps { margin-left: 0 !important; margin-right: 0 !important; padding-left: 0 !important; padding-right: 0 !important; } }
+body.ic.ic-home .sec--hero :is(.watch-cue-t, .watch-cue-a) { color: #C60000 !important; }

@@ -146,3 +146,6 @@
   .sa3-card { width: 340px; margin-left: -170px; min-height: 452px; }
 }
 @media (prefers-reduced-motion: reduce) { .sa3-wave i, .sa3-radar animate { animation: none; } }
+/* 03.11 v5.71: светлая тема — заголовок и подпись «Три шага» тёмные (был белый текст на светлом фоне) */
+body.ic:not(.ic-dark) .sa3-h { color: #181818; }
+body.ic:not(.ic-dark) .sa3-note { color: #4C6874; }
