@@ -402,3 +402,36 @@ body.ic:not(.ic-dark) .lvl-t { color: #C60000; }
 .res-arch { margin-top: 12px; max-width: 640px; }
 .res-note { margin-top: 10px; font-size: 15px; opacity: .7; max-width: 640px; }
 @media (max-width: 640px) { .lvl-bar i { width: 26px; } .lvl-t { font-size: 16px; } }
+
+/* 03.11 v5.74 (Александр): нажатие на ответ — без покраснения и «прыжка», только вибрация и спокойная рамка;
+   на телефоне 5 ответов в ряд, как на компьютере */
+.opt:active, .qopt:active, .sym:active { transform: none; }
+html body.ic .qopt.is-picked, html body.ic .opts .opt.is-picked { animation: none !important; }
+html body.ic .qopt[aria-checked="true"], html body.ic .qopt.is-picked,
+html body.ic .opts .opt.is-picked, html body.ic .opt[aria-checked="true"] {
+  background: var(--bg-2) !important; color: var(--text-strong, inherit) !important;
+  border-color: currentColor !important; border-width: 2px !important; box-shadow: none !important; }
+html body.ic .opts .opt.is-picked .radio, html body.ic .opt[aria-checked="true"] .radio { border-color: currentColor !important; }
+html body.ic .opts .opt.is-picked .radio::after, html body.ic .opt[aria-checked="true"] .radio::after { background: currentColor !important; }
+@media (max-width: 760px) {
+  .qopts { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; gap: 5px !important; }
+  .qopt { height: 64px !important; font-size: 13px !important; font-weight: 600 !important; letter-spacing: -.01em; padding: 0 1px !important; line-height: 1.15; border-radius: 13px !important; hyphens: none; overflow-wrap: normal; }
+  .panel:has(.qopts) { padding-left: 16px !important; padding-right: 16px !important; }
+}
+
+/* значки над результатом: «Проанализировано» и «Есть потенциал для роста» */
+.res-badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 4px; }
+.res-badges .rb { display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px 7px 10px; border-radius: 999px;
+  font-size: 15px; font-weight: 600; line-height: 1.2; }
+.res-badges .rb svg { width: 17px; height: 17px; flex: none; }
+.res-badges .rb-ok { background: rgba(162, 195, 205, .16); color: #A2C3CD; border: 1px solid rgba(162, 195, 205, .35); }
+.res-badges .rb-grow { background: rgba(198, 0, 0, .14); color: #FF8585; border: 1px solid rgba(255, 133, 133, .35); }
+body.ic:not(.ic-dark) .res-badges .rb-ok { color: #4C6874; background: #EEF3F5; border-color: #C9D7DC; }
+body.ic:not(.ic-dark) .res-badges .rb-grow { color: #C60000; background: #FBECEC; border-color: #F2C4C4; }
+
+/* стрелка к «Начать диагностику» */
+.intro-cue { display: flex; align-items: flex-end; gap: 6px; color: #FF8585; font-family: 'Caveat', cursive; font-size: 26px; line-height: 1; padding-left: 40px; }
+.intro-cue svg { width: 30px; height: 44px; flex: none; animation: icue 1.6s ease-in-out infinite; }
+body.ic:not(.ic-dark) .intro-cue { color: #C60000; }
+@keyframes icue { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+@media (prefers-reduced-motion: reduce) { .intro-cue svg { animation: none; } }

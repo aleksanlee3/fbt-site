@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Почему клиентов мало и что пошло не так? Онлайн-диагностика — FBT Online</title>
-<meta name="description" content="Открыли бизнес, а клиентов мало? 10 простых вопросов — и за 5 минут увидите, что в бизнесе проверить первым и с чего начать. Бесплатно.">
+<title>Найдите слабое место в бизнесе — онлайн-диагностика FBT Online</title>
+<meta name="description" content="Найдите слабое место в бизнесе: 10 простых вопросов — и за 5 минут увидите, что в бизнесе проверить первым и с чего начать. Бесплатно.">
 <meta name="robots" content="noindex"><!-- 15.10: копия диагностики для сегмента А «После запуска» -->
-<meta property="og:title" content="Почему клиентов мало и что пошло не так? Онлайн-диагностика">
+<meta property="og:title" content="Найдите слабое место в бизнесе — онлайн-диагностика">
 <meta property="og:description" content="10 вопросов, 5 минут, бесплатно. Профиль бизнеса и разбор куратора в Telegram: что исправить в первую очередь.">
 <meta name="theme-color" content="#FBF6EE">
 <link rel="icon" href="assets/logo/favicon-64.png" type="image/png">
@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="assets/fbt.css?v=5.39">
 <link rel="stylesheet" href="assets/medals.css?v=5.67">
 <link rel="stylesheet" href="assets/push.css">
-<link rel="stylesheet" href="assets/p3.css?v=5.50">
+<link rel="stylesheet" href="assets/p3.css?v=5.74">
 <link rel="stylesheet" href="assets/ic-auto.css">
 <link rel="stylesheet" href="assets/ic-theme.css">
 <link rel="stylesheet" href="assets/ic-dark.css"><!-- 06.10 v5.0: графит до отзывов (тёмная тема) -->
@@ -87,8 +87,8 @@
       <div class="intro-txt">
         <div class="intro-ph photo"><img src="assets/img/roadmap.jpg" alt="" loading="eager"><span class="ph-tag">заглушка</span></div>
         <div class="eyebrow"><span class="funnel-only">ШАГ 2 ИЗ 3 · </span>ОНЛАЙН-ДИАГНОСТИКА БИЗНЕСА</div>
-        <h1 class="h1 mt-20"><span>Почему клиентов мало,</span><span class="grey">и что пошло не так?</span></h1>
-        <p class="lead">Вы уже вложились в бизнес, а результата нет? Ответьте на 10&nbsp;простых вопросов — и увидите, что в бизнесе проверить первым и с чего начать исправлять, не вкладывая деньги из своего кармана. Куратор разберёт вашу ситуацию бесплатно в&nbsp;Telegram.</p>
+        <h1 class="h1 mt-20"><span>Найдите слабое место в&nbsp;бизнесе,</span><span class="grey">и что пошло не так</span></h1>
+        <p class="lead">Ответьте на 10&nbsp;простых вопросов — и увидите, что в бизнесе проверить первым и с чего начать исправлять, не вкладывая деньги из своего кармана. Куратор разберёт вашу ситуацию бесплатно в&nbsp;Telegram.</p>
         <div class="pills mt-24">
           <span><svg><use href="#i-list"/></svg>10 вопросов</span>
           <span><svg><use href="#i-clock"/></svg>5 минут</span>
@@ -96,7 +96,8 @@
           <span><svg><use href="#i-check"/></svg>Без регистрации</span>
         </div>
         <div class="dirs mt-28" data-dirs></div>
-        <button type="button" class="btn btn--primary btn--lg mt-36 intro-go" data-go="stage">Начать диагностику<svg><use href="#i-right"/></svg></button>
+        <div class="intro-cue mt-28" aria-hidden="true"><span>Начните здесь · 5 минут</span><svg viewBox="0 0 40 56" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4c10 10 12 26 8 44"/><path d="M12 38l10 12l9-13"/></svg></div>
+        <button type="button" class="btn btn--primary btn--lg mt-8 intro-go" data-go="stage">Начать диагностику<svg><use href="#i-right"/></svg></button>
         <span class="note mt-14" style="font-size:14px">Ответы сохраняем, чтобы бот прислал вам PDF-разбор. Куратор начнёт разбор, только когда вы сами отправите ему результат.</span>
       </div>
       <div class="radar-card">
@@ -169,6 +170,7 @@
         <div class="res-head">
           <div>
             <div class="eyebrow">ВАШ РЕЗУЛЬТАТ</div>
+            <div class="res-badges"><span class="rb rb-ok"><svg><use href="#i-check"/></svg>Проанализировано</span><span class="rb rb-grow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>Есть потенциал для роста</span></div>
             <!-- 13.10 (Александр): уровень 1–5 и название профиля сверху — для интриги -->
             <div class="lvl"><span class="lvl-bar" data-lvl aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="lvl-t">Уровень <b data-text-of="lvlN">3</b> из 5 · <span data-text-of="lvlName"></span></span></div>
             <h1 class="h1 res-h1" data-text-of="archName">Профиль вашего бизнеса</h1>
@@ -279,11 +281,12 @@
 <script>window.FBT_SEG = { key: "a-posle-zapuska", name: "После запуска", sqTitles: ["Где вы сейчас?", "Вы работаете один или в партнёрстве?", "Какая ситуация ближе всего к вашей?"],
   // 16.10 (Александр): новые вопросы 2 и 3 перед тестом
   family: [["solo", "Работаю один"], ["family", "У меня семейный бизнес"], ["partners", "Работаю с партнёрами, семья не участвует"]],
-  pains: [["before", "Хочу открыть бизнес, но не знаю, с чего начать"], ["launch", "Открылся, теперь не знаю, что делать"],
-    ["survive", "Работаю, а денег нет"], ["self", "Всё держится на мне"], ["order", "Есть команда, но нет порядка"],
-    ["growth", "Бизнес работает, но дальше не растёт"]],
+  // 03.11 (Александр): новые формулировки ситуаций
+  pains: [["self", "Бизнес держится на мне, и некому доверить управление"], ["before", "Хочу открыть бизнес, но вообще не понимаю, с чего начать"],
+    ["launch", "Вложил деньги, а клиентов мало"], ["survive", "Продажи вроде есть, а прибыли нет"],
+    ["growth", "Есть бизнес, но он перестал расти"], ["order", "Не могу справиться с командой"]],
   famLabel: "Как работает", painLabel: "Ситуация (по словам человека)" };</script><!-- 15.10: тексты сегмента А для p3.js -->
-<script src="assets/p3.js?v=5.73"></script>
+<script src="assets/p3.js?v=5.74"></script>
 <script src="assets/typo.js?v=5.34" defer></script>
 <script src="assets/motion.js?v=5.62" defer></script>
 </body>
