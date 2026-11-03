@@ -1,0 +1,136 @@
+/* FBT Online · главная в стиле icgroup.uz (v5.70, 03.11.2026). Решение Александра:
+   светлый фон (#F5F5F7 и белый), графитовый текст, красный #C60000 только на главном; тёмный верх убран;
+   много воздуха, крупные заголовки с короткой красной полоской, белые карточки со скруглением и мягкой тенью.
+   Тексты страницы не менялись. Анимации — assets/ic-reveal.js (один раз при появлении). Если стиль одобрят —
+   переносим на остальные страницы: <body class="ic ic-home" data-theme-lock="light"> + этот файл + ic-reveal.js. */
+
+body.ic.ic-home {
+  --ich-bg: #F5F5F7; --ich-white: #FFFFFF; --ich-ink: #181818; --ich-muted: #5E6166; --ich-line: #E3E4E8;
+  --ich-red: #C60000; --ich-slate: #5A6E7A; --ich-shadow: 0 18px 48px rgba(20, 24, 32, .08);
+  background: var(--ich-bg); color: var(--ich-ink); color-scheme: light;
+}
+
+/* ── шапка и маршрут — светлые ── */
+body.ic.ic-home .topbar { background: rgba(245, 245, 247, .92); color: var(--ich-ink); border-bottom: 1px solid var(--ich-line); }
+body.ic.ic-home .topbar .hdr, body.ic.ic-home .topbar .route { background: transparent; color: var(--ich-ink); border-color: var(--ich-line); }
+body.ic.ic-home .topbar :is(a, .step, .rc-t, .rc-lab span) { color: var(--ich-ink); }
+body.ic.ic-home .topbar .brand span, body.ic.ic-home .topbar .step.is-muted { color: var(--ich-muted); }
+
+/* ── секции: чередуем светло-серый и белый, больше воздуха ── */
+body.ic.ic-home main > .sec, body.ic.ic-home main > .ic-top { background: var(--ich-bg); color: var(--ich-ink); border-top: 0; }
+body.ic.ic-home main > .sec--alt, body.ic.ic-home main > #reviews, body.ic.ic-home main > .end-cta { background: var(--ich-white); }
+body.ic.ic-home main > .sec:not(.sec--hero) { padding-top: 104px; padding-bottom: 104px; }
+@media (max-width: 760px) { body.ic.ic-home main > .sec:not(.sec--hero) { padding-top: 68px; padding-bottom: 68px; } }
+
+body.ic.ic-home :is(.sec, .ic-top) :is(.grey) { color: #8A8D93; }
+body.ic.ic-home :is(.sec, .ic-top) :is(.muted, .sub, .komu-lead) { color: var(--ich-muted); }
+body.ic.ic-home :is(.sec, .ic-top) .eyebrow { color: var(--ich-red); letter-spacing: .12em; }
+
+/* крупные заголовки с короткой красной полоской над ними (как у icgroup.uz) */
+body.ic.ic-home main .sec:not(.sec--hero) > .wrap > .h2,
+body.ic.ic-home main .story-main > .h2 { position: relative; padding-top: 26px; font-size: clamp(36px, 5vw, 64px); line-height: 1.04; letter-spacing: -.03em; color: var(--ich-ink); }
+body.ic.ic-home main .sec:not(.sec--hero) > .wrap > .h2::before,
+body.ic.ic-home main .story-main > .h2::before { content: ''; position: absolute; left: 0; top: 0; width: 54px; height: 5px; border-radius: 3px; background: var(--ich-red); transform-origin: left; }
+body.ic.ic-home main .sec:not(.sec--hero) > .wrap > .eyebrow + .h2 { margin-top: 14px; }
+body.ic.ic-home main .sec > .wrap > .sub, body.ic.ic-home .komu-lead { font-size: clamp(18px, 2vw, 21px); line-height: 1.45; max-width: 680px; }
+
+/* ── карточки: белые, скругление, тень при наведении ── */
+body.ic.ic-home main :is(.card, .komu-card, .stepcard, .unlock, .lquote, .story-num) {
+  background: var(--ich-white) !important; color: var(--ich-ink); border: 1px solid var(--ich-line) !important;
+  border-radius: 22px; box-shadow: none !important;
+}
+body.ic.ic-home main :is(#reviews, .sec--alt, .end-cta) :is(.card, .stepcard, .unlock) { background: var(--ich-bg) !important; }
+@media (hover: hover) {
+  body.ic.ic-home main :is(.komu-card, .stepcard, .phrase) { transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, opacity .7s; }
+  body.ic.ic-home main :is(.komu-card, .stepcard):hover { transform: translateY(-5px); box-shadow: var(--ich-shadow) !important; }
+}
+body.ic.ic-home main :is(.card, .komu-card, .stepcard, .unlock) :is(h3, .h3, .unlock-h, b) { color: var(--ich-ink); }
+body.ic.ic-home main :is(.card, .komu-card, .stepcard, .unlock) :is(p, li, .muted, .komu-pain) { color: var(--ich-muted); }
+
+/* ── первый экран: светлый, графитовый текст ── */
+body.ic.ic-home .sec--hero { background: var(--ich-bg) !important; color: var(--ich-ink) !important; padding-top: 64px; }
+body.ic.ic-home .sec--hero .hero-h1 { color: var(--ich-ink); font-size: clamp(40px, 5.6vw, 76px); line-height: 1.02; letter-spacing: -.035em; }
+body.ic.ic-home .sec--hero .grey { color: var(--ich-slate) !important; }
+body.ic.ic-home .sec--hero .eyebrow { color: var(--ich-red) !important; }
+body.ic.ic-home .sec--hero .lead, body.ic.ic-home .sec--hero .meta span { color: var(--ich-muted) !important; }
+body.ic.ic-home .sec--hero .lead-story { background: var(--ich-white) !important; border: 1px solid var(--ich-line) !important; box-shadow: none !important; color: var(--ich-ink) !important; }
+body.ic.ic-home .sec--hero .lead-story::before { background: var(--ich-red) !important; }
+body.ic.ic-home .sec--hero .lead-tag { color: var(--ich-slate) !important; }
+body.ic.ic-home .sec--hero .lead-hl { color: var(--ich-red) !important; }
+body.ic.ic-home .sec--hero .meta svg { color: var(--ich-red); }
+body.ic.ic-home .sec--hero .watch-cue { color: var(--ich-red); }
+body.ic.ic-home .sec--hero .player { border-color: var(--ich-line) !important; box-shadow: 0 24px 60px rgba(20, 24, 32, .14); }
+body.ic.ic-home .sec--hero .btn:not(.btn--primary) { color: var(--ich-ink) !important; border-color: #C9CBD1 !important; background: var(--ich-white) !important; }
+body.ic.ic-home .sec--hero .tag { color: var(--ich-red) !important; border-color: var(--ich-red) !important; }
+body.ic.ic-home main .unlock :is(.okline, .dh-ok) { color: var(--ich-red); }
+body.ic.ic-home main .diag-hot { background: transparent !important; }
+body.ic.ic-home main .diag-hot :is(.dh-h, .dh-lead, .dh-why span, .dh-meta, .dh-again) { color: var(--ich-ink) !important; }
+body.ic.ic-home main .diag-hot .dh-h em { color: var(--ich-red) !important; }
+body.ic.ic-home main .diag-hot .dh-i { background: var(--ich-bg) !important; color: var(--ich-red) !important; }
+body.ic.ic-home main .diag-hot .dh-step { color: var(--ich-muted) !important; border-color: var(--ich-line) !important; }
+
+/* ── «Кому подходит»: обычная сетка, без прилипания (на телефоне — столбиком) ── */
+body.ic.ic-home .komu-grid { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 44px; }
+@media (max-width: 900px) { body.ic.ic-home .komu-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; } }
+body.ic.ic-home .komu-card { overflow: hidden; }
+body.ic.ic-home .komu-num { background: var(--ich-red) !important; color: #fff !important; }
+body.ic.ic-home .komu-tags li { background: var(--ich-bg) !important; color: var(--ich-ink) !important; border-color: var(--ich-line) !important; }
+body.ic.ic-home .komu-note { color: var(--ich-ink) !important; }
+body.ic.ic-home .komu-note svg { color: var(--ich-red); }
+
+/* ── «Узнаёте себя?» на светлом ── */
+body.ic.ic-home .mo-needs .phrase { background: var(--ich-white) !important; }
+body.ic.ic-home .mo-needs .phrase b { color: var(--ich-ink); }
+body.ic.ic-home .mo-needs .phr-b > span { color: var(--ich-muted); }
+body.ic.ic-home .mo-nd-n { background: var(--ich-bg); border-color: #C9CBD1; color: #8A8D93; }
+body.ic.ic-home .lquote { box-shadow: inset 5px 0 0 var(--ich-red) !important; }
+body.ic.ic-home .lquote :is(.lquote-main, b) { color: var(--ich-ink) !important; }
+body.ic.ic-home .lquote :is(.lquote-sub, small) { color: var(--ich-muted) !important; }
+body.ic.ic-home .tag-story { background: rgba(198, 0, 0, .08) !important; color: var(--ich-red) !important; }
+
+/* ── история Любы ── */
+body.ic.ic-home .story-num b { color: var(--ich-red) !important; }
+body.ic.ic-home .timeline li b { color: var(--ich-ink); }
+body.ic.ic-home .timeline li p { color: var(--ich-muted); }
+body.ic.ic-home .timeline li::before { border-color: var(--ich-red) !important; background: var(--ich-white); }
+body.ic.ic-home .timeline li.last::before { background: var(--ich-red) !important; }
+body.ic.ic-home .story-foot { color: var(--ich-muted); }
+body.ic.ic-home .story-photo { border-radius: 22px; overflow: hidden; }
+
+/* ── «Три шага» — номера красным, на телефоне столбиком (ничего не листаем вбок) ── */
+body.ic.ic-home .rsteps .stepnum { background: var(--ich-white); color: var(--ich-ink); border: 1.5px solid #C9CBD1; }
+body.ic.ic-home .rsteps .stepnum.is-now, body.ic.ic-home .rsteps .stepnum.is-ok { background: var(--ich-red); border-color: var(--ich-red); color: #fff; }
+body.ic.ic-home .rsteps .card--accent { border-color: var(--ich-red) !important; }
+@media (max-width: 760px) {
+  body.ic.ic-home .rsteps { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; overflow: visible !important; gap: 16px; }
+  body.ic.ic-home .rsteps > * { width: auto !important; min-width: 0 !important; flex: none !important; }
+  body.ic.ic-home .swipe-hint { display: none !important; }
+}
+
+/* ── подвал ── */
+body.ic.ic-home .foot { background: var(--ich-white); color: var(--ich-muted); border-top: 1px solid var(--ich-line); }
+body.ic.ic-home .foot a { color: var(--ich-ink); }
+
+/* ── анимации: один раз при появлении (класс .icr-in ставит assets/ic-reveal.js) ── */
+.icr-on .icr { transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--icr-d, 0ms); }
+.icr-on .icr[data-icr="up"], .icr-on .icr[data-icr="head"] { opacity: 0; transform: translateY(22px); }
+.icr-on .icr[data-icr="img"] { clip-path: inset(10% 10% 10% 10% round 22px); transition: clip-path .9s cubic-bezier(.2,.7,.2,1) var(--icr-d, 0ms); }
+.icr-on .icr.icr-in[data-icr] { opacity: 1; transform: none; }
+.icr-on .icr.icr-in[data-icr="img"] { clip-path: inset(0 0 0 0 round 22px); }
+.icr-on .icr[data-icr="head"]::before { transform: scaleX(0); transition: transform .6s cubic-bezier(.2,.7,.2,1) .25s; }
+.icr-on .icr.icr-in[data-icr="head"]::before { transform: scaleX(1); }
+.icr-on .icr-in[data-icr="up"].komu-card, .icr-on .icr-in[data-icr="up"].stepcard { transition-delay: var(--icr-d, 0ms), var(--icr-d, 0ms), 0ms; }
+@media (hover: hover) { .icr-on .icr.icr-in:is(.komu-card, .stepcard) { transition: opacity .7s, transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s; } }
+@media (prefers-reduced-motion: reduce) { .icr-on .icr { opacity: 1 !important; transform: none !important; clip-path: none !important; } }
+
+/* правки после проверки 03.11 */
+body.ic.ic-home .komu-lead { text-align: left; margin-left: 0; }
+body.ic.ic-home .komu-card { border-top: 1px solid var(--ich-line) !important; }
+body.ic.ic-home .komu-card::before { display: none !important; }
+body.ic.ic-home .story-num { align-self: end; height: auto !important; }
+/* «Три шага»: без старых цветных ярлыков и линий над карточками (на светлом они лезли поверх рамок) */
+body.ic.ic-home .rsteps { padding-top: 0; }
+body.ic.ic-home .rsteps .stepcard::before, body.ic.ic-home .rsteps .stepcard::after,
+body.ic.ic-home .rsteps .stepcard > .row::after { display: none !important; content: none !important; }
+@media (max-width: 760px) { body.ic.ic-home .rsteps { margin-left: 0 !important; margin-right: 0 !important; padding-left: 0 !important; padding-right: 0 !important; } }
