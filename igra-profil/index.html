@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="../assets/ic-dark.css">
 <link rel="stylesheet" href="../assets/contrast.css">
 <link rel="stylesheet" href="../assets/ic-home.css?v=5.71">
-<link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.80">
+<link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.82">
 <style>
 /* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
 body.ic .g-scr { padding: 40px 0 72px; }
@@ -334,6 +334,67 @@ var IDEAS = {
   TE: [['Репетитор IELTS или математики, потом своя мини-школа', ''], ['Бухгалтер на аутсорсе для малого бизнеса', ''], ['Консультант по выходу на Uzum и Wildberries', ''], ['Наставник по таргету и SMM', ''], ['Онлайн-курс по своему навыку', 'v'], ['Юрист для предпринимателей', '']],
   MA: [['Торты и десерты на заказ, потом свой цех', 'v'], ['Ателье: пошив на заказ, в том числе национальной одежды', 'v'], ['Ремонт телефонов и ноутбуков', ''], ['Кожаные изделия ручной работы', 'v'], ['Мебель на заказ', 'mv'], ['Монтаж и обслуживание кондиционеров', 'm']]
 };
+
+/* ── v5.80 (03.11.2026): шаблон по образцу 16Personalities — 4 группы, персонажи, фразы, главы результата ── */
+var GR = [
+  { name: 'Идеи', color: '#5A6E7A', about: 'Находят, что нужно людям, и придумывают продукт', codes: ['IN', 'CR'] },
+  { name: 'Люди', color: '#C60000', about: 'Приводят клиентов и продают', codes: ['CL', 'SA'] },
+  { name: 'Порядок', color: '#2C3A42', about: 'Наводят порядок и доводят дело до конца', codes: ['OP', 'CO'] },
+  { name: 'Ремесло', color: '#8FA9B5', about: 'Делают продукт своими руками или знаниями', codes: ['MA', 'TE'] }
+];
+function grOf(c) { for (var i = 0; i < GR.length; i++) if (GR[i].codes.indexOf(c) > -1) return GR[i]; return GR[0]; }
+var TAG = {
+  IN: 'Сначала разбирается, потом вкладывает — и редко ошибается.',
+  CR: 'Придумывает то, что люди захотят купить.',
+  MA: 'Делает руками так, что клиенты приходят сами.',
+  OP: 'Наводит порядок — и бизнес работает без сбоев.',
+  CO: 'Собирает людей и доводит любое дело до конца.',
+  SA: 'Чувствует сделку и умеет договориться о цене.',
+  CL: 'Понимает клиента с полуслова — и он возвращается.',
+  TE: 'Превращает свой опыт в знания, за которые платят.'
+};
+var SLUG = { IN: 'issledovatel', CR: 'sozdatel', CL: 'kommunikator', SA: 'torgovets', OP: 'sistematizator', CO: 'organizator', MA: 'master', TE: 'ekspert' };
+var PLUS = {
+  IN: ['Замечаете, что на самом деле нужно людям', 'Проверяете идею до того, как вкладывать деньги', 'Находите причину проблемы, а не только её признаки'],
+  CR: ['Придумываете то, чего нет у конкурентов', 'Быстро делаете первую пробную версию', 'Умеете красиво подать товар или услугу'],
+  MA: ['Делаете продукт высокого качества', 'Хорошая работа сама приводит новых клиентов', 'Терпеливо доводите вещь до результата'],
+  OP: ['Видите, где теряются деньги и время', 'Пишете понятные правила, по которым работают другие', 'На вас можно положиться'],
+  CO: ['Собираете людей вокруг дела', 'Держите сроки и договорённости', 'Доводите проекты до конца'],
+  SA: ['Легко начинаете разговор о покупке', 'Договариваетесь о цене и условиях', 'Не боитесь отказов'],
+  CL: ['Быстро понимаете, что нужно клиенту', 'Клиенты возвращаются и приводят друзей', 'Вам доверяют'],
+  TE: ['Объясняете сложное простыми словами', 'Вашему опыту доверяют', 'Можете обучить команду и клиентов']
+};
+var BLIND = {
+  IN: ['Можете долго разбираться и так и не начать', 'Откладываете продажи на потом'],
+  CR: ['Бросаете начатое ради новой идеи', 'Не любите считать деньги и рутину'],
+  MA: ['Тянете всё на себе и не отдаёте работу другим', 'Стесняетесь продавать и поднимать цену'],
+  OP: ['Трудно браться за новое и непонятное', 'Можете застрять на мелочах'],
+  CO: ['Берёте на себя слишком много', 'Можете давить на людей, когда горят сроки'],
+  SA: ['Обещаете больше, чем можно сделать', 'Скучаете от учёта и бумаг'],
+  CL: ['Трудно отказать и вовремя взять деньги', 'Тратите много времени на разговоры'],
+  TE: ['Недооцениваете свои знания и ставите низкую цену', 'Долго готовитесь вместо того, чтобы продавать']
+};
+var PAIR = {
+  IN: ['SA', 'Вы находите, что нужно людям, — Торговец это продаст.'],
+  CR: ['OP', 'Вы придумываете новое — Систематизатор сделает так, чтобы оно работало каждый день.'],
+  MA: ['CL', 'Вы делаете продукт — Коммуникатор приведёт клиентов и будет с ними на связи.'],
+  OP: ['CR', 'Вы наводите порядок — Создатель принесёт новые идеи для роста.'],
+  CO: ['MA', 'Вы собираете людей — Мастер отвечает за качество продукта.'],
+  SA: ['IN', 'Вы продаёте — Исследователь подскажет, что продавать и кому.'],
+  CL: ['CO', 'Вы общаетесь с клиентами — Организатор следит, чтобы всё делалось в срок.'],
+  TE: ['SA', 'Вы делитесь знаниями — Торговец найдёт тех, кто за них заплатит.']
+};
+var REASONS = [
+  ['dengi', 'Не вложите деньги в «не своё» дело', 'Узнаете, какая работа вам по душе, — ещё до вложений.'],
+  ['tsel', 'Поймёте, почему сейчас тяжело', 'Часто человек тянет задачи, которые ему не подходят.'],
+  ['vozmozhnost', 'Получите идеи дел в Узбекистане', 'Под ваш архетип — что можно проверить.'],
+  ['delegirovanie', 'Узнаете, что лучше отдать', 'Партнёру, сотруднику или близкому.'],
+  ['doroga', 'Получите первый шаг на эту неделю', 'Без больших вложений.']
+];
+var IP = '../assets/img/arhetip/'; /* персонажи от ChatGPT; пока их нет — показываем 3D-иконку */
+function pers(c, cls) {
+  return '<img class="g-pers ' + (cls || '') + '" src="' + IP + SLUG[c] + '.webp" alt="' + P[c].name + '" loading="lazy" onerror="this.onerror=null;this.src=\'' + IA + P[c].icon + '.webp\';this.classList.add(\'is-ico\')">';
+}
 /* ── Когда подключится семья (по главной роли) ── */
 var FAMLINE = {
   IN: 'Вы находите, что нужно людям, — близкие могут взять запуск и продажи.',
@@ -574,6 +635,9 @@ var DEMO = { IN: 3, CR: 4, MA: 1, OP: 1.5, CO: 3, SA: 2, CL: 3.5, TE: 1 };
 /* ── Экраны ── */
 function vIntro() {
   var stats = [['spisok', '17', 'вопросов'], ['chasy', '4', 'минуты'], ['podarok', '0 сум', 'бесплатно'], ['zamok', 'Без', 'регистрации']];
+  var steps = [['spisok', 'Ответьте на ситуации', '17 коротких вопросов из жизни. Правильных ответов нет.'],
+    ['diagnostika', 'Узнайте свой архетип', 'И увидите карту: какая работа в бизнесе вам интересна.'],
+    ['doroga', 'Получите идеи и первый шаг', 'Что можно проверить в Узбекистане и с чего начать.']];
   return sec(
     '<div class="g-hero">' +
       '<div class="eyebrow">ИГРА-ТЕСТ · FBT ONLINE</div>' +
@@ -583,10 +647,19 @@ function vIntro() {
       '<div class="g-stats">' + stats.map(function (x) { return '<div class="g-stat"><span class="gi">' + ipic(x[0]) + '</span><b>' + x[1] + '</b><small>' + x[2] + '</small></div>'; }).join('') + '</div>' +
       '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Определить свой архетип' + arrow() + '</button>' +
     '</div>' +
-    '<div class="g-arch"><div class="g-sec-h">8 бизнес-архетипов.<span>Какой из них ваш?</span></div>' +
-      '<div class="g-arch-grid">' + AX.map(function (c) { return '<div><span class="gi">' + ipic(P[c].icon) + '</span><span><b>' + P[c].name + '</b><small>' + P[c].tasks[0] + '</small></span></div>'; }).join('') + '</div></div>' +
+    '<div class="g-block"><div class="g-sec-h">Зачем знать<span>свой бизнес-архетип</span></div>' +
+      '<div class="g-reasons">' + REASONS.map(function (x, n) { return '<div class="g-reason"><span class="gi">' + ipic(x[0]) + '</span><div><i>0' + (n + 1) + '</i><b>' + x[1] + '</b><small>' + x[2] + '</small></div></div>'; }).join('') + '</div></div>' +
+    '<div class="g-block"><div class="g-sec-h">8 бизнес-архетипов.<span>Какой из них ваш?</span></div>' +
+      GR.map(function (g) {
+        return '<div class="g-group" style="--gc:' + g.color + '"><div class="g-group-h"><b>' + g.name + '</b><small>' + g.about + '</small></div><div class="g-types">' +
+          g.codes.map(function (c) { return '<div class="g-type"><div class="g-type-pic">' + pers(c) + '</div><b>' + P[c].name + '</b><small>' + TAG[c] + '</small></div>'; }).join('') + '</div></div>';
+      }).join('') +
+      '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Узнать, какой мой' + arrow() + '</button></div>' +
+    '<div class="g-block"><div class="g-sec-h">Как это<span>работает</span></div>' +
+      '<div class="g-steps3">' + steps.map(function (x, n) { return '<div><span class="gi">' + ipic(x[0]) + '</span><i>Шаг ' + (n + 1) + '</i><b>' + x[1] + '</b><small>' + x[2] + '</small></div>'; }).join('') + '</div></div>' +
     '<div class="g-ex"><div class="g-sec-h">Так будет выглядеть<span>ваш результат</span></div><div class="g-info-sub">Пример: Создатель + Коммуникатор. Чем дальше точка от центра, тем интереснее вам эта работа.</div>' +
-      radarSVG(DEMO, ['CR', 'CL'], 'Пример карты интересов') + '</div>' +
+      radarSVG(DEMO, ['CR', 'CL'], 'Пример карты интересов') +
+      '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Определить свой архетип' + arrow() + '</button></div>' +
     '<p class="g-note">Это игра, а не научный тест. Она показывает, что вам интересно, но не оценивает способности и не обещает успех. Ответы остаются на вашем телефоне.</p>'
   );
 }
@@ -657,7 +730,7 @@ function confText(id) {
 }
 
 function gauge(id, title) {
-  var k = S.ans[id], v = k == null ? null : qById(id).a[k][1], c = v == null ? '#8E8E94' : v >= 3 ? '#2BB5A0' : '#F2C46D';
+  var k = S.ans[id], v = k == null ? null : qById(id).a[k][1], c = v == null ? '#8E8E94' : v >= 3 ? '#C60000' : '#5A6E7A';
   return '<div class="g-gauge" style="--rc:' + c + '"><b>' + title + '</b>' + meter(v == null ? 0 : v === 4 ? 4 : v === 3 ? 3 : v === 1 ? 1 : 0, c) + confText(id) + '</div>';
 }
 function qById(id) { return Q.filter(function (q) { return q.id === id; })[0]; }
@@ -690,11 +763,14 @@ function vResult() {
     r.mode === 'wide' ? 'Вам интересно сразу несколько сторон бизнеса: ' + names.join(', ').toLowerCase() + '. Так часто бывает у тех, кто начинает своё дело.' :
     r.mode === 'soft' ? 'Ярко выраженного архетипа пока нет, но эти задачи откликнулись вам больше других.' :
     'Эти задачи в бизнесе вам интереснее всего. В них проще найти своё место и не выгореть.';
-  var icons = (L.length ? L.slice(0, 2) : [{ code: 'IN' }]).map(function (x) { return '<div>' + img(P[x.code].icon) + '</div>'; }).join('');
+  var heroPics = (L.length ? L.slice(0, r.mode === 'wide' ? 3 : 2) : [{ code: 'IN' }]).map(function (x) { return '<div>' + pers(x.code) + '</div>'; }).join('');
+  var main = L.length ? L[0].code : null, g0 = main ? grOf(main) : null;
+  var heroTag = main && r.mode !== 'wide' ? '<p class="g-res-tag">' + TAG[main] + '</p>' : '';
+  var heroGr = g0 && r.mode !== 'wide' ? '<span class="g-chip" style="--gc:' + g0.color + '">Группа «' + g0.name + '»</span>' : '';
   var vals = {}; r.agg.forEach(function (x) { vals[x.code] = x.avg; });
   var tops = L.map(function (x) { return x.code; });
   var sorted = r.agg.map(function (x) { return x.code; }).concat(AX.filter(function (c) { return vals[c] == null; }));
-  var info = r.agg.length ? '<div class="g-h3">ВАША КАРТА ИНТЕРЕСОВ</div><div class="g-info"><div class="g-info-cap">8 БИЗНЕС-АРХЕТИПОВ</div>' +
+  var info = r.agg.length ? '<div class="g-h3" id="ch-map">ВАША КАРТА ИНТЕРЕСОВ</div><div class="g-info"><div class="g-info-cap">8 БИЗНЕС-АРХЕТИПОВ</div>' +
     '<div class="g-info-sub">Чем дальше точка от центра, тем интереснее вам эта работа. Красные точки — ваш архетип.</div>' +
     radarSVG(vals, tops, 'Карта интересов: ' + sorted.map(function (c) { return P[c].name + ' — ' + word(vals[c]); }).join(', ')) +
     legend(vals, tops, sorted) + '</div>' : '';
@@ -702,6 +778,17 @@ function vResult() {
     var p = P[x.code];
     return '<div class="g-card g-card--top"><h3>' + img(p.icon) + p.name + '</h3><p>' + p.desc + '</p><ul>' + p.tasks.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
   }).join('');
+  var plusBlock = main ? '<div class="g-h3" id="ch-plus">СИЛЬНЫЕ СТОРОНЫ И СЛЕПЫЕ ЗОНЫ</div><div class="g-pm">' +
+    '<div class="g-card g-pm-plus"><h3>' + img('uverennost') + 'Ваши сильные стороны</h3><ul>' + PLUS[main].map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>' +
+    '<div class="g-card g-pm-minus"><h3>' + img('doverie') + 'На что обратить внимание</h3><ul>' + BLIND[main].map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div></div>' : '';
+  var pairBlock = '';
+  if (main) {
+    var pc = PAIR[main][0];
+    pairBlock = '<div class="g-h3" id="ch-pair">С КЕМ РАБОТАТЬ В ПАРЕ</div><div class="g-card g-pair"><div class="g-pair-pics"><div>' + pers(main) + '<small>' + P[main].name + '</small></div><span>+</span><div>' + pers(pc) + '<small>' + P[pc].name + '</small></div></div>' +
+      '<p>' + PAIR[main][1] + '</p><p class="g-mini">Ищите такого человека среди партнёров, сотрудников или близких.</p></div>';
+  }
+  var toc = L.length ? '<nav class="g-toc" aria-label="Главы результата">' + [['ch-map', 'Карта'], ['ch-who', 'Кто вы'], ['ch-plus', 'Сильные стороны'], ['ch-ideas', 'Идеи'], ['ch-pair', 'Пара'], ['ch-step', 'Первый шаг']]
+    .map(function (x) { return '<a href="#' + x[0] + '">' + x[1] + '</a>'; }).join('') + '</nav>' : '';
   var step = L.length ? P[L[0].code].step : 'Пройдите игру ещё раз и отвечайте на каждую ситуацию — так вы получите свой архетип и первый шаг.';
   var fam = S.ans['A-C2'];
   var expK = S.ans['X-EXP'], expBlock = '';
@@ -715,7 +802,7 @@ function vResult() {
   var ideasBlock = '';
   if (L.length) {
     var id = ideasFor(L);
-    ideasBlock = '<div class="g-h3">ИДЕИ ДЛЯ ПРОВЕРКИ В УЗБЕКИСТАНЕ</div><div class="g-card"><h3>' + img('vozmozhnost') + 'Где нужна ваша работа</h3><ul>' +
+    ideasBlock = '<div class="g-h3" id="ch-ideas">ИДЕИ ДЛЯ ПРОВЕРКИ В УЗБЕКИСТАНЕ</div><div class="g-card"><h3>' + img('vozmozhnost') + 'Где нужна ваша работа</h3><ul>' +
       id.list.map(function (it) { return '<li>' + esc(it[0]) + '</li>'; }).join('') + '</ul>' +
       id.notes.map(function (n) { return '<p>' + n + '</p>'; }).join('') +
       '<p class="g-mini">Это идеи для проверки, а не готовый план. Прежде чем вкладывать деньги, проверьте спрос.</p></div>';
@@ -728,12 +815,12 @@ function vResult() {
       '<p><b>Кто из семьи может помочь.</b> ' + FAMLINE[L[0].code] + '</p></div>';
   }
   return sec(
-    '<div class="g-res"><div class="eyebrow">ВАШ БИЗНЕС-АРХЕТИП</div><div class="g-res-ico">' + icons + '</div><h2>' + title + '</h2><p>' + lead + '</p></div>' +
-    info +
-    (L.length ? '<div class="g-h3">ЧТО ВАМ ПОДОЙДЁТ</div>' + cards : '') +
-    expBlock +
-    '<div class="g-h3">ШАГ НА ЭТУ НЕДЕЛЮ</div><div class="g-step"><small>ПРОВЕРЬТЕ СЕБЯ В ДЕЛЕ</small><p>' + step + '</p></div>' +
-    ideasBlock + giveBlock +
+    '<div class="g-res g-res--hero"><div class="eyebrow">ВАШ БИЗНЕС-АРХЕТИП</div><div class="g-res-pers n' + (L.length > 2 && r.mode === 'wide' ? 3 : L.length > 1 ? 2 : 1) + '">' + heroPics + '</div>' + heroGr + '<h2>' + title + '</h2>' + heroTag + '<p>' + lead + '</p></div>' +
+    toc + info +
+    (L.length ? '<div class="g-h3" id="ch-who">КТО ВЫ В БИЗНЕСЕ</div>' + cards : '') +
+    plusBlock + expBlock +
+    ideasBlock + pairBlock + giveBlock +
+    '<div class="g-h3" id="ch-step">ШАГ НА ЭТУ НЕДЕЛЮ</div><div class="g-step"><small>ПРОВЕРЬТЕ СЕБЯ В ДЕЛЕ</small><p>' + step + '</p></div>' +
     '<div class="g-h3">ВАША УВЕРЕННОСТЬ</div><div class="g-gauges">' + gauge('A-E1', img('razgovor') + ' Разговор с клиентом', '') + gauge('A-E2', img('kalendar') + ' План на неделю', '') +
       (S.ans['X-SALE'] != null ? '<div class="g-gauge wide" style="--rc:#5A6E7A"><b>' + img('prodazha') + ' Продажи</b>' + meter([4, 2, 1][S.ans['X-SALE']], '#5A6E7A') + SALE[S.ans['X-SALE']] + '</div>' : '') + '</div>' +
     '<div class="g-btns"><div class="g-two"><button type="button" class="btn btn--sm" data-act="png">Сохранить картинку</button><button type="button" class="btn btn--sm" data-act="share">Поделиться</button></div><div class="g-status" id="gStatus" role="status"></div></div>' +
