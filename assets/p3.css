@@ -453,3 +453,5 @@ body.ic:not(.ic-dark) .res-stamp { color: #1E8A55; background: rgba(30, 138, 85,
 
 /* 03.11 v5.76: блок отправки — только иконка и кнопка */
 .send-top + .send-h { display: none; }
+/* 03.11 v5.77: без иконки — пустая левая часть блока не занимает места */
+.send-l:empty, .send-l:not(:has(*)) { display: none; }
