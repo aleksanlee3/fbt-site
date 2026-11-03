@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Кто вы в бизнесе? Игра-тест — FBT Online</title>
-<meta name="description" content="Ситуации из жизни и пара вопросов о вас — и вы узнаете, какая работа в бизнесе вам по душе, с чего начать и какие идеи проверить. 4 минуты, бесплатно.">
-<meta property="og:title" content="Кто вы в бизнесе? — игра от FBT Online">
-<meta property="og:description" content="17 вопросов, 4 минуты. Узнайте свою роль в бизнесе, идеи для проверки и первый шаг на эту неделю.">
-<meta name="theme-color" content="#181818">
+<title>Определите свой бизнес-архетип — FBT Online</title>
+<meta name="description" content="Определите свой бизнес-архетип и найдите бизнес, который подходит вам больше всего. 17 вопросов, 4 минуты, бесплатно.">
+<meta property="og:title" content="Определите свой бизнес-архетип — FBT Online">
+<meta property="og:description" content="17 вопросов, 4 минуты. Узнайте свой бизнес-архетип, идеи дел для проверки и первый шаг на эту неделю.">
+<meta name="theme-color" content="#F5F5F7">
 <link rel="icon" href="../assets/logo/favicon-64.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="../assets/ic-theme.css">
 <link rel="stylesheet" href="../assets/ic-dark.css">
 <link rel="stylesheet" href="../assets/contrast.css">
+<link rel="stylesheet" href="../assets/ic-home.css?v=5.71">
+<link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.78">
 <style>
 /* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
 body.ic .g-scr { padding: 40px 0 72px; }
@@ -211,7 +213,7 @@ body.ic.ic-dark .g-gauge .g-meter i { background: rgba(255,255,255,.12); }
 @media (prefers-reduced-motion: reduce) { .g-faces div, .g-ico, .g-res-ico div { transform: none; } }
 </style>
 </head>
-<body class="ic ic-dark pg-diag">
+<body class="ic ic-home g-light" data-theme-lock="light"><!-- 03.11 v5.78: бизнес-архетип, светлый стиль icgroup.uz, строгие иконки -->
 <script src="../assets/theme.js"></script>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
@@ -233,9 +235,9 @@ body.ic.ic-dark .g-gauge .g-meter i { background: rgba(255,255,255,.12); }
   <section class="ic-top g-scr">
     <div class="g-wrap">
       <div class="g-hero">
-        <div class="eyebrow">ИГРА ОТ FBT ONLINE</div>
-        <h1>Кто вы<span>в бизнесе?</span></h1>
-        <p>Ситуации из жизни и пара вопросов о вас. Отвечайте, как поступили бы на самом деле, — и узнаете, какая работа в бизнесе вам по душе.</p>
+        <div class="eyebrow">ИГРА-ТЕСТ · FBT ONLINE</div>
+        <h1>Определите свой<span>бизнес-архетип</span></h1>
+        <p class="g-lead">И найдите бизнес, который подходит вам больше всего.</p>
       </div>
       <noscript><p class="g-note">Чтобы пройти игру, откройте страницу в браузере (Safari или Chrome): fbt-online.pages.dev/igra-profil/</p></noscript>
     </div>
@@ -251,6 +253,38 @@ body.ic.ic-dark .g-gauge .g-meter i { background: rgba(255,255,255,.12); }
 'use strict';
 var APP = document.getElementById('app');
 var IC = '../assets/icons/';
+/* 03.11 v5.78: строгие линейные иконки вместо рисованных (решение Александра: «серьёзнее, взрослее») */
+var GI = {
+  insayt: '<circle cx="11" cy="11" r="6.5"/><path d="M20.5 20.5l-4.9-4.9"/>',
+  vozmozhnost: '<path d="M9 18h6"/><path d="M10 21.5h4"/><path d="M12 2.5a6.8 6.8 0 0 0-4 12.3c.6.5 1 1.2 1 2V17h6v-.2c0-.8.4-1.5 1-2a6.8 6.8 0 0 0-4-12.3z"/>',
+  klient: '<path d="M20.5 11.5a8 8 0 0 1-11.7 7.1L3.5 20l1.4-4.8a8 8 0 1 1 15.6-3.7z"/><path d="M8.5 10.5h7M8.5 14h4.5"/>',
+  prodazha: '<path d="M20.4 13.4l-7 7a2 2 0 0 1-2.8 0L3 12.8V3.5h9.3l8.1 7.1a2 2 0 0 1 0 2.8z"/><circle cx="7.8" cy="7.8" r="1.6"/>',
+  process: '<rect x="3" y="3" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6"/><path d="M10 6.5h4.5a2.5 2.5 0 0 1 2.5 2.5v5"/><path d="M14 17.5H9.5A2.5 2.5 0 0 1 7 15v-5"/>',
+  komanda: '<circle cx="9" cy="8" r="3.4"/><path d="M2.8 20a6.2 6.2 0 0 1 12.4 0"/><path d="M15.8 4.7a3.4 3.4 0 0 1 0 6.6"/><path d="M18.3 14.3A6.2 6.2 0 0 1 21.2 20"/>',
+  nastavnik: '<path d="M22 9L12 4.5 2 9l10 4.5L22 9z"/><path d="M6 11v4.8c0 1.6 2.7 3 6 3s6-1.4 6-3V11"/><path d="M22 9v5.5"/>',
+  instrument: '<path d="M14 2.8l7.2 7.2-2.6 2.6-7.2-7.2z"/><path d="M12.6 7.6L3.4 16.8a1.6 1.6 0 0 0 0 2.2l1.6 1.6a1.6 1.6 0 0 0 2.2 0l9.2-9.2"/>',
+  dengi: '<rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6.5 10v4M17.5 10v4"/>',
+  diagnostika: '<path d="M3.5 3.5v17h17"/><path d="M7.5 15l3.8-4 3 3 5-6"/>',
+  doroga: '<path d="M12 3v18"/><path d="M5 5.5h11l3 2.5-3 2.5H5z"/><path d="M19 13.5H8l-3 2.5 3 2.5h11z"/>',
+  doverie: '<path d="M12 3L4.5 6v6c0 4.4 3.2 7.8 7.5 9 4.3-1.2 7.5-4.6 7.5-9V6L12 3z"/><path d="M8.7 12l2.4 2.4 4.3-4.6"/>',
+  plan: '<rect x="4.5" y="4" width="15" height="17" rx="2"/><path d="M9 4V2.8h6V4"/><path d="M8.5 10h7M8.5 13.5h7M8.5 17h4"/>',
+  rezultat: '<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+  semya: '<path d="M3 11l9-7 9 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5.5h4V20"/>',
+  tsel: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.8"/><circle cx="12" cy="12" r="1.3"/>',
+  uverennost: '<circle cx="12" cy="9" r="5.8"/><path d="M8.6 13.8L7.2 21.5 12 19l4.8 2.5-1.4-7.7"/>',
+  delegirovanie: '<circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="5.5" r="2.6"/><circle cx="18" cy="18.5" r="2.6"/><path d="M8.3 10.8l7.4-4M8.3 13.2l7.4 4"/>',
+  reshenie: '<circle cx="12" cy="12" r="8.5"/><path d="M8.2 12.2l2.7 2.7 5-5.6"/>',
+  rol: '<rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="9" cy="11" r="2.4"/><path d="M5.6 16.8a3.4 3.4 0 0 1 6.8 0"/><path d="M15 10h3M15 13.5h3"/>',
+  spisok: '<path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/>',
+  chasy: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.2V12l3.2 2"/>',
+  podarok: '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v8.5h14V12M12 8v12.5"/><path d="M12 8c-1.5-3.5-5-4-5-1.6C7 8 9.6 8 12 8c2.4 0 5 0 5-1.6C17 4 13.5 4.5 12 8z"/>',
+  zamok: '<rect x="4.5" y="10.5" width="15" height="10.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 7.6-1.7"/>',
+  razgovor: '<path d="M20.5 11.5a8 8 0 0 1-11.7 7.1L3.5 20l1.4-4.8a8 8 0 1 1 15.6-3.7z"/>',
+  kalendar: '<rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/>'
+};
+function gsvg(n, color) { return '<svg viewBox="0 0 24 24" fill="none" stroke="' + (color || 'currentColor') + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (GI[n] || GI.tsel) + '</svg>'; }
+function gsrc(n, color) { return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="' + color + '" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + (GI[n] || GI.tsel) + '</svg>'); }
+
 
 /* ── Профили (игровые названия — гипотеза продукта, не научные типы) ── */
 var P = {
@@ -435,16 +469,16 @@ var Q = [
 /* ── 4 части игры: у каждой свой цвет, иконка и заставка ── */
 var PARTS = ['i', 'e', 'x', 'c'];
 var PART = {
-  i: { name: 'Ситуации', color: '#FF6B6B', icon: 'insayt', lab: 'СИТУАЦИЯ', how: 'Как бы вы поступили в жизненной истории.', title: 'Ситуации <span>из жизни</span>',
+  i: { name: 'Ситуации', color: '#C60000', icon: 'insayt', lab: 'СИТУАЦИЯ', how: 'Как бы вы поступили в жизненной истории.', title: 'Ситуации <span>из жизни</span>',
        text: '9 коротких историй. Представьте себя на месте героя и выберите, как поступили бы на самом деле.',
-       list: [['🎯', 'Правильных ответов нет'], ['⚡', 'Отвечайте быстро — первое, что пришло в голову'], ['🔀', 'Ответы каждый раз в новом порядке']] },
-  e: { name: 'Уверенность', color: '#8FB3BF', icon: 'uverennost', lab: 'ВОПРОС', how: 'Насколько спокойно вам в деле.', title: 'Ваша <span>уверенность</span>',
+       list: [['', 'Правильных ответов нет'], ['', 'Отвечайте быстро — первое, что пришло в голову'], ['', 'Ответы каждый раз в новом порядке']] },
+  e: { name: 'Уверенность', color: '#5A6E7A', icon: 'uverennost', lab: 'ВОПРОС', how: 'Насколько спокойно вам в деле.', title: 'Ваша <span>уверенность</span>',
        text: '2 вопроса о том, насколько спокойно вы чувствуете себя в деле. Это не оценка — уверенность растёт с практикой.',
-       list: [['🗣️', 'Разговор с клиентом'], ['🗓️', 'План на неделю']] },
-  x: { name: 'Условия', color: '#F2C46D', icon: 'dengi', lab: 'О ВАС', how: 'Опыт, деньги и продажи — чтобы подобрать идеи.', title: 'Ваши <span>условия</span>',
-       text: '4 вопроса: опыт, деньги, продажи и что для вас главное. На роль они не влияют — по ним мы подберём идеи и советы.',
-       list: [['💼', 'Ваш опыт'], ['💰', 'Деньги на старт'], ['🛍️', 'Как вам продажи'], ['❤️', 'Ради чего дело']] },
-  c: { name: 'О вас', color: '#2BB5A0', icon: 'semya', lab: 'О ВАС', how: 'Где вы сейчас и с кем можно начать.', title: 'Ещё <span>2 вопроса</span>',
+       list: [['', 'Разговор с клиентом'], ['', 'План на неделю']] },
+  x: { name: 'Условия', color: '#2C3A42', icon: 'dengi', lab: 'О ВАС', how: 'Опыт, деньги и продажи — чтобы подобрать идеи.', title: 'Ваши <span>условия</span>',
+       text: '4 вопроса: опыт, деньги, продажи и что для вас главное. На архетип они не влияют — по ним мы подберём идеи и советы.',
+       list: [['', 'Ваш опыт'], ['', 'Деньги на старт'], ['', 'Как вам продажи'], ['', 'Ради чего дело']] },
+  c: { name: 'О вас', color: '#8A9AA4', icon: 'semya', lab: 'О ВАС', how: 'Где вы сейчас и с кем можно начать.', title: 'Ещё <span>2 вопроса</span>',
        text: 'Последние вопросы — где вы сейчас и есть ли рядом близкий человек для общего дела. И сразу результат!',
        list: [['📍', 'Где вы сейчас'], ['🤝', 'С кем можно начать']] }
 };
@@ -482,7 +516,7 @@ function fresh() { return { scr: 'intro', i: 0, ans: {}, ord: shuffleAll(), fam:
 var S = fresh();
 
 function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-function img(n) { return '<img src="' + IC + n + '.webp" alt="" loading="lazy">'; }
+function img(n) { return '<span class="gi">' + gsvg(n) + '</span>'; }
 function arrow() { return '<svg><use href="#i-right"/></svg>'; }
 function sec(inner) { return '<section class="ic-top g-scr"><div class="g-wrap">' + inner + '</div></section>'; }
 function opt(label, on, act, val) {
@@ -490,7 +524,8 @@ function opt(label, on, act, val) {
 }
 
 /* ── Цвета ролей и порядок на карте интересов (соседние роли — похожие задачи) ── */
-var RC = { IN: '#4FA3F7', CR: '#B57BFF', MA: '#9BCB6B', OP: '#8FB3BF', CO: '#FF6B6B', SA: '#F2C46D', CL: '#2BB5A0', TE: '#F59E5B' };
+var RC = { IN: '#5A6E7A', CR: '#5A6E7A', MA: '#5A6E7A', OP: '#5A6E7A', CO: '#5A6E7A', SA: '#5A6E7A', CL: '#5A6E7A', TE: '#5A6E7A' };
+var RED = '#C60000';
 var AX = ['IN', 'CR', 'MA', 'OP', 'CO', 'SA', 'CL', 'TE'];
 function word(v) { return v == null ? 'пропущено' : v >= 3.5 ? 'очень интересно' : v >= 3 ? 'интересно' : v >= 1.5 ? 'иногда' : 'не ваше'; }
 function dots(v) { return v == null ? 0 : v >= 3.5 ? 4 : v >= 3 ? 3 : v >= 1.5 ? 2 : v > 0 ? 1 : 0; }
@@ -504,54 +539,52 @@ function radarSVG(vals, tops, label) {
   function f(p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }
   var h = '<svg viewBox="0 0 360 360" role="img" aria-label="' + esc(label) + '">';
   [4, 3, 2, 1].forEach(function (s) {
-    h += '<polygon points="' + AX.map(function (_, k) { return f(pt(k, s)); }).join(' ') + '" fill="' + (s === 4 ? 'rgba(255,255,255,.03)' : 'none') + '" stroke="rgba(255,255,255,' + (s === 4 ? '.30' : '.13') + ')" stroke-width="' + (s === 4 ? 1.4 : 1) + '"/>';
+    h += '<polygon points="' + AX.map(function (_, k) { return f(pt(k, s)); }).join(' ') + '" fill="' + (s === 4 ? '#F7F8FA' : 'none') + '" stroke="rgba(24,24,24,' + (s === 4 ? '.22' : '.10') + ')" stroke-width="' + (s === 4 ? 1.4 : 1) + '"/>';
   });
-  AX.forEach(function (_, k) { var p = pt(k, 4); h += '<line x1="' + CX + '" y1="' + CY + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '" stroke="rgba(255,255,255,.13)"/>'; });
+  AX.forEach(function (_, k) { var p = pt(k, 4); h += '<line x1="' + CX + '" y1="' + CY + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '" stroke="rgba(24,24,24,.10)"/>'; });
   var has = AX.some(function (c) { return vals[c] != null; });
   if (has) {
-    h += '<polygon points="' + AX.map(function (c, k) { return f(pt(k, Math.max(0.25, vals[c] || 0))); }).join(' ') + '" fill="#C60000" fill-opacity=".28" stroke="#FF6B6B" stroke-width="2.6" stroke-linejoin="round"/>';
+    h += '<polygon points="' + AX.map(function (c, k) { return f(pt(k, Math.max(0.25, vals[c] || 0))); }).join(' ') + '" fill="#C60000" fill-opacity=".14" stroke="#C60000" stroke-width="2.4" stroke-linejoin="round"/>';
     AX.forEach(function (c, k) {
       if (vals[c] == null) return;
       var p = pt(k, Math.max(0.25, vals[c])), top = tops.indexOf(c) > -1;
-      if (top) h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="13" fill="none" stroke="' + RC[c] + '" stroke-opacity=".6" stroke-width="2"/>';
-      h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (top ? 7.5 : 5.5) + '" fill="' + RC[c] + '" stroke="#232325" stroke-width="2"/>';
+      if (top) h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="12" fill="none" stroke="' + RED + '" stroke-opacity=".35" stroke-width="2"/>';
+      h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (top ? 7 : 5) + '" fill="' + (top ? RED : RC[c]) + '" stroke="#FFFFFF" stroke-width="2"/>';
     });
   }
   var ip = radarGeo(CX, CY, R + 38);
   AX.forEach(function (c, k) {
     var p = ip(k, 4), top = tops.indexOf(c) > -1, s = top ? 46 : 40;
-    h += '<rect x="' + (p[0] - s / 2).toFixed(1) + '" y="' + (p[1] - s / 2).toFixed(1) + '" width="' + s + '" height="' + s + '" rx="12" fill="#FBF7F0" stroke="' + RC[c] + '" stroke-width="' + (top ? 4 : 2.5) + '"/>';
-    h += '<image href="' + IC + P[c].icon + '.webp" x="' + (p[0] - s * .4).toFixed(1) + '" y="' + (p[1] - s * .4).toFixed(1) + '" width="' + (s * .8) + '" height="' + (s * .8) + '"/>';
+    h += '<rect x="' + (p[0] - s / 2).toFixed(1) + '" y="' + (p[1] - s / 2).toFixed(1) + '" width="' + s + '" height="' + s + '" rx="12" fill="' + (top ? RED : '#FFFFFF') + '" stroke="' + (top ? RED : '#D5DADF') + '" stroke-width="1.5"/>';
+    var is = s * .5;
+    h += '<g transform="translate(' + (p[0] - is / 2).toFixed(1) + ',' + (p[1] - is / 2).toFixed(1) + ') scale(' + (is / 24).toFixed(3) + ')" fill="none" stroke="' + (top ? '#FFFFFF' : '#2C3A42') + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + GI[P[c].icon] + '</g>';
   });
   return h + '</svg>';
 }
 function legend(vals, tops, sorted) {
   return '<div class="g-leg">' + sorted.map(function (c) {
     var top = tops.indexOf(c) > -1;
-    return '<div class="g-lrow' + (top ? ' top' : '') + '" style="--rc:' + RC[c] + '">' + img(P[c].icon) + '<div><b>' + P[c].name + '</b><small>' + (top ? '★ ваша роль · ' : '') + word(vals[c]) + '</small></div>' + meter(dots(vals[c]), RC[c]) + '</div>';
+    return '<div class="g-lrow' + (top ? ' top' : '') + '" style="--rc:' + (top ? RED : RC[c]) + '">' + img(P[c].icon) + '<div><b>' + P[c].name + '</b><small>' + (top ? 'ваш архетип · ' : '') + word(vals[c]) + '</small></div>' + meter(dots(vals[c]), RC[c]) + '</div>';
   }).join('') + '</div>';
 }
 var DEMO = { IN: 3, CR: 4, MA: 1, OP: 1.5, CO: 3, SA: 2, CL: 3.5, TE: 1 };
 
 /* ── Экраны ── */
 function vIntro() {
+  var stats = [['spisok', '17', 'вопросов'], ['chasy', '4', 'минуты'], ['podarok', '0 сум', 'бесплатно'], ['zamok', 'Без', 'регистрации']];
   return sec(
     '<div class="g-hero">' +
-      '<div class="eyebrow">ИГРА ОТ FBT ONLINE</div>' +
-      '<h1>Кто вы<span>в бизнесе?</span></h1>' +
-      '<p>Ситуации из жизни и пара вопросов о вас. Отвечайте, как поступили бы на самом деле, — и узнаете, какая работа в бизнесе вам по душе.</p>' +
-      '<div class="g-faces">' + ['insayt', 'vozmozhnost', 'prodazha', 'komanda'].map(function (n) { return '<div>' + img(n) + '</div>'; }).join('') + '</div>' +
-      '<div class="g-pills"><span><b>17</b> вопросов</span><span><b>4</b> минуты</span><span>Бесплатно</span><span>Без регистрации</span></div>' +
-      '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Начать игру' + arrow() + '</button>' +
+      '<div class="eyebrow">ИГРА-ТЕСТ · FBT ONLINE</div>' +
+      '<h1>Определите свой<span>бизнес-архетип</span></h1>' +
+      '<p class="g-lead">И найдите бизнес, который подходит вам больше всего.</p>' +
+      '<p>Ситуации из жизни и пара вопросов о вас. Отвечайте, как поступили бы на самом деле.</p>' +
+      '<div class="g-stats">' + stats.map(function (x) { return '<div class="g-stat"><span class="gi">' + gsvg(x[0]) + '</span><b>' + x[1] + '</b><small>' + x[2] + '</small></div>'; }).join('') + '</div>' +
+      '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Определить свой архетип' + arrow() + '</button>' +
     '</div>' +
-    '<div class="g-ex"><div class="g-info-cap">ТАК БУДЕТ ВЫГЛЯДЕТЬ ВАШ РЕЗУЛЬТАТ</div><div class="g-info-sub">Пример: Создатель + Коммуникатор. Чем дальше точка от центра, тем интереснее вам эта работа.</div>' +
+    '<div class="g-arch"><div class="g-sec-h">8 бизнес-архетипов.<span>Какой из них ваш?</span></div>' +
+      '<div class="g-arch-grid">' + AX.map(function (c) { return '<div><span class="gi">' + gsvg(P[c].icon) + '</span><span><b>' + P[c].name + '</b><small>' + P[c].tasks[0] + '</small></span></div>'; }).join('') + '</div></div>' +
+    '<div class="g-ex"><div class="g-sec-h">Так будет выглядеть<span>ваш результат</span></div><div class="g-info-sub">Пример: Создатель + Коммуникатор. Чем дальше точка от центра, тем интереснее вам эта работа.</div>' +
       radarSVG(DEMO, ['CR', 'CL'], 'Пример карты интересов') + '</div>' +
-    '<div class="g-h3">КАК УСТРОЕНА ИГРА</div>' +
-    '<div class="g-how">' +
-      PARTS.map(function (k, n) { var pp = PART[k], cnt = Q.filter(function (q) { return q.kind === k; }).length;
-        return '<div><i style="background:' + pp.color + ';color:#181818">' + (n + 1) + '</i><span><b>' + pp.name + '</b> · ' + cnt + ' ' + (cnt > 4 ? 'вопросов' : 'вопроса') + '. ' + pp.how + '</span></div>'; }).join('') +
-    '</div>' +
-    '<div class="g-how"><div><i>🎁</i><span>В конце — ваша роль, карта интересов, идеи дел в Узбекистане и один простой шаг на эту неделю.</span></div></div>' +
     '<p class="g-note">Это игра, а не научный тест. Она показывает, что вам интересно, но не оценивает способности и не обещает успех. Ответы остаются на вашем телефоне.</p>'
   );
 }
@@ -582,7 +615,7 @@ function vQuiz() {
   var inPart = Q.filter(function (x) { return x.kind === q.kind; }), pos = inPart.indexOf(q) + 1;
   var segs = Q.map(function (x, k) { return '<span class="' + (k < S.i ? 'done' : k === S.i ? 'now' : '') + '" style="--sc:' + PART[x.kind].color + '"></span>'; }).join('');
   var opts = S.ord[q.id].map(function (k) {
-    var e = q.e && q.e[k] ? '<span class="g-em" aria-hidden="true">' + q.e[k] + '</span>' : '';
+    var e = '<span class="g-em" aria-hidden="true">' + 'АБВГДЕ'.charAt(S.ord[q.id].indexOf(k)) + '</span>';
     return '<button type="button" class="opt" role="radio" aria-checked="' + (cur === k ? 'true' : 'false') + '" data-act="ans" data-v="' + k + '">' + e + '<span>' + esc(q.a[k][0]) + '</span></button>';
   }).join('');
   return sec(
@@ -651,30 +684,30 @@ function vResult() {
   var r = compute(), L = r.leaders, names = L.map(function (x) { return P[x.code].name; });
   var title = r.mode === 'few' ? 'Пока мало ответов' : r.mode === 'wide' ? 'Вы — <span>универсал</span>' :
     names.length === 2 ? names[0] + '<span>+ ' + names[1].toLowerCase() + '</span>' : esc(names[0] || '');
-  var lead = r.mode === 'few' ? 'Вы пропустили много ситуаций, поэтому роль определить нельзя. Пройдите ещё раз — это займёт 4 минуты.' :
+  var lead = r.mode === 'few' ? 'Вы пропустили много ситуаций, поэтому архетип определить нельзя. Пройдите ещё раз — это займёт 4 минуты.' :
     r.mode === 'wide' ? 'Вам интересно сразу несколько сторон бизнеса: ' + names.join(', ').toLowerCase() + '. Так часто бывает у тех, кто начинает своё дело.' :
-    r.mode === 'soft' ? 'Ярко выраженной роли пока нет, но эти задачи откликнулись вам больше других.' :
+    r.mode === 'soft' ? 'Ярко выраженного архетипа пока нет, но эти задачи откликнулись вам больше других.' :
     'Эти задачи в бизнесе вам интереснее всего. В них проще найти своё место и не выгореть.';
   var icons = (L.length ? L.slice(0, 2) : [{ code: 'IN' }]).map(function (x) { return '<div>' + img(P[x.code].icon) + '</div>'; }).join('');
   var vals = {}; r.agg.forEach(function (x) { vals[x.code] = x.avg; });
   var tops = L.map(function (x) { return x.code; });
   var sorted = r.agg.map(function (x) { return x.code; }).concat(AX.filter(function (c) { return vals[c] == null; }));
-  var info = r.agg.length ? '<div class="g-h3">ВАША КАРТА ИНТЕРЕСОВ</div><div class="g-info"><div class="g-info-cap">8 РОЛЕЙ В БИЗНЕСЕ</div>' +
-    '<div class="g-info-sub">Чем дальше точка от центра, тем интереснее вам эта работа. Крупные точки — ваши роли.</div>' +
+  var info = r.agg.length ? '<div class="g-h3">ВАША КАРТА ИНТЕРЕСОВ</div><div class="g-info"><div class="g-info-cap">8 БИЗНЕС-АРХЕТИПОВ</div>' +
+    '<div class="g-info-sub">Чем дальше точка от центра, тем интереснее вам эта работа. Красные точки — ваш архетип.</div>' +
     radarSVG(vals, tops, 'Карта интересов: ' + sorted.map(function (c) { return P[c].name + ' — ' + word(vals[c]); }).join(', ')) +
     legend(vals, tops, sorted) + '</div>' : '';
   var cards = L.map(function (x) {
     var p = P[x.code];
-    return '<div class="g-card" style="border-left:5px solid ' + RC[x.code] + '"><h3>' + img(p.icon) + p.name + '</h3><p>' + p.desc + '</p><ul>' + p.tasks.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
+    return '<div class="g-card g-card--top"><h3>' + img(p.icon) + p.name + '</h3><p>' + p.desc + '</p><ul>' + p.tasks.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
   }).join('');
-  var step = L.length ? P[L[0].code].step : 'Пройдите игру ещё раз и отвечайте на каждую ситуацию — так вы получите свою роль и первый шаг.';
+  var step = L.length ? P[L[0].code].step : 'Пройдите игру ещё раз и отвечайте на каждую ситуацию — так вы получите свой архетип и первый шаг.';
   var fam = S.ans['A-C2'];
   var expK = S.ans['X-EXP'], expBlock = '';
   if (expK != null) {
     var eo = qById('X-EXP').a[expK], ec = eo[2];
     var etail = !ec ? 'Опыта своего дела пока нет — это нормально. Шаг ниже поможет его получить.' :
-      L.some(function (x) { return x.code === ec; }) ? 'Это совпадает с вашей ролью — хороший знак: вы уже умеете то, что вам интересно.' :
-      'Это сильная сторона роли «' + P[ec].name + '». Возможно, вы уже умеете больше, чем думаете.';
+      L.some(function (x) { return x.code === ec; }) ? 'Это совпадает с вашим архетипом — хороший знак: вы уже умеете то, что вам интересно.' :
+      'Это сильная сторона архетипа «' + P[ec].name + '». Возможно, вы уже умеете больше, чем думаете.';
     expBlock = '<div class="g-card"><h3>' + img('rezultat') + 'Ваш опыт</h3><p>' + (ec ? 'Чаще всего вас благодарят за это: «' + esc(eo[0]) + '».' : 'Пока вы работали за зарплату.') + ' ' + etail + '</p></div>';
   }
   var ideasBlock = '';
@@ -693,14 +726,14 @@ function vResult() {
       '<p><b>Кто из семьи может помочь.</b> ' + FAMLINE[L[0].code] + '</p></div>';
   }
   return sec(
-    '<div class="g-res"><div class="eyebrow">ВАША РОЛЬ В БИЗНЕСЕ</div><div class="g-res-ico">' + icons + '</div><h2>' + title + '</h2><p>' + lead + '</p></div>' +
+    '<div class="g-res"><div class="eyebrow">ВАШ БИЗНЕС-АРХЕТИП</div><div class="g-res-ico">' + icons + '</div><h2>' + title + '</h2><p>' + lead + '</p></div>' +
     info +
     (L.length ? '<div class="g-h3">ЧТО ВАМ ПОДОЙДЁТ</div>' + cards : '') +
     expBlock +
     '<div class="g-h3">ШАГ НА ЭТУ НЕДЕЛЮ</div><div class="g-step"><small>ПРОВЕРЬТЕ СЕБЯ В ДЕЛЕ</small><p>' + step + '</p></div>' +
     ideasBlock + giveBlock +
-    '<div class="g-h3">ВАША УВЕРЕННОСТЬ</div><div class="g-gauges">' + gauge('A-E1', '🗣️ Разговор с клиентом', '') + gauge('A-E2', '🗓️ План на неделю', '') +
-      (S.ans['X-SALE'] != null ? '<div class="g-gauge wide" style="--rc:#F2C46D"><b>🛍️ Продажи</b>' + meter([4, 2, 1][S.ans['X-SALE']], '#F2C46D') + SALE[S.ans['X-SALE']] + '</div>' : '') + '</div>' +
+    '<div class="g-h3">ВАША УВЕРЕННОСТЬ</div><div class="g-gauges">' + gauge('A-E1', img('razgovor') + ' Разговор с клиентом', '') + gauge('A-E2', img('kalendar') + ' План на неделю', '') +
+      (S.ans['X-SALE'] != null ? '<div class="g-gauge wide" style="--rc:#5A6E7A"><b>' + img('prodazha') + ' Продажи</b>' + meter([4, 2, 1][S.ans['X-SALE']], '#5A6E7A') + SALE[S.ans['X-SALE']] + '</div>' : '') + '</div>' +
     '<div class="g-btns"><div class="g-two"><button type="button" class="btn btn--sm" data-act="png">Сохранить картинку</button><button type="button" class="btn btn--sm" data-act="share">Поделиться</button></div><div class="g-status" id="gStatus" role="status"></div></div>' +
     '<div class="g-final"><p>Семейный бизнес не начинается всей семьёй за одним столом. Он начинается с одного человека, который решился сделать первый шаг.</p>' +
       (S.ans['X-WHY'] != null ? '<small>' + WHY[S.ans['X-WHY']] + '</small>' : '') + '</div>' +
@@ -708,7 +741,7 @@ function vResult() {
       'Пройдите короткую часть вдвоём — с супругом, родственником или другом. Увидите, в чём ваши цели совпадают и о чём стоит договориться заранее.</p>' +
       '<button type="button" class="btn btn--primary btn--block mt-14" data-act="famIntro">Пройти вдвоём' + arrow() + '</button></div>' +
     '<div class="g-fbt"><div class="eyebrow">FAMILY BUSINESS TRAINING</div><h3>Как создать устойчивый семейный бизнес в Узбекистане в 2026 году</h3>' +
-      '<p>Знать свою роль — хорошее начало. Дальше нужны понятная бизнес-модель, клиенты, финансы и договорённости в семье. Люба Бэй разбирает это в бесплатном видеоразборе.</p>' +
+      '<p>Знать свой бизнес-архетип — хорошее начало. Дальше нужны понятная бизнес-модель, клиенты, финансы и договорённости в семье. Люба Бэй разбирает это в бесплатном видеоразборе.</p>' +
       '<a class="btn btn--white" href="../index.html">Смотреть видеоразбор' + arrow() + '</a></div>' +
     '<button type="button" class="g-skip mt-24" data-act="restart" style="display:block;margin-left:auto;margin-right:auto">Пройти заново</button>' +
     '<p class="g-note" style="text-align:center">Это игра, а не научный тест: она показывает интересы, а не способности.</p>'
@@ -717,7 +750,7 @@ function vResult() {
 
 function vFamIntro() {
   return sec(
-    '<button type="button" class="btn btn--sm" data-act="result">← К моей роли</button>' +
+    '<button type="button" class="btn btn--sm" data-act="result">← К моему архетипу</button>' +
     '<div class="g-res mt-20"><div class="eyebrow">ИГРА ВДВОЁМ</div><div class="g-res-ico"><div>' + img('semya') + '</div><div>' + img('komanda') + '</div></div>' +
       '<h2>Дело <span>на двоих</span></h2><p>Каждый по очереди отвечает на 7 коротких вопросов: за что хочет отвечать, ради чего это дело и кто что решает. В конце — общая карта для разговора.</p></div>' +
     '<div class="g-how"><div><i>1</i><span>Первым отвечаете вы, потом передаёте телефон близкому человеку.</span></div>' +
@@ -857,8 +890,8 @@ APP.addEventListener('click', function (e) {
 function status(t) { var el = document.getElementById('gStatus'); if (el) el.textContent = t; }
 function shareText() {
   var r = compute(), names = r.leaders.map(function (x) { return P[x.code].name; });
-  return 'Я прошёл(ла) игру «Кто вы в бизнесе?» от FBT Online. Моя роль: ' + (r.mode === 'wide' ? 'универсал (' + names.join(', ').toLowerCase() + ')' : names.join(' + ') || '—') +
-    '. А вы кто в бизнесе? ' + location.origin + location.pathname;
+  return 'Я определил(а) свой бизнес-архетип в игре FBT Online: ' + (r.mode === 'wide' ? 'универсал (' + names.join(', ').toLowerCase() + ')' : names.join(' + ') || '—') +
+    '. А какой ваш? ' + location.origin + location.pathname;
 }
 function wrapText(g, text, x, y, maxW, lh) {
   var words = text.split(' '), line = '';
@@ -874,12 +907,12 @@ function card() {
   var tops = L.map(function (x) { return x.code; });
   status('Готовлю картинку…');
   var fonts = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('600 80px "Golos Text"'), document.fonts.load('500 40px "Golos Text"')]).catch(function () {}) : Promise.resolve();
-  fonts.then(function () { return Promise.all(AX.map(function (c) { return loadImg(IC + P[c].icon + '.webp'); })); }).then(function (ims) {
+  fonts.then(function () { return Promise.all(AX.map(function (c) { return loadImg(gsrc(P[c].icon, tops.indexOf(c) > -1 ? '#FFFFFF' : '#2C3A42')); })); }).then(function (ims) {
     var c = document.createElement('canvas'); c.width = 1080; c.height = 1920; var g = c.getContext('2d');
     g.fillStyle = '#181818'; g.fillRect(0, 0, 1080, 1920);
     g.fillStyle = '#C60000'; g.fillRect(90, 130, 12, 60);
     g.fillStyle = '#FFFFFF'; g.font = '600 36px ' + FF; g.fillText('IMPACT CONSULTING · FBT ONLINE', 126, 174);
-    g.fillStyle = '#FF6B6B'; g.font = '600 40px ' + FF; g.fillText('МОЯ РОЛЬ В БИЗНЕСЕ', 90, 300);
+    g.fillStyle = '#FF6B6B'; g.font = '600 40px ' + FF; g.fillText('МОЙ БИЗНЕС-АРХЕТИП', 90, 300);
     var names = r.mode === 'wide' ? ['Универсал'] : L.map(function (x) { return P[x.code].name; });
     var y = 410;
     names.forEach(function (n, k) { g.fillStyle = k ? '#A2C3CD' : '#FFFFFF'; g.font = '600 ' + (n.length > 12 ? 92 : 108) + 'px ' + FF; g.fillText((k ? '+ ' : '') + n, 90, y); y += 118; });
@@ -895,14 +928,13 @@ function card() {
     g.fillStyle = 'rgba(198,0,0,.32)'; g.fill(); g.strokeStyle = '#FF6B6B'; g.lineWidth = 6; g.lineJoin = 'round'; g.stroke();
     AX.forEach(function (cd, k) {
       if (vals[cd] == null) return; var p = pt(k, Math.max(0.25, vals[cd])), top = tops.indexOf(cd) > -1;
-      g.beginPath(); g.arc(p[0], p[1], top ? 20 : 14, 0, 7); g.fillStyle = RC[cd]; g.fill(); g.lineWidth = 5; g.strokeStyle = '#232325'; g.stroke();
+      g.beginPath(); g.arc(p[0], p[1], top ? 20 : 14, 0, 7); g.fillStyle = top ? '#FF6B6B' : '#A2C3CD'; g.fill(); g.lineWidth = 5; g.strokeStyle = '#232325'; g.stroke();
     });
     var ip = radarGeo(CX, CY, R + 92);
     AX.forEach(function (cd, k) {
       var p = ip(k, 4), top = tops.indexOf(cd) > -1, sz = top ? 124 : 104;
-      g.fillStyle = '#FBF7F0'; rr(g, p[0] - sz / 2, p[1] - sz / 2, sz, sz, 28); g.fill();
-      g.lineWidth = top ? 10 : 6; g.strokeStyle = RC[cd]; g.stroke();
-      if (ims[k]) g.drawImage(ims[k], p[0] - sz * .4, p[1] - sz * .4, sz * .8, sz * .8);
+      g.fillStyle = top ? '#C60000' : '#FFFFFF'; rr(g, p[0] - sz / 2, p[1] - sz / 2, sz, sz, 28); g.fill();
+      if (ims[k]) g.drawImage(ims[k], p[0] - sz * .28, p[1] - sz * .28, sz * .56, sz * .56);
     });
     /* Топ-3 роли подписями */
     var t3 = r.agg.slice(0, 3), x = 90; g.font = '600 38px ' + FF;
@@ -910,27 +942,27 @@ function card() {
       var label = P[it.code].name, w = g.measureText(label).width + 84;
       if (x + w > 1000) return;
       g.fillStyle = 'rgba(255,255,255,.08)'; rr(g, x, 1545, w, 76, 38); g.fill();
-      g.beginPath(); g.arc(x + 38, 1583, 13, 0, 7); g.fillStyle = RC[it.code]; g.fill();
+      g.beginPath(); g.arc(x + 38, 1583, 13, 0, 7); g.fillStyle = tops.indexOf(it.code) > -1 ? '#FF6B6B' : '#A2C3CD'; g.fill();
       g.fillStyle = '#F2F2F4'; g.fillText(label, x + 64, 1597); x += w + 16;
     });
     g.fillStyle = '#232325'; g.fillRect(0, 1680, 1080, 240);
-    g.fillStyle = '#FFFFFF'; g.font = '600 52px ' + FF; g.fillText('А вы кто в бизнесе?', 90, 1775);
+    g.fillStyle = '#FFFFFF'; g.font = '600 52px ' + FF; g.fillText('А какой ваш бизнес-архетип?', 90, 1775);
     g.fillStyle = '#A2C3CD'; g.font = '500 38px ' + FF; g.fillText('fbt-online.pages.dev/igra-profil', 90, 1845);
     c.toBlob(function (blob) {
       if (!blob) { status('Не получилось сохранить картинку'); return; }
-      var file = null; try { file = new File([blob], 'kto-vy-v-biznese.png', { type: 'image/png' }); } catch (e) {}
+      var file = null; try { file = new File([blob], 'biznes-arhetip.png', { type: 'image/png' }); } catch (e) {}
       if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator.share({ files: [file], title: 'Кто вы в бизнесе?' }).then(function () { status('Готово'); }).catch(function () { status(''); });
+        navigator.share({ files: [file], title: 'Мой бизнес-архетип' }).then(function () { status('Готово'); }).catch(function () { status(''); });
         return;
       }
-      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'kto-vy-v-biznese.png'; document.body.appendChild(a); a.click(); a.remove();
+      var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'biznes-arhetip.png'; document.body.appendChild(a); a.click(); a.remove();
       status('Картинка сохранена');
     }, 'image/png');
   });
 }
 function share() {
   var t = shareText();
-  if (navigator.share) { navigator.share({ title: 'Кто вы в бизнесе?', text: t }).catch(function () {}); return; }
+  if (navigator.share) { navigator.share({ title: 'Мой бизнес-архетип', text: t }).catch(function () {}); return; }
   if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(t).then(function () { status('Текст скопирован — вставьте его в сообщение'); }, function () { status(t); }); return; }
   status(t);
 }
