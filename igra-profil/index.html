@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="../assets/ic-dark.css">
 <link rel="stylesheet" href="../assets/contrast.css">
 <link rel="stylesheet" href="../assets/ic-home.css?v=5.71">
-<link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.78">
+<link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.80">
 <style>
 /* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
 body.ic .g-scr { padding: 40px 0 72px; }
@@ -516,7 +516,9 @@ function fresh() { return { scr: 'intro', i: 0, ans: {}, ord: shuffleAll(), fam:
 var S = fresh();
 
 function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-function img(n) { return '<span class="gi">' + gsvg(n) + '</span>'; }
+var IA = '../assets/icons/arhetip/'; /* 03.11 v5.79: 3D-иконки от ChatGPT (26 шт.) вместо временных линейных */
+function ipic(n) { return '<img src="' + IA + n + '.webp" alt="" loading="lazy" width="160" height="160">'; }
+function img(n) { return '<span class="gi">' + ipic(n) + '</span>'; }
 function arrow() { return '<svg><use href="#i-right"/></svg>'; }
 function sec(inner) { return '<section class="ic-top g-scr"><div class="g-wrap">' + inner + '</div></section>'; }
 function opt(label, on, act, val) {
@@ -535,7 +537,7 @@ function radarGeo(CX, CY, R) {
   return function (k, v) { var a = (-90 + k * 45) * Math.PI / 180; return [CX + Math.cos(a) * R * v / 4, CY + Math.sin(a) * R * v / 4]; };
 }
 function radarSVG(vals, tops, label) {
-  var CX = 180, CY = 180, R = 112, pt = radarGeo(CX, CY, R);
+  var CX = 180, CY = 180, R = 106, pt = radarGeo(CX, CY, R);
   function f(p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }
   var h = '<svg viewBox="0 0 360 360" role="img" aria-label="' + esc(label) + '">';
   [4, 3, 2, 1].forEach(function (s) {
@@ -554,17 +556,17 @@ function radarSVG(vals, tops, label) {
   }
   var ip = radarGeo(CX, CY, R + 38);
   AX.forEach(function (c, k) {
-    var p = ip(k, 4), top = tops.indexOf(c) > -1, s = top ? 46 : 40;
-    h += '<rect x="' + (p[0] - s / 2).toFixed(1) + '" y="' + (p[1] - s / 2).toFixed(1) + '" width="' + s + '" height="' + s + '" rx="12" fill="' + (top ? RED : '#FFFFFF') + '" stroke="' + (top ? RED : '#D5DADF') + '" stroke-width="1.5"/>';
-    var is = s * .5;
-    h += '<g transform="translate(' + (p[0] - is / 2).toFixed(1) + ',' + (p[1] - is / 2).toFixed(1) + ') scale(' + (is / 24).toFixed(3) + ')" fill="none" stroke="' + (top ? '#FFFFFF' : '#2C3A42') + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + GI[P[c].icon] + '</g>';
+    var p = ip(k, 4), top = tops.indexOf(c) > -1, s = top ? 54 : 48;
+    h += '<rect x="' + (p[0] - s / 2).toFixed(1) + '" y="' + (p[1] - s / 2).toFixed(1) + '" width="' + s + '" height="' + s + '" rx="12" fill="#FFFFFF" stroke="' + (top ? RED : '#D5DADF') + '" stroke-width="' + (top ? 2.6 : 1.5) + '"/>';
+    var is = s * .92;
+    h += '<image href="' + IA + P[c].icon + '.webp" x="' + (p[0] - is / 2).toFixed(1) + '" y="' + (p[1] - is / 2).toFixed(1) + '" width="' + is.toFixed(1) + '" height="' + is.toFixed(1) + '"/>';
   });
   return h + '</svg>';
 }
 function legend(vals, tops, sorted) {
   return '<div class="g-leg">' + sorted.map(function (c) {
     var top = tops.indexOf(c) > -1;
-    return '<div class="g-lrow' + (top ? ' top' : '') + '" style="--rc:' + (top ? RED : RC[c]) + '">' + img(P[c].icon) + '<div><b>' + P[c].name + '</b><small>' + (top ? 'ваш архетип · ' : '') + word(vals[c]) + '</small></div>' + meter(dots(vals[c]), RC[c]) + '</div>';
+    return '<div class="g-lrow' + (top ? ' top' : '') + '" style="--rc:' + (top ? RED : RC[c]) + '">' + img(P[c].icon) + '<div><b>' + P[c].name + '</b><small>' + (top ? 'ваш архетип · ' : '') + word(vals[c]) + '</small></div>' + meter(dots(vals[c]), top ? RED : RC[c]) + '</div>';
   }).join('') + '</div>';
 }
 var DEMO = { IN: 3, CR: 4, MA: 1, OP: 1.5, CO: 3, SA: 2, CL: 3.5, TE: 1 };
@@ -578,11 +580,11 @@ function vIntro() {
       '<h1>Определите свой<span>бизнес-архетип</span></h1>' +
       '<p class="g-lead">И найдите бизнес, который подходит вам больше всего.</p>' +
       '<p>Ситуации из жизни и пара вопросов о вас. Отвечайте, как поступили бы на самом деле.</p>' +
-      '<div class="g-stats">' + stats.map(function (x) { return '<div class="g-stat"><span class="gi">' + gsvg(x[0]) + '</span><b>' + x[1] + '</b><small>' + x[2] + '</small></div>'; }).join('') + '</div>' +
+      '<div class="g-stats">' + stats.map(function (x) { return '<div class="g-stat"><span class="gi">' + ipic(x[0]) + '</span><b>' + x[1] + '</b><small>' + x[2] + '</small></div>'; }).join('') + '</div>' +
       '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Определить свой архетип' + arrow() + '</button>' +
     '</div>' +
     '<div class="g-arch"><div class="g-sec-h">8 бизнес-архетипов.<span>Какой из них ваш?</span></div>' +
-      '<div class="g-arch-grid">' + AX.map(function (c) { return '<div><span class="gi">' + gsvg(P[c].icon) + '</span><span><b>' + P[c].name + '</b><small>' + P[c].tasks[0] + '</small></span></div>'; }).join('') + '</div></div>' +
+      '<div class="g-arch-grid">' + AX.map(function (c) { return '<div><span class="gi">' + ipic(P[c].icon) + '</span><span><b>' + P[c].name + '</b><small>' + P[c].tasks[0] + '</small></span></div>'; }).join('') + '</div></div>' +
     '<div class="g-ex"><div class="g-sec-h">Так будет выглядеть<span>ваш результат</span></div><div class="g-info-sub">Пример: Создатель + Коммуникатор. Чем дальше точка от центра, тем интереснее вам эта работа.</div>' +
       radarSVG(DEMO, ['CR', 'CL'], 'Пример карты интересов') + '</div>' +
     '<p class="g-note">Это игра, а не научный тест. Она показывает, что вам интересно, но не оценивает способности и не обещает успех. Ответы остаются на вашем телефоне.</p>'
@@ -907,7 +909,7 @@ function card() {
   var tops = L.map(function (x) { return x.code; });
   status('Готовлю картинку…');
   var fonts = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('600 80px "Golos Text"'), document.fonts.load('500 40px "Golos Text"')]).catch(function () {}) : Promise.resolve();
-  fonts.then(function () { return Promise.all(AX.map(function (c) { return loadImg(gsrc(P[c].icon, tops.indexOf(c) > -1 ? '#FFFFFF' : '#2C3A42')); })); }).then(function (ims) {
+  fonts.then(function () { return Promise.all(AX.map(function (c) { return loadImg(IA + P[c].icon + '.webp'); })); }).then(function (ims) {
     var c = document.createElement('canvas'); c.width = 1080; c.height = 1920; var g = c.getContext('2d');
     g.fillStyle = '#181818'; g.fillRect(0, 0, 1080, 1920);
     g.fillStyle = '#C60000'; g.fillRect(90, 130, 12, 60);
@@ -933,8 +935,8 @@ function card() {
     var ip = radarGeo(CX, CY, R + 92);
     AX.forEach(function (cd, k) {
       var p = ip(k, 4), top = tops.indexOf(cd) > -1, sz = top ? 124 : 104;
-      g.fillStyle = top ? '#C60000' : '#FFFFFF'; rr(g, p[0] - sz / 2, p[1] - sz / 2, sz, sz, 28); g.fill();
-      if (ims[k]) g.drawImage(ims[k], p[0] - sz * .28, p[1] - sz * .28, sz * .56, sz * .56);
+      g.fillStyle = '#FFFFFF'; rr(g, p[0] - sz / 2, p[1] - sz / 2, sz, sz, 28); g.fill(); if (top) { g.lineWidth = 8; g.strokeStyle = '#FF6B6B'; g.stroke(); }
+      if (ims[k]) g.drawImage(ims[k], p[0] - sz * .42, p[1] - sz * .42, sz * .84, sz * .84);
     });
     /* Топ-3 роли подписями */
     var t3 = r.agg.slice(0, 3), x = 90; g.font = '600 38px ' + FF;

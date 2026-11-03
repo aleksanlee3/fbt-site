@@ -122,3 +122,25 @@ body.g-light .g-final small { color: var(--g-muted); }
 body.g-light :is(.g-mrow, .g-text, .g-tri button) { background: var(--g-white); border-color: var(--g-line); color: var(--g-ink); }
 body.g-light .g-tri button.on { background: var(--g-red); border-color: var(--g-red); color: #fff; }
 body.g-light .g-check { background: var(--g-bg); color: var(--g-ink); }
+
+/* ── v5.79 (03.11.2026): 3D-иконки от ChatGPT. Плашка всегда белая, свой архетип — красная рамка ── */
+.gi { background: var(--g-white); border: 1px solid var(--g-line); overflow: hidden; }
+.gi img { width: 86%; height: 86%; object-fit: contain; display: block; }
+.g-stat .gi { width: 52px; height: 52px; border-radius: 14px; }
+.g-arch-grid .gi { width: 52px; height: 52px; border-radius: 14px; }
+body.g-light .g-ico .gi, body.g-light .g-gate .g-big .gi, body.g-light .g-res-ico .gi { border: 0; background: none; }
+body.g-light .g-ico { width: 72px; height: 72px; }
+body.g-light .g-gate .g-big { width: 120px; height: 120px; background: var(--g-white); border: 1px solid var(--g-line); }
+body.g-light .g-res-ico div { width: 104px; height: 104px; background: var(--g-white); border: 2px solid var(--g-red); }
+body.g-light .g-lrow .gi { width: 40px; height: 40px; }
+body.g-light .g-lrow.top .gi { background: var(--g-white); border: 2px solid var(--g-red); }
+body.g-light .g-card h3 .gi { width: 52px; height: 52px; }
+body.g-light .g-card--top h3 .gi { background: var(--g-white); border: 2px solid var(--g-red); }
+body.g-light .g-gauge b .gi { width: 36px; height: 36px; }
+
+/* крупнее: иконки должны читаться на телефоне */
+.gi img { width: 94%; height: 94%; }
+.g-stat .gi { width: 64px; height: 64px; border-radius: 16px; }
+.g-arch-grid .gi { width: 68px; height: 68px; border-radius: 16px; }
+
+body.g-light .g-meter i.on, body.g-light .g-gauge .g-meter i.on { background: var(--rc); }
