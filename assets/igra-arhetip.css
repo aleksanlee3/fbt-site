@@ -203,3 +203,10 @@ body.g-light .g-meter i.on, body.g-light .g-gauge .g-meter i.on { background: va
 a.g-type { text-decoration: none; color: inherit; }
 .g-type-more { margin-top: 8px; font-style: normal; font-size: 15px; font-weight: 600; color: var(--g-red); }
 .g-more { display: inline-block; margin-top: 14px; font-size: 17px; font-weight: 600; color: var(--g-red); text-decoration: none; }
+/* v5.81: фотореалистичные персонажи 2:3 (утверждены 03.11) — рамки 2:3, фото заполняет рамку целиком без обрезки */
+.g-type-pic { aspect-ratio: 2 / 3; background: #2C3A42; }
+.g-type-pic .g-pers:not(.is-ico) { object-fit: cover; }
+.g-pair-pics .g-pers:not(.is-ico) { aspect-ratio: 2 / 3; width: 100%; object-fit: cover; background: #2C3A42; }
+.g-res-pers .g-pers:not(.is-ico) { aspect-ratio: 2 / 3; object-fit: cover; border-radius: 16px; background: #2C3A42; }
+.g-res-pers > div { aspect-ratio: 2 / 3; background: #2C3A42; }
+.g-res-pers .g-pers:not(.is-ico) { width: 100%; height: 100%; aspect-ratio: auto; border-radius: 0; }
