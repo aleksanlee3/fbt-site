@@ -12,8 +12,8 @@ window.FBT_CONFIG = {
 
   // Telegram
   bot: 'fbt_online_bot',        // бот FBT (карта, PDF-разбор, цепочки, оплата)
-  curator: 'aleksanlee',        // куратор: «Отправить куратору», заявки
-  contact: 'aleksanlee',        // «Обсудить в Telegram», «Написать нам»
+  curator: 'Consultant_IC',     // 10.11: новый куратор. Куратор: «Отправить куратору», заявки
+  contact: 'Consultant_IC',     // 10.11: тоже на куратора · «Обсудить в Telegram», «Написать нам»
 
   // Видеоурок (стр. 1)
   video: {
