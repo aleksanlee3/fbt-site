@@ -20,7 +20,15 @@
       if (d.getTime() - TZ > now && SKIP.indexOf(key) < 0) break;
       d.setUTCDate(d.getUTCDate() + 7);
     }
-    return new Date(d.getTime() - TZ);                     // настоящий момент начала
+    var best = d.getTime() - TZ;                           // настоящий момент начала
+    // 10.11: разовые даты вне среды (config.js → razbor.extra, «2026-11-12T11:00» по Ташкенту)
+    var EX = C.extra || [];
+    for (var j = 0; j < EX.length; j++) {
+      var m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/.exec(EX[j]); if (!m) continue;
+      var x = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]) - TZ;
+      if (x > now && x < best) best = x;
+    }
+    return new Date(best);
   }
   function label(at) {
     var t = new Date(at.getTime() + TZ);
