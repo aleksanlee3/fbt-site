@@ -455,3 +455,6 @@ body.ic:not(.ic-dark) .res-stamp { color: #1E8A55; background: rgba(30, 138, 85,
 .send-top + .send-h { display: none; }
 /* 03.11 v5.77: без иконки — пустая левая часть блока не занимает места */
 .send-l:empty, .send-l:not(:has(*)) { display: none; }
+
+/* 11.11 (Александр): галочка «Бот FBT открыт» — зелёная, не серая */
+body.ic .sent .sent-ok { background: #2FA866; color: #fff; }

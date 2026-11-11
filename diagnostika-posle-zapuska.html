@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/fbt.css?v=5.39">
-<link rel="stylesheet" href="assets/p3.css?v=5.77">
+<link rel="stylesheet" href="assets/p3.css?v=5.82">
 <link rel="stylesheet" href="assets/ic-auto.css">
 <link rel="stylesheet" href="assets/ic-theme.css">
 <link rel="stylesheet" href="assets/ic-dark.css"><!-- 06.10 v5.0: графит до отзывов (тёмная тема) -->
@@ -24,6 +24,9 @@
 @media (max-width: 640px) { .hdr-nav > a.hdr-tg { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; white-space: nowrap; } .hdr-nav > a.hdr-tg svg { width: 16px; height: 16px; } .hdr-tg-l { display: none; } }
 .next-card .btn svg { width: 18px; height: 18px; }</style>
 <script>try{localStorage.setItem("fbt_seg","a-posle-zapuska")}catch(e){}</script><!-- 15.10: метка сегмента А -->
+<script>/* 11.11 (Александр): вход с fbt-online.uz — чистая диагностика: без шапки, маршрута «шаг 1–2–3» и ссылок на другие страницы сайта */
+(function(){try{var q=new URLSearchParams(location.search);if(q.get('s')==='fbt_online_uz'||q.get('utm_source')==='fbt-online.uz')sessionStorage.setItem('fbt_clean','1');if(sessionStorage.getItem('fbt_clean')==='1')document.documentElement.classList.add('clean');}catch(e){}})();</script>
+<style>html.clean .topbar, html.clean .funnel-only { display: none !important; }</style>
 <script src="config.js?v=5.81"></script>
 <script src="assets/fbt.js?v=5.63"></script>
 <script src="assets/track.js?v=5.52"></script>
@@ -245,12 +248,7 @@
     <div class="wrap sent">
       <div class="sent-ok"><svg><use href="#i-check"/></svg></div>
       <h1 class="h1 sent-h1">Бот FBT открыт</h1>
-      <p class="sub">Нажмите «Старт» в боте — он пришлёт ваш разбор и PDF. Под PDF будет кнопка «Отправить куратору»: нажмите её, и куратор возьмёт вас на разбор.</p>
-      <div class="grid g-3 sent-3">
-        <div class="card st1"><span class="st-ico vi-box"><img class="vi" src="assets/icons/delegirovanie.webp" alt="" loading="lazy" width="96" height="96"></span><div><span class="num">Шаг 1 · сейчас</span><b>Нажмите «Старт» в боте, а потом — «Отправить куратору»</b></div></div>
-        <div class="card st2"><span class="st-ico vi-box"><img class="vi" src="assets/icons/nastavnik.webp" alt="" loading="lazy" width="96" height="96"></span><div><span class="num">Шаг 2 · куратор</span><b>Ответит голосовыми: что пошло не так, почему и что делать дальше</b></div></div>
-        <div class="card st3"><span class="st-ico vi-box"><img class="vi" src="assets/icons/prodazha.webp" alt="" loading="lazy" width="96" height="96"></span><div><span class="num">Шаг 3 · по желанию</span><b>Если захотите глубже — куратор пригласит на закрытую встречу с Любой и командой</b></div></div>
-      </div>
+      <p class="sub">Нажмите «Старт» в боте и напишите куратору. Он бесплатно разберёт вашу ситуацию.</p>
       <a class="sent-pdf" data-pdf><span class="sp-ico vi-box"><img class="vi" src="assets/icons/diagnostika.webp" alt="" loading="lazy" width="96" height="96"></span><span class="sp-t"><b>PDF с разбором — в боте FBT</b><span>Бот пришлёт его сразу после «Старт»</span></span><span class="sp-btn">Открыть бот</span></a>
       <div class="row gap-14 mt-24 btn-row" style="flex-wrap:wrap;justify-content:center">
         <button type="button" class="btn btn--sm" data-send><svg><use href="#i-send"/></svg>Открыть бот ещё раз</button>
