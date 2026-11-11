@@ -190,6 +190,8 @@ button:disabled{cursor:not-allowed;opacity:.5}
 .cta li .ico{color:var(--slate-light)}
 .btn-red{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:0;border-radius:14px;background:var(--red);color:#fff;padding:18px 20px;font-size:19px;font-weight:800;text-decoration:none;transition:background .15s}
 .btn-red:hover{background:var(--red-dark)}
+.btn-site{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:1.5px solid #fff;border-radius:14px;background:transparent;color:#fff;padding:16px 20px;font-size:18px;font-weight:700;text-decoration:none;margin-bottom:12px;transition:background .15s}
+.btn-site:hover{background:rgba(255,255,255,.12)}
 .btn-dark{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:1.5px solid var(--graphite);border-radius:14px;background:var(--card);color:var(--graphite);padding:16px 20px;font-size:18px;font-weight:700}
 .btn-dark:hover{background:var(--tint)}
 .pdf-row{display:flex;gap:14px;align-items:center;margin-bottom:16px}
@@ -396,7 +398,8 @@ button:disabled{cursor:not-allowed;opacity:.5}
           <li><svg class="ico"><use href="#i-check"/></svg>Поймёте, что мешает прибыли</li>
           <li><svg class="ico"><use href="#i-check"/></svg>Узнаете, с чего начать</li>
         </ul>
-        <a class="btn-red" id="cta-link" href="https://fbt-online.pages.dev/diagnostika-posle-zapuska.html?s=calc&amp;utm_source=calculator&amp;utm_medium=tool&amp;utm_campaign=bezubytochnost" target="_blank" rel="noopener">Пройти диагностику бесплатно<svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a class="btn-site" id="site-link" href="https://fbt-online.uz" target="_blank" rel="noopener">Перейти на сайт FBT<svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a class="btn-red" id="cta-link" href="https://fbt-online.pages.dev/diagnostika-posle-zapuska.html?s=calc&amp;utm_source=calculator&amp;utm_medium=tool&amp;utm_campaign=bezubytochnost" target="_blank" rel="noopener">Пройти диагностику<svg class="ico"><use href="#i-arrow"/></svg></a>
       </section>
 
       <section class="card" aria-labelledby="h-pdf">
@@ -631,6 +634,7 @@ function setup(){
   $('btn-pdf').addEventListener('click',async()=>{if(!last||!last.ok)return toast('Сначала заполните цены и затраты.');const b=$('btn-pdf'),old=b.innerHTML;b.disabled=true;b.textContent='Готовим PDF…';
     try{await makePdf(last);track('CalcPdf');toast('PDF сохранён.')}catch(err){console.error(err);toast('Не получилось создать PDF. Попробуйте ещё раз.')}finally{b.innerHTML=old;b.disabled=!last.ok}});
   $('cta-link').addEventListener('click',()=>track('CalcCta',{q:last?.q||0}));
+  $('site-link').addEventListener('click',()=>track('CalcSite',{}));   // 11.11: кнопка «сайт FBT»
   if('ResizeObserver' in window){let w=0;new ResizeObserver(en=>{const nw=Math.round(en[0].contentRect.width);if(nw!==w){w=nw;drawChart()}}).observe($('graph'))}
   if('IntersectionObserver' in window){const bar=$('bar');new IntersectionObserver(en=>{bar.classList.toggle('show',!en[0].isIntersecting&&window.scrollY>200)},{threshold:0}).observe($('result'));
     window.addEventListener('scroll',()=>{const r=$('result').getBoundingClientRect();const vis=r.bottom>0&&r.top<innerHeight;bar.classList.toggle('show',!vis&&scrollY>200)},{passive:true})}
