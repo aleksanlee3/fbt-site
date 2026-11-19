@@ -13,10 +13,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/fbt.css?v=5.39">
-<link rel="stylesheet" href="assets/medals.css?v=5.67">
-<link rel="stylesheet" href="assets/push.css">
+
+
 <link rel="stylesheet" href="assets/p1.css?v=5.65">
-<link rel="stylesheet" href="assets/gift-call.css?v=5.51"><!-- 16.10: подарок; 19.10: закрытый бизнес-разбор -->
+<!-- 16.10: подарок; 19.10: закрытый бизнес-разбор -->
 <link rel="stylesheet" href="assets/ic-auto.css">
 <link rel="stylesheet" href="assets/ic-theme.css">
 <link rel="stylesheet" href="assets/ic-dark.css"><!-- 06.10 v5.0: графит до отзывов (тёмная тема) --><!-- 06.10 v4.9: цвета Impact Consulting -->
@@ -25,9 +25,10 @@
 <script src="config.js?v=5.81"></script>
 <script src="assets/fbt.js?v=5.63"></script>
 <script src="assets/track.js?v=5.52"></script>
-<script src="assets/medals.js?v=5.68"></script>
-<script src="assets/push.js"></script>
-<link rel="stylesheet" href="assets/igra-v2.css?v=5.65"><link rel="stylesheet" href="assets/motion.css?v=5.69"><link rel="stylesheet" href="assets/ic-home.css?v=5.71"><!-- 03.11 v5.70: главная в стиле icgroup.uz — светлая, анимации один раз при появлении --><!-- 02.11: движение блоков при прокрутке -->
+
+
+<link rel="stylesheet" href="assets/motion.css?v=5.69"><link rel="stylesheet" href="assets/ic-home.css?v=5.71"><!-- 03.11 v5.70: главная в стиле icgroup.uz — светлая, анимации один раз при появлении --><!-- 02.11: движение блоков при прокрутке -->
+<link rel="stylesheet" href="assets/no-game.css?v=5.84"><!-- 19.11 v5.84: без игры и анимаций -->
 </head>
 <body class="ic ic-home" data-theme-lock="light"><!-- 06.10 v5.0: цвета Impact Consulting; тёмная (по умолчанию) — графит сверху, светлая — графит только первый экран -->
 <script src="assets/theme.js?v=5.70"></script>
@@ -62,9 +63,7 @@
       <!-- Десктоп · 3 шага (05.10): видеоразбор (+ карта в подарок) → диагностика → программа -->
       <div class="step is-now route-full" aria-current="step"><span class="dot">1</span>Посмотреть видеоразбор<span class="tag" data-show="locked">Вы здесь</span><span class="tag tag--ok" data-show="openAny" hidden>Карта открыта</span></div>
       <i class="route-line route-full"></i>
-      <div class="step is-muted route-full" data-show="locked"><span class="dot">2</span>Пройти диагностику<span class="tag--timer"><svg width="15" height="15" class="acc"><use href="#i-clock"/></svg>после видеоразбора · <b data-text-of="timeLeft">03:00</b></span></div>
-      <div class="step is-muted route-full" data-show="unlocked" hidden><span class="dot">2</span>Пройти диагностику<span class="tag--timer"><svg width="15" height="15" class="acc"><use href="#i-lock"/></svg>после карты</span></div>
-      <a class="step is-next route-full" href="diagnostika.html" data-show="got" hidden><span class="dot">2</span><span class="u">Пройти диагностику</span><span class="tag">Следующий шаг</span></a>
+      <a class="step is-next route-full" href="diagnostika.html"><span class="dot">2</span><span class="u">Пройти диагностику</span><span class="tag">Следующий шаг</span></a>
       <i class="route-line route-full"></i>
       <div class="step is-muted route-full"><span class="dot">3</span>Разбор от куратора</div>
 
@@ -175,6 +174,7 @@
             <div class="push">
               <div class="nudge" aria-hidden="true"><span>PDF — бесплатно</span><svg><use href="#i-arrow-hand"/></svg></div>
               <span class="ringed"><a class="btn btn--primary btn--lg" data-bot="map" data-getmap><svg><use href="#i-send"/></svg>Забрать карту в Telegram</a></span>
+              <a class="skip-diag" href="diagnostika.html">Карта не нужна? <span class="nw">Сразу пройти диагностику&nbsp;→</span></a>
             </div>
           </div>
         </div>
@@ -192,7 +192,7 @@
               <li><span class="dh-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span><b>Живой куратор, а не робот</b> — куратор посмотрит ваши ответы и запишет <b>голосовой разбор</b>: что мешает бизнесу и какой шаг сделать первым.</span></li>
               <li><span class="dh-i"><svg><use href="#i-check"/></svg></span><span><b>Бесплатно и ни к чему не обязывает</b> — ничего покупать не нужно. Просто станет понятно, что делать дальше.</span></li>
             </ul>
-            <p class="dh-meta">+ в подарок: PDF-разбор по 5 направлениям и новые артефакты для квеста</p>
+            <p class="dh-meta">+ в подарок: PDF-разбор по 5 направлениям</p>
           </div>
           <div class="unlock-act">
             <div class="push">
@@ -316,64 +316,20 @@
           <a class="btn btn--sm btn--block btn--soft" data-show="got" data-bot="map" data-getmap hidden>Открыть бот с картой</a>
         </div>
         <div class="card stepcard" data-step="Диагностика">
-          <div class="row gap-14" data-show="notGot"><span class="stepnum">2</span><span class="note" style="color:var(--muted)">После карты действий</span></div>
-          <div class="row gap-14" data-show="got" hidden><span class="stepnum is-ok">2</span><span class="tag tag--ok">Открыто</span></div>
+          <div class="row gap-14"><span class="stepnum is-ok">2</span><span class="tag tag--ok">Открыто</span></div>
           <h3 class="h3">Пройти диагностику</h3>
           <p class="muted">10 вопросов, 5 минут. Покажет, что мешает вашему бизнесу стать устойчивым и с какого шага начать. Результат разберёт куратор.</p>
           <div class="grow"></div>
-          <div class="btn btn--sm btn--block btn--locked" data-show="notGot"><svg><use href="#i-lock"/></svg>Откроется после карты</div>
-          <a class="btn btn--sm btn--block btn--primary" data-show="got" href="diagnostika.html" hidden>Пройти диагностику<svg><use href="#i-right"/></svg></a>
+          <a class="btn btn--sm btn--block btn--primary" href="diagnostika.html">Пройти диагностику<svg><use href="#i-right"/></svg></a>
         </div>
         <div class="card stepcard" data-step="Разбор">
           <div class="row gap-14"><span class="stepnum">3</span><span class="note" style="color:var(--muted)">Бесплатно · в Telegram</span></div>
           <h3 class="h3">Получить разбор от куратора</h3>
           <p class="muted">Куратор посмотрит ваши ответы и запишет голосовой разбор в Telegram: что мешает бизнесу и какой шаг сделать первым.</p>
           <div class="grow"></div>
-          <div class="btn btn--sm btn--block btn--locked"><svg><use href="#i-lock"/></svg>После диагностики</div>
         </div>
       </div>
       <p class="swipe-hint">← листайте →</p>
-    </div>
-  </section>
-  <!-- 06.10: подарок за артефакты (13.10: 6 вместо 9; 16.10: созвон с Любой; 19.10: закрытый бизнес-разбор по средам) -->
-  <section class="sec igra-sec igv-sec" id="igra">
-    <div class="wrap">
-      <!-- 02.11 v5.64 (Александр: блок выглядел «нейросетевым»): новый вид — пригласительный билет. Фото Любы, 4 факта крупно,
-           линия отрыва, внизу таймер до среды и ваши артефакты. Логика (razbor.js, igra-cue.js) та же. Стили — assets/igra-v2.css -->
-      <article class="igv">
-        <div class="igv-top">
-          <div class="igv-photo">
-            <img src="assets/img/luba-call-sq.jpg" alt="Люба Бэй" width="800" height="800" loading="lazy">
-            <span class="igv-live"><i></i>Закрытый разбор</span>
-          </div>
-          <div class="igv-body">
-            <p class="igv-eyebrow"><span>Подарок за квест</span></p>
-            <h2 class="h2 igv-h"><span>Соберите <em>6&nbsp;артефактов,</em></span> <span>и&nbsp;Люба лично ответит</span> <span>на&nbsp;ваш вопрос</span></h2>
-            <p class="igv-sub">Каждый ваш шаг на сайте и&nbsp;в&nbsp;Telegram-боте приносит артефакт. Соберите все&nbsp;6&nbsp;— и&nbsp;попадёте на&nbsp;закрытый бизнес&#8209;разбор с&nbsp;Любой Бэй.</p>
-            <dl class="igv-facts">
-              <div><dt>7&nbsp;мест</dt><dd>предприниматели за&nbsp;одним столом</dd></div>
-              <div><dt>Лично</dt><dd>Люба разбирает ваш вопрос</dd></div>
-              <div><dt>Zoom</dt><dd>живая встреча, не&nbsp;запись</dd></div>
-              <div><dt>12:00</dt><dd>каждую среду</dd></div>
-            </dl>
-          </div>
-        </div>
-        <div class="igv-cut" aria-hidden="true"></div>
-        <div class="igv-stub">
-          <!-- 19.10: таймер до ближайшей среды 12:00 (Ташкент) — assets/razbor.js, настройки config.js → razbor -->
-          <div class="rz-timer" data-rz-timer>
-            <div class="rz-when"><span class="rz-dot"></span>Ближайший разбор: <b data-rz-date>среда, 12:00</b></div>
-            <div class="rz-cd" aria-label="До начала разбора">
-              <span><b data-rz-d>0</b><i>дней</i></span><span><b data-rz-h>00</b><i>часов</i></span><span><b data-rz-m>00</b><i>минут</i></span><span><b data-rz-s>00</b><i>секунд</i></span>
-            </div>
-          </div>
-          <div class="igv-pass">
-            <div class="igv-price"><b>Бесплатно</b><span>только по&nbsp;приглашению&nbsp;— для тех, кто соберёт все&nbsp;6&nbsp;артефактов</span></div>
-            <div class="igra-slots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-            <button type="button" class="igra-cue" id="igra-cue"><span class="igra-cue-n">У вас <b data-igra-n>0</b> из 6</span><span class="igra-cue-t">Ваши артефакты — здесь</span></button>
-          </div>
-        </div>
-      </article>
     </div>
   </section>
 
@@ -407,6 +363,7 @@
             <div class="push">
               <div class="cue-down cue-down--light" aria-hidden="true"><span>Жмите · PDF бесплатно</span><svg viewBox="0 0 40 44"><use href="#i-arrow-down"/></svg></div>
               <span class="ringed"><a class="btn btn--primary btn--lg" data-bot="map" data-getmap><svg><use href="#i-send"/></svg>Забрать карту в Telegram</a></span>
+              <a class="skip-diag" href="diagnostika.html">Карта не нужна? <span class="nw">Сразу пройти диагностику&nbsp;→</span></a>
             </div>
           </div>
         </div>
@@ -442,9 +399,9 @@
 </footer>
 
 <script src="assets/p1.js?v=5.58"></script>
-<script src="assets/igra-cue.js?v=5.25"></script>
+
 <script src="assets/typo.js?v=5.34" defer></script>
-<script src="assets/razbor.js?v=5.81"></script>
-<script src="assets/ic-reveal.js?v=5.70" defer></script>
+
+
 </body>
 </html>
