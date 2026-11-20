@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="../assets/contrast.css">
 <link rel="stylesheet" href="../assets/ic-home.css?v=5.71">
 <link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.84">
-<link rel="stylesheet" href="../assets/igra-clean.css?v=4">
+<link rel="stylesheet" href="../assets/igra-clean.css?v=6">
 <style>
 /* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
 body.ic .g-scr { padding: 40px 0 72px; }
@@ -641,7 +641,7 @@ var DEMO = { IN: 3, CR: 4, MA: 1, OP: 1.5, CO: 3, SA: 2, CL: 3.5, TE: 1 };
 
 /* ── Экраны ── */
 function vIntro() {
-  var stats = [['spisok', '17', 'вопросов'], ['chasy', '4', 'минуты'], ['podarok', '0 сум', 'бесплатно'], ['zamok', 'Без', 'регистрации']];
+  var stats = [['spisok', '17 вопросов'], ['chasy', '4 минуты'], ['podarok', 'Бесплатно'], ['zamok', 'Без регистрации']];
   /* 20.11: одна общая сцена — 8 зверей стоят вместе; без описаний архетипов (интрига), сразу к тесту */
   var crew = [['sozdatel', 7, 'b'], ['sistematizator', 30, 'b'], ['organizator', 50, 'b'], ['kommunikator', 72, 'b'], ['ekspert', 92, 'b'],
     ['issledovatel', 17, 'f'], ['torgovets', 42, 'f'], ['master', 71, 'f']];
@@ -649,12 +649,12 @@ function vIntro() {
     '<div class="g-hero">' +
       '<div class="eyebrow">ИГРА-ТЕСТ · FBT ONLINE</div>' +
       '<h1>Определите свой<span>бизнес-архетип</span></h1>' +
+      '<p class="g-lead">И узнайте, какой бизнес вам подходит</p>' +
       '<div class="g-stage" aria-label="8 бизнес-архетипов">' + crew.map(function (x) {
         return '<img class="g-stage-p is-' + x[2] + '" src="../assets/img/arhetip/group/' + x[0] + '.webp?v=1" alt="" style="--x:' + x[1] + '%" draggable="false">';
       }).join('') + '</div>' +
-      '<p class="g-lead">И найдите бизнес, который подходит вам больше всего.</p>' +
-      '<div class="g-stats">' + stats.map(function (x) { return '<div class="g-stat"><span class="gi">' + ipic(x[0]) + '</span><b>' + x[1] + '</b><small>' + x[2] + '</small></div>'; }).join('') + '</div>' +
-      '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Определить свой архетип' + arrow() + '</button>' +
+      '<ul class="g-facts">' + stats.map(function (x) { return '<li>' + ipic(x[0]) + '<span>' + x[1] + '</span></li>'; }).join('') + '</ul>' +
+      '<button type="button" class="btn btn--primary btn--lg btn--block mt-14" data-act="start">Определить свой архетип' + arrow() + '</button>' +
       '<p class="g-note">Это игра, а не научный тест. Она показывает, что вам интересно, но не оценивает способности и не обещает успех. Ответы остаются на вашем телефоне.</p>' +
     '</div>'
   );
