@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="../assets/contrast.css">
 <link rel="stylesheet" href="../assets/ic-home.css?v=5.71">
 <link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.84">
-<link rel="stylesheet" href="../assets/igra-clean.css?v=17">
+<link rel="stylesheet" href="../assets/igra-clean.css?v=19">
 <style>
 /* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
 body.ic .g-scr { padding: 40px 0 72px; }
@@ -589,7 +589,7 @@ function shuffleAll() {
   });
   return o;
 }
-function fresh() { return { scr: 'intro', i: 0, ans: {}, ord: shuffleAll(), fam: [{}, {}], pass: 0, fi: 0, ok: [false, false], duels: [], dans: {}, di: 0, rated: 0 }; }
+function fresh() { return { scr: 'intro', i: 0, ans: {}, ord: shuffleAll(), fam: [{}, {}], pass: 0, fi: 0, ok: [false, false], duels: [], dans: {}, di: 0, rated: 0, fb: 0 }; }
 var S = fresh();
 
 function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -625,21 +625,21 @@ function shares(vals) {
 }
 function radarSVG(vals, tops, label) {
   var pc = shares(vals), mx = Math.max.apply(null, AX.map(function (c) { return pc[c]; })) || 1;
-  var CX = 220, CY = 222, R = 128, pt = radarGeo(CX, CY, R);
+  var CX = 220, CY = 222, R = 128, pt = radarGeo(CX, CY, R), LIME = '#C8F560';
   function f(p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }
-  var h = '<svg class="g-radar" viewBox="0 0 440 450" role="img" aria-label="' + esc(label) + '"><defs>' +
-    '<radialGradient id="gRf" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#5A6E7A" stop-opacity=".18"/><stop offset="1" stop-color="#1F2A33" stop-opacity=".38"/></radialGradient></defs>';
-  [1, .75, .5, .25].forEach(function (k) { h += '<circle cx="' + CX + '" cy="' + CY + '" r="' + (R * k).toFixed(1) + '" fill="' + (k === 1 ? '#F6F7F9' : 'none') + '" stroke="#E6E9ED" stroke-width="1"/>'; });
-  AX.forEach(function (_, k) { var p = pt(k, 4); h += '<line x1="' + CX + '" y1="' + CY + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '" stroke="#E6E9ED"/>'; });
-  var poly = AX.map(function (c, k) { return f(pt(k, Math.max(.45, Math.sqrt(pc[c] / mx) * 4))); }).join(' ');
-  h += '<polygon points="' + poly + '" fill="url(#gRf)" stroke="#1F2A33" stroke-width="2" stroke-linejoin="round"/>';
-  AX.forEach(function (c, k) { var p = pt(k, Math.max(.45, Math.sqrt(pc[c] / mx) * 4)); h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (tops.indexOf(c) > -1 ? 6 : 4) + '" fill="#1F2A33" stroke="#fff" stroke-width="2"/>'; });
+  function val(c) { return Math.max(.45, Math.sqrt(pc[c] / mx) * 4); }
+  var h = '<svg class="g-radar" viewBox="0 0 440 450" role="img" aria-label="' + esc(label) + '">';
+  [4, 3, 2, 1].forEach(function (k) { h += '<polygon points="' + AX.map(function (_, n) { return f(pt(n, k)); }).join(' ') + '" fill="' + (k === 4 ? 'rgba(255,255,255,.04)' : 'none') + '" stroke="rgba(255,255,255,' + (k === 4 ? '.34' : '.16') + ')" stroke-width="1"/>'; });
+  AX.forEach(function (_, k) { var p = pt(k, 4); h += '<line x1="' + CX + '" y1="' + CY + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '" stroke="rgba(255,255,255,.14)"/>'; });
+  h += '<polygon points="' + AX.map(function (c, k) { return f(pt(k, val(c))); }).join(' ') + '" fill="rgba(200,245,96,.30)" stroke="' + LIME + '" stroke-width="3" stroke-linejoin="round"/>';
+  AX.forEach(function (c, k) { var p = pt(k, val(c)), top = tops.indexOf(c) > -1;
+    h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (top ? 7 : 5) + '" fill="' + (top ? LIME : '#0F3B2F') + '" stroke="' + (top ? '#fff' : LIME) + '" stroke-width="2"/>'; });
   var ip = radarGeo(CX, CY, R + 50);
   AX.forEach(function (c, k) {
     var p = ip(k, 4), top = tops.indexOf(c) > -1, s = top ? 72 : 62, y = p[1] - 9;
-    h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (s / 2) + '" fill="' + (top ? '#1F2A33' : '#F1F3F5') + '"/>';
+    h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (s / 2) + '" fill="' + (top ? 'rgba(200,245,96,.20)' : 'rgba(255,255,255,.10)') + '"' + (top ? ' stroke="' + LIME + '" stroke-width="2.5"' : '') + '/>';
     h += '<image href="' + IH + SLUG[c] + '.webp" x="' + (p[0] - s / 2).toFixed(1) + '" y="' + (y - s / 2).toFixed(1) + '" width="' + s + '" height="' + s + '"/>';
-    h += '<text x="' + p[0].toFixed(1) + '" y="' + (y + s / 2 + 17).toFixed(1) + '" text-anchor="middle" font-size="17" font-weight="800" fill="' + (top ? '#C60000' : '#1F2A33') + '">' + pc[c] + '%</text>';
+    h += '<text x="' + p[0].toFixed(1) + '" y="' + (y + s / 2 + 18).toFixed(1) + '" text-anchor="middle" font-size="17" font-weight="800" fill="' + (top ? LIME : '#FFFFFF') + '">' + pc[c] + '%</text>';
   });
   return h + '</svg>';
 }
@@ -648,7 +648,7 @@ function legend(vals, tops, sorted) {
   sorted = sorted.slice().sort(function (x, y) { return (tops.indexOf(y) > -1) - (tops.indexOf(x) > -1) || pc[y] - pc[x]; });
   return '<div class="g-pgrid">' + sorted.map(function (c) {
     var top = tops.indexOf(c) > -1;
-    return '<div class="g-pcell' + (top ? ' top' : '') + '"><img src="' + IH + SLUG[c] + '.webp" alt="" loading="lazy" width="56" height="56"><b>' + pc[c] + '%</b><span>' + P[c].name + '</span></div>';
+    return '<div class="g-pcell' + (top ? ' top' : '') + '">' + (top ? '<i class="g-star" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z" fill="#FFC83D"/></svg></i>' : '') + '<img src="' + IH + SLUG[c] + '.webp" alt="" loading="lazy" width="56" height="56"><b>' + pc[c] + '%</b><span>' + P[c].name + '</span></div>';
   }).join('') + '</div>';
 }
 var DEMO = { IN: 3, CR: 4, MA: 1, OP: 1.5, CO: 3, SA: 2, CL: 3.5, TE: 1 };
@@ -837,6 +837,17 @@ function skillsBlock(r) {
       return '<li data-k="' + k + '"><i style="background:' + PIE[k] + '"></i><div><b>' + SKILL[x.code][0] + '<span>' + pc[k] + '%</span></b><p>' + SKILL[x.code][1] + '</p></div></li>';
     }).join('') + '</ul></div>';
 }
+/* 20.11: оценка «насколько про вас» + поле «почему» — оценка без причины мало что объясняет */
+function rateBox() {
+  var h = '<div class="g-rate' + (S.rated ? ' is-done' : '') + '" id="gRate"><b>Насколько это про вас?</b><div class="g-rate-row">' + [1, 2, 3, 4, 5].map(function (n) {
+    return '<button type="button" data-act="rate" data-v="' + n + '"' + (S.rated === n ? ' class="on"' : '') + (S.rated ? ' disabled' : '') + '>' + n + '</button>'; }).join('') + '</div>';
+  if (!S.rated) return h + '<div class="g-rate-cap"><span>Совсем не про меня</span><span>Точно про меня</span></div></div>';
+  if (S.fb) return h + '<div class="g-rate-cap"><em>Спасибо! Мы читаем каждый ответ и делаем тест точнее.</em></div></div>';
+  return h + '<div class="g-fb"><label for="gFb">' + (S.rated >= 4 ? 'Что было похоже на вас?' : 'Что было не похоже на вас?') + '</label>' +
+    '<textarea id="gFb" rows="3" maxlength="500" placeholder="' + (S.rated >= 4 ? 'Например: точно про то, как я веду дела' : 'Например: я не люблю продавать, а вышел Торговец') + '"></textarea>' +
+    '<button type="button" class="btn btn--primary btn--block" data-act="fbSend">Отправить' + arrow() + '</button><div class="g-fb-note" id="gFbNote" role="status">Пара слов поможет нам сделать тест точнее.</div></div></div>';
+}
+function paintRate() { var box = document.getElementById('gRate'); if (box) box.outerHTML = rateBox(); }
 function vResult() {
   var r = compute(), L = r.leaders, names = L.map(function (x) { return P[x.code].name; });
   var title = r.mode === 'few' ? 'Пока мало ответов' : r.mode === 'wide' ? 'Вы — <span>универсал</span>' :
@@ -853,7 +864,7 @@ function vResult() {
   var also = r.mode === 'clear' && r.agg[2] && r.agg[2].avg > 0 ? '<p class="g-res-also">Ещё в вас есть: <b>' + P[r.agg[2].code].name + '</b></p>' : '';
   var tops = L.map(function (x) { return x.code; });
   var sorted = r.agg.map(function (x) { return x.code; }).concat(AX.filter(function (c) { return vals[c] == null; }));
-  var info = r.mode !== 'few' ? '<div class="g-h3" id="ch-map">ДИАГРАММА БИЗНЕС-АРХЕТИПА</div><div class="g-info g-info--clean">' +
+  var info = r.mode !== 'few' ? '<div class="g-info g-info--green" id="ch-map"><div class="g-green-h">Диаграмма бизнес‑архетипа</div>' +
     '<div class="g-info-sub">Сколько в вас каждого из 8 архетипов. Чем больше процент, тем ближе вам эта работа.</div>' +
     radarSVG(vals, tops, 'Диаграмма бизнес-архетипа: ' + sorted.map(function (c) { return P[c].name + ' — ' + word(vals[c]); }).join(', ')) +
     legend(vals, tops, sorted) + '</div>' : '';
@@ -904,7 +915,7 @@ function vResult() {
   var giveBlock = '';
   var weak = r.agg.length >= 3 ? r.agg[r.agg.length - 1] : null;
   if (L.length && weak && !L.some(function (x) { return x.code === weak.code; })) {
-    giveBlock = '<div class="g-h3">ЧТО ЛУЧШЕ ОТДАТЬ ДРУГОМУ</div><div class="g-card"><h3>' + img('delegirovanie') + P[weak.code].name + '</h3><p>Меньше всего вас тянет к таким задачам: ' +
+    giveBlock = '<div class="g-h3">ЧТО ЛУЧШЕ ОТДАТЬ ДРУГОМУ</div><div class="g-card g-card--who g-card--give"><div class="g-who-pic">' + pers(weak.code) + '</div><h3>' + P[weak.code].name + '</h3><p>Меньше всего вас тянет к таким задачам: ' +
       P[weak.code].tasks.slice(0, 2).map(low1).join(', ').toLowerCase() + '. Это нормально. Такие задачи лучше отдать партнёру, сотруднику или близкому — и не строить дело, где они главные.</p>' +
       '<p><b>Кто из семьи может помочь.</b> ' + FAMLINE[L[0].code] + '</p></div>';
   }
@@ -915,9 +926,7 @@ function vResult() {
     plusBlock + expBlock +
     ideasBlock + pairBlock + giveBlock +
     skillsBlock(r) +
-    (L.length ? '<div class="g-rate' + (S.rated ? ' is-done' : '') + '" id="gRate"><b>Насколько это про вас?</b><div class="g-rate-row">' + [1, 2, 3, 4, 5].map(function (n) {
-        return '<button type="button" data-act="rate" data-v="' + n + '"' + (S.rated === n ? ' class="on"' : '') + (S.rated ? ' disabled' : '') + '>' + n + '</button>'; }).join('') +
-      '</div><div class="g-rate-cap">' + (S.rated ? '<em>Спасибо! Это помогает сделать тест точнее.</em>' : '<span>Совсем не про меня</span><span>Точно про меня</span>') + '</div></div>' : '') +
+    (L.length ? rateBox() : '') +
     '<div class="g-btns"><span class="g-glow"><button type="button" class="btn btn--primary btn--shine btn--lg btn--block" data-act="share">Поделиться с другом' + arrow() + '</button></span><div class="g-status" id="gStatus" role="status"></div></div>' +
     '<div class="g-fbt"><div class="eyebrow">FAMILY BUSINESS TRAINING</div><h3>Как создать успешный бизнес в Узбекистане в 2026 году</h3>' +
       '<p>Пройдите бесплатную диагностику — за 5 минут увидите, с чего начать.</p>' +
@@ -1071,10 +1080,13 @@ APP.addEventListener('click', function (e) {
     case 'duel': S.dans[S.duels[S.di].join('|')] = v; pick(b, nextD); return;
     case 'duelSkip': delete S.dans[S.duels[S.di].join('|')]; nextD(); return;
     case 'rate': {
-      if (S.rated) return; S.rated = Number(v); buzz(); gev('arhetip_rate_' + S.rated, resData());
-      var box = document.getElementById('gRate');
-      if (box) { box.classList.add('is-done'); Array.prototype.forEach.call(box.querySelectorAll('button'), function (x) { x.disabled = true; if (x === b) x.className = 'on'; });
-        box.querySelector('.g-rate-cap').innerHTML = '<em>Спасибо! Это помогает сделать тест точнее.</em>'; }
+      if (S.rated) return; S.rated = Number(v); buzz(); gev('arhetip_rate_' + S.rated, resData()); paintRate();
+      return; }
+    case 'fbSend': {
+      var ta = document.getElementById('gFb'), txt = ta ? ta.value.replace(/\s+/g, ' ').trim().slice(0, 500) : '';
+      if (txt.length < 2) { var nt = document.getElementById('gFbNote'); if (nt) nt.textContent = 'Напишите хотя бы пару слов.'; if (ta) ta.focus(); return; }
+      var fd = resData(); gev('arhetip_feedback', { text: txt, score: S.rated, main: fd.main, second: fd.second, mode: fd.mode });
+      S.fb = 1; buzz(); paintRate();
       return; }
     case 'ans': S.ans[Q[S.i].id] = Number(v); pick(b, nextQ); return;
     case 'skip': S.ans[Q[S.i].id] = null; nextQ(); return;
