@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Определите свой бизнес-архетип — FBT Online</title>
-<meta name="description" content="Определите свой бизнес-архетип и найдите бизнес, который подходит вам больше всего. 17 вопросов, 4 минуты, бесплатно.">
+<meta name="description" content="Определите свой бизнес-архетип и найдите бизнес, который подходит вам больше всего. 18 вопросов, 5 минут, бесплатно.">
 <meta property="og:title" content="Определите свой бизнес-архетип — FBT Online">
-<meta property="og:description" content="17 вопросов, 4 минуты. Узнайте свой бизнес-архетип, идеи дел для проверки и первый шаг на эту неделю.">
+<meta property="og:description" content="18 вопросов, 5 минут. Узнайте свой бизнес-архетип, идеи дел для проверки и первый шаг на эту неделю.">
 <meta name="theme-color" content="#F5F5F7">
 <link rel="icon" href="../assets/logo/favicon-64.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="../assets/contrast.css">
 <link rel="stylesheet" href="../assets/ic-home.css?v=5.71">
 <link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.84">
-<link rel="stylesheet" href="../assets/igra-clean.css?v=10">
+<link rel="stylesheet" href="../assets/igra-clean.css?v=14">
 <style>
 /* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
 body.ic .g-scr { padding: 40px 0 72px; }
@@ -214,6 +214,7 @@ body.ic.ic-dark .g-gauge .g-meter i { background: rgba(255,255,255,.12); }
 .g-ex .g-info-cap { text-align: left; }
 @media (prefers-reduced-motion: reduce) { .g-faces div, .g-ico, .g-res-ico div { transform: none; } }
 </style>
+<script src="../config.js?v=5.81"></script>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="../assets/tg-app.js?v=5.83"></script><!-- 14.11: режим «внутри Telegram» -->
 </head>
@@ -448,82 +449,70 @@ var FAMLINE = {
   MA: 'Вы делаете продукт — близкие могут принимать заказы и общаться с клиентами.'
 };
 
-/* ── 17 вопросов. Смысл ситуаций — банк A исследования (A-I1…A-I8, A-E1, A-E2, A-C1, A-C2) + Мастер (M-I1), подача — жизненные ситуации.
+/* ── 20.11.2026: 18 вопросов. 10 ситуаций с расстановкой 1–4 (каждый архетип встречается 5 раз), 3 вопроса про опыт, 3 — уверенность, 2 — старт.
+      Раньше: 18 вопросов. Смысл ситуаций — банк A исследования (A-I1…A-I8, A-E1, A-E2, A-C1, A-C2) + Мастер (M-I1), подача — жизненные ситуации.
       Баллы ответов: 4 — очень интересно / уверен(а), 3 — скорее да, 1 — скорее нет, 0 — совсем нет.
       e — эмодзи к ответам в исходном порядке. Порядок ответов перемешивается, чтобы «правильный» вариант не угадывался. ── */
 var Q = [
-  { id: 'A-I1', kind: 'i', code: 'IN', icon: 'insayt',
-    story: 'На одной улице две лавки с самсой. У одной всегда очередь, у другой почти пусто. Люди говорят, что самса там одинаковая.',
-    q: 'О чём вы подумаете?',
-    e: ['🔍', '🤔', '🚶', '🛒'],
-    a: [['Мне станет интересно, в чём секрет. Посмотрю, послушаю людей, сравню', 4],
-        ['Прикину пару догадок, пока иду мимо', 3],
-        ['Замечу и пойду дальше', 1],
-        ['Ни о чём — куплю там, где нет очереди', 0]] },
-  { id: 'A-I2', kind: 'i', code: 'CR', icon: 'vozmozhnost',
-    story: 'Подруга печёт торты на заказ, но заказов мало. Она просит: «Помоги придумать что-то новое, чтобы у меня покупали».',
-    q: 'Как вы отреагируете?',
-    e: ['💡', '✍️', '👀', '🤷'],
-    a: [['С радостью! Сразу накидаю идей: новый вкус, наборы к празднику, красивая коробка', 4],
-        ['Предложу пару идей, если она расскажет подробнее', 3],
-        ['Лучше подскажу, у кого можно подсмотреть', 1],
-        ['Придумывать — не моё, помогу ей по-другому', 0]] },
-  { id: 'A-I3', kind: 'i', code: 'CL', icon: 'klient',
-    story: 'Вы хотите открыть маленькую кофейню у дома. Перед запуском нужно поговорить с 20 соседями: какой кофе пьют, сколько готовы платить, чего им не хватает.',
-    q: 'Как вам такое задание?',
-    e: ['🗣️', '🙂', '😐', '🙅'],
-    a: [['Отлично! Люблю расспрашивать людей и слушать их истории', 4],
-        ['Поговорю с несколькими — интересно, что скажут', 3],
-        ['Сделаю, раз надо, но без особой радости', 1],
-        ['Попрошу кого-то другого поговорить и рассказать мне', 0]] },
-  { id: 'A-I4', kind: 'i', code: 'SA', icon: 'prodazha',
-    story: 'Вы закупаете ткань на базаре для своего дела. Ткань хорошая, но продавец просит больше, чем вы рассчитывали.',
-    q: 'Что будете делать?',
-    e: ['🤝', '💬', '😳', '🙋'],
-    a: [['Поторгуюсь — мне это даже нравится, это как игра', 4],
-        ['Попробую попросить скидку — вдруг получится', 3],
-        ['Торговаться неловко. Заплачу или пойду к другому продавцу', 1],
-        ['Попрошу кого-то поторговаться вместо меня', 0]] },
-  { id: 'A-I5', kind: 'i', code: 'OP', icon: 'process',
-    story: 'Вы помогаете в небольшом кафе. Каждую неделю что-то идёт не так: то хлеб забыли заказать, то перепутали заказ гостя.',
-    q: 'Что вам захочется сделать?',
-    e: ['📋', '🔧', '🔁', '😩'],
-    a: [['Навести порядок: список дел, правила, кто за что отвечает — чтобы больше не повторялось', 4],
-        ['Поправить самое главное, чтобы стало полегче', 3],
-        ['Решать каждый раз по ходу дела', 1],
-        ['Такие мелочи утомляют — пусть ими занимается кто-то другой', 0]] },
-  { id: 'A-I6', kind: 'i', code: 'CO', icon: 'komanda',
-    story: 'Через месяц большой семейный той. Нужно всё успеть: ресторан, музыка, приглашения, кто встречает гостей.',
-    q: 'Какая роль вам ближе?',
-    e: ['📣', '🗓️', '✅', '🎉'],
-    a: [['Беру организацию на себя: распределю задачи и прослежу, чтобы всё успели', 4],
-        ['Помогу составить план, если главным будет кто-то другой', 3],
-        ['Скажите, что сделать, — я сделаю свою часть', 1],
-        ['Лучше я просто приду гостем', 0]] },
-  { id: 'A-I7', kind: 'i', code: 'TE', icon: 'nastavnik',
-    story: 'Соседка открыла маленький магазин и не может разобраться, как принимать оплату по QR-коду. Просит помочь.',
-    q: 'Как вы поступите?',
-    e: ['📚', '👀', '⚡', '📱'],
-    a: [['Сяду рядом и объясню по шагам, пока у неё не получится самой', 4],
-        ['Покажу, как это делаю я', 3],
-        ['Сделаю всё за неё — так быстрее', 1],
-        ['Посоветую посмотреть видео в интернете', 0]] },
-  { id: 'M-I1', kind: 'i', code: 'MA', icon: 'instrument',
-    story: 'Тётя шьёт национальные платья на заказ. Говорит: «Посиди со мной неделю — научу кроить и шить. Будешь брать свои заказы».',
-    q: 'Что вы ответите?',
-    e: ['🧵', '✂️', '😐', '🙅'],
-    a: [['С радостью! Люблю делать руками и видеть готовую вещь', 4],
-        ['Интересно попробовать, хотя бы ради опыта', 3],
-        ['Если очень надо — помогу, но это не моё', 1],
-        ['Нет, работа руками меня не тянет', 0]] },
-  { id: 'A-I8', kind: 'i', code: 'IN', icon: 'diagnostika',
-    story: 'Вам пришла идея: возить домашние обеды в офисы. Пока это только идея, денег в неё ещё не вкладывали.',
-    q: 'Что сделаете первым?',
-    e: ['🔎', '💬', '🚀', '⏳'],
-    a: [['Сначала проверю: кому это нужно, кто уже так делает и сколько берёт', 4],
-        ['Спрошу пару знакомых, что они думают', 3],
-        ['Если чувствую, что идея хорошая, — сразу начну', 1],
-        ['Отложу: идей много, а времени мало', 0]] },
+  { id: 'R1', kind: 'i', rank: true,
+    story: 'Друг открывает кофейню у дома и зовёт вас помочь.',
+    q: 'Что вы возьмёте на себя?',
+    a: [['Узнаю, какой кофе пьют соседи и сколько готовы платить', 'IN'], ['Придумаю название, меню и оформление', 'CR'], ['Буду встречать гостей и запоминать постоянных', 'CL'], ['Договорюсь с поставщиками о хорошей цене', 'SA']] },
+  { id: 'R2', kind: 'i', rank: true,
+    story: 'Семейная пекарня получила большой заказ на свадьбу.',
+    q: 'Что вы возьмёте на себя?',
+    a: [['Посчитаю продукты и время, составлю список', 'OP'], ['Соберу людей и распределю, кто что делает', 'CO'], ['Покажу новичкам, как делать быстро и без брака', 'TE'], ['Сам(а) встану печь и украшать', 'MA']] },
+  { id: 'R3', kind: 'i', rank: true,
+    story: 'У родственника мастерская по ремонту телефонов. Клиенты стали уходить.',
+    q: 'Что вы возьмёте на себя?',
+    a: [['Выясню почему: обзвоню клиентов, сравню с конкурентами', 'IN'], ['Введу правила: запись, сроки, проверка работы', 'OP'], ['Буду сам(а) общаться с клиентами, чтобы они возвращались', 'CL'], ['Возьмусь чинить сам(а), чтобы качество было лучшим', 'MA']] },
+  { id: 'R4', kind: 'i', rank: true,
+    story: 'Знакомая печёт вкусные торты, но заказов мало.',
+    q: 'Что вы возьмёте на себя?',
+    a: [['Придумаю новинку: наборы к празднику, красивую коробку', 'CR'], ['Составлю ей план на месяц и прослежу, чтобы всё сделала', 'CO'], ['Найду клиентов: предложу торты в кафе и офисы', 'SA'], ['Научу её вести Instagram и считать цену', 'TE']] },
+  { id: 'R5', kind: 'i', rank: true,
+    story: 'У вас есть 25 миллионов сумов и идея: возить домашние обеды в офисы.',
+    q: 'Что вы возьмёте на себя?',
+    a: [['Сначала проверю, кому это нужно и сколько платят', 'IN'], ['Соберу команду: повар, курьер, график', 'CO'], ['Сам(а) приготовлю пробные обеды и доведу вкус', 'MA'], ['Пойду по офисам и соберу первые заказы', 'SA']] },
+  { id: 'R6', kind: 'i', rank: true,
+    story: 'Магазин одежды у дома продаёт всё хуже.',
+    q: 'Что вы возьмёте на себя?',
+    a: [['Переделаю витрину и придумаю акцию', 'CR'], ['Разберусь с товаром: что продаётся, а что лежит', 'OP'], ['Буду сам(а) помогать покупателям выбирать', 'CL'], ['Обучу продавцов работать с покупателем', 'TE']] },
+  { id: 'R7', kind: 'i', rank: true,
+    story: 'Друг хочет продавать на Uzum и просит помочь.',
+    q: 'Что вы возьмёте на себя?',
+    a: [['Изучу, какие товары покупают и у кого', 'IN'], ['Объясню по шагам, как открыть магазин', 'TE'], ['Найду поставщика и собью цену', 'SA'], ['Настрою учёт: остатки, заказы, деньги', 'OP']] },
+  { id: 'R8', kind: 'i', rank: true,
+    story: 'Готовится большой семейный той.',
+    q: 'Что вы возьмёте на себя?',
+    a: [['Придумаю идею праздника и оформление', 'CR'], ['Сделаю что-то своими руками: украшения, подарки, стол', 'MA'], ['Буду встречать гостей, чтобы всем было хорошо', 'CL'], ['Возьму организацию: задачи, сроки, кто за что отвечает', 'CO']] },
+  { id: 'R9', kind: 'i', rank: true,
+    story: 'Семья решила продавать сухофрукты в красивой упаковке.',
+    q: 'Что вы возьмёте на себя?',
+    a: [['Узнаю, что продают другие и по какой цене', 'IN'], ['Придумаю упаковку и название', 'CR'], ['Распишу работу: закупка, фасовка, хранение', 'OP'], ['Распределю роли в семье и сроки', 'CO']] },
+  { id: 'R10', kind: 'i', rank: true,
+    story: 'Родственник делает мебель на заказ и зовёт вас в дело.',
+    q: 'Что вы возьмёте на себя?',
+    a: [['Буду принимать клиентов и отвечать на звонки', 'CL'], ['Буду искать заказы и договариваться о цене', 'SA'], ['Буду обучать учеников', 'TE'], ['Буду делать мебель сам(а)', 'MA']] },
+  { id: 'X-EXP', kind: 'x', icon: 'rezultat', lastFixed: true, exp: true,
+    story: 'Вспомните последние год-два: работу, подработку, помощь родным и друзьям.',
+    q: 'За что вам чаще всего платили или говорили «спасибо»?',
+    e: ['💰', '🛠️', '📋', '🎨', '📚', '🤗', '🧩', '💼'],
+    a: [['Нашёл, договорился, выгодно продал', 0, 'SA'], ['Сделал что-то своими руками', 0, 'MA'], ['Организовал людей и довёл дело до конца', 0, 'CO'],
+        ['Навёл порядок в делах и учёте', 0, 'OP'], ['Придумал идею, сделал красиво', 0, 'CR'], ['Объяснил, научил, дал совет', 0, 'TE'],
+        ['Выслушал, помог, поддержал человека', 0, 'CL'], ['Разобрался в сложном, нашёл причину', 0, 'IN'], ['Пока ничего из этого — работал(а) за зарплату', 0, '']] },
+  { id: 'X-EXP2', kind: 'x', icon: 'komanda', exp: true,
+    story: 'Вспомните праздники, поездки и общие дела с роднёй или друзьями.',
+    q: 'Что вы обычно берёте на себя?',
+    a: [['Узнаю, где лучше и дешевле', 0, 'IN'], ['Придумываю, как сделать необычно', 0, 'CR'], ['Знакомлю людей и поддерживаю разговор', 0, 'CL'],
+        ['Договариваюсь о цене и скидках', 0, 'SA'], ['Считаю деньги и веду список', 0, 'OP'], ['Решаю, кто что делает', 0, 'CO'],
+        ['Объясняю и показываю, как надо', 0, 'TE'], ['Готовлю или делаю руками', 0, 'MA']] },
+  { id: 'X-EXP3', kind: 'x', icon: 'razgovor', exp: true,
+    story: 'Подумайте, с какими просьбами к вам приходят родные, друзья и коллеги.',
+    q: 'За чем к вам обращаются чаще всего?',
+    a: [['Разобраться и выбрать лучший вариант', 0, 'IN'], ['Придумать идею или красиво оформить', 0, 'CR'], ['Выслушать и поддержать', 0, 'CL'],
+        ['Договориться или выгодно купить-продать', 0, 'SA'], ['Навести порядок в бумагах и делах', 0, 'OP'], ['Организовать людей и общее дело', 0, 'CO'],
+        ['Объяснить и научить', 0, 'TE'], ['Починить или сделать руками', 0, 'MA']] },
   { id: 'A-E1', kind: 'e', icon: 'doverie',
     story: 'В ваш магазин зашла покупательница. Долго смотрит, ничего не берёт. Нужно подойти и понять, что она на самом деле ищет.',
     q: 'Как вам такая задача?',
@@ -536,53 +525,39 @@ var Q = [
     e: ['🏆', '👍', '🌀', '🌊'],
     a: [['Всё сделано — я так обычно и живу', 4], ['Почти всё, одно-два дела перенесу', 3],
         ['Половина, остальное съест суета', 1], ['Планы — не про меня, живу по обстоятельствам', 0]] },
-  { id: 'X-EXP', kind: 'x', icon: 'rezultat', lastFixed: true,
-    story: 'Вспомните последние год-два: работу, подработку, помощь родным и друзьям.',
-    q: 'За что вам чаще всего платили или говорили «спасибо»?',
-    e: ['💰', '🛠️', '📋', '🎨', '📚', '🤗', '🧩', '💼'],
-    a: [['Нашёл, договорился, выгодно продал', 0, 'SA'], ['Сделал что-то своими руками', 0, 'MA'], ['Организовал людей или навёл порядок', 0, 'CO'],
-        ['Придумал идею, сделал красиво', 0, 'CR'], ['Объяснил, научил, дал совет', 0, 'TE'], ['Выслушал, помог, поддержал человека', 0, 'CL'],
-        ['Разобрался в сложном, нашёл причину', 0, 'IN'], ['Пока ничего из этого — работал(а) за зарплату', 0, '']] },
-  { id: 'X-RISK', kind: 'x', icon: 'dengi', fixed: true,
-    story: 'Представьте: у вас есть 25 миллионов сумов на своё дело.',
-    q: 'Что вы с ними сделаете?',
-    e: ['🏗️', '🧪', '🌱'],
-    a: [['Сразу вложу в товар или оборудование — без вложений не начать'], ['Немного потрачу, чтобы проверить спрос, остальное придержу'], ['Поищу, как начать почти без денег']] },
-  { id: 'X-SALE', kind: 'x', icon: 'prodazha', fixed: true,
+  { id: 'X-SALE', kind: 'e', icon: 'prodazha', fixed: true,
     story: 'Вы сделали свой товар. Теперь его нужно продать незнакомым людям — в Instagram, на базаре или по телефону.',
     q: 'Для вас это…',
     e: ['😄', '🤔', '😓'],
     a: [['Легко и даже приятно'], ['Смогу, если сам(а) верю в товар'], ['Тяжело — хочу, чтобы товар продавал себя сам']] },
-  { id: 'X-WHY', kind: 'x', icon: 'tsel', fixed: true,
-    story: 'Прошёл год. Ваше дело получилось и работает.',
-    q: 'Что для вас в этом главное?',
-    e: ['💵', '🕊️', '⭐', '❤️', '🏡'],
-    a: [['Доход больше, чем на зарплате'], ['Свобода: сам(а) решаю, когда и как работать'], ['Имя, которое знают и уважают'], ['Польза людям'], ['Спокойствие и стабильность для семьи']] },
+  { id: 'X-RISK', kind: 'c', icon: 'dengi', fixed: true,
+    story: 'Представьте: у вас есть 25 миллионов сумов на своё дело.',
+    q: 'Что вы с ними сделаете?',
+    e: ['🏗️', '🧪', '🌱'],
+    a: [['Сразу вложу в товар или оборудование — без вложений не начать'], ['Немного потрачу, чтобы проверить спрос, остальное придержу'], ['Поищу, как начать почти без денег']] },
   { id: 'A-C1', kind: 'c', icon: 'doroga', fixed: true,
     q: 'Где вы сейчас?',
     e: ['👀', '💡', '🛍️', '🏪', '👨‍👩‍👧'],
-    a: [['Пока присматриваюсь, своего дела нет'], ['Есть идея, но ещё не начинал(а)'], ['Уже пробую продавать'], ['Веду свой бизнес'], ['Работаю в семейном деле']] },
-  { id: 'A-C2', kind: 'c', icon: 'semya', fixed: true,
-    story: 'Многие дела начинаются вдвоём: с супругом, братом, сестрой, родителями или близким другом.',
-    q: 'Есть ли рядом человек, с кем вы могли бы делать общее дело?',
-    e: ['🙋', '🤔', '🤝'],
-    a: [['Нет, я сам(а) по себе'], ['Может быть, есть кто-то на примете'], ['Да, мы уже это обсуждаем или работаем вместе']] }
+    a: [['Пока присматриваюсь, своего дела нет'], ['Есть идея, но ещё не начинал(а)'], ['Уже пробую продавать'], ['Веду свой бизнес'], ['Работаю в семейном деле']] }
 ];
 /* ── 4 части игры: у каждой свой цвет, иконка и заставка ── */
-var PARTS = ['i', 'e', 'x', 'c'];
+var PARTS = ['i', 'x', 'e', 'c'];
 var PART = {
-  i: { name: 'Ситуации', full: 'Поведение в ситуациях', color: '#C60000', icon: 'insayt', lab: 'СИТУАЦИЯ', how: 'Как бы вы поступили в жизненной истории.', title: 'Ситуации <span>из жизни</span>',
-       text: '9 коротких историй. Представьте себя на месте героя и выберите, как поступили бы на самом деле.',
-       list: [['', 'Правильных ответов нет'], ['', 'Отвечайте быстро — первое, что пришло в голову']] },
-  e: { name: 'Уверенность', full: 'Ваша уверенность', color: '#5A6E7A', icon: 'uverennost', lab: 'ВОПРОС', how: 'Насколько спокойно вам в деле.', title: 'Ваша <span>уверенность</span>',
-       text: '2 вопроса о том, насколько спокойно вы чувствуете себя в деле. Это не оценка — уверенность растёт с практикой.',
-       list: [['', 'Разговор с клиентом'], ['', 'План на неделю']] },
-  x: { name: 'Условия', full: 'Ваши условия', color: '#2C3A42', icon: 'dengi', lab: 'О ВАС', how: 'Опыт, деньги и продажи — чтобы подобрать идеи.', title: 'Ваши <span>условия</span>',
-       text: '4 вопроса: опыт, деньги, продажи и что для вас главное. На архетип они не влияют — по ним мы подберём идеи и советы.',
-       list: [['', 'Ваш опыт'], ['', 'Деньги на старт'], ['', 'Как вам продажи'], ['', 'Ради чего дело']] },
-  c: { name: 'О вас', full: 'Где вы сейчас', color: '#8A9AA4', icon: 'semya', lab: 'О ВАС', how: 'Где вы сейчас и с кем можно начать.', title: 'Ещё <span>2 вопроса</span>',
-       text: 'Последние вопросы — где вы сейчас и есть ли рядом близкий человек для общего дела. И сразу результат!',
-       list: [['📍', 'Где вы сейчас'], ['🤝', 'С кем можно начать']] }
+  i: { name: 'Ситуации', full: 'Поведение в ситуациях', color: '#C60000' },
+  x: { name: 'Опыт', full: 'Ваш опыт', color: '#2C3A42' },
+  e: { name: 'Уверенность', full: 'Ваша уверенность', color: '#5A6E7A' },
+  c: { name: 'О вас', full: 'Ваш старт', color: '#8A9AA4' }
+};
+/* Уточняющие вопросы, когда два архетипа идут рядом: по одной фразе на архетип */
+var DUEL = {
+  IN: ['Сначала всё выясню и сравню, потом решаю', 'Люблю докапываться, почему так получилось', 'Перед покупкой долго читаю и сравниваю'],
+  CR: ['Люблю придумывать новое и делать по-своему', 'Идеи приходят сами — успевай записывать', 'Мне важно, чтобы было красиво и не как у всех'],
+  CL: ['Легко завожу разговор с незнакомым человеком', 'Люди часто делятся со мной личным', 'Мне в радость весь день быть среди людей'],
+  SA: ['Люблю торговаться и находить выгоду', 'Могу уговорить человека купить', 'Мне нравится азарт сделки'],
+  OP: ['Люблю, когда всё по полочкам и по списку', 'Меня раздражает беспорядок в делах', 'Веду записи: расходы, дела, планы'],
+  CO: ['Обычно я говорю, кто что делает', 'Легко беру на себя ответственность за общее дело', 'Довожу общие дела до конца, даже если другие остыли'],
+  TE: ['Люблю объяснять, пока человек не поймёт', 'Ко мне приходят за советом по моей теме', 'Мне нравится учить других тому, что умею'],
+  MA: ['Люблю делать руками и видеть готовую вещь', 'Могу часами доводить работу до идеала', 'Лучше сделаю сам(а), чем буду объяснять']
 };
 
 /* ── Семейная часть: 7 вопросов (F1–F7), простым языком ── */
@@ -614,7 +589,7 @@ function shuffleAll() {
   });
   return o;
 }
-function fresh() { return { scr: 'intro', i: 0, ans: {}, ord: shuffleAll(), fam: [{}, {}], pass: 0, fi: 0, ok: [false, false] }; }
+function fresh() { return { scr: 'intro', i: 0, ans: {}, ord: shuffleAll(), fam: [{}, {}], pass: 0, fi: 0, ok: [false, false], duels: [], dans: {}, di: 0, rated: 0 }; }
 var S = fresh();
 
 function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -680,7 +655,7 @@ var DEMO = { IN: 3, CR: 4, MA: 1, OP: 1.5, CO: 3, SA: 2, CL: 3.5, TE: 1 };
 
 /* ── Экраны ── */
 function vIntro() {
-  var stats = [['spisok', '17 вопросов'], ['chasy', '4 минуты'], ['podarok', 'Бесплатно'], ['zamok', 'Без регистрации']];
+  var stats = [['spisok', '18 вопросов'], ['chasy', '5 минут'], ['podarok', 'Бесплатно'], ['zamok', 'Без регистрации']];
   /* 20.11: одна общая сцена — 8 зверей стоят вместе; без описаний архетипов (интрига), сразу к тесту */
   var crew = [['sozdatel', 7, 'b'], ['sistematizator', 30, 'b'], ['organizator', 50, 'b'], ['kommunikator', 72, 'b'], ['ekspert', 92, 'b'],
     ['issledovatel', 17, 'f'], ['torgovets', 42, 'f'], ['master', 71, 'f']];
@@ -694,75 +669,108 @@ function vIntro() {
       }).join('') + '</div>' +
       '<ul class="g-facts">' + stats.map(function (x) { return '<li>' + ipic(x[0]) + '<span>' + x[1] + '</span></li>'; }).join('') + '</ul>' +
       '<span class="g-glow"><button type="button" class="btn btn--primary btn--shine btn--lg btn--block mt-14" data-act="start">Определить свой архетип' + arrow() + '</button></span>' +
+      '<div class="g-how"><b>Как отвечать</b><p>В каждой ситуации 4 варианта. Нажимайте на них по порядку: от самого близкого вам до самого далёкого.</p>' +
+        '<div class="g-how-row"><span><i>1</i>про меня</span><em>2 · 3</em><span><i>4</i>не про меня</span></div></div>' +
       '<p class="g-note">Это игра, а не научный тест. Она показывает, что вам интересно, но не оценивает способности и не обещает успех. Ответы остаются на вашем телефоне.</p>' +
     '</div>'
   );
 }
 
-function ptabs(cur) {
-  var ci = PARTS.indexOf(cur);
-  return '<div class="g-ptabs" aria-hidden="true">' + PARTS.map(function (k, n) {
-    return '<span class="' + (n < ci ? 'done' : n === ci ? 'now' : '') + '" style="--pc:' + PART[k].color + '">' + PART[k].name + '</span>';
-  }).join('') + '</div>';
-}
-
-function vGate() {
-  var k = Q[S.i].kind, pp = PART[k], n = PARTS.indexOf(k) + 1;
-  return sec(
-    '<div class="g-gate" style="--pc:' + pp.color + '"><div class="eyebrow">ЧАСТЬ ' + n + ' ИЗ 4</div>' +
-      '<div class="g-big">' + img(pp.icon) + '</div>' +
-      '<h2>' + pp.title + '</h2><p>' + pp.text + '</p>' +
-      '<ul>' + pp.list.map(function (x) { return '<li><b>' + x[0] + '</b>' + x[1] + '</li>'; }).join('') + '</ul>' +
-      ptabs(k) +
-      '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="gateGo">' + (n === 1 ? 'Поехали' : 'Дальше') + arrow() + '</button>' +
-    '</div>' +
-    '<div class="g-foot" style="border:0"><button type="button" class="btn btn--sm" data-act="back">← Назад</button><span class="mono muted">Пройдено ' + S.i + ' из ' + Q.length + '</span></div>'
-  );
-}
-
 /* 20.11: картинки к ситуациям (id вопроса → версия файла), звери в костюмах на белом — утверждено Александром */
-var SIT = {'A-I1': 1, 'A-I2': 1, 'A-I3': 1, 'A-I4': 1, 'A-I5': 1, 'A-I6': 1, 'A-I7': 1, 'M-I1': 1, 'A-I8': 1, 'A-E1': 1, 'A-E2': 1, 'X-EXP': 1, 'X-RISK': 1, 'X-SALE': 1, 'X-WHY': 1, 'A-C1': 1, 'A-C2': 1};
+var SIT = {'R1': 1, 'R2': 1, 'R3': 1, 'R4': 1, 'R5': 1, 'R6': 1, 'R7': 1, 'R8': 1, 'R9': 1, 'R10': 1, 'X-EXP': 1, 'X-EXP2': 1, 'X-EXP3': 1, 'A-E1': 1, 'A-E2': 1, 'X-SALE': 1, 'X-RISK': 1, 'A-C1': 1};
+var RANK_HINT = ['Нажмите на то, что больше всего про вас', 'Теперь — второе по близости', 'И третье. Последнее встанет само', 'Готово'];
+function rankState(q) { var a = S.ans[q.id]; return Array.isArray(a) ? a : []; }
+function pbar(title, right, fill) {
+  return '<div class="g-pb"><div class="g-pb-h"><b>' + title + '</b><span>' + right + '</span></div><div class="g-pb-row">' + PARTS.map(function (k, n) {
+    var w = fill(n);
+    return '<div class="g-pb-seg' + (w > 0 && w < 100 ? ' now' : w >= 100 ? ' done' : '') + '"><span class="g-pb-track"><i style="width:' + w + '%"></i></span><small>' + (n + 1) + ' · ' + PART[k].name + '</small></div>';
+  }).join('') + '</div></div>';
+}
 function vQuiz() {
   var q = Q[S.i], cur = S.ans[q.id], pp = PART[q.kind];
   var inPart = Q.filter(function (x) { return x.kind === q.kind; }), pos = inPart.indexOf(q) + 1;
-  var ci = PARTS.indexOf(q.kind);
-  var bar = PARTS.map(function (k, n) {
-    var cnt = Q.filter(function (x) { return x.kind === k; }).length;
-    var w = n < ci ? 100 : n > ci ? 0 : Math.round(pos / cnt * 100);
-    return '<div class="g-pb-seg' + (n === ci ? ' now' : n < ci ? ' done' : '') + '"><span class="g-pb-track"><i style="width:' + w + '%"></i></span><small>' + (n + 1) + ' · ' + PART[k].name + '</small></div>';
+  var ci = PARTS.indexOf(q.kind), arr = q.rank ? rankState(q) : [];
+  var opts = S.ord[q.id].map(function (k, n) {
+    if (q.rank) {
+      var at = arr.indexOf(k);
+      return '<button type="button" class="opt opt--rank' + (at > -1 ? ' is-ranked r' + (at + 1) : '') + '" data-act="rank" data-v="' + k + '"><span class="g-em g-rk" aria-hidden="true">' + (at > -1 ? at + 1 : '') + '</span><span>' + esc(q.a[k][0]) + '</span></button>';
+    }
+    return '<button type="button" class="opt" role="radio" aria-checked="' + (cur === k ? 'true' : 'false') + '" data-act="ans" data-v="' + k + '"><span class="g-em" aria-hidden="true">' + 'АБВГДЕЖЗИ'.charAt(n) + '</span><span>' + esc(q.a[k][0]) + '</span></button>';
   }).join('');
-  var opts = S.ord[q.id].map(function (k) {
-    var e = '<span class="g-em" aria-hidden="true">' + 'АБВГДЕЖЗ'.charAt(S.ord[q.id].indexOf(k)) + '</span>';
-    return '<button type="button" class="opt" role="radio" aria-checked="' + (cur === k ? 'true' : 'false') + '" data-act="ans" data-v="' + k + '">' + e + '<span>' + esc(q.a[k][0]) + '</span></button>';
-  }).join('');
+  var full = q.rank && arr.length >= q.a.length;
   return sec(
     '<div class="g-panel">' +
-      '<div class="g-pb" aria-label="Часть ' + (ci + 1) + ' из 4, вопрос ' + (S.i + 1) + ' из ' + Q.length + '"><div class="g-pb-h"><b>Часть ' + (ci + 1) + ' · ' + pp.full + '</b><span>' + (S.i + 1) + ' / ' + Q.length + '</span></div><div class="g-pb-row">' + bar + '</div></div>' +
+      pbar('Часть ' + (ci + 1) + ' · ' + pp.full, (S.i + 1) + ' / ' + Q.length, function (n) { return n < ci ? 100 : n > ci ? 0 : Math.max(4, Math.round((pos - 1) / inPart.length * 100)); }) +
       (SIT[q.id] ? '<img class="g-sit" src="../assets/img/arhetip/sit/' + q.id + '.webp?v=' + SIT[q.id] + '" alt="" width="1200" height="800">' : '') +
       (q.story ? '<p class="g-story g-story--big">' + esc(q.story) + '</p>' : '') +
       '<h2 class="g-q">' + esc(q.q) + '</h2>' +
-      '<div class="g-opts" role="radiogroup" aria-label="Ваш ответ">' + opts + '</div>' +
-      (q.kind === 'i' ? '<p class="g-hint">Правильных ответов нет — выбирайте, как есть.</p>' : '') +
-      '<div class="g-foot"><button type="button" class="btn btn--sm" data-act="back">← Назад</button><button type="button" class="g-skip" data-act="skip">Не могу выбрать</button></div>' +
+      (q.rank ? (S.i === 0 && !arr.length ? '<div class="g-tip"><b>Как отвечать.</b> Нажимайте на варианты по порядку: 1 — это больше всего про вас, 4 — меньше всего. Ошиблись — нажмите на вариант ещё раз.</div>' : '') +
+        '<p class="g-rank-how"><span><i>1</i>про меня</span><span><i>4</i>не про меня</span></p>' : '') +
+      '<div class="g-opts" role="' + (q.rank ? 'group' : 'radiogroup') + '" aria-label="Ваш ответ">' + opts + '</div>' +
+      (q.rank ? '<p class="g-hint" id="gRankHint" role="status">' + RANK_HINT[Math.min(arr.length, 3)] + '</p>' : '') +
+      '<div class="g-foot"><button type="button" class="btn btn--sm" data-act="back">← Назад</button>' +
+        (full ? '<button type="button" class="btn btn--sm btn--primary" data-act="rankNext">Дальше' + arrow() + '</button>' : '<button type="button" class="g-skip" data-act="skip">Не могу выбрать</button>') + '</div>' +
+    '</div>'
+  );
+}
+function paintRank(q) {
+  var arr = rankState(q);
+  Array.prototype.forEach.call(APP.querySelectorAll('[data-act="rank"]'), function (b) {
+    var at = arr.indexOf(Number(b.getAttribute('data-v')));
+    b.className = 'opt opt--rank' + (at > -1 ? ' is-ranked r' + (at + 1) : '');
+    b.querySelector('.g-rk').textContent = at > -1 ? at + 1 : '';
+  });
+  var h = document.getElementById('gRankHint'); if (h) h.textContent = RANK_HINT[Math.min(arr.length, 3)];
+  var t = APP.querySelector('.g-tip'); if (t && arr.length) t.style.display = 'none';
+}
+/* Уточнение: два архетипа набрали почти поровну — спрашиваем напрямую, что ближе */
+function vDuel() {
+  var d = S.duels[S.di], n = S.duels.length;
+  function st(c) { var seen = 0; for (var i = 0; i < S.di; i++) if (S.duels[i].indexOf(c) > -1) seen++; return DUEL[c][seen % DUEL[c].length]; }
+  var pair = S.di % 2 ? [d[1], d[0]] : d;
+  return sec(
+    '<div class="g-panel">' +
+      pbar('Последнее уточнение', (S.di + 1) + ' / ' + n, function () { return 100; }) +
+      '<p class="g-story g-story--big">Почти готово. Два варианта у вас идут рядом — выберите, что ближе.</p>' +
+      '<h2 class="g-q">Что больше про вас?</h2>' +
+      '<div class="g-opts" role="radiogroup" aria-label="Ваш ответ">' + pair.map(function (c, k) {
+        return '<button type="button" class="opt" role="radio" aria-checked="false" data-act="duel" data-v="' + c + '"><span class="g-em" aria-hidden="true">' + 'АБ'.charAt(k) + '</span><span>' + esc(st(c)) + '</span></button>';
+      }).join('') + '</div>' +
+      '<div class="g-foot"><button type="button" class="btn btn--sm" data-act="back">← Назад</button><button type="button" class="g-skip" data-act="duelSkip">Одинаково</button></div>' +
     '</div>'
   );
 }
 
-function compute() {
-  var sc = {};
+/* 20.11: баллы. Ситуация: 1-е место — 3 балла, 2-е — 2, 3-е — 1, 4-е — 0 (каждый архетип встречается 5 раз, максимум 15).
+   Опыт (3 вопроса): +2 своему архетипу. Уточнение: +1,5 выбранному. */
+var ORDER = ['IN', 'CR', 'CL', 'SA', 'OP', 'CO', 'TE', 'MA'];
+function scores(noDuel) {
+  var pts = {}, cnt = {}, sc = {}, done = 0;
+  AX.forEach(function (c) { pts[c] = 0; cnt[c] = 0; });
   Q.forEach(function (q) {
-    if (q.kind !== 'i') return;
-    var k = S.ans[q.id]; if (k == null) return;
-    (sc[q.code] = sc[q.code] || []).push(q.a[k][1]);
+    if (!q.rank) return;
+    var a = S.ans[q.id]; if (!Array.isArray(a) || a.length < q.a.length) return;
+    done++; a.forEach(function (k, pos) { var c = q.a[k][1]; pts[c] += 3 - pos; cnt[c]++; });
   });
-  var order = ['IN', 'CR', 'CL', 'SA', 'OP', 'CO', 'TE', 'MA'];
-  var agg = Object.keys(sc).map(function (c) { var v = sc[c]; return { code: c, avg: v.reduce(function (a, b) { return a + b; }, 0) / v.length }; })
-    .sort(function (a, b) { return b.avg - a.avg || order.indexOf(a.code) - order.indexOf(b.code); });
-  var answered = Q.filter(function (q) { return q.kind === 'i' && S.ans[q.id] != null; }).length;
-  var strong = agg.filter(function (x) { return x.avg >= 3; });
-  var mode = answered < 5 ? 'few' : strong.length >= 3 && strong[0].avg - strong[2].avg <= 0.5 ? 'wide' : strong.length ? 'clear' : 'soft';
-  var leaders = mode === 'few' ? [] : mode === 'wide' ? strong.slice(0, 3) : (strong.length ? strong : agg).slice(0, 2);
-  return { agg: agg, answered: answered, leaders: leaders, mode: mode };
+  AX.forEach(function (c) { sc[c] = cnt[c] ? pts[c] / cnt[c] * 5 : 0; });
+  Q.forEach(function (q) { if (!q.exp) return; var k = S.ans[q.id]; if (k == null) return; var c = q.a[k][2]; if (c && sc[c] != null) sc[c] += 2; });
+  if (!noDuel) (S.duels || []).forEach(function (d) { var w = (S.dans || {})[d.join('|')]; if (w && sc[w] != null) sc[w] += 1.5; });
+  return { sc: sc, done: done };
+}
+function ranked(sc) { return AX.slice().sort(function (a, b) { return sc[b] - sc[a] || ORDER.indexOf(a) - ORDER.indexOf(b); }); }
+function duelPairs() {
+  var s = scores(true); if (s.done < 5) return [];
+  var a = ranked(s.sc), v = s.sc, out = [];
+  if (v[a[0]] - v[a[1]] <= 1) out.push([a[0], a[1]]);
+  if (v[a[1]] - v[a[2]] <= 1) out.push([a[1], a[2]]);
+  if (out.length === 2 && v[a[0]] - v[a[2]] <= 1) out.push([a[0], a[2]]);
+  return out;
+}
+function compute() {
+  var s = scores(), agg = ranked(s.sc).map(function (c) { return { code: c, avg: s.sc[c] }; });
+  var mode = s.done < 5 ? 'few' : (agg[0].avg - agg[2].avg <= 1 && agg[0].avg - agg[3].avg <= 2) ? 'wide' : 'clear';
+  var leaders = mode === 'few' ? [] : agg.slice(0, mode === 'wide' ? 3 : 2);
+  return { agg: agg, answered: s.done, leaders: leaders, mode: mode };
 }
 function confText(id) {
   var k = S.ans[id]; if (k == null) return 'Вы пропустили этот вопрос.';
@@ -816,7 +824,7 @@ function vResult() {
   var r = compute(), L = r.leaders, names = L.map(function (x) { return P[x.code].name; });
   var title = r.mode === 'few' ? 'Пока мало ответов' : r.mode === 'wide' ? 'Вы — <span>универсал</span>' :
     names.length === 2 ? names[0] + '<span>+ ' + names[1].toLowerCase() + '</span>' : esc(names[0] || '');
-  var lead = r.mode === 'few' ? 'Вы пропустили много ситуаций, поэтому архетип определить нельзя. Пройдите ещё раз — это займёт 4 минуты.' :
+  var lead = r.mode === 'few' ? 'Вы пропустили много ситуаций, поэтому архетип определить нельзя. Пройдите ещё раз — это займёт 5 минут.' :
     r.mode === 'wide' ? 'Вам интересно сразу несколько сторон бизнеса: ' + names.join(', ').toLowerCase() + '. Так часто бывает у тех, кто начинает своё дело.' :
     r.mode === 'soft' ? 'Ярко выраженного архетипа пока нет, но эти задачи откликнулись вам больше других.' :
     'Эти задачи в бизнесе вам интереснее всего. В них проще найти своё место и не выгореть.';
@@ -825,9 +833,10 @@ function vResult() {
   var heroTag = main && r.mode !== 'wide' ? '<p class="g-res-tag">' + TAG[main] + '</p>' : '';
   var heroGr = g0 && r.mode !== 'wide' ? '<span class="g-chip" style="--gc:' + g0.color + '">Группа «' + g0.name + '»</span>' : '';
   var vals = {}; r.agg.forEach(function (x) { vals[x.code] = x.avg; });
+  var also = r.mode === 'clear' && r.agg[2] && r.agg[2].avg > 0 ? '<p class="g-res-also">Ещё в вас есть: <b>' + P[r.agg[2].code].name + '</b></p>' : '';
   var tops = L.map(function (x) { return x.code; });
   var sorted = r.agg.map(function (x) { return x.code; }).concat(AX.filter(function (c) { return vals[c] == null; }));
-  var info = r.agg.length ? '<div class="g-h3" id="ch-map">ДИАГРАММА БИЗНЕС-АРХЕТИПА</div><div class="g-info g-info--clean">' +
+  var info = r.mode !== 'few' ? '<div class="g-h3" id="ch-map">ДИАГРАММА БИЗНЕС-АРХЕТИПА</div><div class="g-info g-info--clean">' +
     '<div class="g-info-sub">Сколько в вас каждого из 8 архетипов. Чем больше процент, тем ближе вам эта работа.</div>' +
     radarSVG(vals, tops, 'Диаграмма бизнес-архетипа: ' + sorted.map(function (c) { return P[c].name + ' — ' + word(vals[c]); }).join(', ')) +
     legend(vals, tops, sorted) + '</div>' : '';
@@ -874,12 +883,15 @@ function vResult() {
       '<p><b>Кто из семьи может помочь.</b> ' + FAMLINE[L[0].code] + '</p></div>';
   }
   return sec(
-    '<div class="g-res g-res--hero"><div class="eyebrow">ВАШ БИЗНЕС-АРХЕТИП</div><div class="g-res-pers n' + (L.length > 2 && r.mode === 'wide' ? 3 : L.length > 1 ? 2 : 1) + '">' + heroPics + '</div>' + heroGr + '<h2>' + title + '</h2>' + heroTag + '<p>' + lead + '</p></div>' +
+    '<div class="g-res g-res--hero"><div class="eyebrow">ВАШ БИЗНЕС-АРХЕТИП</div><div class="g-res-pers n' + (L.length > 2 && r.mode === 'wide' ? 3 : L.length > 1 ? 2 : 1) + '">' + heroPics + '</div>' + heroGr + '<h2>' + title + '</h2>' + heroTag + also + '<p>' + lead + '</p></div>' +
     toc + info +
     (L.length ? '<div class="g-h3" id="ch-who">КТО ВЫ В БИЗНЕСЕ</div>' + cards : '') +
     plusBlock + expBlock +
     ideasBlock + pairBlock + giveBlock +
     skillsBlock() +
+    (L.length ? '<div class="g-rate' + (S.rated ? ' is-done' : '') + '" id="gRate"><b>Насколько это про вас?</b><div class="g-rate-row">' + [1, 2, 3, 4, 5].map(function (n) {
+        return '<button type="button" data-act="rate" data-v="' + n + '"' + (S.rated === n ? ' class="on"' : '') + (S.rated ? ' disabled' : '') + '>' + n + '</button>'; }).join('') +
+      '</div><div class="g-rate-cap">' + (S.rated ? '<em>Спасибо! Это помогает сделать тест точнее.</em>' : '<span>Совсем не про меня</span><span>Точно про меня</span>') + '</div></div>' : '') +
     '<div class="g-btns"><span class="g-glow"><button type="button" class="btn btn--primary btn--shine btn--lg btn--block" data-act="share">Поделиться с другом' + arrow() + '</button></span><div class="g-status" id="gStatus" role="status"></div></div>' +
     '<div class="g-fbt"><div class="eyebrow">FAMILY BUSINESS TRAINING</div><h3>Как создать успешный бизнес в Узбекистане в 2026 году</h3>' +
       '<p>Пройдите бесплатную диагностику — за 5 минут увидите, с чего начать.</p>' +
@@ -973,7 +985,7 @@ function vFamRes() {
   );
 }
 
-var VIEWS = { intro: vIntro, gate: vGate, quiz: vQuiz, result: vResult, famIntro: vFamIntro, famQ: vFamQ, famOk: vFamOk, famSwitch: vFamSwitch, famRes: vFamRes };
+var VIEWS = { intro: vIntro, quiz: vQuiz, duel: vDuel, result: vResult, famIntro: vFamIntro, famQ: vFamQ, famOk: vFamOk, famSwitch: vFamSwitch, famRes: vFamRes };
 function render() {
   APP.innerHTML = VIEWS[S.scr]();
   try { window.scrollTo(0, 0); } catch (e) {}
@@ -983,30 +995,66 @@ function render() {
 
 /* Выбор ответа — красная подсветка, лёгкая вибрация и пауза, как в диагностике */
 var busy = false;
-function pick(btn, then) {
-  if (busy) return; busy = true;
-  btn.classList.add('is-picked');
+function buzz() {
   try { if (navigator.vibrate) navigator.vibrate([18]); } catch (e) {}
   try { var tg = window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback; if (tg) tg.impactOccurred('light'); } catch (e) {}
+}
+function pick(btn, then) {
+  if (busy) return; busy = true;
+  btn.classList.add('is-picked'); buzz();
   setTimeout(function () { busy = false; then(); }, 200);
 }
+/* 20.11: события игры → журнал бота (как на остальных страницах): начал, дошёл до результата, оценка «насколько про вас» */
+function gev(name, data) {
+  try {
+    var api = (window.FBT_CONFIG || {}).botApi; if (!api) return;
+    var token = '', anon = '';
+    try { token = localStorage.getItem('fbt_token') || ''; anon = localStorage.getItem('fbt_anon') || '';
+      if (!anon) { anon = (Date.now().toString(36) + Math.random().toString(36).slice(2, 12)).replace(/[^a-z0-9]/g, '').slice(0, 20); localStorage.setItem('fbt_anon', anon); } } catch (e) {}
+    if (!token && !anon) anon = (Date.now().toString(36) + Math.random().toString(36).slice(2, 12)).replace(/[^a-z0-9]/g, '').slice(0, 20);
+    var body = token ? { token: token } : { anon: anon };
+    body.event = name; body.data = Object.assign({ page: 'igra-profil' }, data || {});
+    body.eid = (Date.now().toString(36) + Math.random().toString(36).slice(2, 10)).slice(0, 40); body.v = 'ba2';
+    body.test = /[?&](test|demo)\b/.test(location.search) ? 1 : 0;
+    fetch(api.replace(/\/$/, '') + '/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), keepalive: true }).catch(function () {});
+  } catch (e) {}
+}
+function resData() { var r = compute(); return { main: r.leaders[0] ? r.leaders[0].code : '', second: r.leaders[1] ? r.leaders[1].code : '', mode: r.mode, duels: (S.duels || []).length }; }
+function toResult() { S.scr = 'result'; gev('arhetip_done', resData()); }
 function nextQ() {
   if (S.i < Q.length - 1) { S.i++; S.scr = 'quiz'; }
-  else S.scr = 'result';
+  else { S.duels = duelPairs(); S.dans = {}; S.di = 0; if (S.duels.length) S.scr = 'duel'; else toResult(); }
   render();
 }
+function nextD() { if (S.di < S.duels.length - 1) S.di++; else toResult(); render(); }
 function nextF() { if (S.fi < F.length - 1) S.fi++; else S.scr = 'famOk'; render(); }
 
 APP.addEventListener('click', function (e) {
   var b = e.target.closest('[data-act]'); if (!b || b.disabled || busy) return;
   var act = b.getAttribute('data-act'), v = b.getAttribute('data-v');
   switch (act) {
-    case 'start': case 'restart': S = fresh(); S.scr = 'quiz'; break;
-    case 'gateGo': S.scr = 'quiz'; break;
+    case 'start': case 'restart': S = fresh(); S.scr = 'quiz'; gev('arhetip_start', { again: act === 'restart' ? 1 : 0 }); break;
+    case 'rank': {
+      var rq = Q[S.i], rn = rq.a.length, ra = rankState(rq).slice(), rk = Number(v), rat = ra.indexOf(rk);
+      if (ra.length >= rn) ra = [rk]; else if (rat > -1) ra = ra.slice(0, rat); else ra.push(rk);
+      if (ra.length === rn - 1) for (var z = 0; z < rn; z++) if (ra.indexOf(z) < 0) ra.push(z);
+      S.ans[rq.id] = ra; buzz(); paintRank(rq);
+      if (ra.length === rn) { busy = true; setTimeout(function () { busy = false; nextQ(); }, 650); }
+      return; }
+    case 'rankNext': if (rankState(Q[S.i]).length >= Q[S.i].a.length) nextQ(); return;
+    case 'duel': S.dans[S.duels[S.di].join('|')] = v; pick(b, nextD); return;
+    case 'duelSkip': delete S.dans[S.duels[S.di].join('|')]; nextD(); return;
+    case 'rate': {
+      if (S.rated) return; S.rated = Number(v); buzz(); gev('arhetip_rate_' + S.rated, resData());
+      var box = document.getElementById('gRate');
+      if (box) { box.classList.add('is-done'); Array.prototype.forEach.call(box.querySelectorAll('button'), function (x) { x.disabled = true; if (x === b) x.className = 'on'; });
+        box.querySelector('.g-rate-cap').innerHTML = '<em>Спасибо! Это помогает сделать тест точнее.</em>'; }
+      return; }
     case 'ans': S.ans[Q[S.i].id] = Number(v); pick(b, nextQ); return;
     case 'skip': S.ans[Q[S.i].id] = null; nextQ(); return;
     case 'back':
-      if (S.scr === 'quiz' && S.i > 0) S.i--; else S.scr = 'intro';
+      if (S.scr === 'duel') { if (S.di > 0) S.di--; else S.scr = 'quiz'; }
+      else if (S.scr === 'quiz' && S.i > 0) S.i--; else S.scr = 'intro';
       break;
     case 'result': S.scr = 'result'; break;
     case 'png': card(); return;
