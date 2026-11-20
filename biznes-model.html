@@ -8,14 +8,14 @@
 <meta property="og:title" content="Оцените свою бизнес-модель">
 <meta property="og:description" content="14 простых вопросов · карта из 6 показателей · бесплатный разбор от куратора">
 <meta name="theme-color" content="#ffffff">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/logo/favicon-64.png" type="image/png">
 <!-- 20.11.2026 · отдельный лендинг для Reels «МОДЕЛЬ». Ни с какими страницами сайта не связан (нет меню и ссылок на сайт).
      v2 (решение Александра 20.11): без платного ИИ — ответы кнопками, баллы считает страница по правилам промпта v3
      (Impact-Consulting/FBT Online/bot/assets/lead_magnets/business_model_diagnostic_prompt_v3.txt). -->
 <style>
 :root{
   --bg:#ffffff; --soft:#f4f5f6; --line:#e3e5e8; --text:#16191d; --muted:#5d646d;
-  --ink:#1f2a33; --accent:#d83a34; --bubble:#eef0f3; --radius:26px;
+  --ink:#1f2a33; --slate:#34506b; --accent:#d83a34; --bubble:#eef0f3; --radius:26px;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 *{box-sizing:border-box}
@@ -26,9 +26,10 @@ button{font:inherit;cursor:pointer}
 .top.is-on{border-bottom-color:var(--line)}
 .top-in{max-width:800px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:12px}
 .brand{font-weight:700;font-size:16px;letter-spacing:.01em;color:var(--ink);display:flex;align-items:center;gap:9px}
-.brand i{width:26px;height:26px;border-radius:8px;background:var(--ink);display:inline-grid;place-items:center}
-.brand i svg{width:16px;height:16px}
-.brand small{font-weight:500;color:var(--muted);font-size:14px}
+.brand-logo{width:34px;height:34px;object-fit:contain;flex:none}
+.brand b{font-size:14px;font-weight:800;letter-spacing:.14em}
+.brand em{width:1px;height:22px;background:var(--line)}
+.brand small{font-weight:500;color:var(--muted);font-size:15px}
 .top .grow{flex:1}
 .restart{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:15px;color:var(--ink);display:none}
 .restart.is-on{display:inline-block}
@@ -67,9 +68,9 @@ main{flex:1;width:100%;max-width:800px;margin:0 auto;padding:0 18px}
 .msg .ava svg{width:19px;height:19px}
 .msg .txt{min-width:0;flex:1;font-size:19px;line-height:1.55;overflow-wrap:anywhere}
 .msg .txt b{font-weight:700}
-.msg .step{display:inline-block;font-size:14px;font-weight:700;color:var(--muted);margin-bottom:4px;letter-spacing:.02em}
+.msg .step{display:inline-block;font-size:14px;font-weight:800;color:#fff;background:var(--slate);border-radius:999px;padding:4px 12px;margin-bottom:8px;letter-spacing:.02em}
 .msg.me{justify-content:flex-end}
-.msg.me .txt{flex:none;max-width:82%;background:var(--bubble);border-radius:22px 22px 6px 22px;padding:12px 17px;white-space:pre-wrap}
+.msg.me .txt{flex:none;max-width:82%;background:var(--slate);color:#fff;font-weight:600;border-radius:22px 22px 6px 22px;padding:12px 18px;white-space:pre-wrap;box-shadow:0 6px 16px rgba(52,80,107,.25)}
 .typing{display:inline-flex;gap:5px;padding:12px 0}
 .typing i{width:9px;height:9px;border-radius:50%;background:#b9bec5;animation:blink 1.2s infinite}
 .typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
@@ -107,8 +108,20 @@ textarea::placeholder{color:#8a9199}
 .send svg{width:22px;height:22px}
 .foot{font-size:13px;color:#8a9199;text-align:center;margin-top:8px}
 .foot.is-off{display:none}
-@media(max-width:520px){.brand small{display:none}}
+.brand b,.brand small{white-space:nowrap}
+@media(max-width:520px){.brand b{font-size:12px;letter-spacing:.12em}.brand-logo{width:30px;height:30px}.brand{gap:8px}.top.is-on .brand em,.top.is-on .brand small{display:none}}
+@media(max-width:360px){.brand em,.brand small{display:none}}
 
+/* 20.11: блеск на главных кнопках (просьба Александра) */
+.start,.btn--main{position:relative;overflow:hidden;isolation:isolate}
+.start::after,.btn--main::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:45%;z-index:1;pointer-events:none;
+  background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.08) 30%,rgba(255,255,255,.55) 50%,rgba(255,255,255,.08) 70%,transparent 100%);
+  transform:skewX(-18deg);animation:shine 2.8s ease-in-out infinite}
+.start > *,.btn--main > *{position:relative;z-index:2}
+@keyframes shine{0%{left:-60%}55%,100%{left:130%}}
+.btn--main{animation:pulse 2.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 8px 22px rgba(216,58,52,.30)}50%{box-shadow:0 10px 30px rgba(216,58,52,.55)}}
+@media(prefers-reduced-motion:reduce){.start::after,.btn--main::after,.btn--main{animation:none}}
 /* 20.11 v2: ответы кнопками (без ИИ) */
 .msg.still{animation:none}
 .qhint{display:block;font-size:16px;color:var(--muted);margin-top:4px}
@@ -138,7 +151,7 @@ textarea::placeholder{color:#8a9199}
 
 <header class="top" id="top">
   <div class="top-in">
-    <div class="brand"><i><svg><use href="#i-spark"/></svg></i>FBT Online <small>· Диагностика</small></div>
+    <div class="brand"><img class="brand-logo" src="assets/logo/impact-consulting.png" alt="Impact Consulting" width="34" height="34"><b>IMPACT CONSULTING</b><em></em><small>FBT Online</small></div>
     <div class="grow"></div>
     <button type="button" class="restart" id="restart">Заново</button>
   </div>
@@ -367,7 +380,7 @@ textarea::placeholder{color:#8a9199}
     try {
       fetch(C.botApi.replace(/\/$/, '') + '/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
         body: JSON.stringify({ anon: anon, event: name, data: Object.assign({ page: 'biznes-model' }, data || {}),
-          eid: name + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), v: 'bm2', test: TEST ? 1 : 0 }) });
+          eid: name + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), v: 'bm2', test: TEST ? 1 : 0 }) }).catch(function () {});
     } catch (e) {}
   }
 
