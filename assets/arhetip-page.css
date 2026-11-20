@@ -130,3 +130,8 @@ body.ar .btn--primary, body.ic.ar .btn--primary { background: #1F2A33; border-co
 body.ar .btn--primary:hover { background: #000; border-color: #000; }
 .ar-minus li, .ar-minus li :is(b, span, p, small, div) { color: #1F2A33 !important; }
 .ar-minus li i { color: #FFFFFF !important; }
+
+/* 20.11 (2): герой на чисто белом — без серой полосы сверху и без рамки */
+.ar-hero-pic { border: 0 !important; box-shadow: none !important; background: #FFFFFF !important; }
+.ar-hero-pic::before { display: none !important; }
+.ar-oc { border-top-width: 1px !important; border-top-color: var(--a-line) !important; }

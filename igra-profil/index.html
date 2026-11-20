@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="../assets/contrast.css">
 <link rel="stylesheet" href="../assets/ic-home.css?v=5.71">
 <link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.84">
-<link rel="stylesheet" href="../assets/igra-clean.css?v=6">
+<link rel="stylesheet" href="../assets/igra-clean.css?v=8">
 <style>
 /* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
 body.ic .g-scr { padding: 40px 0 72px; }
@@ -228,7 +228,7 @@ body.ic.ic-dark .g-gauge .g-meter i { background: rgba(255,255,255,.12); }
     <div class="wrap">
       <a class="brand" href="../index.html"><img class="brand-logo" src="../assets/logo/impact-consulting.png" alt="" width="34" height="34"><b>IMPACT CONSULTING</b><i></i><span>FBT Online</span></a>
       <nav class="hdr-nav">
-        <a class="keep" href="../programma.html">О программе</a>
+        <a class="keep" href="https://t.me/Consultant_IC?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D0%B8%D1%88%D1%83%20%D0%B8%D0%B7%20%D0%B8%D0%B3%D1%80%D1%8B%20%C2%AB%D0%91%D0%B8%D0%B7%D0%BD%D0%B5%D1%81-%D0%B0%D1%80%D1%85%D0%B5%D1%82%D0%B8%D0%BF%C2%BB." target="_blank" rel="noopener">Написать в Telegram</a>
       </nav>
     </div>
   </header>
@@ -329,14 +329,51 @@ var P = {
 /* ── Идеи дел в Узбекистане для проверки (не рекомендация вкладывать деньги).
       m — нужны вложения в товар, оборудование или аренду; v — продаёт витрина, сам продукт или контент ── */
 var IDEAS = {
-  IN: [['Подбор товаров для магазинов на Uzum: что сейчас продаётся', 'v'], ['Тайный покупатель и опросы клиентов для кафе и магазинов', ''], ['Анализ конкурентов и цен перед запуском для знакомых предпринимателей', ''], ['Поиск и проверка поставщиков для малого бизнеса', ''], ['Учёт и аналитика продаж для небольших магазинов', '']],
-  CR: [['Рилс и видео для местных кафе, салонов, магазинов', 'v'], ['Дизайн упаковки, логотипов и вывесок', 'v'], ['Свой Telegram-канал с рекламой', 'v'], ['Чат-боты для кафе и салонов', ''], ['Свой небольшой бренд одежды или аксессуаров', 'mv'], ['Ведение Instagram для местного бизнеса', 'v']],
-  CL: [['Свадебное и event-агентство', ''], ['Туры по Узбекистану для иностранцев', ''], ['Риелтор, а потом своё агентство недвижимости', ''], ['Кадровое агентство: подбор людей для малого бизнеса', ''], ['Карго и доставка товаров из Китая под ключ', ''], ['Администратор и забота о клиентах в салоне или клинике', '']],
-  SA: [['Товар под заказ без склада: сначала оплата, потом закупка', ''], ['Автоподбор: помогаете купить машину под ключ', ''], ['Магазин на Uzum с закупкой в Китае', 'mv'], ['Instagram-магазин одежды из Турции', 'mv'], ['Выкуп и перепродажа б/у телефонов', 'm'], ['Сезонные товары: к школе, к праздникам', 'm']],
-  OP: [['Клининговая компания', ''], ['Наведение порядка в чужом бизнесе: учёт, склад, инструкции', ''], ['Доставка воды по офисам', 'm'], ['Пункт выдачи заказов', 'm'], ['Автомойка или детейлинг', 'm']],
-  CO: [['Бригада ремонта квартир под ключ', ''], ['Организация праздников и тоев', ''], ['Помощь малому бизнесу с тендерами', ''], ['Барбершоп с нанятыми мастерами', 'm'], ['Кофе с собой', 'm']],
-  TE: [['Репетитор IELTS или математики, потом своя мини-школа', ''], ['Бухгалтер на аутсорсе для малого бизнеса', ''], ['Консультант по выходу на Uzum и Wildberries', ''], ['Наставник по таргету и SMM', ''], ['Онлайн-курс по своему навыку', 'v'], ['Юрист для предпринимателей', '']],
-  MA: [['Торты и десерты на заказ, потом свой цех', 'v'], ['Ателье: пошив на заказ, в том числе национальной одежды', 'v'], ['Ремонт телефонов и ноутбуков', ''], ['Кожаные изделия ручной работы', 'v'], ['Мебель на заказ', 'mv'], ['Монтаж и обслуживание кондиционеров', 'm']]
+  IN: [['Подбор товаров для магазинов на Uzum', 'v', 'Смотрите, что сейчас хорошо продаётся, и подсказываете продавцам, что завезти.', 'insayt'],
+       ['Тайный покупатель для кафе и магазинов', '', 'Приходите как обычный клиент и рассказываете владельцу, что мешает людям покупать.', 'klient'],
+       ['Анализ конкурентов перед запуском', '', 'Собираете цены и предложения конкурентов, чтобы новый бизнес не ошибся на старте.', 'diagnostika'],
+       ['Поиск и проверка поставщиков', '', 'Находите надёжных поставщиков с хорошей ценой для малого бизнеса.', 'doverie'],
+       ['Учёт продаж для небольших магазинов', '', 'Наводите порядок в цифрах: что продаётся, что лежит, где теряются деньги.', 'rezultat']],
+  CR: [['Рилс и видео для местного бизнеса', 'v', 'Снимаете короткие видео для кафе, салонов и магазинов. Работы мало, а нужна всем.', 'vozmozhnost'],
+       ['Дизайн упаковки, логотипов и вывесок', 'v', 'Делаете так, чтобы товар и вывеску замечали и запоминали.', 'vozmozhnost'],
+       ['Свой Telegram-канал с рекламой', 'v', 'Собираете читателей на интересную тему и зарабатываете на рекламе.', 'razgovor'],
+       ['Чат-боты для кафе и салонов', '', 'Бот сам принимает заказы и записи. Владельцу меньше звонков, клиентам удобнее.', 'process'],
+       ['Свой бренд одежды или аксессуаров', 'mv', 'Придумываете модели, шьёте небольшую партию и продаёте через Instagram.', 'podarok'],
+       ['Ведение Instagram для местного бизнеса', 'v', 'Ведёте страницы кафе и магазинов за ежемесячную оплату.', 'klient']],
+  CL: [['Свадебное и event-агентство', '', 'Берёте праздник под ключ: площадка, музыка, ведущий, оформление.', 'kalendar'],
+       ['Туры по Узбекистану для иностранцев', '', 'Показываете Самарканд, Бухару и Хиву гостям из других стран.', 'doroga'],
+       ['Риелтор, потом своё агентство', '', 'Помогаете купить, продать или снять жильё и получаете процент со сделки.', 'semya'],
+       ['Кадровое агентство для малого бизнеса', '', 'Находите продавцов, поваров и администраторов для кафе и магазинов.', 'komanda'],
+       ['Карго из Китая под ключ', '', 'Помогаете предпринимателям заказать и привезти товар без хлопот.', 'doroga'],
+       ['Сервис заботы о клиентах в салоне или клинике', '', 'Встречаете, записываете и возвращаете клиентов — так они приходят снова.', 'klient']],
+  SA: [['Товар под заказ без склада', '', 'Сначала клиент платит, потом вы закупаете. Денег на старт почти не нужно.', 'prodazha'],
+       ['Автоподбор под ключ', '', 'Помогаете людям выбрать и выгодно купить машину, получаете оплату за услугу.', 'reshenie'],
+       ['Магазин на Uzum с товаром из Китая', 'mv', 'Закупаете ходовой товар и продаёте его на маркетплейсе.', 'prodazha'],
+       ['Instagram-магазин одежды из Турции', 'mv', 'Привозите модную одежду и продаёте её через страницу в Instagram.', 'podarok'],
+       ['Выкуп и перепродажа б/у телефонов', 'm', 'Выгодно покупаете, приводите в порядок и продаёте дороже.', 'dengi'],
+       ['Сезонные товары', 'm', 'Школьные товары, подарки к праздникам — продаёте то, что нужно прямо сейчас.', 'kalendar']],
+  OP: [['Клининговая компания', '', 'Уборка квартир и офисов по чётким правилам. Клиенты возвращаются регулярно.', 'process'],
+       ['Порядок в чужом бизнесе', '', 'Настраиваете учёт, склад и инструкции, чтобы бизнес работал без сбоев.', 'spisok'],
+       ['Доставка воды по офисам', 'm', 'Регулярные заказы по графику — дело, где важен порядок.', 'kalendar'],
+       ['Пункт выдачи заказов', 'm', 'Принимаете и выдаёте посылки Uzum и других магазинов.', 'podarok'],
+       ['Автомойка или детейлинг', 'm', 'Понятный процесс и постоянные клиенты, которым важно качество.', 'instrument']],
+  CO: [['Бригада ремонта квартир под ключ', '', 'Собираете мастеров, распределяете работу и сдаёте ремонт в срок.', 'komanda'],
+       ['Организация праздников и тоев', '', 'Берёте на себя всё: ресторан, музыку, гостей. Семья просто отдыхает.', 'kalendar'],
+       ['Помощь малому бизнесу с тендерами', '', 'Готовите документы и подаёте заявки на госзакупки за предпринимателя.', 'spisok'],
+       ['Барбершоп с нанятыми мастерами', 'm', 'Вы управляете, мастера стригут. Ваша задача — запись, команда и клиенты.', 'komanda'],
+       ['Точка «кофе с собой»', 'm', 'Небольшая точка у офисов или вуза. Главное — наладить работу смен.', 'process']],
+  TE: [['Репетитор, потом своя мини-школа', '', 'Начинаете с IELTS или математики, потом набираете учителей и группы.', 'nastavnik'],
+       ['Бухгалтер на аутсорсе', '', 'Ведёте бухгалтерию сразу нескольким небольшим фирмам.', 'dengi'],
+       ['Консультант по выходу на Uzum', '', 'Учите предпринимателей запускать магазин на маркетплейсе.', 'prodazha'],
+       ['Наставник по таргету и SMM', '', 'Обучаете людей рекламе в Instagram и помогаете им найти первых клиентов.', 'nastavnik'],
+       ['Онлайн-курс по своему навыку', 'v', 'Записываете курс один раз и продаёте его много раз.', 'nastavnik'],
+       ['Юрист для предпринимателей', '', 'Договоры, регистрация, проверки — помогаете бизнесу не ошибиться.', 'doverie']],
+  MA: [['Торты и десерты на заказ', 'v', 'Начинаете дома, а когда заказов станет много — открываете свой цех.', 'podarok'],
+       ['Ателье и пошив национальной одежды', 'v', 'Шьёте на заказ к свадьбам и праздникам. Красивые работы продают сами себя.', 'instrument'],
+       ['Ремонт телефонов и ноутбуков', '', 'Нужен всегда и всем. Хорошего мастера советуют друзьям.', 'instrument'],
+       ['Кожаные изделия ручной работы', 'v', 'Кошельки, сумки, ремни — хорошо продаются как подарки.', 'podarok'],
+       ['Мебель на заказ', 'mv', 'Кухни и шкафы по размерам клиента. Средний чек высокий.', 'semya'],
+       ['Монтаж и обслуживание кондиционеров', 'm', 'Летом заказов много, а постоянные клиенты зовут каждый год.', 'instrument']]
 };
 
 /* ── v5.80 (03.11.2026): шаблон по образцу 16Personalities — 4 группы, персонажи, фразы, главы результата ── */
@@ -534,16 +571,16 @@ var Q = [
 /* ── 4 части игры: у каждой свой цвет, иконка и заставка ── */
 var PARTS = ['i', 'e', 'x', 'c'];
 var PART = {
-  i: { name: 'Ситуации', color: '#C60000', icon: 'insayt', lab: 'СИТУАЦИЯ', how: 'Как бы вы поступили в жизненной истории.', title: 'Ситуации <span>из жизни</span>',
+  i: { name: 'Ситуации', full: 'Поведение в ситуациях', color: '#C60000', icon: 'insayt', lab: 'СИТУАЦИЯ', how: 'Как бы вы поступили в жизненной истории.', title: 'Ситуации <span>из жизни</span>',
        text: '9 коротких историй. Представьте себя на месте героя и выберите, как поступили бы на самом деле.',
-       list: [['', 'Правильных ответов нет'], ['', 'Отвечайте быстро — первое, что пришло в голову'], ['', 'Ответы каждый раз в новом порядке']] },
-  e: { name: 'Уверенность', color: '#5A6E7A', icon: 'uverennost', lab: 'ВОПРОС', how: 'Насколько спокойно вам в деле.', title: 'Ваша <span>уверенность</span>',
+       list: [['', 'Правильных ответов нет'], ['', 'Отвечайте быстро — первое, что пришло в голову']] },
+  e: { name: 'Уверенность', full: 'Ваша уверенность', color: '#5A6E7A', icon: 'uverennost', lab: 'ВОПРОС', how: 'Насколько спокойно вам в деле.', title: 'Ваша <span>уверенность</span>',
        text: '2 вопроса о том, насколько спокойно вы чувствуете себя в деле. Это не оценка — уверенность растёт с практикой.',
        list: [['', 'Разговор с клиентом'], ['', 'План на неделю']] },
-  x: { name: 'Условия', color: '#2C3A42', icon: 'dengi', lab: 'О ВАС', how: 'Опыт, деньги и продажи — чтобы подобрать идеи.', title: 'Ваши <span>условия</span>',
+  x: { name: 'Условия', full: 'Ваши условия', color: '#2C3A42', icon: 'dengi', lab: 'О ВАС', how: 'Опыт, деньги и продажи — чтобы подобрать идеи.', title: 'Ваши <span>условия</span>',
        text: '4 вопроса: опыт, деньги, продажи и что для вас главное. На архетип они не влияют — по ним мы подберём идеи и советы.',
        list: [['', 'Ваш опыт'], ['', 'Деньги на старт'], ['', 'Как вам продажи'], ['', 'Ради чего дело']] },
-  c: { name: 'О вас', color: '#8A9AA4', icon: 'semya', lab: 'О ВАС', how: 'Где вы сейчас и с кем можно начать.', title: 'Ещё <span>2 вопроса</span>',
+  c: { name: 'О вас', full: 'Где вы сейчас', color: '#8A9AA4', icon: 'semya', lab: 'О ВАС', how: 'Где вы сейчас и с кем можно начать.', title: 'Ещё <span>2 вопроса</span>',
        text: 'Последние вопросы — где вы сейчас и есть ли рядом близкий человек для общего дела. И сразу результат!',
        list: [['📍', 'Где вы сейчас'], ['🤝', 'С кем можно начать']] }
 };
@@ -604,37 +641,39 @@ function meter(n, color) { var h = '<span class="g-meter" style="--rc:' + color 
 function radarGeo(CX, CY, R) {
   return function (k, v) { var a = (-90 + k * 45) * Math.PI / 180; return [CX + Math.cos(a) * R * v / 4, CY + Math.sin(a) * R * v / 4]; };
 }
+/* 20.11: диаграмма бизнес-архетипа — мягкая форма, головы героев по кругу, проценты вместо квадратиков */
+function shares(vals) {
+  var sum = 0; AX.forEach(function (c) { sum += Math.max(0, vals[c] || 0) + .25; });
+  var out = {}, tot = 0, big = AX[0];
+  AX.forEach(function (c) { out[c] = Math.round((Math.max(0, vals[c] || 0) + .25) / sum * 100); tot += out[c]; if (out[c] > out[big]) big = c; });
+  out[big] += 100 - tot; return out;
+}
 function radarSVG(vals, tops, label) {
-  var CX = 180, CY = 180, R = 106, pt = radarGeo(CX, CY, R);
+  var pc = shares(vals), mx = Math.max.apply(null, AX.map(function (c) { return pc[c]; })) || 1;
+  var CX = 220, CY = 222, R = 128, pt = radarGeo(CX, CY, R);
   function f(p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }
-  var h = '<svg viewBox="0 0 360 360" role="img" aria-label="' + esc(label) + '">';
-  [4, 3, 2, 1].forEach(function (s) {
-    h += '<polygon points="' + AX.map(function (_, k) { return f(pt(k, s)); }).join(' ') + '" fill="' + (s === 4 ? '#F7F8FA' : 'none') + '" stroke="rgba(24,24,24,' + (s === 4 ? '.22' : '.10') + ')" stroke-width="' + (s === 4 ? 1.4 : 1) + '"/>';
-  });
-  AX.forEach(function (_, k) { var p = pt(k, 4); h += '<line x1="' + CX + '" y1="' + CY + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '" stroke="rgba(24,24,24,.10)"/>'; });
-  var has = AX.some(function (c) { return vals[c] != null; });
-  if (has) {
-    h += '<polygon points="' + AX.map(function (c, k) { return f(pt(k, Math.max(0.25, vals[c] || 0))); }).join(' ') + '" fill="#C60000" fill-opacity=".14" stroke="#C60000" stroke-width="2.4" stroke-linejoin="round"/>';
-    AX.forEach(function (c, k) {
-      if (vals[c] == null) return;
-      var p = pt(k, Math.max(0.25, vals[c])), top = tops.indexOf(c) > -1;
-      if (top) h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="12" fill="none" stroke="' + RED + '" stroke-opacity=".35" stroke-width="2"/>';
-      h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (top ? 7 : 5) + '" fill="' + (top ? RED : RC[c]) + '" stroke="#FFFFFF" stroke-width="2"/>';
-    });
-  }
-  var ip = radarGeo(CX, CY, R + 38);
+  var h = '<svg class="g-radar" viewBox="0 0 440 450" role="img" aria-label="' + esc(label) + '"><defs>' +
+    '<radialGradient id="gRf" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#5A6E7A" stop-opacity=".18"/><stop offset="1" stop-color="#1F2A33" stop-opacity=".38"/></radialGradient></defs>';
+  [1, .75, .5, .25].forEach(function (k) { h += '<circle cx="' + CX + '" cy="' + CY + '" r="' + (R * k).toFixed(1) + '" fill="' + (k === 1 ? '#F6F7F9' : 'none') + '" stroke="#E6E9ED" stroke-width="1"/>'; });
+  AX.forEach(function (_, k) { var p = pt(k, 4); h += '<line x1="' + CX + '" y1="' + CY + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '" stroke="#E6E9ED"/>'; });
+  var poly = AX.map(function (c, k) { return f(pt(k, Math.max(.45, Math.sqrt(pc[c] / mx) * 4))); }).join(' ');
+  h += '<polygon points="' + poly + '" fill="url(#gRf)" stroke="#1F2A33" stroke-width="2" stroke-linejoin="round"/>';
+  AX.forEach(function (c, k) { var p = pt(k, Math.max(.45, Math.sqrt(pc[c] / mx) * 4)); h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (tops.indexOf(c) > -1 ? 6 : 4) + '" fill="#1F2A33" stroke="#fff" stroke-width="2"/>'; });
+  var ip = radarGeo(CX, CY, R + 50);
   AX.forEach(function (c, k) {
-    var p = ip(k, 4), top = tops.indexOf(c) > -1, s = top ? 54 : 48;
-    h += '<rect x="' + (p[0] - s / 2).toFixed(1) + '" y="' + (p[1] - s / 2).toFixed(1) + '" width="' + s + '" height="' + s + '" rx="12" fill="#FFFFFF" stroke="' + (top ? RED : '#D5DADF') + '" stroke-width="' + (top ? 2.6 : 1.5) + '"/>';
-    var is = s * .92;
-    h += '<image href="' + IH + SLUG[c] + '.webp" x="' + (p[0] - is / 2).toFixed(1) + '" y="' + (p[1] - is / 2).toFixed(1) + '" width="' + is.toFixed(1) + '" height="' + is.toFixed(1) + '"/>';
+    var p = ip(k, 4), top = tops.indexOf(c) > -1, s = top ? 72 : 62, y = p[1] - 9;
+    h += '<circle cx="' + p[0].toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (s / 2) + '" fill="' + (top ? '#1F2A33' : '#F1F3F5') + '"/>';
+    h += '<image href="' + IH + SLUG[c] + '.webp" x="' + (p[0] - s / 2).toFixed(1) + '" y="' + (y - s / 2).toFixed(1) + '" width="' + s + '" height="' + s + '"/>';
+    h += '<text x="' + p[0].toFixed(1) + '" y="' + (y + s / 2 + 17).toFixed(1) + '" text-anchor="middle" font-size="17" font-weight="800" fill="' + (top ? '#C60000' : '#1F2A33') + '">' + pc[c] + '%</text>';
   });
   return h + '</svg>';
 }
 function legend(vals, tops, sorted) {
-  return '<div class="g-leg">' + sorted.map(function (c) {
+  var pc = shares(vals);
+  sorted = sorted.slice().sort(function (x, y) { return (tops.indexOf(y) > -1) - (tops.indexOf(x) > -1) || pc[y] - pc[x]; });
+  return '<div class="g-pgrid">' + sorted.map(function (c) {
     var top = tops.indexOf(c) > -1;
-    return '<div class="g-lrow' + (top ? ' top' : '') + '" style="--rc:' + (top ? RED : RC[c]) + '">' + img(P[c].icon) + '<div><b>' + P[c].name + '</b><small>' + (top ? 'ваш архетип · ' : '') + word(vals[c]) + '</small></div>' + meter(dots(vals[c]), top ? RED : RC[c]) + '</div>';
+    return '<div class="g-pcell' + (top ? ' top' : '') + '"><img src="' + IH + SLUG[c] + '.webp" alt="" loading="lazy" width="56" height="56"><b>' + pc[c] + '%</b><span>' + P[c].name + '</span></div>';
   }).join('') + '</div>';
 }
 var DEMO = { IN: 3, CR: 4, MA: 1, OP: 1.5, CO: 3, SA: 2, CL: 3.5, TE: 1 };
@@ -654,7 +693,7 @@ function vIntro() {
         return '<img class="g-stage-p is-' + x[2] + '" src="../assets/img/arhetip/group/' + x[0] + '.webp?v=1" alt="" style="--x:' + x[1] + '%" draggable="false">';
       }).join('') + '</div>' +
       '<ul class="g-facts">' + stats.map(function (x) { return '<li>' + ipic(x[0]) + '<span>' + x[1] + '</span></li>'; }).join('') + '</ul>' +
-      '<button type="button" class="btn btn--primary btn--lg btn--block mt-14" data-act="start">Определить свой архетип' + arrow() + '</button>' +
+      '<button type="button" class="btn btn--primary btn--shine btn--lg btn--block mt-14" data-act="start">Определить свой архетип' + arrow() + '</button>' +
       '<p class="g-note">Это игра, а не научный тест. Она показывает, что вам интересно, но не оценивает способности и не обещает успех. Ответы остаются на вашем телефоне.</p>' +
     '</div>'
   );
@@ -681,20 +720,26 @@ function vGate() {
   );
 }
 
+/* 20.11: картинки к ситуациям (id вопроса → версия файла). Пусто — картинки ещё не утверждены */
+var SIT = {};
 function vQuiz() {
   var q = Q[S.i], cur = S.ans[q.id], pp = PART[q.kind];
   var inPart = Q.filter(function (x) { return x.kind === q.kind; }), pos = inPart.indexOf(q) + 1;
-  var segs = Q.map(function (x, k) { return '<span class="' + (k < S.i ? 'done' : k === S.i ? 'now' : '') + '" style="--sc:' + PART[x.kind].color + '"></span>'; }).join('');
+  var ci = PARTS.indexOf(q.kind);
+  var bar = PARTS.map(function (k, n) {
+    var cnt = Q.filter(function (x) { return x.kind === k; }).length;
+    var w = n < ci ? 100 : n > ci ? 0 : Math.round(pos / cnt * 100);
+    return '<div class="g-pb-seg' + (n === ci ? ' now' : n < ci ? ' done' : '') + '"><span class="g-pb-track"><i style="width:' + w + '%"></i></span><small>' + (n + 1) + ' · ' + PART[k].name + '</small></div>';
+  }).join('');
   var opts = S.ord[q.id].map(function (k) {
-    var e = '<span class="g-em" aria-hidden="true">' + 'АБВГДЕ'.charAt(S.ord[q.id].indexOf(k)) + '</span>';
+    var e = '<span class="g-em" aria-hidden="true">' + 'АБВГДЕЖЗ'.charAt(S.ord[q.id].indexOf(k)) + '</span>';
     return '<button type="button" class="opt" role="radio" aria-checked="' + (cur === k ? 'true' : 'false') + '" data-act="ans" data-v="' + k + '">' + e + '<span>' + esc(q.a[k][0]) + '</span></button>';
   }).join('');
   return sec(
     '<div class="g-panel">' +
-      '<div class="g-top"><span class="mono muted">Вопрос ' + (S.i + 1) + ' из ' + Q.length + '</span><span class="g-part" style="--pc:' + pp.color + '"><i></i>' + pp.name + '</span></div>' +
-      '<div class="g-segs" style="--n:' + Q.length + '" aria-hidden="true">' + segs + '</div>' +
-      '<div class="g-scene2' + (q.story ? '' : ' solo') + '" style="--pc:' + pp.color + '"><div class="g-ico">' + img(q.icon) + '</div><div><div class="g-lab">' + pp.lab + ' ' + pos + ' ИЗ ' + inPart.length + '</div>' +
-        (q.story ? '<p class="g-story">' + esc(q.story) + '</p>' : '<p class="g-story">Это поможет подобрать советы под вашу ситуацию.</p>') + '</div></div>' +
+      '<div class="g-pb" aria-label="Часть ' + (ci + 1) + ' из 4, вопрос ' + (S.i + 1) + ' из ' + Q.length + '"><div class="g-pb-h"><b>Часть ' + (ci + 1) + ' · ' + pp.full + '</b><span>' + (S.i + 1) + ' / ' + Q.length + '</span></div><div class="g-pb-row">' + bar + '</div></div>' +
+      (SIT[q.id] ? '<img class="g-sit" src="../assets/img/arhetip/sit/' + q.id + '.webp?v=' + SIT[q.id] + '" alt="" width="1200" height="800">' : '') +
+      (q.story ? '<p class="g-story g-story--big">' + esc(q.story) + '</p>' : '') +
       '<h2 class="g-q">' + esc(q.q) + '</h2>' +
       '<div class="g-opts" role="radiogroup" aria-label="Ваш ответ">' + opts + '</div>' +
       (q.kind === 'i' ? '<p class="g-hint">Правильных ответов нет — выбирайте, как есть.</p>' : '') +
@@ -751,6 +796,22 @@ var WHY = ['Вам важен доход больше зарплаты. Шаг �
 var SALE = ['Продавать вам легко — это большое преимущество в любом деле.', 'Продаёте, когда верите в товар. Значит, начинайте с того, во что верите сами.',
   'Продавать пока тяжело. Возьмите в пару того, кто любит продавать, или выберите дело, где продаёт витрина.'];
 
+/* 20.11: «Ваши ключевые навыки» — столбики с процентами вместо полосок */
+function skillsBlock() {
+  function lv(id, map) { var k = S.ans[id]; return k == null ? null : map[k]; }
+  var e1 = S.ans['A-E1'], e2 = S.ans['A-E2'];
+  var sk = [
+    ['razgovor', 'Общение с клиентом', e1 == null ? null : [95, 75, 40, 15][[4, 3, 1, 0].indexOf(qById('A-E1').a[e1][1])]],
+    ['kalendar', 'Планирование', e2 == null ? null : [95, 75, 40, 15][[4, 3, 1, 0].indexOf(qById('A-E2').a[e2][1])]],
+    ['prodazha', 'Продажи', lv('X-SALE', [90, 60, 25])]
+  ].filter(function (x) { return x[2] != null; });
+  if (!sk.length) return '';
+  var best = sk.slice().sort(function (a, b) { return b[2] - a[2]; });
+  return '<div class="g-h3">ВАШИ КЛЮЧЕВЫЕ НАВЫКИ</div><div class="g-skills"><div class="g-bars">' + sk.map(function (x) {
+    return '<div class="g-bar' + (x === best[0] ? ' top' : '') + '"><b>' + x[2] + '%</b><span class="g-bar-col"><i style="height:' + x[2] + '%"></i></span><span class="g-bar-ic">' + ipic(x[0]) + '</span><small>' + x[1] + '</small></div>';
+  }).join('') + '</div><p class="g-mini">Сильнее всего: ' + best[0][1].toLowerCase() + '. ' +
+    (best[best.length - 1][2] < 50 ? 'Навык «' + best[best.length - 1][1].toLowerCase() + '» пока слабее — он растёт с практикой, или его можно отдать партнёру.' : 'Хорошая опора для старта.') + '</p></div>';
+}
 function vResult() {
   var r = compute(), L = r.leaders, names = L.map(function (x) { return P[x.code].name; });
   var title = r.mode === 'few' ? 'Пока мало ответов' : r.mode === 'wide' ? 'Вы — <span>универсал</span>' :
@@ -766,13 +827,13 @@ function vResult() {
   var vals = {}; r.agg.forEach(function (x) { vals[x.code] = x.avg; });
   var tops = L.map(function (x) { return x.code; });
   var sorted = r.agg.map(function (x) { return x.code; }).concat(AX.filter(function (c) { return vals[c] == null; }));
-  var info = r.agg.length ? '<div class="g-h3" id="ch-map">ВАША КАРТА ИНТЕРЕСОВ</div><div class="g-info"><div class="g-info-cap">8 БИЗНЕС-АРХЕТИПОВ</div>' +
-    '<div class="g-info-sub">Чем дальше точка от центра, тем интереснее вам эта работа. Красные точки — ваш архетип.</div>' +
-    radarSVG(vals, tops, 'Карта интересов: ' + sorted.map(function (c) { return P[c].name + ' — ' + word(vals[c]); }).join(', ')) +
+  var info = r.agg.length ? '<div class="g-h3" id="ch-map">ДИАГРАММА БИЗНЕС-АРХЕТИПА</div><div class="g-info g-info--clean">' +
+    '<div class="g-info-sub">Сколько в вас каждого из 8 архетипов. Чем больше процент, тем ближе вам эта работа.</div>' +
+    radarSVG(vals, tops, 'Диаграмма бизнес-архетипа: ' + sorted.map(function (c) { return P[c].name + ' — ' + word(vals[c]); }).join(', ')) +
     legend(vals, tops, sorted) + '</div>' : '';
   var cards = L.map(function (x) {
     var p = P[x.code];
-    return '<div class="g-card g-card--top"><h3>' + img(p.icon) + p.name + '</h3><p>' + p.desc + '</p><ul>' + p.tasks.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul><a class="g-more" href="arhetip/' + SLUG[x.code] + '.html">Всё про архетип «' + p.name + '» →</a></div>';
+    return '<div class="g-card g-card--top g-card--who"><div class="g-who-pic">' + pers(x.code) + '</div><h3>' + p.name + '</h3><p>' + p.desc + '</p><ul>' + p.tasks.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul><a class="g-more" href="arhetip/' + SLUG[x.code] + '.html">Всё про архетип «' + p.name + '» →</a></div>';
   }).join('');
   var plusBlock = main ? '<div class="g-h3" id="ch-plus">СИЛЬНЫЕ СТОРОНЫ И СЛЕПЫЕ ЗОНЫ</div><div class="g-pm">' +
     '<div class="g-card g-pm-plus"><h3>' + img('uverennost') + 'Ваши сильные стороны</h3><ul>' + PLUS[main].map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>' +
@@ -783,8 +844,7 @@ function vResult() {
     pairBlock = '<div class="g-h3" id="ch-pair">С КЕМ РАБОТАТЬ В ПАРЕ</div><div class="g-card g-pair"><div class="g-pair-pics"><div>' + pers(main) + '<small>' + P[main].name + '</small></div><span>+</span><div>' + pers(pc) + '<small>' + P[pc].name + '</small></div></div>' +
       '<p>' + PAIR[main][1] + '</p><p class="g-mini">Ищите такого человека среди партнёров, сотрудников или близких.</p></div>';
   }
-  var toc = L.length ? '<nav class="g-toc" aria-label="Главы результата">' + [['ch-map', 'Карта'], ['ch-who', 'Кто вы'], ['ch-plus', 'Сильные стороны'], ['ch-ideas', 'Идеи'], ['ch-pair', 'Пара'], ['ch-step', 'Первый шаг']]
-    .map(function (x) { return '<a href="#' + x[0] + '">' + x[1] + '</a>'; }).join('') + '</nav>' : '';
+  var toc = '';
   var step = L.length ? P[L[0].code].step : 'Пройдите игру ещё раз и отвечайте на каждую ситуацию — так вы получите свой архетип и первый шаг.';
   var fam = S.ans['A-C2'];
   var expK = S.ans['X-EXP'], expBlock = '';
@@ -798,10 +858,13 @@ function vResult() {
   var ideasBlock = '';
   if (L.length) {
     var id = ideasFor(L);
-    ideasBlock = '<div class="g-h3" id="ch-ideas">ИДЕИ ДЛЯ ПРОВЕРКИ В УЗБЕКИСТАНЕ</div><div class="g-card"><h3>' + img('vozmozhnost') + 'Где нужна ваша работа</h3><ul>' +
-      id.list.map(function (it) { return '<li>' + esc(it[0]) + '</li>'; }).join('') + '</ul>' +
-      id.notes.map(function (n) { return '<p>' + n + '</p>'; }).join('') +
-      '<p class="g-mini">Это идеи для проверки, а не готовый план. Прежде чем вкладывать деньги, проверьте спрос.</p></div>';
+    ideasBlock = '<div class="g-h3" id="ch-ideas">ТОП-3 НИШИ ДЛЯ ВАС</div><h2 class="g-sub-h">В какой нише стоит попробовать открыть бизнес</h2><div class="g-niches">' +
+      id.list.slice(0, 3).map(function (it, n) {
+        return '<div class="g-niche"><div class="g-niche-pic">' + ipic(it[3] || 'vozmozhnost') + '<i>' + (n + 1) + '</i></div><div><b>' + esc(it[0]) + '</b><p>' + esc(it[2] || '') + '</p>' +
+          '<span class="g-niche-tag">' + (it[1].indexOf('m') > -1 ? 'Нужны вложения' : 'Можно начать почти без денег') + '</span></div></div>';
+      }).join('') + '</div>' +
+      (id.notes.length ? '<p class="g-mini">' + id.notes[0] + '</p>' : '') +
+      '<p class="g-mini">Это идеи для проверки, а не готовый план. Прежде чем вкладывать деньги, проверьте спрос.</p>';
   }
   var giveBlock = '';
   var weak = r.agg.length >= 3 ? r.agg[r.agg.length - 1] : null;
@@ -816,17 +879,10 @@ function vResult() {
     (L.length ? '<div class="g-h3" id="ch-who">КТО ВЫ В БИЗНЕСЕ</div>' + cards : '') +
     plusBlock + expBlock +
     ideasBlock + pairBlock + giveBlock +
-    '<div class="g-h3" id="ch-step">ШАГ НА ЭТУ НЕДЕЛЮ</div><div class="g-step"><small>ПРОВЕРЬТЕ СЕБЯ В ДЕЛЕ</small><p>' + step + '</p></div>' +
-    '<div class="g-h3">ВАША УВЕРЕННОСТЬ</div><div class="g-gauges">' + gauge('A-E1', img('razgovor') + ' Разговор с клиентом', '') + gauge('A-E2', img('kalendar') + ' План на неделю', '') +
-      (S.ans['X-SALE'] != null ? '<div class="g-gauge wide" style="--rc:#5A6E7A"><b>' + img('prodazha') + ' Продажи</b>' + meter([4, 2, 1][S.ans['X-SALE']], '#5A6E7A') + SALE[S.ans['X-SALE']] + '</div>' : '') + '</div>' +
-    '<div class="g-btns"><div class="g-two"><button type="button" class="btn btn--sm" data-act="png">Сохранить картинку</button><button type="button" class="btn btn--sm" data-act="share">Поделиться</button></div><div class="g-status" id="gStatus" role="status"></div></div>' +
-    '<div class="g-final"><p>Семейный бизнес не начинается всей семьёй за одним столом. Он начинается с одного человека, который решился сделать первый шаг.</p>' +
-      (S.ans['X-WHY'] != null ? '<small>' + WHY[S.ans['X-WHY']] + '</small>' : '') + '</div>' +
-    '<div class="g-card"><h3>' + img('semya') + 'А если вместе?</h3><p>' + (fam === 2 ? 'Вы уже обсуждаете общее дело с близким человеком. ' : '') +
-      'Пройдите короткую часть вдвоём — с супругом, родственником или другом. Увидите, в чём ваши цели совпадают и о чём стоит договориться заранее.</p>' +
-      '<button type="button" class="btn btn--primary btn--block mt-14" data-act="famIntro">Пройти вдвоём' + arrow() + '</button></div>' +
-    '<div class="g-fbt"><div class="eyebrow">FAMILY BUSINESS TRAINING</div><h3>Как создать устойчивый семейный бизнес в Узбекистане в 2026 году</h3>' +
-      '<p>Знать свой бизнес-архетип — хорошее начало. Дальше нужны понятная бизнес-модель, клиенты, финансы и договорённости в семье. Пройдите бесплатную диагностику — за 5 минут увидите, что сделать первым.</p>' +
+    skillsBlock() +
+    '<div class="g-btns"><button type="button" class="btn btn--primary btn--shine btn--lg btn--block" data-act="share">Поделиться с другом' + arrow() + '</button><div class="g-status" id="gStatus" role="status"></div></div>' +
+    '<div class="g-fbt"><div class="eyebrow">FAMILY BUSINESS TRAINING</div><h3>Как создать успешный бизнес в Узбекистане в 2026 году</h3>' +
+      '<p>Пройдите бесплатную диагностику — за 5 минут увидите, с чего начать.</p>' +
       '<a class="btn btn--white" href="https://fbt-online.uz" target="_blank" rel="noopener">Пройти обучение' + arrow() + '</a>' +
       '<a class="btn btn--primary" href="../diagnostika-posle-zapuska.html?s=igra&amp;utm_source=igra-arhetip&amp;utm_medium=tool&amp;utm_campaign=arhetip">Бесплатная диагностика' + arrow() + '</a></div>' +
     '<button type="button" class="g-skip mt-24" data-act="restart" style="display:block;margin-left:auto;margin-right:auto">Пройти заново</button>' +
@@ -930,11 +986,12 @@ var busy = false;
 function pick(btn, then) {
   if (busy) return; busy = true;
   btn.classList.add('is-picked');
-  try { if (navigator.vibrate) navigator.vibrate(12); } catch (e) {}
-  setTimeout(function () { busy = false; then(); }, 380);
+  try { if (navigator.vibrate) navigator.vibrate([18]); } catch (e) {}
+  try { var tg = window.Telegram && Telegram.WebApp && Telegram.WebApp.HapticFeedback; if (tg) tg.impactOccurred('light'); } catch (e) {}
+  setTimeout(function () { busy = false; then(); }, 200);
 }
 function nextQ() {
-  if (S.i < Q.length - 1) { S.i++; S.scr = Q[S.i].kind !== Q[S.i - 1].kind ? 'gate' : 'quiz'; }
+  if (S.i < Q.length - 1) { S.i++; S.scr = 'quiz'; }
   else S.scr = 'result';
   render();
 }
@@ -944,14 +1001,12 @@ APP.addEventListener('click', function (e) {
   var b = e.target.closest('[data-act]'); if (!b || b.disabled || busy) return;
   var act = b.getAttribute('data-act'), v = b.getAttribute('data-v');
   switch (act) {
-    case 'start': case 'restart': S = fresh(); S.scr = 'gate'; break;
+    case 'start': case 'restart': S = fresh(); S.scr = 'quiz'; break;
     case 'gateGo': S.scr = 'quiz'; break;
     case 'ans': S.ans[Q[S.i].id] = Number(v); pick(b, nextQ); return;
     case 'skip': S.ans[Q[S.i].id] = null; nextQ(); return;
     case 'back':
-      if (S.scr === 'gate') { if (S.i > 0) { S.i--; S.scr = 'quiz'; } else S.scr = 'intro'; }
-      else if (S.i > 0 && Q[S.i - 1].kind === Q[S.i].kind) S.i--;
-      else S.scr = 'gate';
+      if (S.scr === 'quiz' && S.i > 0) S.i--; else S.scr = 'intro';
       break;
     case 'result': S.scr = 'result'; break;
     case 'png': card(); return;
@@ -1050,7 +1105,9 @@ function card() {
 }
 function share() {
   var t = shareText();
-  if (navigator.share) { navigator.share({ title: 'Мой бизнес-архетип', text: t }).catch(function () {}); return; }
+  var url = location.origin + location.pathname;
+  if (navigator.share) { navigator.share({ title: 'Мой бизнес-архетип', text: t.replace(' ' + url, ''), url: url }).catch(function () {}); return; }
+  try { window.open('https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(t.replace(' ' + url, '')), '_blank', 'noopener'); return; } catch (e) {}
   if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(t).then(function () { status('Текст скопирован — вставьте его в сообщение'); }, function () { status(t); }); return; }
   status(t);
 }
