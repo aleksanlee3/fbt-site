@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-<title>Оцените свою бизнес-модель · ИИ-консультант FBT Online</title>
-<meta name="description" content="12 простых вопросов о вашем деле. В конце — карта бизнес-модели из 6 показателей и бесплатный разбор от куратора.">
+<title>Оцените свою бизнес-модель · FBT Online</title>
+<meta name="description" content="14 простых вопросов о вашем деле. В конце — карта бизнес-модели из 6 показателей и бесплатный разбор от куратора.">
 <meta property="og:title" content="Оцените свою бизнес-модель">
-<meta property="og:description" content="12 простых вопросов · карта из 6 показателей · бесплатный разбор от куратора">
+<meta property="og:description" content="14 простых вопросов · карта из 6 показателей · бесплатный разбор от куратора">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <!-- 20.11.2026 · отдельный лендинг для Reels «МОДЕЛЬ». Ни с какими страницами сайта не связан (нет меню и ссылок на сайт).
-     ИИ — через functions/api/bm-chat.js (ключ в настройках Cloudflare). Демо без ИИ: ?demo -->
+     v2 (решение Александра 20.11): без платного ИИ — ответы кнопками, баллы считает страница по правилам промпта v3
+     (Impact-Consulting/FBT Online/bot/assets/lead_magnets/business_model_diagnostic_prompt_v3.txt). -->
 <style>
 :root{
   --bg:#ffffff; --soft:#f4f5f6; --line:#e3e5e8; --text:#16191d; --muted:#5d646d;
@@ -93,7 +94,7 @@ main{flex:1;width:100%;max-width:800px;margin:0 auto;padding:0 18px}
 /* ---------- строка ввода ---------- */
 .dock{position:sticky;bottom:0;background:linear-gradient(to top,#fff 70%,rgba(255,255,255,0));padding:14px 0 calc(12px + env(safe-area-inset-bottom))}
 .dock-in{max-width:800px;margin:0 auto;padding:0 14px}
-.chips{display:flex;gap:8px;margin:0 0 10px;overflow-x:auto;scrollbar-width:none;padding:0 4px}
+.x-chips{display:flex;gap:8px;margin:0 0 10px;overflow-x:auto;scrollbar-width:none;padding:0 4px}
 .chips::-webkit-scrollbar{display:none}
 .chips.is-off{display:none}
 .chips button{flex:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:15px;color:var(--ink);white-space:nowrap}
@@ -107,6 +108,20 @@ textarea::placeholder{color:#8a9199}
 .foot{font-size:13px;color:#8a9199;text-align:center;margin-top:8px}
 .foot.is-off{display:none}
 @media(max-width:520px){.brand small{display:none}}
+
+/* 20.11 v2: ответы кнопками (без ИИ) */
+.msg.still{animation:none}
+.qhint{display:block;font-size:16px;color:var(--muted);margin-top:4px}
+.opts{display:flex;flex-direction:column;gap:8px;margin:0 0 6px}
+.opt{display:block;width:100%;text-align:left;border:1.5px solid #d5d9de;background:#fff;border-radius:16px;padding:13px 16px;font-size:18px;font-weight:600;color:var(--ink);line-height:1.3;transition:border-color .15s,background .15s}
+.opt small{display:block;font-size:15px;font-weight:500;color:var(--muted);margin-top:2px}
+.opt:hover{border-color:var(--ink);background:var(--soft)}
+.opt:active{background:#e6e9ec}
+.box.is-off{display:none}
+.dock.is-off{display:none}
+.back{display:none;margin:8px auto 0;border:0;background:none;color:var(--muted);font-size:15px;padding:6px 10px}
+.back.is-on{display:block}
+@media(min-width:700px){.opts{display:grid;grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -123,18 +138,18 @@ textarea::placeholder{color:#8a9199}
 
 <header class="top" id="top">
   <div class="top-in">
-    <div class="brand"><i><svg><use href="#i-spark"/></svg></i>FBT Online <small>· ИИ-консультант</small></div>
+    <div class="brand"><i><svg><use href="#i-spark"/></svg></i>FBT Online <small>· Диагностика</small></div>
     <div class="grow"></div>
     <button type="button" class="restart" id="restart">Заново</button>
   </div>
-  <div class="prog" id="prog"><span id="progTxt">Вопрос 1 из 12</span><div class="bar"><b id="progBar"></b></div></div>
+  <div class="prog" id="prog"><span id="progTxt">Вопрос 1 из 14</span><div class="bar"><b id="progBar"></b></div></div>
 </header>
 
 <main>
   <section class="hero" id="hero">
-    <span class="badge"><span class="dot"></span>ИИ-консультант онлайн</span>
+    <span class="badge"><span class="dot"></span>Онлайн-диагностика</span>
     <h1>Оцените свою<br>бизнес-модель</h1>
-    <p class="lead">12 простых вопросов о вашем деле.<br>В конце — карта из 6 показателей.</p>
+    <p class="lead">14 простых вопросов о вашем деле.<br>В конце — карта из 6 показателей.</p>
     <svg class="web" viewBox="0 0 300 270" aria-hidden="true">
       <defs><radialGradient id="hbg"><stop offset="0" stop-color="#125443"/><stop offset="1" stop-color="#06271F"/></radialGradient></defs>
       <rect width="300" height="270" rx="28" fill="url(#hbg)"/>
@@ -148,8 +163,8 @@ textarea::placeholder{color:#8a9199}
     </svg>
     <button type="button" class="start" id="startBtn"><svg><use href="#i-play"/></svg>Начать диагностику</button>
     <ul class="facts">
-      <li><svg><use href="#i-time"/></svg>7–10 минут</li>
-      <li><svg><use href="#i-chat"/></svg>Можно ответить «не знаю»</li>
+      <li><svg><use href="#i-time"/></svg>3–5 минут</li>
+      <li><svg><use href="#i-chat"/></svg>Ответы — кнопками</li>
       <li><svg><use href="#i-gift"/></svg>Бесплатно</li>
     </ul>
     <p class="note">После карты можно бесплатно получить разбор от куратора в Telegram.</p>
@@ -166,18 +181,15 @@ textarea::placeholder{color:#8a9199}
   <section class="chat" id="chat" data-clarity-mask="true" aria-live="polite"></section>
 </main>
 
-<div class="dock">
+<div class="dock is-off" id="dock">
   <div class="dock-in">
-    <div class="chips is-off" id="chips">
-      <button type="button">Не знаю</button>
-      <button type="button">Ещё не было</button>
-      <button type="button">Не считал(а)</button>
-    </div>
+    <div class="opts" id="opts"></div>
     <form class="box" id="form" autocomplete="off">
-      <textarea id="input" rows="1" maxlength="2000" placeholder="Что вы продаёте?" data-clarity-mask="true"></textarea>
+      <textarea id="input" rows="1" maxlength="300" placeholder="Например: детская одежда" data-clarity-mask="true"></textarea>
       <button class="send" id="send" type="submit" aria-label="Отправить" disabled><svg><use href="#i-up"/></svg></button>
     </form>
-    <div class="foot" id="foot">Ответы видит только ИИ-консультант. Куратору они уйдут, только если вы сами нажмёте «Отправить».</div>
+    <button type="button" class="back" id="back">← Изменить прошлый ответ</button>
+    <div class="foot" id="foot">Ответы остаются у вас. Куратору они уйдут, только если вы сами нажмёте «Отправить».</div>
   </div>
 </div>
 
@@ -187,38 +199,164 @@ textarea::placeholder{color:#8a9199}
   'use strict';
   var C = window.FBT_CONFIG || {};
   var BOT = C.bot || 'fbt_online_bot';
-  var API = '/api/bm-chat';
-  var KEY = 'bm_chat_v1';
+  var KEY = 'bm_quiz_v2';
   var q = new URLSearchParams(location.search);
-  var DEMO = q.has('demo');
-  var TEST = DEMO || q.has('test');
+  var TEST = q.has('test') || q.has('demo');
 
-  var QUESTIONS = [
-    'Что вы продаёте или планируете продавать?',
-    'Кто ваш основной покупатель?',
-    'Зачем покупателю нужен ваш товар или услуга?',
-    'Почему покупатель выбирает вас, а не другие варианты?',
-    'Что люди уже сделали, чтобы показать, что им это нужно?',
-    'Сколько оплаченных заказов было за последние 30 дней?',
-    'Откуда приходят ваши покупатели?',
-    'Как человек обычно делает у вас заказ?',
-    'Сколько вы получаете за одну продажу или единицу товара?',
-    'Сколько вам стоит выполнить такую продажу: закупка, материалы, доставка и прочее?',
-    'Какие постоянные расходы у бизнеса за месяц?',
-    'Были ли за последний месяц жалобы, задержки или нехватка товара?'
+  /* ---------- Вопросы. Баллы — по правилам промпта v3 (6 зон × П1, П2, Э1, Э2 по 25), см. score() ----------
+     show(A) — показывать ли вопрос (уточнения задаются только когда нужны). */
+  var Q = [
+    { id: 'what', text: 'Что вы продаёте или планируете продавать?', hint: 'Напишите коротко, в двух-трёх словах.', type: 'text' },
+    { id: 'who', text: 'Кто ваш основной покупатель?', opts: [
+      ['group', 'Могу назвать конкретную группу людей', 'например: мамы школьников, владельцы кафе'],
+      ['all', 'Все подряд, кому нужно'],
+      ['unknown', 'Пока не знаю']] },
+    { id: 'need', text: 'Откуда вы знаете, что людям это правда нужно?', opts: [
+      ['said', 'Клиенты сами говорили или просили об этом'],
+      ['think', 'Я так думаю, вижу по рынку'],
+      ['unknown', 'Не знаю']] },
+    { id: 'why', text: 'Почему покупатель выбирает вас, а не других?', opts: [
+      ['reason', 'Есть понятная причина', 'ближе, быстрее, дешевле, лучше качество…'],
+      ['none', 'Особой причины нет'],
+      ['unknown', 'Не знаю']] },
+    { id: 'whyok', extra: true, show: function (A) { return A.why === 'reason'; },
+      text: 'Клиенты сами говорили, что выбирают вас именно из-за этого?', opts: [
+      ['many', 'Да, несколько человек'],
+      ['one', 'Да, один человек'],
+      ['no', 'Нет, не спрашивал(а)']] },
+    { id: 'orders', text: 'Сколько оплаченных заказов было за последние 30 дней?', opts: [
+      ['0', 'Ни одного'],
+      ['1-10', 'От 1 до 10'],
+      ['11-50', 'От 11 до 50'],
+      ['50+', 'Больше 50'],
+      ['some', 'Продажи есть, но не считал(а)']] },
+    { id: 'months', text: 'Продажи были и в прошлые месяцы?', opts: [
+      ['every', 'Да, каждый месяц'],
+      ['gaps', 'Были, но с перерывами'],
+      ['new', 'Нет, начал(а) только недавно'],
+      ['never', 'Продаж ещё не было']] },
+    { id: 'repeat', text: 'Покупают ли у вас повторно те же клиенты?', opts: [
+      ['often', 'Да, часто'],
+      ['some', 'Иногда'],
+      ['no', 'Нет'],
+      ['unknown', 'Не знаю']] },
+    { id: 'source', text: 'Откуда чаще всего приходят ваши покупатели?', opts: [
+      ['recs', 'По рекомендациям'],
+      ['social', 'Из Instagram или Telegram'],
+      ['place', 'Видят точку или витрину'],
+      ['ads', 'С рекламы'],
+      ['none', 'Пока ниоткуда / не знаю']] },
+    { id: 'order', text: 'Как человек обычно делает у вас заказ?', opts: [
+      ['msg', 'Пишет в мессенджер'],
+      ['call', 'Звонит'],
+      ['walk', 'Приходит сам'],
+      ['site', 'Через сайт или маркетплейс'],
+      ['mess', 'По-разному, порядка нет']] },
+    { id: 'unit', text: 'Вы знаете, сколько получаете с одной продажи и сколько тратите на неё?', hint: 'Траты на одну продажу — закупка, материалы, доставка, комиссии.', opts: [
+      ['both', 'Знаю и цену, и траты'],
+      ['price', 'Знаю только цену'],
+      ['none', 'Не считал(а)']] },
+    { id: 'margin', extra: true, show: function (A) { return A.unit === 'both'; },
+      text: 'После трат на одну продажу у вас остаются деньги?', opts: [
+      ['yes', 'Да, остаются'],
+      ['zero', 'Примерно в ноль'],
+      ['minus', 'Нет, в минус']] },
+    { id: 'month', text: 'Вы считали, что остаётся за месяц после всех расходов?', hint: 'Все расходы — аренда, зарплаты, налоги и прочее.', opts: [
+      ['plus', 'Посчитал(а): в плюсе'],
+      ['minus', 'Посчитал(а): в ноль или в минус'],
+      ['costs', 'Расходы знаю, итог не считал(а)'],
+      ['none', 'Не считал(а)']] },
+    { id: 'deliver', text: 'Как клиент получает товар или услугу?', opts: [
+      ['ship', 'Доставляем'],
+      ['pickup', 'Забирает сам'],
+      ['service', 'Оказываю услугу лично или онлайн'],
+      ['none', 'Пока не решил(а)']] },
+    { id: 'fails', text: 'Были ли за последний месяц жалобы, задержки или нехватка товара?', opts: [
+      ['no', 'Не было'],
+      ['rare', 'Были единичные случаи'],
+      ['often', 'Бывает часто'],
+      ['unknown', 'Не слежу']] },
+    { id: 'track', text: 'Вы записываете, сколько заказов выполнено вовремя, а сколько сорвано?', opts: [
+      ['good', 'Да, почти всё вовремя (9 из 10 и больше)'],
+      ['bad', 'Да, но срывов много'],
+      ['no', 'Нет, не записываю']] }
   ];
-  var FIRST = '📊 Прогресс: 0/12  ░░░░░░░░░░░░\n' + QUESTIONS[0];
+  var MAIN = Q.filter(function (x) { return !x.extra; }).length; // 14
 
+  /* ---------- подсчёт ---------- */
+  function score(A) {
+    var sold = A.orders && A.orders !== '0';
+    var counted = ['1-10', '11-50', '50+'].indexOf(A.orders) >= 0;
+    var rep = A.repeat === 'often' || A.repeat === 'some';
+    var said = A.whyok === 'many' || A.whyok === 'one';
+    var src = A.source && A.source !== 'none';
+    function z(a, b, c, d) { return (a ? 25 : 0) + (b ? 25 : 0) + (c ? 25 : 0) + (d ? 25 : 0); }
+    var econ = A.unit !== 'both' ? 0 : z(true, counted && ['plus', 'minus', 'costs'].indexOf(A.month) >= 0, A.margin === 'yes', A.margin === 'yes' && A.month === 'plus');
+    var e1 = sold && (A.fails === 'no' || A.fails === 'rare');
+    return [
+      z(A.who === 'group', A.need === 'said', A.who === 'group' && sold, sold && rep),            // Клиент и потребность
+      z(A.why === 'reason', said, said && sold, A.whyok === 'many' && sold),                       // Позиционирование
+      z(sold, counted, sold && (rep || A.source === 'recs'), sold && (A.months === 'every' || A.months === 'gaps' || A.repeat === 'often')), // Спрос
+      z(src, A.order && A.order !== 'mess', src && sold, src && sold && A.months === 'every'),     // Привлечение и продажи
+      econ,                                                                                         // Экономика (жёсткий порог: цена + траты)
+      z(A.deliver && A.deliver !== 'none', A.track === 'good' || A.track === 'bad', e1, e1 && A.track === 'good') // Выполнение
+    ];
+  }
+
+  var ZONES = [
+    { name: 'Клиент и потребность', strong: 'Понятно, кто ваш покупатель, и он уже платит', risk: 'Нет подтверждения от самих клиентов, что им это правда нужно', step: 'Спросите 5 покупателей, зачем они купили, и запишите их слова' },
+    { name: 'Позиционирование', strong: 'Клиенты сами называют, почему выбирают вас', risk: 'Непонятно, почему покупают у вас, а не у других', step: 'Спросите 3–5 клиентов, почему они выбрали именно вас' },
+    { name: 'Подтверждённый спрос', strong: 'Есть оплаченные заказы, и вы знаете их число', risk: 'Мало подтверждённых продаж: спрос пока не доказан', step: 'Записывайте каждый оплаченный заказ: дата, кто купил, сумма' },
+    { name: 'Привлечение и продажи', strong: 'Понятно, откуда приходят покупатели и как заказывают', risk: 'Нет понятного и стабильного источника покупателей', step: 'Запишите, откуда пришёл каждый покупатель за последний месяц' },
+    { name: 'Экономика и прибыль', strong: 'Вы знаете, сколько зарабатываете с одной продажи', risk: 'Неизвестно, сколько денег остаётся с одной продажи', step: 'Посчитайте траты на одну продажу: закупка, материалы, доставка' },
+    { name: 'Стабильность выполнения', strong: 'Заказы выполняются вовремя, без серьёзных сбоев', risk: 'Бывают срывы, задержки или нехватка товара', step: 'В течение месяца записывайте каждый сорванный или задержанный заказ' }
+  ];
+
+  function buildResult(A) {
+    var s = score(A);
+    var idx = Math.round(s.reduce(function (a, b) { return a + b; }, 0) / 6);
+    var order = s.map(function (v, i) { return i; });
+    var best = order.slice().sort(function (a, b) { return s[b] - s[a] || a - b; });
+    var worst = order.slice().sort(function (a, b) { return s[a] - s[b] || a - b; });
+    var strongZ = best.filter(function (i) { return s[i] >= 50; }).slice(0, 2);
+    var main = idx >= 75 ? 'Модель крепкая: большинство важных вещей подтверждено фактами.'
+      : idx >= 50 ? 'Основа есть, но есть слабые места, которые тянут бизнес вниз.'
+      : idx >= 25 ? 'Многое пока держится на догадках: проверенных фактов мало.'
+      : 'Пока это больше идея, чем проверенная бизнес-модель.';
+    var lines = ['**Главное по вашей модели**', main];
+    if (strongZ.length) lines.push('✅ Сильная сторона: ' + strongZ.map(function (i) { return ZONES[i].strong.charAt(0).toLowerCase() + ZONES[i].strong.slice(1); }).join('; ') + '.');
+    lines.push('⚠️ Главный риск: ' + ZONES[worst[0]].risk.charAt(0).toLowerCase() + ZONES[worst[0]].risk.slice(1) + '.');
+    lines.push('', '**Что сделать за 7 дней:**');
+    worst.slice(0, 3).forEach(function (i, n) { lines.push((n + 1) + '. ' + ZONES[i].step + '.'); });
+    lines.push('', '0 баллов может означать, что не хватает данных, а не что всё плохо.');
+    return {
+      scores: s, index: idx, business: String(A.what || '').slice(0, 60),
+      strong: strongZ.length ? ZONES[strongZ[0]].strong : 'Вы начали разбираться в своей модели — это первый шаг',
+      risk: ZONES[worst[0]].risk, step: ZONES[worst[0]].step,
+      text: lines.join('\n')
+    };
+  }
+
+  function labelOf(qq, v) {
+    if (qq.type === 'text') return v;
+    for (var i = 0; i < qq.opts.length; i++) if (qq.opts[i][0] === v) return qq.opts[i][1];
+    return v;
+  }
+  function captionText(A, r) {
+    var parts = ['Прошёл(ла) диагностику бизнес-модели на сайте.', 'Бизнес: ' + (A.what || '—')];
+    Q.forEach(function (qq) { if (qq.id !== 'what' && A[qq.id] !== undefined) parts.push(qq.text.replace(/\?$/, '') + ': ' + labelOf(qq, A[qq.id])); });
+    parts.push('Баллы Кл/Поз/Спр/Прод/Экон/Вып = ' + r.scores.join('/') + ', индекс ' + r.index + '/100');
+    return parts.join('\n');
+  }
+
+  /* ---------- состояние ---------- */
   var $ = function (id) { return document.getElementById(id); };
-  var chat = $('chat'), hero = $('hero'), input = $('input'), send = $('send'), form = $('form'), chips = $('chips');
-
-  // ---------- состояние ----------
-  var S = load() || { messages: [], result: null, sent: false, demo: DEMO };
-  var busy = false;
+  var chat = $('chat'), hero = $('hero'), input = $('input'), send = $('send'), form = $('form'), opts = $('opts'), back = $('back');
   function load() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  var S = load() || { started: false, A: {}, path: [], sent: false };
 
-  // ---------- события в журнал бота (как на остальном сайте) ----------
+  /* ---------- события в журнал бота (как на остальном сайте) ---------- */
   var anon = '';
   try { anon = localStorage.getItem('fbt_anon') || ''; } catch (e) {}
   if (!anon) { anon = (Date.now().toString(36) + Math.random().toString(36).slice(2, 12)).replace(/[^a-z0-9]/g, '').slice(0, 20); try { localStorage.setItem('fbt_anon', anon); } catch (e) {} }
@@ -229,159 +367,132 @@ textarea::placeholder{color:#8a9199}
     try {
       fetch(C.botApi.replace(/\/$/, '') + '/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
         body: JSON.stringify({ anon: anon, event: name, data: Object.assign({ page: 'biznes-model' }, data || {}),
-          eid: name + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), v: 'bm1', test: TEST ? 1 : 0 }) });
+          eid: name + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), v: 'bm2', test: TEST ? 1 : 0 }) });
     } catch (e) {}
   }
 
-  // ---------- вывод ----------
+  /* ---------- вывод ---------- */
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-  function md(s) {
-    return esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
-  }
-  function stripResult(t) { return String(t).replace(/<<<RESULT[\s\S]*?(RESULT>>>|$)/, '').trim(); }
-  function progressOf(t) { var m = /Прогресс:\s*(\d{1,2})\s*\/\s*12/.exec(t); return m ? Math.min(12, +m[1]) : null; }
-  function clarifyOf(t) { var m = /Уточнение\s*(\d)\s*\/\s*3/.exec(t); return m ? +m[1] : null; }
-
+  function md(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>'); }
   function scrollDown() { requestAnimationFrame(function () { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }); }
 
-  function addMsg(role, text) {
-    var el = document.createElement('div');
-    el.className = 'msg' + (role === 'user' ? ' me' : '');
-    if (role === 'user') {
-      el.innerHTML = '<div class="txt"></div>';
-      el.firstChild.textContent = text;
-    } else {
-      var body = stripResult(text);
-      var p = progressOf(body), c = clarifyOf(body);
-      body = body.replace(/^.*Прогресс:.*$\n?/m, '').trim();
-      var step = '';
-      if (p !== null && !S.result) step = '<span class="step">' + (c ? 'Уточнение ' + c + ' из 3' : 'Вопрос ' + Math.min(p + 1, 12) + ' из 12') + '</span><br>';
-      el.innerHTML = '<div class="ava"><svg><use href="#i-spark"/></svg></div><div class="txt">' + step + md(body) + '</div>';
+  function nextQ() {
+    for (var i = 0; i < Q.length; i++) {
+      var qq = Q[i];
+      if (S.A[qq.id] !== undefined) continue;
+      if (qq.show && !qq.show(S.A)) continue;
+      return qq;
     }
+    return null;
+  }
+  function mainDone() { var n = 0; Q.forEach(function (qq) { if (!qq.extra && S.A[qq.id] !== undefined) n++; }); return n; }
+
+  function bot(qq, animate) {
+    var el = document.createElement('div'); el.className = 'msg' + (animate ? '' : ' still');
+    var step = qq.extra ? 'Уточнение' : 'Вопрос ' + (Q.filter(function (x) { return !x.extra; }).indexOf(qq) + 1) + ' из ' + MAIN;
+    el.innerHTML = '<div class="ava"><svg><use href="#i-spark"/></svg></div><div class="txt"><span class="step">' + step + '</span><br>' +
+      esc(qq.text) + (qq.hint ? '<span class="qhint">' + esc(qq.hint) + '</span>' : '') + '</div>';
     chat.appendChild(el);
-    return el;
+  }
+  function me(text) {
+    var el = document.createElement('div'); el.className = 'msg me';
+    el.innerHTML = '<div class="txt"></div>'; el.firstChild.textContent = text;
+    chat.appendChild(el);
   }
 
-  function setProgress(n) {
-    var on = S.messages.length > 0 && !S.result;
-    $('prog').classList.toggle('is-on', on);
-    if (n === null || n === undefined) return;
-    $('progTxt').textContent = n >= 12 ? 'Готовим вашу карту…' : 'Вопрос ' + (n + 1) + ' из 12';
-    $('progBar').style.width = Math.round(n / 12 * 100) + '%';
-  }
-  function lastProgress() {
-    for (var i = S.messages.length - 1; i >= 0; i--) if (S.messages[i].role === 'assistant') { var p = progressOf(S.messages[i].content); if (p !== null) return p; }
-    return 0;
-  }
-
-  function showChat() {
-    hero.classList.add('is-off');
-    chat.classList.add('is-on');
-    $('restart').classList.add('is-on');
-    $('top').classList.add('is-on');
-    input.placeholder = 'Напишите ответ…';
-    $('foot').classList.add('is-off');
-    if (S.demo) {
-      if (!chat.querySelector('.demo-bar')) {
-        var d = document.createElement('div'); d.className = 'demo-bar';
-        d.textContent = 'Демо-режим: ИИ не подключён, вопросы идут по списку, карта — пример.';
-        chat.appendChild(d);
-      }
-    }
-  }
-
-  function render() {
+  function render(animate) {
     chat.innerHTML = '';
-    if (!S.messages.length) return;
-    showChat();
-    S.messages.forEach(function (m) { addMsg(m.role, m.content); });
-    if (S.result) renderResult(false);
-    setProgress(lastProgress());
-    chips.classList.toggle('is-off', !!S.result);
+    $('dock').classList.toggle('is-off', !S.started);
+    if (!S.started) return;
+    hero.classList.add('is-off'); chat.classList.add('is-on');
+    $('restart').classList.add('is-on'); $('top').classList.add('is-on'); $('foot').classList.add('is-off');
+    S.path.forEach(function (id) {
+      var qq = Q.filter(function (x) { return x.id === id; })[0];
+      bot(qq, false); me(labelOf(qq, S.A[id]));
+    });
+    var qq = nextQ();
+    var done = mainDone();
+    $('prog').classList.toggle('is-on', !!qq);
+    $('progTxt').textContent = 'Вопрос ' + Math.min(done + 1, MAIN) + ' из ' + MAIN;
+    $('progBar').style.width = Math.round(done / MAIN * 100) + '%';
+    back.classList.toggle('is-on', S.path.length > 0 && !!qq);
+    if (qq) { bot(qq, animate); showInput(qq); }
+    else { showInput(null); finish(animate); }
+    scrollDown();
   }
 
-  // ---------- старт ----------
-  function start(firstAnswer) {
-    if (S.messages.length) return;
-    S.messages.push({ role: 'assistant', content: FIRST });
-    save(); showChat();
-    addMsg('assistant', FIRST);
-    setProgress(0);
-    chips.classList.remove('is-off');
-    track('bm_start', {});
-    if (firstAnswer) ask(firstAnswer); else input.focus();
-  }
-  $('startBtn').addEventListener('click', function () { start(); });
-
-  // ---------- вопрос-ответ ----------
-  function typing() {
-    var el = document.createElement('div'); el.className = 'msg'; el.id = 'typing';
-    el.innerHTML = '<div class="ava"><svg><use href="#i-spark"/></svg></div><div class="txt"><span class="typing"><i></i><i></i><i></i></span></div>';
-    chat.appendChild(el); scrollDown(); return el;
+  function showInput(qq) {
+    opts.innerHTML = '';
+    form.classList.toggle('is-off', !(qq && qq.type === 'text'));
+    if (!qq) return;
+    if (qq.type === 'text') { input.value = ''; updateSend(); setTimeout(function () { input.focus(); }, 50); return; }
+    qq.opts.forEach(function (o) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'opt';
+      b.innerHTML = esc(o[1]) + (o[2] ? '<small>' + esc(o[2]) + '</small>' : '');
+      b.addEventListener('click', function () { answer(qq, o[0]); });
+      opts.appendChild(b);
+    });
   }
 
-  function ask(text) {
-    text = String(text || '').trim();
-    if (!text || busy) return;
-    if (!S.messages.length) return start(text);
-    S.messages.push({ role: 'user', content: text });
-    save();
-    addMsg('user', text);
-    input.value = ''; autosize(); updateSend();
-    busy = true; updateSend();
-    var t = typing();
-    var answered = lastProgress();
-    track('bm_answer', { n: answered + 1 });
-
-    var job = S.demo ? demoReply() : fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: S.messages }) }).then(function (r) {
-        return r.json().catch(function () { return {}; }).then(function (d) {
-          if (r.status === 503 && d.error === 'no_key') throw { noKey: true };
-          if (!r.ok || !d.reply) throw { fail: true };
-          return d.reply;
-        });
-      });
-
-    job.then(function (reply) {
-      t.remove();
-      S.messages.push({ role: 'assistant', content: reply });
-      var res = parseResult(reply);
-      if (res && !S.result) { S.result = res; track('bm_done', { index: res.index, scores: res.scores.join('-') }); }
-      save();
-      addMsg('assistant', reply);
-      if (res && S.result === res) renderResult(true);
-      setProgress(progressOf(reply));
-      chips.classList.toggle('is-off', !!S.result);
-      scrollDown();
-    }).catch(function (e) {
-      t.remove();
-      // ответ не дошёл — убираем его из истории, чтобы можно было отправить ещё раз
-      S.messages.pop(); save();
-      var last = chat.querySelector('.msg.me:last-of-type'); if (last) last.remove();
-      input.value = text; autosize(); updateSend();
-      var box = document.createElement('div'); box.className = 'err';
-      box.innerHTML = e && e.noKey
-        ? 'ИИ-консультант сейчас настраивается. Напишите куратору — он поможет оценить бизнес-модель лично.<br><a class="btn btn--main" style="margin-top:10px" href="https://t.me/' + BOT + '?start=bm_nokey"><svg><use href="#i-tg"/></svg>Написать куратору</a>'
-        : 'Связь прервалась. Ваш ответ сохранён — нажмите «Повторить».<br><button type="button">Повторить</button>';
-      chat.appendChild(box);
-      var b = box.querySelector('button');
-      if (b) b.addEventListener('click', function () { box.remove(); ask(input.value); });
-      track('bm_error', { kind: e && e.noKey ? 'no_key' : 'fail' });
-      scrollDown();
-    }).then(function () { busy = false; updateSend(); });
+  function answer(qq, v) {
+    S.A[qq.id] = v; S.path.push(qq.id); save();
+    track('bm_answer', { q: qq.id, n: mainDone() });
+    render(true);
   }
 
-  function parseResult(text) {
-    var m = /<<<RESULT\s*([\s\S]*?)\s*RESULT>>>/.exec(text);
-    if (!m) return null;
-    try {
-      var d = JSON.parse(m[1]);
-      var ok = Array.isArray(d.scores) && d.scores.length === 6 && d.scores.every(function (x) { return [0, 25, 50, 75, 100].indexOf(+x) >= 0; });
-      if (!ok) return null;
-      d.scores = d.scores.map(Number);
-      d.index = Math.round(d.scores.reduce(function (a, b) { return a + b; }, 0) / 6); // всегда пересчитываем сами
-      return d;
-    } catch (e) { return null; }
+  function undo() {
+    var id = S.path.pop(); if (!id) return;
+    delete S.A[id];
+    // уточнения, которые зависели от этого ответа, тоже сбрасываем
+    Q.forEach(function (qq) { if (qq.show && !qq.show(S.A) && S.A[qq.id] !== undefined) { delete S.A[qq.id]; S.path = S.path.filter(function (x) { return x !== qq.id; }); } });
+    save(); render(false);
+  }
+
+  /* ---------- финал ---------- */
+  function finish(animate) {
+    var r = buildResult(S.A);
+    if (!S.doneTracked) { S.doneTracked = 1; save(); track('bm_done', { index: r.index, scores: r.scores.join('-') }); }
+    var el = document.createElement('div'); el.className = 'msg';
+    el.innerHTML = '<div class="ava"><svg><use href="#i-spark"/></svg></div><div class="txt">' + md(r.text) + '</div>';
+    chat.appendChild(el);
+    var box = document.createElement('div');
+    box.className = 'result';
+    box.innerHTML = '<div class="card-wrap">' + cardSVG(r) + '</div>' +
+      '<div class="actions">' +
+        '<a class="btn btn--main" id="toCurator" href="https://t.me/' + BOT + '?start=bm_' + r.scores.join('-') + '" target="_blank" rel="noopener"><svg><use href="#i-tg"/></svg>Отправить разбор куратору</a>' +
+        '<p class="hint" id="sendHint">Куратор посмотрит ваши ответы и бесплатно подскажет, что делать дальше.</p>' +
+        '<button type="button" class="btn" id="dl"><svg><use href="#i-down"/></svg>Сохранить карту</button>' +
+      '</div>';
+    chat.appendChild(box);
+    $('toCurator').addEventListener('click', function () {
+      var cap = captionText(S.A, r);
+      try { if (navigator.clipboard) navigator.clipboard.writeText(cap); } catch (e) {}
+      track('bm_send', { index: r.index, scores: r.scores.join('-'), business: r.business, caption: cap.slice(0, 3000) });
+      S.sent = true; save(); markSent();
+    });
+    $('dl').addEventListener('click', function () { downloadPNG(r); });
+    if (S.sent) markSent();
+    if (animate) setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120);
+  }
+  function markSent() {
+    var h = $('sendHint'); if (!h) return;
+    h.className = 'hint ok';
+    h.textContent = '✓ Ваши ответы скопированы. В боте нажмите «Старт» и вставьте текст — куратор ответит бесплатно.';
+  }
+  function downloadPNG(r) {
+    var img = new Image();
+    img.onload = function () {
+      var c = document.createElement('canvas'); c.width = 1080; c.height = 1600;
+      c.getContext('2d').drawImage(img, 0, 0);
+      c.toBlob(function (b) {
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(b); a.download = 'karta-biznes-modeli.png';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+      }, 'image/png');
+    };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(cardSVG(r));
+    track('bm_png', {});
   }
 
   // ---------- карта (порт make_card из промпта v3) ----------
@@ -446,92 +557,24 @@ textarea::placeholder{color:#8a9199}
     return o.join('');
   }
 
-  function renderResult(fresh) {
-    var r = S.result;
-    var box = document.createElement('div');
-    box.className = 'result';
-    box.innerHTML = '<div class="card-wrap">' + cardSVG(r) + '</div>' +
-      '<div class="actions">' +
-        '<a class="btn btn--main" id="toCurator" href="https://t.me/' + BOT + '?start=bm_' + r.scores.join('-') + '" target="_blank" rel="noopener"><svg><use href="#i-tg"/></svg>Отправить разбор куратору</a>' +
-        '<p class="hint" id="sendHint">Куратор посмотрит ваши ответы и бесплатно подскажет, что делать дальше.</p>' +
-        '<button type="button" class="btn" id="dl"><svg><use href="#i-down"/></svg>Сохранить карту</button>' +
-      '</div>';
-    chat.appendChild(box);
-    $('toCurator').addEventListener('click', sendToCurator);
-    $('dl').addEventListener('click', downloadPNG);
-    if (S.sent) markSent();
-    if (fresh) setTimeout(function () { box.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
-  }
 
-  function captionText() {
-    var r = S.result;
-    return (r.caption || ('Прошёл(ла) диагностику бизнес-модели. Баллы Кл/Поз/Спр/Прод/Экон/Вып = ' + r.scores.join('/') + ', индекс ' + r.index)).slice(0, 900);
-  }
-  function sendToCurator() {
-    var cap = captionText();
-    // 1) копируем разбор — человек вставит его в бота; 2) отправляем полный отчёт в журнал бота
-    try { if (navigator.clipboard) navigator.clipboard.writeText(cap); } catch (e) {}
-    track('bm_send', { index: S.result.index, scores: S.result.scores.join('-'), business: (S.result.business || '').slice(0, 80),
-      caption: cap, report: String(S.result.report || '').slice(0, 6000) });
-    S.sent = true; save(); markSent();
-  }
-  function markSent() {
-    var h = $('sendHint'); if (!h) return;
-    h.className = 'hint ok';
-    h.textContent = '✓ Разбор скопирован. В боте нажмите «Старт» и вставьте текст — куратор ответит бесплатно.';
-  }
-
-  function downloadPNG() {
-    var svg = cardSVG(S.result);
-    var img = new Image();
-    img.onload = function () {
-      var c = document.createElement('canvas'); c.width = 1080; c.height = 1600;
-      c.getContext('2d').drawImage(img, 0, 0);
-      c.toBlob(function (b) {
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(b); a.download = 'karta-biznes-modeli.png';
-        document.body.appendChild(a); a.click(); a.remove();
-        setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
-      }, 'image/png');
-    };
-    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
-    track('bm_png', {});
-  }
-
-  // ---------- демо без ИИ (?demo): вопросы по списку, карта-пример ----------
-  function demoReply() {
-    return new Promise(function (res) {
-      setTimeout(function () {
-        var n = 0; S.messages.forEach(function (m) { if (m.role === 'user') n++; });
-        if (S.result) return res('Это демо. В настоящей версии ИИ ответит на ваш вопрос по результату. Нажмите «Отправить разбор куратору».');
-        if (n < 12) {
-          var bar = ''; for (var i = 0; i < 12; i++) bar += i < n ? '█' : '░';
-          return res('📊 Прогресс: ' + n + '/12  ' + bar + '\n' + QUESTIONS[n]);
-        }
-        var r = { scores: [50, 25, 75, 75, 0, 25], index: 42, business: 'Демо',
-          strong: 'Есть реальные покупатели и рекомендации', risk: 'Нет учёта затрат, не хватает товара', step: 'Посчитать затраты на одну продажу и наладить запас',
-          caption: 'ДЕМО. Прошёл(ла) диагностику бизнес-модели (пример). Кл/Поз/Спр/Прод/Экон/Вып = 50/25/75/75/0/25, индекс 42.', report: 'ДЕМО-отчёт' };
-        res('**Главное по вашей модели**\n(Это пример — в демо ответы не анализируются.)\nПокупатели есть, но неизвестно, сколько остаётся с одной продажи.\nСильная сторона: заказы идут по рекомендациям.\nРиск: товар заканчивается, клиенты ждут.\n1. Посчитайте закупку и доставку на одну продажу.\n2. Запишите, сколько заказов не смогли выполнить.\n3. Спросите 3 клиентов, почему они выбрали вас.\n<<<RESULT\n' + JSON.stringify(r) + '\nRESULT>>>');
-      }, 700);
-    });
-  }
-
-  // ---------- строка ввода ----------
-  function autosize() { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 180) + 'px'; }
-  function updateSend() { send.disabled = busy || !input.value.trim(); }
-  input.addEventListener('input', function () { autosize(); updateSend(); });
-  input.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && window.matchMedia('(min-width: 700px)').matches) { e.preventDefault(); ask(input.value); }
+  /* ---------- управление ---------- */
+  function updateSend() { send.disabled = !input.value.trim(); }
+  input.addEventListener('input', function () { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 140) + 'px'; updateSend(); });
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event('submit')); } });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = input.value.trim(); if (!v) return;
+    var qq = nextQ(); if (qq && qq.type === 'text') answer(qq, v.slice(0, 300));
   });
-  form.addEventListener('submit', function (e) { e.preventDefault(); ask(input.value); });
-  chips.addEventListener('click', function (e) { if (e.target.tagName === 'BUTTON') ask(e.target.textContent); });
+  back.addEventListener('click', undo);
+  $('startBtn').addEventListener('click', function () { S.started = true; save(); track('bm_start', {}); render(true); });
   $('restart').addEventListener('click', function () {
     if (!confirm('Начать диагностику заново? Текущие ответы удалятся.')) return;
-    S = { messages: [], result: null, sent: false, demo: DEMO };
-    save(); location.reload();
+    S = { started: true, A: {}, path: [], sent: false }; save(); render(true);
   });
 
-  // ---------- Meta Pixel и Clarity (ID из config.js) ----------
+  /* ---------- Meta Pixel и Clarity (ID из config.js) ---------- */
   if (C.metaPixel && !TEST) {
     !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
       if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v;
@@ -543,8 +586,8 @@ textarea::placeholder{color:#8a9199}
       t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i; y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y); })(window, document, 'clarity', 'script', C.clarity);
   }
 
-  render();
-  track('bm_open', { utm: q.get('utm_source') || '', back: S.messages.length ? 1 : 0 });
+  render(false);
+  track('bm_open', { utm: q.get('utm_source') || '', back: S.started ? 1 : 0 });
 })();
 </script>
 </body>
