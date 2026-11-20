@@ -216,3 +216,11 @@ body.g-light .g-panel { border: 0 !important; box-shadow: none !important; backg
   .g-pcell img { width: 56px !important; height: 56px !important; }
   body.g-light .g-info--clean { padding-left: 10px; padding-right: 10px; }
 }
+/* 20.11 (3): свечение кнопки — мягкое размытое пятно во все стороны, без резких краёв */
+body.g-light .btn--shine, body.ic.g-light .btn--shine { box-shadow: none !important; animation: none !important; }
+.g-glow { position: relative; display: block; isolation: isolate; }
+.g-glow::before { content: ''; position: absolute; z-index: -1; left: 6%; right: 6%; top: 18%; bottom: -6%; border-radius: 999px;
+  background: rgba(214, 0, 0, .55); filter: blur(22px); opacity: .55; pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) { .g-glow::before { animation: gGlow2 2.4s ease-in-out infinite; } }
+@keyframes gGlow2 { 0%, 100% { opacity: .45; transform: scale(.97); } 50% { opacity: .75; transform: scale(1.03); } }
+.g-hero .g-glow { margin-top: 14px; } .g-hero .g-glow .btn { margin-top: 0; }

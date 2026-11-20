@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="../assets/contrast.css">
 <link rel="stylesheet" href="../assets/ic-home.css?v=5.71">
 <link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.84">
-<link rel="stylesheet" href="../assets/igra-clean.css?v=8">
+<link rel="stylesheet" href="../assets/igra-clean.css?v=9">
 <style>
 /* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
 body.ic .g-scr { padding: 40px 0 72px; }
@@ -693,7 +693,7 @@ function vIntro() {
         return '<img class="g-stage-p is-' + x[2] + '" src="../assets/img/arhetip/group/' + x[0] + '.webp?v=1" alt="" style="--x:' + x[1] + '%" draggable="false">';
       }).join('') + '</div>' +
       '<ul class="g-facts">' + stats.map(function (x) { return '<li>' + ipic(x[0]) + '<span>' + x[1] + '</span></li>'; }).join('') + '</ul>' +
-      '<button type="button" class="btn btn--primary btn--shine btn--lg btn--block mt-14" data-act="start">Определить свой архетип' + arrow() + '</button>' +
+      '<span class="g-glow"><button type="button" class="btn btn--primary btn--shine btn--lg btn--block mt-14" data-act="start">Определить свой архетип' + arrow() + '</button></span>' +
       '<p class="g-note">Это игра, а не научный тест. Она показывает, что вам интересно, но не оценивает способности и не обещает успех. Ответы остаются на вашем телефоне.</p>' +
     '</div>'
   );
@@ -880,7 +880,7 @@ function vResult() {
     plusBlock + expBlock +
     ideasBlock + pairBlock + giveBlock +
     skillsBlock() +
-    '<div class="g-btns"><button type="button" class="btn btn--primary btn--shine btn--lg btn--block" data-act="share">Поделиться с другом' + arrow() + '</button><div class="g-status" id="gStatus" role="status"></div></div>' +
+    '<div class="g-btns"><span class="g-glow"><button type="button" class="btn btn--primary btn--shine btn--lg btn--block" data-act="share">Поделиться с другом' + arrow() + '</button></span><div class="g-status" id="gStatus" role="status"></div></div>' +
     '<div class="g-fbt"><div class="eyebrow">FAMILY BUSINESS TRAINING</div><h3>Как создать успешный бизнес в Узбекистане в 2026 году</h3>' +
       '<p>Пройдите бесплатную диагностику — за 5 минут увидите, с чего начать.</p>' +
       '<a class="btn btn--white" href="https://fbt-online.uz" target="_blank" rel="noopener">Пройти обучение' + arrow() + '</a>' +
