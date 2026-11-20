@@ -111,3 +111,22 @@ body.ar {
 .ar-oc.is-cur { outline: 3px solid var(--a-red); outline-offset: -3px; }
 .ar-oc.is-cur b { color: var(--a-red); }
 .ar-note { margin-top: 20px; font-size: 15px; line-height: 1.5; color: var(--a-muted); }
+
+/* 20.11.2026 (Claude): чистый стиль как у «Бизнес-модели» — белый фон, звери в костюмах на белом,
+   строгие линейные иконки вместо 3D, без тёмно-графитовых подложек. */
+html:has(body.ar), body.ar { --a-bg: #FFFFFF; --a-shadow: none; background: #FFFFFF !important; }
+.ar-hero-pic, .ar-pair-pics span, .ar-oc span { background: #FFFFFF !important; border: 1px solid var(--a-line); }
+.ar-hero-pic { box-shadow: none; }
+.ar-hero h1::before, .ar-h::before { display: none; }
+.ar-hero h1, .ar-h { padding-top: 0; }
+.ar-ico { background: #F4F5F6; color: #1F2A33; }
+.ar-ico svg { width: 52%; height: 52%; }
+.ar-list li, .ar-pair, .ar-final .ar-w { box-shadow: none; }
+.ar-minus li { background: #F4F5F6; border-color: #F4F5F6; color: #1F2A33; }
+.ar-step { background: #1F2A33; }
+.ar-step-h .ar-ico { background: #FFFFFF; color: #1F2A33; }
+.ar-tasks li { background: #F4F5F6; }
+body.ar .btn--primary, body.ic.ar .btn--primary { background: #1F2A33; border-color: #1F2A33; color: #FFFFFF; border-radius: 999px; box-shadow: 0 10px 24px rgba(31,42,51,.18); }
+body.ar .btn--primary:hover { background: #000; border-color: #000; }
+.ar-minus li, .ar-minus li :is(b, span, p, small, div) { color: #1F2A33 !important; }
+.ar-minus li i { color: #FFFFFF !important; }
