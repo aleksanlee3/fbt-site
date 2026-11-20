@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<title>Оцените свою бизнес-модель · ИИ-консультант FBT Online</title>
+<meta name="description" content="12 простых вопросов о вашем деле. В конце — карта бизнес-модели из 6 показателей и бесплатный разбор от куратора.">
+<meta property="og:title" content="Оцените свою бизнес-модель">
+<meta property="og:description" content="12 простых вопросов · карта из 6 показателей · бесплатный разбор от куратора">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<!-- 20.11.2026 · отдельный лендинг для Reels «МОДЕЛЬ». Ни с какими страницами сайта не связан (нет меню и ссылок на сайт).
+     ИИ — через functions/api/bm-chat.js (ключ в настройках Cloudflare). Демо без ИИ: ?demo -->
+<style>
+:root{
+  --bg:#ffffff; --soft:#f4f5f6; --line:#e3e5e8; --text:#16191d; --muted:#5d646d;
+  --ink:#1f2a33; --accent:#d83a34; --bubble:#eef0f3; --radius:26px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--text);font:400 18px/1.5 var(--font);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100dvh}
+button{font:inherit;cursor:pointer}
+.top{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent}
+.top.is-on{border-bottom-color:var(--line)}
+.top-in{max-width:800px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:12px}
+.brand{font-weight:700;font-size:16px;letter-spacing:.01em;color:var(--ink);display:flex;align-items:center;gap:9px}
+.brand i{width:26px;height:26px;border-radius:8px;background:var(--ink);display:inline-grid;place-items:center}
+.brand i svg{width:16px;height:16px}
+.brand small{font-weight:500;color:var(--muted);font-size:14px}
+.top .grow{flex:1}
+.restart{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:15px;color:var(--ink);display:none}
+.restart.is-on{display:inline-block}
+.prog{max-width:800px;margin:0 auto;padding:0 18px 10px;display:none;align-items:center;gap:12px;font-size:15px;color:var(--muted);font-weight:600}
+.prog.is-on{display:flex}
+.bar{flex:1;height:8px;border-radius:9px;background:var(--soft);overflow:hidden}
+.bar b{display:block;height:100%;width:0;background:var(--ink);border-radius:9px;transition:width .4s}
+
+main{flex:1;width:100%;max-width:800px;margin:0 auto;padding:0 18px}
+/* ---------- первый экран ---------- */
+.hero{padding:3vh 0 20px;text-align:center}
+.hero.is-off{display:none}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:var(--soft);font-size:15px;font-weight:600;color:var(--ink)}
+.badge .dot{width:8px;height:8px;border-radius:50%;background:#2fb36b;box-shadow:0 0 0 4px rgba(47,179,107,.18)}
+.hero h1{font-size:clamp(36px,9.4vw,56px);line-height:1.05;letter-spacing:-.02em;margin:14px 0 10px;font-weight:800;color:var(--ink)}
+.hero p.lead{font-size:clamp(19px,4.8vw,22px);color:var(--muted);margin:0 auto 18px;max-width:560px}
+.web{width:min(250px,58vw);margin:2px auto 18px;display:block}
+.facts{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:22px 0 6px;padding:0;list-style:none}
+.facts li{display:flex;align-items:center;gap:8px;padding:10px 15px;border:1px solid var(--line);border-radius:14px;font-size:16px;font-weight:600;color:var(--ink)}
+.facts svg{width:20px;height:20px;flex:none}
+.start{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;background:var(--ink);color:#fff;font-size:20px;font-weight:700;padding:17px 34px;box-shadow:0 10px 24px rgba(31,42,51,.22)}
+.start:hover{background:#000}
+.start svg{width:22px;height:22px}
+.zones{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;text-align:left;margin:34px 0 8px}
+.zones div{background:var(--soft);border-radius:16px;padding:13px 14px;font-size:16px;font-weight:600;color:var(--ink);display:flex;gap:10px;align-items:center}
+.zones span{width:12px;height:12px;border-radius:50%;flex:none}
+.note{font-size:15px;color:var(--muted);margin-top:14px}
+@media(min-width:640px){.zones{grid-template-columns:repeat(3,1fr)}}
+
+/* ---------- чат ---------- */
+.chat{padding:18px 0 8px;display:none}
+.chat.is-on{display:block}
+.msg{display:flex;gap:12px;margin:0 0 22px;animation:in .25s ease}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg .ava{width:34px;height:34px;border-radius:50%;background:var(--ink);flex:none;display:grid;place-items:center;margin-top:2px}
+.msg .ava svg{width:19px;height:19px}
+.msg .txt{min-width:0;flex:1;font-size:19px;line-height:1.55;overflow-wrap:anywhere}
+.msg .txt b{font-weight:700}
+.msg .step{display:inline-block;font-size:14px;font-weight:700;color:var(--muted);margin-bottom:4px;letter-spacing:.02em}
+.msg.me{justify-content:flex-end}
+.msg.me .txt{flex:none;max-width:82%;background:var(--bubble);border-radius:22px 22px 6px 22px;padding:12px 17px;white-space:pre-wrap}
+.typing{display:inline-flex;gap:5px;padding:12px 0}
+.typing i{width:9px;height:9px;border-radius:50%;background:#b9bec5;animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.err{background:#fff3f2;border:1px solid #f5c8c5;color:#8a1f1a;border-radius:16px;padding:12px 16px;font-size:17px;margin:0 0 20px}
+.err button{margin-top:8px;border:0;background:var(--ink);color:#fff;border-radius:999px;padding:8px 16px;font-size:16px}
+.demo-bar{background:#fff7e0;border:1px solid #f1dc9c;border-radius:14px;padding:10px 14px;font-size:15px;margin:14px 0 0;color:#6b5200}
+
+/* ---------- результат ---------- */
+.result{margin:6px 0 26px 46px}
+.card-wrap{border-radius:22px;overflow:hidden;box-shadow:0 14px 40px rgba(6,39,31,.25);max-width:460px}
+.card-wrap svg{display:block;width:100%;height:auto}
+.actions{display:flex;flex-direction:column;gap:10px;margin-top:18px;max-width:460px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;border-radius:16px;padding:16px 18px;font-size:18px;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--ink);text-decoration:none}
+.btn svg{width:22px;height:22px;flex:none}
+.btn--main{background:var(--accent);border-color:var(--accent);color:#fff;font-size:19px;padding:18px}
+.btn--main:hover{background:#c22f2a}
+.hint{font-size:15px;color:var(--muted);margin:2px 4px 0}
+.hint.ok{color:#1d7a46;font-weight:600}
+@media(max-width:560px){.result{margin-left:0}}
+
+/* ---------- строка ввода ---------- */
+.dock{position:sticky;bottom:0;background:linear-gradient(to top,#fff 70%,rgba(255,255,255,0));padding:14px 0 calc(12px + env(safe-area-inset-bottom))}
+.dock-in{max-width:800px;margin:0 auto;padding:0 14px}
+.chips{display:flex;gap:8px;margin:0 0 10px;overflow-x:auto;scrollbar-width:none;padding:0 4px}
+.chips::-webkit-scrollbar{display:none}
+.chips.is-off{display:none}
+.chips button{flex:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:15px;color:var(--ink);white-space:nowrap}
+.box{display:flex;align-items:flex-end;gap:8px;border:1px solid #d5d9de;border-radius:var(--radius);background:#fff;padding:8px 8px 8px 18px;box-shadow:0 6px 24px rgba(0,0,0,.07)}
+.box:focus-within{border-color:#9aa3ad}
+textarea{flex:1;border:0;outline:0;resize:none;font:400 18px/1.45 var(--font);color:var(--text);padding:9px 0;max-height:180px;background:transparent}
+textarea::placeholder{color:#8a9199}
+.send{width:44px;height:44px;border-radius:50%;border:0;background:var(--ink);color:#fff;display:grid;place-items:center;flex:none}
+.send:disabled{background:#c9cdd2;cursor:default}
+.send svg{width:22px;height:22px}
+.foot{font-size:13px;color:#8a9199;text-align:center;margin-top:8px}
+.foot.is-off{display:none}
+@media(max-width:520px){.brand small{display:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-spark" viewBox="0 0 24 24"><path fill="#fff" d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9z"/><circle cx="19" cy="18" r="2" fill="#fff"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M5 12l7-7 7 7"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></symbol>
+  <symbol id="i-time" viewBox="0 0 24 24"><g fill="none" stroke="#1f2a33" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><g fill="none" stroke="#1f2a33" stroke-width="2" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M12 9s-4-.5-4-3a2 2 0 014 0 2 2 0 014 0c0 2.5-4 3-4 3z"/></g></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="#1f2a33" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="i-tg" viewBox="0 0 24 24"><path fill="currentColor" d="M21.5 3.6L2.9 10.8c-1.3.5-1.3 1.2-.2 1.6l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.5-1.4zM9.3 13.6l8.6-5.4c.4-.3.8-.1.5.2l-7.1 6.4-.3 3.2z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+</svg>
+
+<header class="top" id="top">
+  <div class="top-in">
+    <div class="brand"><i><svg><use href="#i-spark"/></svg></i>FBT Online <small>· ИИ-консультант</small></div>
+    <div class="grow"></div>
+    <button type="button" class="restart" id="restart">Заново</button>
+  </div>
+  <div class="prog" id="prog"><span id="progTxt">Вопрос 1 из 12</span><div class="bar"><b id="progBar"></b></div></div>
+</header>
+
+<main>
+  <section class="hero" id="hero">
+    <span class="badge"><span class="dot"></span>ИИ-консультант онлайн</span>
+    <h1>Оцените свою<br>бизнес-модель</h1>
+    <p class="lead">12 простых вопросов о вашем деле.<br>В конце — карта из 6 показателей.</p>
+    <svg class="web" viewBox="0 0 300 270" aria-hidden="true">
+      <defs><radialGradient id="hbg"><stop offset="0" stop-color="#125443"/><stop offset="1" stop-color="#06271F"/></radialGradient></defs>
+      <rect width="300" height="270" rx="28" fill="url(#hbg)"/>
+      <g fill="none" stroke="#D0ECE0" stroke-opacity=".3" stroke-width="1.4">
+        <polygon points="150,30 243,84 243,192 150,246 57,192 57,84"/>
+        <polygon points="150,84 196,111 196,165 150,192 104,165 104,111"/>
+        <path d="M150 138V30M150 138l93-54M150 138l93 54M150 138v108M150 138L57 192M150 138L57 84"/>
+      </g>
+      <polygon points="150,57 220,98 220,178 150,192 80,165 104,111" fill="#C7F971" fill-opacity=".25" stroke="#C6F46A" stroke-width="4" stroke-linejoin="round"/>
+      <g stroke="#103B31" stroke-width="2"><circle cx="150" cy="57" r="7" fill="#FF6676"/><circle cx="220" cy="98" r="7" fill="#50B5FF"/><circle cx="220" cy="178" r="7" fill="#AA70F8"/><circle cx="150" cy="192" r="7" fill="#32E2CC"/><circle cx="80" cy="165" r="7" fill="#F7C94C"/><circle cx="104" cy="111" r="7" fill="#19C6AE"/></g>
+    </svg>
+    <button type="button" class="start" id="startBtn"><svg><use href="#i-play"/></svg>Начать диагностику</button>
+    <ul class="facts">
+      <li><svg><use href="#i-time"/></svg>7–10 минут</li>
+      <li><svg><use href="#i-chat"/></svg>Можно ответить «не знаю»</li>
+      <li><svg><use href="#i-gift"/></svg>Бесплатно</li>
+    </ul>
+    <p class="note">После карты можно бесплатно получить разбор от куратора в Telegram.</p>
+    <div class="zones">
+      <div><span style="background:#FF6676"></span>Клиент</div>
+      <div><span style="background:#50B5FF"></span>Почему выбирают вас</div>
+      <div><span style="background:#AA70F8"></span>Спрос</div>
+      <div><span style="background:#32E2CC"></span>Продажи</div>
+      <div><span style="background:#F7C94C"></span>Экономика</div>
+      <div><span style="background:#19C6AE"></span>Выполнение заказов</div>
+    </div>
+  </section>
+
+  <section class="chat" id="chat" data-clarity-mask="true" aria-live="polite"></section>
+</main>
+
+<div class="dock">
+  <div class="dock-in">
+    <div class="chips is-off" id="chips">
+      <button type="button">Не знаю</button>
+      <button type="button">Ещё не было</button>
+      <button type="button">Не считал(а)</button>
+    </div>
+    <form class="box" id="form" autocomplete="off">
+      <textarea id="input" rows="1" maxlength="2000" placeholder="Что вы продаёте?" data-clarity-mask="true"></textarea>
+      <button class="send" id="send" type="submit" aria-label="Отправить" disabled><svg><use href="#i-up"/></svg></button>
+    </form>
+    <div class="foot" id="foot">Ответы видит только ИИ-консультант. Куратору они уйдут, только если вы сами нажмёте «Отправить».</div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script>
+(function () {
+  'use strict';
+  var C = window.FBT_CONFIG || {};
+  var BOT = C.bot || 'fbt_online_bot';
+  var API = '/api/bm-chat';
+  var KEY = 'bm_chat_v1';
+  var q = new URLSearchParams(location.search);
+  var DEMO = q.has('demo');
+  var TEST = DEMO || q.has('test');
+
+  var QUESTIONS = [
+    'Что вы продаёте или планируете продавать?',
+    'Кто ваш основной покупатель?',
+    'Зачем покупателю нужен ваш товар или услуга?',
+    'Почему покупатель выбирает вас, а не другие варианты?',
+    'Что люди уже сделали, чтобы показать, что им это нужно?',
+    'Сколько оплаченных заказов было за последние 30 дней?',
+    'Откуда приходят ваши покупатели?',
+    'Как человек обычно делает у вас заказ?',
+    'Сколько вы получаете за одну продажу или единицу товара?',
+    'Сколько вам стоит выполнить такую продажу: закупка, материалы, доставка и прочее?',
+    'Какие постоянные расходы у бизнеса за месяц?',
+    'Были ли за последний месяц жалобы, задержки или нехватка товара?'
+  ];
+  var FIRST = '📊 Прогресс: 0/12  ░░░░░░░░░░░░\n' + QUESTIONS[0];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var chat = $('chat'), hero = $('hero'), input = $('input'), send = $('send'), form = $('form'), chips = $('chips');
+
+  // ---------- состояние ----------
+  var S = load() || { messages: [], result: null, sent: false, demo: DEMO };
+  var busy = false;
+  function load() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+  // ---------- события в журнал бота (как на остальном сайте) ----------
+  var anon = '';
+  try { anon = localStorage.getItem('fbt_anon') || ''; } catch (e) {}
+  if (!anon) { anon = (Date.now().toString(36) + Math.random().toString(36).slice(2, 12)).replace(/[^a-z0-9]/g, '').slice(0, 20); try { localStorage.setItem('fbt_anon', anon); } catch (e) {} }
+  function track(name, data) {
+    try { if (window.clarity) window.clarity('event', name); } catch (e) {}
+    try { if (window.fbq) window.fbq('trackCustom', name); } catch (e) {}
+    if (!C.botApi) return;
+    try {
+      fetch(C.botApi.replace(/\/$/, '') + '/api/event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+        body: JSON.stringify({ anon: anon, event: name, data: Object.assign({ page: 'biznes-model' }, data || {}),
+          eid: name + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), v: 'bm1', test: TEST ? 1 : 0 }) });
+    } catch (e) {}
+  }
+
+  // ---------- вывод ----------
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function md(s) {
+    return esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
+  }
+  function stripResult(t) { return String(t).replace(/<<<RESULT[\s\S]*?(RESULT>>>|$)/, '').trim(); }
+  function progressOf(t) { var m = /Прогресс:\s*(\d{1,2})\s*\/\s*12/.exec(t); return m ? Math.min(12, +m[1]) : null; }
+  function clarifyOf(t) { var m = /Уточнение\s*(\d)\s*\/\s*3/.exec(t); return m ? +m[1] : null; }
+
+  function scrollDown() { requestAnimationFrame(function () { window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }); }
+
+  function addMsg(role, text) {
+    var el = document.createElement('div');
+    el.className = 'msg' + (role === 'user' ? ' me' : '');
+    if (role === 'user') {
+      el.innerHTML = '<div class="txt"></div>';
+      el.firstChild.textContent = text;
+    } else {
+      var body = stripResult(text);
+      var p = progressOf(body), c = clarifyOf(body);
+      body = body.replace(/^.*Прогресс:.*$\n?/m, '').trim();
+      var step = '';
+      if (p !== null && !S.result) step = '<span class="step">' + (c ? 'Уточнение ' + c + ' из 3' : 'Вопрос ' + Math.min(p + 1, 12) + ' из 12') + '</span><br>';
+      el.innerHTML = '<div class="ava"><svg><use href="#i-spark"/></svg></div><div class="txt">' + step + md(body) + '</div>';
+    }
+    chat.appendChild(el);
+    return el;
+  }
+
+  function setProgress(n) {
+    var on = S.messages.length > 0 && !S.result;
+    $('prog').classList.toggle('is-on', on);
+    if (n === null || n === undefined) return;
+    $('progTxt').textContent = n >= 12 ? 'Готовим вашу карту…' : 'Вопрос ' + (n + 1) + ' из 12';
+    $('progBar').style.width = Math.round(n / 12 * 100) + '%';
+  }
+  function lastProgress() {
+    for (var i = S.messages.length - 1; i >= 0; i--) if (S.messages[i].role === 'assistant') { var p = progressOf(S.messages[i].content); if (p !== null) return p; }
+    return 0;
+  }
+
+  function showChat() {
+    hero.classList.add('is-off');
+    chat.classList.add('is-on');
+    $('restart').classList.add('is-on');
+    $('top').classList.add('is-on');
+    input.placeholder = 'Напишите ответ…';
+    $('foot').classList.add('is-off');
+    if (S.demo) {
+      if (!chat.querySelector('.demo-bar')) {
+        var d = document.createElement('div'); d.className = 'demo-bar';
+        d.textContent = 'Демо-режим: ИИ не подключён, вопросы идут по списку, карта — пример.';
+        chat.appendChild(d);
+      }
+    }
+  }
+
+  function render() {
+    chat.innerHTML = '';
+    if (!S.messages.length) return;
+    showChat();
+    S.messages.forEach(function (m) { addMsg(m.role, m.content); });
+    if (S.result) renderResult(false);
+    setProgress(lastProgress());
+    chips.classList.toggle('is-off', !!S.result);
+  }
+
+  // ---------- старт ----------
+  function start(firstAnswer) {
+    if (S.messages.length) return;
+    S.messages.push({ role: 'assistant', content: FIRST });
+    save(); showChat();
+    addMsg('assistant', FIRST);
+    setProgress(0);
+    chips.classList.remove('is-off');
+    track('bm_start', {});
+    if (firstAnswer) ask(firstAnswer); else input.focus();
+  }
+  $('startBtn').addEventListener('click', function () { start(); });
+
+  // ---------- вопрос-ответ ----------
+  function typing() {
+    var el = document.createElement('div'); el.className = 'msg'; el.id = 'typing';
+    el.innerHTML = '<div class="ava"><svg><use href="#i-spark"/></svg></div><div class="txt"><span class="typing"><i></i><i></i><i></i></span></div>';
+    chat.appendChild(el); scrollDown(); return el;
+  }
+
+  function ask(text) {
+    text = String(text || '').trim();
+    if (!text || busy) return;
+    if (!S.messages.length) return start(text);
+    S.messages.push({ role: 'user', content: text });
+    save();
+    addMsg('user', text);
+    input.value = ''; autosize(); updateSend();
+    busy = true; updateSend();
+    var t = typing();
+    var answered = lastProgress();
+    track('bm_answer', { n: answered + 1 });
+
+    var job = S.demo ? demoReply() : fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: S.messages }) }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (d) {
+          if (r.status === 503 && d.error === 'no_key') throw { noKey: true };
+          if (!r.ok || !d.reply) throw { fail: true };
+          return d.reply;
+        });
+      });
+
+    job.then(function (reply) {
+      t.remove();
+      S.messages.push({ role: 'assistant', content: reply });
+      var res = parseResult(reply);
+      if (res && !S.result) { S.result = res; track('bm_done', { index: res.index, scores: res.scores.join('-') }); }
+      save();
+      addMsg('assistant', reply);
+      if (res && S.result === res) renderResult(true);
+      setProgress(progressOf(reply));
+      chips.classList.toggle('is-off', !!S.result);
+      scrollDown();
+    }).catch(function (e) {
+      t.remove();
+      // ответ не дошёл — убираем его из истории, чтобы можно было отправить ещё раз
+      S.messages.pop(); save();
+      var last = chat.querySelector('.msg.me:last-of-type'); if (last) last.remove();
+      input.value = text; autosize(); updateSend();
+      var box = document.createElement('div'); box.className = 'err';
+      box.innerHTML = e && e.noKey
+        ? 'ИИ-консультант сейчас настраивается. Напишите куратору — он поможет оценить бизнес-модель лично.<br><a class="btn btn--main" style="margin-top:10px" href="https://t.me/' + BOT + '?start=bm_nokey"><svg><use href="#i-tg"/></svg>Написать куратору</a>'
+        : 'Связь прервалась. Ваш ответ сохранён — нажмите «Повторить».<br><button type="button">Повторить</button>';
+      chat.appendChild(box);
+      var b = box.querySelector('button');
+      if (b) b.addEventListener('click', function () { box.remove(); ask(input.value); });
+      track('bm_error', { kind: e && e.noKey ? 'no_key' : 'fail' });
+      scrollDown();
+    }).then(function () { busy = false; updateSend(); });
+  }
+
+  function parseResult(text) {
+    var m = /<<<RESULT\s*([\s\S]*?)\s*RESULT>>>/.exec(text);
+    if (!m) return null;
+    try {
+      var d = JSON.parse(m[1]);
+      var ok = Array.isArray(d.scores) && d.scores.length === 6 && d.scores.every(function (x) { return [0, 25, 50, 75, 100].indexOf(+x) >= 0; });
+      if (!ok) return null;
+      d.scores = d.scores.map(Number);
+      d.index = Math.round(d.scores.reduce(function (a, b) { return a + b; }, 0) / 6); // всегда пересчитываем сами
+      return d;
+    } catch (e) { return null; }
+  }
+
+  // ---------- карта (порт make_card из промпта v3) ----------
+  var LABELS = ['Клиент и потребность', 'Позиционирование', 'Подтверждённый спрос', 'Привлечение и продажи', 'Экономика и прибыль', 'Стабильность выполнения'];
+  var SHORT = ['Клиент', 'Позиция', 'Спрос', 'Продажи', 'Экономика', 'Выполнение'];
+  var COLORS = ['#FF6676', '#50B5FF', '#AA70F8', '#32E2CC', '#F7C94C', '#19C6AE'];
+  function wrap(text, width, max) {
+    var words = String(text || '—').split(/\s+/), lines = [], cur = '';
+    words.forEach(function (w) {
+      if ((cur + ' ' + w).trim().length > width) { if (cur) lines.push(cur); cur = w; } else cur = (cur + ' ' + w).trim();
+    });
+    if (cur) lines.push(cur);
+    if (lines.length > max) { lines = lines.slice(0, max); lines[max - 1] = lines[max - 1].replace(/[\s,.;:]*$/, '') + '…'; }
+    return lines.length ? lines : ['—'];
+  }
+  function cardSVG(r) {
+    var s = r.scores, o = [];
+    function txt(x, y, str, size, weight, color, anchor) {
+      o.push('<text x="' + x + '" y="' + y + '" font-family="Inter,-apple-system,Segoe UI,Roboto,DejaVu Sans,sans-serif" font-size="' + (size || 25) + '" font-weight="' + (weight || 500) + '" text-anchor="' + (anchor || 'start') + '" fill="' + (color || '#F5F8F6') + '">' + esc(str) + '</text>');
+    }
+    o.push('<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1600" viewBox="0 0 1080 1600">');
+    o.push('<defs><radialGradient id="bg"><stop offset="0" stop-color="#125443"/><stop offset=".66" stop-color="#0C4034"/><stop offset="1" stop-color="#06271F"/></radialGradient>' +
+      '<linearGradient id="shape" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#C7F971" stop-opacity=".35"/><stop offset="1" stop-color="#B7F377" stop-opacity=".12"/></linearGradient></defs>');
+    o.push('<rect width="1080" height="1600" fill="#101416"/><rect x="20" y="20" width="1040" height="1560" rx="52" fill="url(#bg)"/>');
+    txt(540, 105, 'Карта бизнес-модели', 51, 800, null, 'middle');
+    o.push('<rect x="433" y="122" width="214" height="8" rx="4" fill="#C8F679"/>');
+    txt(540, 165, '6 показателей • факты + результат', 22, 500, '#B8D6C9', 'middle');
+    var cx = 540, cy = 405, R = 188, ang = [];
+    for (var i = 0; i < 6; i++) ang.push(-Math.PI / 2 + i * Math.PI / 3);
+    function pt(i, k) { return [cx + R * k * Math.cos(ang[i]), cy + R * k * Math.sin(ang[i])]; }
+    function pts(a) { return a.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' '); }
+    [0.25, 0.5, 0.75, 1].forEach(function (f) {
+      var a = []; for (var i = 0; i < 6; i++) a.push(pt(i, f));
+      o.push('<polygon points="' + pts(a) + '" fill="none" stroke="#D0ECE0" stroke-width="1.8" stroke-opacity="' + (f < 1 ? .25 : .47) + '"/>');
+    });
+    for (i = 0; i < 6; i++) { var e = pt(i, 1); o.push('<line x1="' + cx + '" y1="' + cy + '" x2="' + e[0].toFixed(1) + '" y2="' + e[1].toFixed(1) + '" stroke="#C9E3D8" stroke-opacity=".32"/>'); }
+    var v = s.map(function (x, i) { return pt(i, x / 100); });
+    o.push('<polygon points="' + pts(v) + '" fill="url(#shape)" stroke="#C6F46A" stroke-width="5" stroke-linejoin="round"/>');
+    v.forEach(function (p, i) { o.push('<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="10" fill="' + COLORS[i] + '" stroke="#103B31" stroke-width="2"/>'); });
+    [[540, 194], [760, 307], [765, 518], [540, 649], [306, 518], [315, 307]].forEach(function (p, i) { txt(p[0], p[1], SHORT[i], 24, 750, null, 'middle'); });
+    o.push('<line x1="85" y1="679" x2="995" y2="679" stroke="#ADD4C4" stroke-opacity=".23"/>');
+    s.forEach(function (x, i) {
+      var y = 726 + i * 65;
+      txt(78, y + 12, LABELS[i], 22, 600);
+      o.push('<rect x="430" y="' + (y - 9) + '" width="430" height="18" rx="9" fill="#4B8273" opacity=".48"/>');
+      if (x > 0) o.push('<rect x="430" y="' + (y - 9) + '" width="' + (430 * x / 100).toFixed(1) + '" height="18" rx="9" fill="' + COLORS[i] + '"/>');
+      txt(997, y + 12, x + '/100', 24, 700, null, 'end');
+    });
+    o.push('<rect x="281" y="1124" width="518" height="74" rx="38" fill="#235C4A" stroke="#579980" stroke-width="2"/>');
+    txt(540, 1176, 'Общий индекс: ' + r.index + '/100', 38, 800, '#D0F578', 'middle');
+    txt(540, 1226, '0 может означать нехватку данных, а не убыток', 18, 500, '#C5DCD3', 'middle');
+    function block(y, title, body, col) {
+      txt(80, y, title, 20, 800, col);
+      wrap(body, 62, 2).forEach(function (l, j) { txt(80, y + 34 + 29 * j, l, 22, 500); });
+    }
+    block(1258, 'ЧТО УЖЕ РАБОТАЕТ', r.strong, '#C9F47C');
+    block(1353, 'ГЛАВНЫЙ РИСК', r.risk, '#FFC38C');
+    block(1448, 'ПЕРВЫЙ ШАГ', r.step, '#7BEAD4');
+    o.push('<line x1="65" y1="1527" x2="1015" y2="1527" stroke="#C0E1D4" stroke-opacity=".28"/>');
+    txt(540, 1562, 'Бесплатный разбор от куратора · t.me/' + BOT, 19, 800, '#D0F578', 'middle');
+    o.push('</svg>');
+    return o.join('');
+  }
+
+  function renderResult(fresh) {
+    var r = S.result;
+    var box = document.createElement('div');
+    box.className = 'result';
+    box.innerHTML = '<div class="card-wrap">' + cardSVG(r) + '</div>' +
+      '<div class="actions">' +
+        '<a class="btn btn--main" id="toCurator" href="https://t.me/' + BOT + '?start=bm_' + r.scores.join('-') + '" target="_blank" rel="noopener"><svg><use href="#i-tg"/></svg>Отправить разбор куратору</a>' +
+        '<p class="hint" id="sendHint">Куратор посмотрит ваши ответы и бесплатно подскажет, что делать дальше.</p>' +
+        '<button type="button" class="btn" id="dl"><svg><use href="#i-down"/></svg>Сохранить карту</button>' +
+      '</div>';
+    chat.appendChild(box);
+    $('toCurator').addEventListener('click', sendToCurator);
+    $('dl').addEventListener('click', downloadPNG);
+    if (S.sent) markSent();
+    if (fresh) setTimeout(function () { box.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+  }
+
+  function captionText() {
+    var r = S.result;
+    return (r.caption || ('Прошёл(ла) диагностику бизнес-модели. Баллы Кл/Поз/Спр/Прод/Экон/Вып = ' + r.scores.join('/') + ', индекс ' + r.index)).slice(0, 900);
+  }
+  function sendToCurator() {
+    var cap = captionText();
+    // 1) копируем разбор — человек вставит его в бота; 2) отправляем полный отчёт в журнал бота
+    try { if (navigator.clipboard) navigator.clipboard.writeText(cap); } catch (e) {}
+    track('bm_send', { index: S.result.index, scores: S.result.scores.join('-'), business: (S.result.business || '').slice(0, 80),
+      caption: cap, report: String(S.result.report || '').slice(0, 6000) });
+    S.sent = true; save(); markSent();
+  }
+  function markSent() {
+    var h = $('sendHint'); if (!h) return;
+    h.className = 'hint ok';
+    h.textContent = '✓ Разбор скопирован. В боте нажмите «Старт» и вставьте текст — куратор ответит бесплатно.';
+  }
+
+  function downloadPNG() {
+    var svg = cardSVG(S.result);
+    var img = new Image();
+    img.onload = function () {
+      var c = document.createElement('canvas'); c.width = 1080; c.height = 1600;
+      c.getContext('2d').drawImage(img, 0, 0);
+      c.toBlob(function (b) {
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(b); a.download = 'karta-biznes-modeli.png';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+      }, 'image/png');
+    };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    track('bm_png', {});
+  }
+
+  // ---------- демо без ИИ (?demo): вопросы по списку, карта-пример ----------
+  function demoReply() {
+    return new Promise(function (res) {
+      setTimeout(function () {
+        var n = 0; S.messages.forEach(function (m) { if (m.role === 'user') n++; });
+        if (S.result) return res('Это демо. В настоящей версии ИИ ответит на ваш вопрос по результату. Нажмите «Отправить разбор куратору».');
+        if (n < 12) {
+          var bar = ''; for (var i = 0; i < 12; i++) bar += i < n ? '█' : '░';
+          return res('📊 Прогресс: ' + n + '/12  ' + bar + '\n' + QUESTIONS[n]);
+        }
+        var r = { scores: [50, 25, 75, 75, 0, 25], index: 42, business: 'Демо',
+          strong: 'Есть реальные покупатели и рекомендации', risk: 'Нет учёта затрат, не хватает товара', step: 'Посчитать затраты на одну продажу и наладить запас',
+          caption: 'ДЕМО. Прошёл(ла) диагностику бизнес-модели (пример). Кл/Поз/Спр/Прод/Экон/Вып = 50/25/75/75/0/25, индекс 42.', report: 'ДЕМО-отчёт' };
+        res('**Главное по вашей модели**\n(Это пример — в демо ответы не анализируются.)\nПокупатели есть, но неизвестно, сколько остаётся с одной продажи.\nСильная сторона: заказы идут по рекомендациям.\nРиск: товар заканчивается, клиенты ждут.\n1. Посчитайте закупку и доставку на одну продажу.\n2. Запишите, сколько заказов не смогли выполнить.\n3. Спросите 3 клиентов, почему они выбрали вас.\n<<<RESULT\n' + JSON.stringify(r) + '\nRESULT>>>');
+      }, 700);
+    });
+  }
+
+  // ---------- строка ввода ----------
+  function autosize() { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 180) + 'px'; }
+  function updateSend() { send.disabled = busy || !input.value.trim(); }
+  input.addEventListener('input', function () { autosize(); updateSend(); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && window.matchMedia('(min-width: 700px)').matches) { e.preventDefault(); ask(input.value); }
+  });
+  form.addEventListener('submit', function (e) { e.preventDefault(); ask(input.value); });
+  chips.addEventListener('click', function (e) { if (e.target.tagName === 'BUTTON') ask(e.target.textContent); });
+  $('restart').addEventListener('click', function () {
+    if (!confirm('Начать диагностику заново? Текущие ответы удалятся.')) return;
+    S = { messages: [], result: null, sent: false, demo: DEMO };
+    save(); location.reload();
+  });
+
+  // ---------- Meta Pixel и Clarity (ID из config.js) ----------
+  if (C.metaPixel && !TEST) {
+    !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v;
+      s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', String(C.metaPixel)); window.fbq('track', 'PageView');
+  }
+  if (C.clarity && !TEST) {
+    (function (c, l, a, r, i, t, y) { c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i; y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y); })(window, document, 'clarity', 'script', C.clarity);
+  }
+
+  render();
+  track('bm_open', { utm: q.get('utm_source') || '', back: S.messages.length ? 1 : 0 });
+})();
+</script>
+</body>
+</html>
