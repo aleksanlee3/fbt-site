@@ -394,9 +394,9 @@ var REASONS = [
   ['delegirovanie', 'Узнаете, что лучше отдать', 'Партнёру, сотруднику или близкому.'],
   ['doroga', 'Получите первый шаг на эту неделю', 'Без больших вложений.']
 ];
-var IP = '../assets/img/arhetip/'; /* v5.81: персонажи от ChatGPT (03.11); если файла нет — 3D-иконка */
+var IP = '../assets/img/arhetip/'; /* 20.11: звери в костюмах (v=2); если файла нет — 3D-иконка */
 function pers(c, cls) {
-  return '<img class="g-pers ' + (cls || '') + '" src="' + IP + SLUG[c] + '.webp" alt="' + P[c].name + '" loading="lazy" onerror="this.onerror=null;this.src=\'' + IA + P[c].icon + '.webp\';this.classList.add(\'is-ico\')">';
+  return '<img class="g-pers ' + (cls || '') + '" src="' + IP + SLUG[c] + '.webp?v=2" alt="' + P[c].name + '" loading="lazy" onerror="this.onerror=null;this.src=\'' + IA + P[c].icon + '.webp\';this.classList.add(\'is-ico\')">';
 }
 /* ── Когда подключится семья (по главной роли) ── */
 var FAMLINE = {
