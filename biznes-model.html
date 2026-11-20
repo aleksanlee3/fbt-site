@@ -509,9 +509,11 @@ textarea::placeholder{color:#8a9199}
     return S.bid;
   }
   function botLink(r) {
-    return 'https://t.me/' + BOT + '?start=' + (C.botApi ? 'bm_' + bidFor() : 'bm_' + r.scores.join('-'));
+    // 20.11: баллы зашиты в ссылку (6 цифр 0–4) — даже если карта не долетела до сервера, бот нарисует её сам
+    var code = r.scores.map(function (x) { return Math.max(0, Math.min(4, Math.round(x / 25))); }).join('');
+    return 'https://t.me/' + BOT + '?start=bm_' + bidFor() + '_' + code;
   }
-  var uploading = false;
+  var uploading = false, tries = 0;
   function uploadCard(r) {
     if (!C.botApi || uploading) return;
     var bid = bidFor();
@@ -527,8 +529,8 @@ textarea::placeholder{color:#8a9199}
       fetch(C.botApi.replace(/\/$/, '') + '/api/bm', { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: bid, anon: anon, index: r.index, scores: r.scores, business: r.business,
           text: r.text, caption: captionText(S.A, r).slice(0, 3000), image: jpg, test: TEST ? 1 : 0 }) })
-        .then(function (res) { if (res.ok) { S.upId = bid; save(); } })
-        .catch(function () {})
+        .then(function (res) { if (res.ok) { S.upId = bid; save(); } else throw 0; })
+        .catch(function () { if (++tries < 4) setTimeout(function () { uploadCard(r); }, 1500 * tries); })   // 20.11: повтор при плохой связи
         .then(function () { uploading = false; });
     };
     img.onerror = function () { uploading = false; };
