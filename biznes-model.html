@@ -472,17 +472,21 @@ textarea::placeholder{color:#8a9199}
     box.className = 'result';
     box.innerHTML = '<div class="card-wrap">' + cardSVG(r) + '</div>' +
       '<div class="actions">' +
-        '<a class="btn btn--main" id="toCurator" href="https://t.me/' + BOT + '?start=bm_' + r.scores.join('-') + '" target="_blank" rel="noopener"><svg><use href="#i-tg"/></svg>Отправить разбор куратору</a>' +
+        '<a class="btn btn--main" id="toCurator" href="' + botLink(r) + '" target="_blank" rel="noopener"><svg><use href="#i-tg"/></svg>Отправить разбор куратору</a>' +
         '<p class="hint" id="sendHint">Куратор посмотрит ваши ответы и бесплатно подскажет, что делать дальше.</p>' +
         '<button type="button" class="btn" id="dl"><svg><use href="#i-down"/></svg>Сохранить карту</button>' +
       '</div>';
     chat.appendChild(box);
     $('toCurator').addEventListener('click', function () {
       var cap = captionText(S.A, r);
-      try { if (navigator.clipboard) navigator.clipboard.writeText(cap); } catch (e) {}
+      // 20.11: карта уходит в бота через сервер (uploadCard) — копировать текст больше не нужно.
+      // Без сервера бота (botApi пусто) — запасной путь: текст в буфер, человек вставляет его в бота сам.
+      if (!C.botApi) { try { if (navigator.clipboard) navigator.clipboard.writeText(cap); } catch (e) {} }
+      else uploadCard(r);
       track('bm_send', { index: r.index, scores: r.scores.join('-'), business: r.business, caption: cap.slice(0, 3000) });
       S.sent = true; save(); markSent();
     });
+    uploadCard(r);   // 20.11: заранее кладём карту на сервер бота — к нажатию «Старт» в боте она уже там
     $('dl').addEventListener('click', function () { downloadPNG(r); });
     if (S.sent) markSent();
     if (animate) setTimeout(function () { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 120);
@@ -490,7 +494,45 @@ textarea::placeholder{color:#8a9199}
   function markSent() {
     var h = $('sendHint'); if (!h) return;
     h.className = 'hint ok';
-    h.textContent = '✓ Ваши ответы скопированы. В боте нажмите «Старт» и вставьте текст — куратор ответит бесплатно.';
+    h.textContent = C.botApi
+      ? '✓ Откройте бота и нажмите «Старт» — ваша карта придёт туда. Под ней кнопка «Отправить результат куратору».'
+      : '✓ Ваши ответы скопированы. В боте нажмите «Старт» и вставьте текст — куратор ответит бесплатно.';
+  }
+
+  /* ---------- 20.11: карта → бот. Номер карты (bid) в ссылке start=bm_<bid>, сама карта — на сервере бота ---------- */
+  function bidFor() {
+    var key = JSON.stringify(S.A);
+    if (!S.bid || S.bidKey !== key) {
+      S.bid = (Date.now().toString(36) + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2)).replace(/[^a-z0-9]/g, '').slice(0, 20);
+      S.bidKey = key; S.upId = ''; save();
+    }
+    return S.bid;
+  }
+  function botLink(r) {
+    return 'https://t.me/' + BOT + '?start=' + (C.botApi ? 'bm_' + bidFor() : 'bm_' + r.scores.join('-'));
+  }
+  var uploading = false;
+  function uploadCard(r) {
+    if (!C.botApi || uploading) return;
+    var bid = bidFor();
+    if (S.upId === bid) return;
+    uploading = true;
+    var img = new Image();
+    img.onload = function () {
+      var c = document.createElement('canvas'); c.width = 1080; c.height = 1600;
+      c.getContext('2d').drawImage(img, 0, 0);
+      var jpg = '';
+      // сервер бота (nginx) принимает до 1 МБ — при большом файле снижаем качество
+      [0.88, 0.75, 0.6, 0.45].some(function (qq) { try { jpg = c.toDataURL('image/jpeg', qq); } catch (e) { jpg = ''; } return !jpg || jpg.length < 900000; });
+      fetch(C.botApi.replace(/\/$/, '') + '/api/bm', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: bid, anon: anon, index: r.index, scores: r.scores, business: r.business,
+          text: r.text, caption: captionText(S.A, r).slice(0, 3000), image: jpg, test: TEST ? 1 : 0 }) })
+        .then(function (res) { if (res.ok) { S.upId = bid; save(); } })
+        .catch(function () {})
+        .then(function () { uploading = false; });
+    };
+    img.onerror = function () { uploading = false; };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(cardSVG(r));
   }
   function downloadPNG(r) {
     var img = new Image();
