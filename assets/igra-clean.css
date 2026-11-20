@@ -88,3 +88,22 @@ body.g-light .g-ex .btn svg, body.g-light .g-info .btn svg { width: 20px !import
 body.g-light .g-ex .btn { white-space: nowrap; }
 html:has(body.g-light), body.ic.g-light, body.ic.g-light main > .ic-top, body.ic.g-light .g-scr { background: #FFFFFF !important; }
 body.ic.g-light :is(header, .ic-hdr, .hdr, .site-header) { background: rgba(255,255,255,.94) !important; }
+
+/* 20.11 · сцена «8 героев вместе» на первом экране, параллакс за мышкой */
+.g-stage { --mx: 0; --my: 0; position: relative; width: 100%; max-width: 640px; margin: 18px auto 6px; aspect-ratio: 3 / 2; user-select: none; }
+.g-stage-p { position: absolute; left: calc(10% + var(--x) * .82); bottom: 0; height: 80%; width: auto; transform: translateX(-50%); pointer-events: none;
+  will-change: transform; transition: filter .3s; }
+.g-stage-p.is-b { bottom: 20%; height: 74%; z-index: 1; filter: saturate(.92);
+  transform: translate(calc(-50% + var(--mx) * -10px), calc(var(--my) * -4px)); }
+.g-stage-p.is-f { z-index: 2;
+  transform: translate(calc(-50% + var(--mx) * 18px), calc(var(--my) * 6px)); }
+.g-stage::after { content: ''; position: absolute; left: 6%; right: 6%; bottom: -2%; height: 8%; z-index: 0; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(31,42,51,.14), rgba(31,42,51,0)); }
+@media (max-width: 520px) { .g-stage { aspect-ratio: 5 / 4; } }
+@media (prefers-reduced-motion: no-preference) {
+  .g-stage-p { animation: gStageIn .7s cubic-bezier(.2,.8,.2,1) both; }
+  .g-stage-p:nth-child(2) { animation-delay: .05s } .g-stage-p:nth-child(3) { animation-delay: .1s } .g-stage-p:nth-child(4) { animation-delay: .15s }
+  .g-stage-p:nth-child(5) { animation-delay: .2s } .g-stage-p:nth-child(6) { animation-delay: .25s } .g-stage-p:nth-child(7) { animation-delay: .3s } .g-stage-p:nth-child(8) { animation-delay: .35s }
+}
+@keyframes gStageIn { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
+body.g-light .g-hero .g-note { margin-top: 16px; font-size: 14px; }

@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="../assets/contrast.css">
 <link rel="stylesheet" href="../assets/ic-home.css?v=5.71">
 <link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.84">
-<link rel="stylesheet" href="../assets/igra-clean.css?v=2">
+<link rel="stylesheet" href="../assets/igra-clean.css?v=4">
 <style>
 /* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
 body.ic .g-scr { padding: 40px 0 72px; }
@@ -642,32 +642,21 @@ var DEMO = { IN: 3, CR: 4, MA: 1, OP: 1.5, CO: 3, SA: 2, CL: 3.5, TE: 1 };
 /* ── Экраны ── */
 function vIntro() {
   var stats = [['spisok', '17', 'вопросов'], ['chasy', '4', 'минуты'], ['podarok', '0 сум', 'бесплатно'], ['zamok', 'Без', 'регистрации']];
-  var steps = [['spisok', 'Ответьте на ситуации', '17 коротких вопросов из жизни. Правильных ответов нет.'],
-    ['diagnostika', 'Узнайте свой архетип', 'И увидите карту: какая работа в бизнесе вам интересна.'],
-    ['doroga', 'Получите идеи и первый шаг', 'Что можно проверить в Узбекистане и с чего начать.']];
+  /* 20.11: одна общая сцена — 8 зверей стоят вместе; без описаний архетипов (интрига), сразу к тесту */
+  var crew = [['sozdatel', 7, 'b'], ['sistematizator', 30, 'b'], ['organizator', 50, 'b'], ['kommunikator', 72, 'b'], ['ekspert', 92, 'b'],
+    ['issledovatel', 17, 'f'], ['torgovets', 42, 'f'], ['master', 71, 'f']];
   return sec(
     '<div class="g-hero">' +
       '<div class="eyebrow">ИГРА-ТЕСТ · FBT ONLINE</div>' +
       '<h1>Определите свой<span>бизнес-архетип</span></h1>' +
+      '<div class="g-stage" aria-label="8 бизнес-архетипов">' + crew.map(function (x) {
+        return '<img class="g-stage-p is-' + x[2] + '" src="../assets/img/arhetip/group/' + x[0] + '.webp?v=1" alt="" style="--x:' + x[1] + '%" draggable="false">';
+      }).join('') + '</div>' +
       '<p class="g-lead">И найдите бизнес, который подходит вам больше всего.</p>' +
-      '<p>Ситуации из жизни и пара вопросов о вас. Отвечайте, как поступили бы на самом деле.</p>' +
       '<div class="g-stats">' + stats.map(function (x) { return '<div class="g-stat"><span class="gi">' + ipic(x[0]) + '</span><b>' + x[1] + '</b><small>' + x[2] + '</small></div>'; }).join('') + '</div>' +
       '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Определить свой архетип' + arrow() + '</button>' +
-    '</div>' +
-    '<div class="g-block"><div class="g-sec-h">Зачем знать<span>свой бизнес-архетип</span></div>' +
-      '<div class="g-reasons">' + REASONS.map(function (x, n) { return '<div class="g-reason"><span class="gi">' + ipic(x[0]) + '</span><div><i>0' + (n + 1) + '</i><b>' + x[1] + '</b><small>' + x[2] + '</small></div></div>'; }).join('') + '</div></div>' +
-    '<div class="g-block"><div class="g-sec-h">8 бизнес-архетипов.<span>Какой из них ваш?</span></div>' +
-      GR.map(function (g) {
-        return '<div class="g-group" style="--gc:' + g.color + '"><div class="g-group-h"><b>' + g.name + '</b><small>' + g.about + '</small></div><div class="g-types">' +
-          g.codes.map(function (c) { return '<a class="g-type" href="arhetip/' + SLUG[c] + '.html"><div class="g-type-pic">' + pers(c) + '</div><b>' + P[c].name + '</b><small>' + TAG[c] + '</small><em class="g-type-more">Подробнее →</em></a>'; }).join('') + '</div></div>';
-      }).join('') +
-      '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Узнать, какой мой' + arrow() + '</button></div>' +
-    '<div class="g-block"><div class="g-sec-h">Как это<span>работает</span></div>' +
-      '<div class="g-steps3">' + steps.map(function (x, n) { return '<div><span class="gi">' + ipic(x[0]) + '</span><i>Шаг ' + (n + 1) + '</i><b>' + x[1] + '</b><small>' + x[2] + '</small></div>'; }).join('') + '</div></div>' +
-    '<div class="g-ex"><div class="g-sec-h">Так будет выглядеть<span>ваш результат</span></div><div class="g-info-sub">Пример: Создатель + Коммуникатор. Чем дальше точка от центра, тем интереснее вам эта работа.</div>' +
-      radarSVG(DEMO, ['CR', 'CL'], 'Пример карты интересов') +
-      '<button type="button" class="btn btn--primary btn--lg btn--block mt-24" data-act="start">Определить свой архетип' + arrow() + '</button></div>' +
-    '<p class="g-note">Это игра, а не научный тест. Она показывает, что вам интересно, но не оценивает способности и не обещает успех. Ответы остаются на вашем телефоне.</p>'
+      '<p class="g-note">Это игра, а не научный тест. Она показывает, что вам интересно, но не оценивает способности и не обещает успех. Ответы остаются на вашем телефоне.</p>' +
+    '</div>'
   );
 }
 
@@ -1067,6 +1056,21 @@ function share() {
 }
 
 render();
+})();
+
+/* 20.11: сцена с героями на первом экране двигается за мышкой (на телефоне — за пальцем и наклоном) */
+(function () {
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var tx = 0, ty = 0, cx = 0, cy = 0, run = false;
+  function set(x, y) { tx = Math.max(-1, Math.min(1, x)); ty = Math.max(-1, Math.min(1, y)); if (!run) { run = true; requestAnimationFrame(tick); } }
+  function tick() {
+    cx += (tx - cx) * .08; cy += (ty - cy) * .08;
+    var st = document.querySelector('.g-stage');
+    if (st) { st.style.setProperty('--mx', cx.toFixed(3)); st.style.setProperty('--my', cy.toFixed(3)); }
+    if (Math.abs(tx - cx) + Math.abs(ty - cy) > .002) requestAnimationFrame(tick); else run = false;
+  }
+  window.addEventListener('pointermove', function (e) { set(e.clientX / innerWidth * 2 - 1, e.clientY / innerHeight * 2 - 1); }, { passive: true });
+  window.addEventListener('deviceorientation', function (e) { if (e.gamma == null) return; set(e.gamma / 25, (e.beta - 45) / 25); }, { passive: true });
 })();
 </script>
 <script src="../assets/typo.js?v=5.34" defer></script>
