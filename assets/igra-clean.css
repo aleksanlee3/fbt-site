@@ -276,3 +276,56 @@ body.g-light .g-fbt .eyebrow { color: #A2C3CD !important; }
 .g-skills .g-bars { align-items: start !important; gap: 6px !important; }
 .g-skills .g-bar > b { display: block !important; }
 .g-skills .g-bar small { overflow-wrap: normal; font-size: 13px; }
+
+/* ── 20.11 (5) · правила 1–4 с подписями, карточки сильных сторон, круговая диаграмма навыков ── */
+.g-how-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+.g-how-list li { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: var(--g-ink); line-height: 1.2; }
+.g-how-list i { flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-weight: 800; font-size: 15px; color: #fff; background: var(--g-ink); }
+.g-how-list li:nth-child(1) i { background: #C60000; }
+.g-how-list li:nth-child(3) i { background: #6B7780; }
+.g-how-list li:nth-child(4) i { background: #AEB5BC; }
+.g-rk-t { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.g-rk-cap { font-style: normal; font-size: 13px; font-weight: 700; letter-spacing: .01em; color: var(--g-muted); }
+.g-rk-cap:empty { display: none; }
+.opt--rank.r1 .g-rk-cap { color: #C60000; }
+
+.g-pm2 { margin-top: 14px; display: grid; gap: 12px; }
+@media (min-width: 760px) { .g-pm2 { grid-template-columns: 1fr 1fr; } }
+.g-pmc { padding: 24px 20px; border-radius: 24px; }
+body.g-light .g-pmc h3 { display: flex; align-items: center; gap: 12px; margin: 0; font-size: 22px; line-height: 1.15; font-weight: 800; }
+.g-pmc-ic { flex: none; width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; }
+.g-pmc-ic svg { width: 26px; height: 26px; }
+.g-pmc ul { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 14px; }
+.g-pmc li { position: relative; padding-left: 36px; font-size: 18px; line-height: 1.4; }
+.g-pmc li::before { position: absolute; left: 0; top: 1px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; font-weight: 800; line-height: 1; }
+.g-pmc--plus { background: #1F2A33; color: #fff; }
+body.g-light .g-pmc--plus h3 { color: #fff; }
+.g-pmc--plus .g-pmc-ic { background: #C60000; color: #fff; }
+.g-pmc--plus li::before { content: '✓'; background: rgba(255,255,255,.16); color: #fff; }
+.g-pmc--minus { background: #F4F5F6; color: var(--g-ink); }
+body.g-light .g-pmc--minus h3 { color: var(--g-ink); }
+.g-pmc--minus .g-pmc-ic { background: #fff; color: var(--g-ink); border: 1px solid var(--g-line); }
+.g-pmc--minus li::before { content: '!'; background: #1F2A33; color: #fff; }
+
+.g-niche-pic { width: 76px !important; height: 76px !important; border-radius: 20px !important; }
+.g-niche-pic svg { width: 40px !important; height: 40px !important; stroke-width: 1.6; }
+
+.g-skills--pie { display: grid; gap: 18px; align-items: center; padding: 24px 18px; }
+@media (min-width: 640px) { .g-skills--pie { grid-template-columns: 240px 1fr; gap: 30px; padding: 28px; } }
+.g-pie { display: block; width: 100%; max-width: 240px; margin: 0 auto; font-family: 'Golos Text', -apple-system, Arial, sans-serif; }
+.g-pie-s path { cursor: pointer; transition: opacity .15s; }
+.g-skills--pie.is-hover .g-pie-s:not(.is-on) { opacity: .4; }
+.g-pie-leg { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.g-pie-leg li { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-radius: 14px; transition: background-color .15s; }
+.g-pie-leg li.is-on { background: #F4F5F6; }
+.g-pie-leg i { flex: none; width: 16px; height: 16px; border-radius: 5px; margin-top: 5px; }
+.g-pie-leg div { flex: 1; min-width: 0; }
+.g-pie-leg b { display: flex; justify-content: space-between; gap: 10px; font-size: 18px; line-height: 1.3; font-weight: 800; color: var(--g-ink); }
+.g-pie-leg b span { font-variant-numeric: tabular-nums; }
+.g-pie-leg p { margin: 2px 0 0; font-size: 16px; line-height: 1.4; color: var(--g-muted); }
+@media (max-width: 479px) { .g-how-list { grid-template-columns: 1fr; gap: 8px; } }
+.g-skills--pie.is-hover .g-pie-s:not(.is-on) { opacity: .55; }
+body.g-light .g-how-list li:nth-child(1) i { background: #C60000 !important; }
+body.g-light .g-how-list li:nth-child(2) i { background: #1F2A33 !important; }
+body.g-light .g-how-list li:nth-child(3) i { background: #6B7780 !important; }
+body.g-light .g-how-list li:nth-child(4) i { background: #AEB5BC !important; }
