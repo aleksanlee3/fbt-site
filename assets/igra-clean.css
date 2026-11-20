@@ -224,3 +224,7 @@ body.g-light .btn--shine, body.ic.g-light .btn--shine { box-shadow: none !import
 @media (prefers-reduced-motion: no-preference) { .g-glow::before { animation: gGlow2 2.4s ease-in-out infinite; } }
 @keyframes gGlow2 { 0%, 100% { opacity: .45; transform: scale(.97); } 50% { opacity: .75; transform: scale(1.03); } }
 .g-hero .g-glow { margin-top: 14px; } .g-hero .g-glow .btn { margin-top: 0; }
+/* 20.11 (3): картинка ситуации сливается с белым сайтом — без плашки и углов, края мягко растворяются */
+.g-sit { background: none !important; border-radius: 0 !important; margin: 0 auto; max-height: 340px; width: auto; max-width: 100%;
+  -webkit-mask-image: radial-gradient(ellipse 82% 80% at 50% 50%, #000 70%, transparent 100%);
+          mask-image: radial-gradient(ellipse 82% 80% at 50% 50%, #000 70%, transparent 100%); }

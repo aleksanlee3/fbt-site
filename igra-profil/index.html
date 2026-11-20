@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="../assets/contrast.css">
 <link rel="stylesheet" href="../assets/ic-home.css?v=5.71">
 <link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.84">
-<link rel="stylesheet" href="../assets/igra-clean.css?v=9">
+<link rel="stylesheet" href="../assets/igra-clean.css?v=10">
 <style>
 /* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
 body.ic .g-scr { padding: 40px 0 72px; }
@@ -720,8 +720,8 @@ function vGate() {
   );
 }
 
-/* 20.11: картинки к ситуациям (id вопроса → версия файла). Пусто — картинки ещё не утверждены */
-var SIT = {};
+/* 20.11: картинки к ситуациям (id вопроса → версия файла), звери в костюмах на белом — утверждено Александром */
+var SIT = {'A-I1': 1, 'A-I2': 1, 'A-I3': 1, 'A-I4': 1, 'A-I5': 1, 'A-I6': 1, 'A-I7': 1, 'M-I1': 1, 'A-I8': 1, 'A-E1': 1, 'A-E2': 1, 'X-EXP': 1, 'X-RISK': 1, 'X-SALE': 1, 'X-WHY': 1, 'A-C1': 1, 'A-C2': 1};
 function vQuiz() {
   var q = Q[S.i], cur = S.ans[q.id], pp = PART[q.kind];
   var inPart = Q.filter(function (x) { return x.kind === q.kind; }), pos = inPart.indexOf(q) + 1;
