@@ -360,3 +360,8 @@ body.g-light .g-info--green { margin-top: 34px; padding: 26px 16px 18px; border:
 body.g-light .g-info--green .g-info-sub { color: #CDE6DA !important; }
 .g-green-h { font-size: clamp(21px, 5.6vw, 30px); }
 .g-rate.is-done .g-fb button { opacity: 1 !important; }
+
+/* 23.11 · установка перед вопросом: «вы всё умеете, деньги и время есть» — чтобы выбирали по желанию, а не по умению */
+.g-premise { display: flex; align-items: center; gap: 10px; margin: 14px 0 0; padding: 12px 14px; border-radius: 14px; background: #FFF4D6; color: #1F2A33; font-size: 16px; line-height: 1.35; font-weight: 600; }
+.g-premise svg { flex: none; width: 22px; height: 22px; color: #B97A00; }
+body.g-light .g-panel .g-premise + .g-q { margin-top: 12px; }
