@@ -12,225 +12,286 @@
 <link rel="icon" href="../assets/logo/favicon-64.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/fbt.css">
+<link rel="stylesheet" href="../assets/p3.css">
+<link rel="stylesheet" href="../assets/ic-auto.css">
+<link rel="stylesheet" href="../assets/ic-theme.css">
+<link rel="stylesheet" href="../assets/ic-dark.css">
+<link rel="stylesheet" href="../assets/contrast.css">
+<link rel="stylesheet" href="../assets/ic-home.css?v=5.71">
+<link rel="stylesheet" href="../assets/igra-arhetip.css?v=5.84">
+<link rel="stylesheet" href="../assets/igra-clean.css?v=20">
 <style>
-/* ToT · тест «Организатор, Тренер, Наставник» · v1 (25.11.2026, Claude). Стиль — как «Бизнес-архетип»: белый фон, графит, один красный акцент. */
-:root{--ink:#1F2A33;--muted:#5D646D;--line:#E3E5E8;--soft:#F4F5F6;--slate:#A2C3CD;--slate-d:#4E6E7A;--red:#D90F0F;--red-d:#A80000;--o:#4E6E7A;--t:#D90F0F;--n:#1F2A33}
-*{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{font:500 18px/1.45 'Golos Text',-apple-system,Arial,sans-serif;color:var(--ink);background:#fff;min-height:100vh}
-.wrap{max-width:560px;margin:0 auto;padding:16px 18px 48px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0 14px}
-.top img{height:26px;width:auto}
-.top span{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.scr{display:none;animation:fade .35s ease}
-.scr.on{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.eyebrow{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
-h1{font-size:clamp(36px,10vw,52px);line-height:1.02;font-weight:700;letter-spacing:-.03em;margin-top:10px}
-h1 span{display:block;color:var(--slate-d)}
-h2{font-size:clamp(26px,7vw,34px);line-height:1.12;font-weight:700;letter-spacing:-.02em}
-.lead{margin-top:14px;font-size:20px;color:var(--muted)}
-.sub{margin-top:12px;font-size:clamp(19px,5vw,22px);line-height:1.35;font-weight:600;color:var(--muted)}
-/* сцена с героями: покачиваются сами + двигаются за пальцем, мышкой и наклоном телефона */
-.stage{--mx:0;--my:0;position:relative;width:100%;aspect-ratio:5/4;margin:18px auto 0;user-select:none}
-.stage::after{content:"";position:absolute;left:8%;right:8%;bottom:-1%;height:7%;border-radius:50%;background:radial-gradient(closest-side,rgba(31,42,51,.14),rgba(31,42,51,0))}
-.st-p{position:absolute;bottom:0;height:90%;width:auto;mix-blend-mode:multiply;pointer-events:none;will-change:transform}
-.st-o{left:18%;z-index:1;transform:translate(calc(-50% + var(--mx)*-12px),calc(var(--my)*-4px))}
-.st-n{left:83%;z-index:3;transform:translate(calc(-50% + var(--mx)*-12px),calc(var(--my)*-4px))}
-.st-t{left:48%;z-index:2;height:96%;transform:translate(calc(-50% + var(--mx)*20px),calc(var(--my)*7px))}
-@media (prefers-reduced-motion:no-preference){
-  .st-p{animation:stIn .7s cubic-bezier(.2,.8,.2,1) both,stSway 5s ease-in-out .8s infinite}
-  .st-n{animation-delay:.08s,1.6s}.st-t{animation-delay:.16s,1.2s;animation-duration:.7s,4.2s}
+/* стили «Бизнес-архетипа» (igra-profil) — один в один */
+
+/* Игра «Кто вы в бизнесе?» · v4 (11.10.2026, Claude; v2 — 10.10) — стиль сайта FBT: Impact Consulting, графит, красный, Golos Text */
+body.ic .g-scr { padding: 40px 0 72px; }
+.g-wrap { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+.g-panel { padding: 28px 24px; border-radius: 24px; background: var(--card); border: 1px solid var(--line-3); }
+body.ic.ic-dark .g-panel { background: #232325; border-color: rgba(255,255,255,.10); }
+.g-hero { position: relative; border-radius: 24px; overflow: hidden; background: #232325; padding: 28px 22px 24px; color: #fff; }
+.g-hero .eyebrow { color: #FF6B6B; }
+.g-hero h1 { margin-top: 14px; font-size: clamp(40px, 11vw, 60px); line-height: 1; font-weight: 600; letter-spacing: -.035em; color: #fff; }
+.g-hero h1 span { display: block; color: #A2C3CD; }
+.g-hero p { margin-top: 16px; font-size: 18px; line-height: 1.5; color: #D6D6DA; }
+.g-faces { margin-top: 22px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.g-faces div { aspect-ratio: 1; border-radius: 16px; background: #FBF7F0; display: grid; place-items: center; transform: rotate(var(--r, 0deg)); }
+.g-faces img { width: 78%; height: 78%; object-fit: contain; }
+.g-faces div:nth-child(1){--r:-4deg}.g-faces div:nth-child(2){--r:3deg}.g-faces div:nth-child(3){--r:-2deg}.g-faces div:nth-child(4){--r:4deg}
+.g-pills { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+.g-pills span { height: 34px; padding: 0 13px; display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; background: rgba(255,255,255,.08); color: #F2F2F4; font-size: 15px; font-weight: 500; }
+.g-pills b { color: #FF6B6B; font-weight: 700; }
+.g-how { margin-top: 18px; display: grid; gap: 10px; }
+.g-how div { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: 16px; background: var(--card); border: 1px solid var(--line-2); font-size: 16px; line-height: 1.45; }
+body.ic.ic-dark .g-how div { background: #232325; border-color: rgba(255,255,255,.08); color: #E6E6EA; }
+.g-how i { flex-shrink: 0; width: 30px; height: 30px; border-radius: 999px; display: grid; place-items: center; font-style: normal; font-weight: 700; color: #fff; background: #C60000; }
+.g-how div:nth-child(2) i { background: #5A6E7A; } .g-how div:nth-child(3) i { background: #2C3A42; }
+.g-note { margin-top: 14px; font-size: 14px; line-height: 1.5; color: var(--dim); }
+body.ic.ic-dark .g-note { color: #9A9AA0; }
+
+/* Вопрос */
+.g-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 15px; }
+.g-part { height: 30px; padding: 0 12px; display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; background: var(--tint); font-size: 14px; font-weight: 600; }
+body.ic.ic-dark .g-part { background: rgba(255,255,255,.08); color: #E6E6EA; }
+.g-part i { width: 9px; height: 9px; border-radius: 999px; background: var(--pc, #C60000); }
+.g-segs { margin-top: 14px; display: grid; grid-template-columns: repeat(var(--n, 12), minmax(0,1fr)); gap: 5px; }
+.g-segs span { height: 6px; border-radius: 3px; background: var(--line-3); }
+body.ic.ic-dark .g-segs span { background: rgba(255,255,255,.12); }
+body.ic .g-segs span.done { background: #C60000; } body.ic .g-segs span.now { background: #FF6B6B; }
+.g-scene { margin-top: 22px; display: flex; gap: 14px; align-items: flex-start; }
+.g-ico { flex-shrink: 0; width: 76px; height: 76px; border-radius: 20px; background: #FBF7F0; display: grid; place-items: center; transform: rotate(-4deg); box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+.g-ico img { width: 80%; height: 80%; object-fit: contain; }
+.g-lab { font-size: 12px; font-weight: 700; letter-spacing: .1em; color: var(--accent); }
+body.ic.ic-dark .g-lab { color: #FF6B6B; }
+.g-story { margin-top: 6px; font-size: 18px; line-height: 1.45; color: var(--text-2); }
+body.ic.ic-dark .g-story { color: #D6D6DA; }
+.g-q { margin-top: 20px; font-size: clamp(24px, 6.4vw, 30px); line-height: 1.2; font-weight: 600; letter-spacing: -.015em; }
+body.ic.ic-dark .g-q { color: #fff; }
+.g-opts { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.g-opts .opt { min-height: 60px; padding-top: 13px; padding-bottom: 13px; text-align: left; line-height: 1.35; border-radius: 16px; border-width: 1.5px; font-size: 17px; font-weight: 500; }
+.g-opts .opt.is-picked { background: #C60000 !important; border-color: #C60000 !important; color: #fff !important; }
+.g-opts .opt.is-picked .radio { border-color: #fff; } .g-opts .opt.is-picked .radio::after { background: #fff; }
+.g-foot { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line-2); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+body.ic.ic-dark .g-foot { border-color: rgba(255,255,255,.08); }
+.g-foot .btn { height: 44px; padding: 0 18px; font-size: 16px; }
+.g-skip { background: none; border: 0; color: var(--dim); font: inherit; font-size: 15px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+body.ic.ic-dark .g-skip { color: #9A9AA0; }
+
+/* Результат */
+.g-res { border-radius: 24px; background: #232325; color: #fff; padding: 26px 22px; text-align: center; }
+.g-res .eyebrow { color: #FF6B6B; }
+.g-res-ico { margin: 18px auto 0; display: flex; justify-content: center; gap: 10px; }
+.g-res-ico div { width: 96px; height: 96px; border-radius: 24px; background: #FBF7F0; display: grid; place-items: center; transform: rotate(-5deg); }
+.g-res-ico div + div { transform: rotate(5deg); }
+.g-res-ico img { width: 80%; height: 80%; object-fit: contain; }
+.g-res h2 { margin-top: 18px; font-size: clamp(34px, 9vw, 48px); line-height: 1.05; font-weight: 600; letter-spacing: -.03em; color: #fff; }
+.g-res h2 span { display: block; color: #A2C3CD; }
+.g-res p { margin-top: 12px; font-size: 17px; line-height: 1.5; color: #D6D6DA; }
+.g-h3 { margin-top: 34px; font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--accent); }
+body.ic.ic-dark .g-h3 { color: #FF6B6B; }
+.g-bars { margin-top: 14px; display: grid; gap: 12px; }
+.g-bar { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: center; }
+.g-bar img { width: 34px; height: 34px; border-radius: 10px; background: #FBF7F0; padding: 3px; object-fit: contain; }
+.g-bar b { display: flex; justify-content: space-between; font-size: 16px; font-weight: 600; }
+.g-bar b small { font-weight: 500; color: var(--dim); font-size: 14px; }
+body.ic.ic-dark .g-bar b { color: #F2F2F4; }
+body.ic.ic-dark .g-bar b small { color: #9A9AA0; }
+.g-bar u { display: block; margin-top: 6px; height: 8px; border-radius: 4px; background: var(--line-3); overflow: hidden; text-decoration: none; }
+body.ic.ic-dark .g-bar u { background: rgba(255,255,255,.10); }
+.g-bar u i { display: block; height: 100%; border-radius: 4px; background: #5A6E7A; }
+.g-bar.top u i { background: #C60000; }
+.g-card { margin-top: 14px; padding: 20px; border-radius: 20px; background: var(--card); border: 1px solid var(--line-2); }
+body.ic.ic-dark .g-card { background: #232325; border-color: rgba(255,255,255,.08); }
+.g-card h3 { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 600; }
+body.ic.ic-dark .g-card h3 { color: #fff; }
+.g-card h3 img { width: 44px; height: 44px; border-radius: 12px; background: #FBF7F0; padding: 4px; object-fit: contain; }
+.g-card p { margin-top: 10px; font-size: 16px; line-height: 1.55; color: var(--text-2); }
+body.ic.ic-dark .g-card p { color: #D6D6DA; }
+.g-card ul { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.g-card li { display: flex; gap: 10px; font-size: 16px; line-height: 1.45; }
+body.ic.ic-dark .g-card li { color: #E6E6EA; }
+.g-card li::before { content: ''; flex-shrink: 0; margin-top: 7px; width: 8px; height: 8px; border-radius: 99px; background: #C60000; }
+.g-step { margin-top: 14px; padding: 20px; border-radius: 20px; background: #C60000; color: #fff; }
+.g-step small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .1em; opacity: .85; }
+.g-step p { margin-top: 8px; font-size: 18px; line-height: 1.45; font-weight: 500; color: #fff; }
+.g-conf { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+.g-conf div { padding: 14px; border-radius: 16px; background: var(--card); border: 1px solid var(--line-2); font-size: 15px; line-height: 1.4; }
+body.ic.ic-dark .g-conf div { background: #232325; border-color: rgba(255,255,255,.08); color: #D6D6DA; }
+.g-conf b { display: block; font-size: 16px; margin-bottom: 4px; }
+body.ic.ic-dark .g-conf b { color: #fff; }
+.g-btns { margin-top: 18px; display: grid; gap: 10px; }
+.g-btns .btn { width: 100%; justify-content: center; }
+.g-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.g-fbt { margin-top: 30px; padding: 24px 20px; border-radius: 24px; background: #2C3A42; color: #fff; }
+.g-fbt .eyebrow { color: #A2C3CD; }
+.g-fbt h3 { margin-top: 10px; font-size: 26px; line-height: 1.15; font-weight: 600; color: #fff; }
+.g-fbt p { margin-top: 10px; font-size: 16px; line-height: 1.55; color: #DCE6EA; }
+.g-fbt .btn { margin-top: 16px; width: 100%; justify-content: center; }
+.g-fbt .btn + .btn { margin-top: 10px; }  /* 11.11: сайт FBT + диагностика */
+.g-status { min-height: 20px; font-size: 14px; text-align: center; color: var(--dim); }
+body.ic.ic-dark .g-status { color: #9A9AA0; }
+
+/* Семейная часть */
+.g-matrix { margin-top: 16px; display: grid; gap: 10px; }
+.g-mrow { padding: 12px; border-radius: 14px; border: 1.5px solid var(--line-3); }
+body.ic.ic-dark .g-mrow { border-color: rgba(255,255,255,.12); }
+.g-mrow > span { display: block; font-size: 16px; font-weight: 600; }
+body.ic.ic-dark .g-mrow > span { color: #F2F2F4; }
+.g-tri { margin-top: 8px; display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+.g-tri button { min-height: 40px; border-radius: 10px; border: 1.5px solid var(--line-3); background: var(--bg-2); color: var(--text); font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; }
+body.ic.ic-dark .g-tri button { background: #181818; border-color: rgba(255,255,255,.14); color: #E6E6EA; }
+.g-tri button.on { background: #C60000; border-color: #C60000; color: #fff; }
+.g-text { width: 100%; min-height: 120px; margin-top: 16px; padding: 14px; border-radius: 14px; border: 1.5px solid var(--line-3); background: var(--bg-2); color: var(--text); font: inherit; font-size: 16px; resize: vertical; }
+body.ic.ic-dark .g-text { background: #181818; border-color: rgba(255,255,255,.14); color: #F2F2F4; }
+.g-check { margin-top: 16px; display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: 14px; background: var(--tint); font-size: 16px; line-height: 1.45; }
+body.ic.ic-dark .g-check { background: rgba(255,255,255,.06); color: #E6E6EA; }
+.g-check input { margin-top: 3px; width: 20px; height: 20px; accent-color: #C60000; flex-shrink: 0; }
+.g-mini { margin-top: 6px; font-size: 15px; color: var(--dim); }
+body.ic.ic-dark .g-mini { color: #9A9AA0; }
+/* Финальная фраза */
+.g-final { margin-top: 30px; padding: 24px 20px; border-radius: 24px; border: 1.5px solid #C60000; }
+.g-final p { font-size: 22px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em; }
+body.ic.ic-dark .g-final p { color: #fff; }
+.g-final small { display: block; margin-top: 12px; font-size: 16px; line-height: 1.5; color: var(--text-2); }
+body.ic.ic-dark .g-final small { color: #D6D6DA; }
+.g-card p + p { margin-top: 8px; }
+/* ── v4 (11.10.2026, Claude): яркие части, ответы с эмодзи, карта интересов как в диагностике ── */
+.g-ptabs { margin-top: 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.g-ptabs span { padding: 7px 4px; border-radius: 10px; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: .02em; background: var(--tint); color: var(--dim); border: 1.5px solid transparent; }
+body.ic.ic-dark .g-ptabs span { background: rgba(255,255,255,.06); color: #8E8E94; }
+.g-ptabs span.done { color: var(--pc); }
+body.ic.ic-dark .g-ptabs span.done { color: var(--pc); }
+.g-ptabs span.now { background: var(--pc) !important; color: #181818 !important; }
+.g-segs span.done, .g-segs span.now { background: var(--sc) !important; }
+.g-segs span.now { opacity: .55; }
+.g-scene2 { margin-top: 18px; padding: 18px 16px; border-radius: 20px; background: linear-gradient(135deg, #2B2B2E 0%, #1F1F21 100%); border-left: 5px solid var(--pc); display: flex; gap: 14px; align-items: flex-start; color: #fff; box-shadow: 0 10px 28px rgba(0,0,0,.18); }
+.g-scene2 .g-ico { width: 68px; height: 68px; box-shadow: none; }
+.g-scene2 .g-lab { color: var(--pc) !important; }
+.g-scene2 .g-story { color: #E6E6EA !important; margin-top: 6px; }
+.g-scene2.solo { align-items: center; }
+.g-opts .opt { display: flex; align-items: center; gap: 12px; padding-left: 12px; }
+.g-em { flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; line-height: 1; background: var(--tint); }
+body.ic.ic-dark .g-em { background: rgba(255,255,255,.08); }
+.g-opts .opt.is-picked .g-em { background: rgba(255,255,255,.22); }
+.g-opts .opt .radio { display: none; }
+.g-hint { margin-top: 10px; font-size: 14px; color: var(--dim); text-align: center; }
+body.ic.ic-dark .g-hint { color: #8E8E94; }
+/* Экран-заставка части */
+.g-gate { border-radius: 24px; background: #232325; color: #fff; padding: 30px 22px 24px; text-align: center; border-top: 6px solid var(--pc); }
+.g-gate .eyebrow { color: var(--pc) !important; }
+.g-gate h2 { margin-top: 12px; font-size: clamp(36px, 10vw, 52px); line-height: 1; font-weight: 600; letter-spacing: -.03em; color: #fff; }
+.g-gate p { margin-top: 14px; font-size: 18px; line-height: 1.5; color: #D6D6DA; }
+.g-gate .g-big { margin: 20px auto 0; width: 112px; height: 112px; border-radius: 28px; background: #FBF7F0; display: grid; place-items: center; transform: rotate(-4deg); }
+.g-gate .g-big img { width: 80%; height: 80%; object-fit: contain; }
+.g-gate .g-ptabs span { background: rgba(255,255,255,.06); color: #8E8E94; }
+.g-gate ul { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; text-align: left; }
+.g-gate li { display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,.06); font-size: 16px; line-height: 1.35; color: #EDEDF0; }
+.g-gate li b { flex-shrink: 0; font-size: 20px; }
+/* Карта интересов (инфографика) */
+.g-info { margin-top: 14px; padding: 22px 16px 18px; border-radius: 24px; background: #232325; color: #fff; }
+.g-info-cap { font-size: 13px; font-weight: 700; letter-spacing: .12em; color: #F2C46D; }
+.g-info-sub { margin-top: 6px; font-size: 15px; line-height: 1.45; color: #B8B8BE; }
+.g-info svg { display: block; width: 100%; max-width: 420px; height: auto; margin: 10px auto 0; }
+.g-leg { margin-top: 14px; display: grid; gap: 8px; }
+.g-lrow { display: grid; grid-template-columns: 36px 1fr auto; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 14px; background: rgba(255,255,255,.04); border: 1.5px solid transparent; }
+.g-lrow.top { background: rgba(198,0,0,.16); border-color: #C60000; }
+.g-lrow img { width: 36px; height: 36px; border-radius: 10px; background: #FBF7F0; padding: 3px; object-fit: contain; box-shadow: 0 0 0 2px var(--rc); }
+.g-lrow b { display: block; font-size: 16px; font-weight: 600; color: #fff; }
+.g-lrow small { display: block; margin-top: 1px; font-size: 13px; color: #A9A9AF; }
+.g-lrow.top small { color: #FFB4B4; }
+.g-meter { display: flex; gap: 4px; }
+.g-meter i { width: 14px; height: 14px; border-radius: 4px; background: rgba(255,255,255,.12); }
+.g-meter i.on { background: var(--rc); }
+.g-gauges { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.g-gauge { padding: 14px; border-radius: 16px; background: var(--card); border: 1px solid var(--line-2); font-size: 15px; line-height: 1.4; color: var(--text-2); }
+body.ic.ic-dark .g-gauge { background: #232325; border-color: rgba(255,255,255,.08); color: #D6D6DA; }
+.g-gauge.wide { grid-column: 1 / -1; }
+.g-gauge b { display: flex; align-items: center; gap: 8px; font-size: 16px; margin-bottom: 8px; color: var(--text); }
+body.ic.ic-dark .g-gauge b { color: #fff; }
+.g-gauge .g-meter { margin-bottom: 8px; }
+.g-gauge .g-meter i { flex: 1; height: 8px; width: auto; background: var(--line-3); }
+body.ic.ic-dark .g-gauge .g-meter i { background: rgba(255,255,255,.12); }
+.g-gauge .g-meter i.on { background: var(--rc); }
+.g-ex { margin-top: 18px; padding: 18px 14px 14px; border-radius: 20px; background: #232325; border: 1px dashed rgba(255,255,255,.18); }
+.g-ex .g-info-cap { text-align: left; }
+@media (prefers-reduced-motion: reduce) { .g-faces div, .g-ico, .g-res-ico div { transform: none; } }
+
+/* ── ToT · тест «Организатор, Тренер, Наставник» · v2 (25.11.2026, Claude): оформление как у «Бизнес-архетипа» ── */
+.g-pb-row.two { grid-template-columns: 1fr 1fr; }
+.g-how-list.three { grid-template-columns: 1fr; }
+.t-name { margin-top: 18px; text-align: left; }
+.t-name label { display: block; font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--g-ink); }
+.t-name input { width: 100%; height: 54px; border-radius: 14px; border: 1.5px solid #D5DADF; padding: 0 16px; font: 500 18px 'Golos Text', sans-serif; color: var(--g-ink); background: #fff; outline: none; }
+.t-name input:focus { border-color: var(--g-ink); }
+.t-name small { display: block; margin-top: 6px; font-size: 14px; color: var(--g-muted); }
+/* сцена с тремя героями: покачиваются сами + двигаются за пальцем, мышкой и наклоном */
+.t-stage { --mx: 0; --my: 0; position: relative; width: 100%; max-width: 560px; aspect-ratio: 5 / 4; margin: 18px auto 0; user-select: none; }
+.t-stage::after { content: ""; position: absolute; left: 8%; right: 8%; bottom: -1%; height: 7%; border-radius: 50%; background: radial-gradient(closest-side, rgba(31,42,51,.14), rgba(31,42,51,0)); }
+.t-p { position: absolute; bottom: 0; height: 86%; width: auto; mix-blend-mode: multiply; pointer-events: none; will-change: transform; }
+.t-o { left: 19%; z-index: 1; transform: translate(calc(-50% + var(--mx) * -12px), calc(var(--my) * -4px)); }
+.t-n { left: 80%; z-index: 3; transform: translate(calc(-50% + var(--mx) * -12px), calc(var(--my) * -4px)); }
+.t-t { left: 48%; z-index: 2; height: 92%; transform: translate(calc(-50% + var(--mx) * 20px), calc(var(--my) * 7px)); }
+@media (prefers-reduced-motion: no-preference) {
+  .t-p { animation: tIn .7s cubic-bezier(.2,.8,.2,1) both, tSway 5s ease-in-out .8s infinite; }
+  .t-n { animation-delay: .08s, 1.6s; } .t-t { animation-delay: .16s, 1.2s; animation-duration: .7s, 4.2s; }
 }
-@keyframes stIn{from{opacity:0;translate:0 22px}to{opacity:1;translate:0 0}}
-@keyframes stSway{0%,100%{translate:0 0;rotate:0deg}25%{translate:-5px -4px;rotate:-1.2deg}75%{translate:5px -2px;rotate:1.2deg}}
-.st-names{display:grid;grid-template-columns:repeat(3,1fr);margin-top:10px;text-align:center;font-size:16px;font-weight:700}
-/* красная кнопка с бликом и мягким свечением — как в «Бизнес-архетипе» */
-.btn.shine{position:relative;overflow:hidden;isolation:isolate}
-.btn.shine::after{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:-60%;width:45%;background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 100%);transform:skewX(-20deg);pointer-events:none}
-@media (prefers-reduced-motion:no-preference){.btn.shine{animation:glow 2.4s ease-in-out infinite}.btn.shine::after{animation:shine 2.8s ease-in-out infinite}}
-@keyframes shine{0%{left:-60%}55%,100%{left:130%}}
-@keyframes glow{0%,100%{box-shadow:0 10px 30px rgba(198,0,0,.32),0 0 0 0 rgba(198,0,0,.40)}50%{box-shadow:0 12px 36px rgba(198,0,0,.48),0 0 0 8px rgba(198,0,0,0)}}
-.trio{margin:22px -6px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;align-items:end}
-.trio figure{text-align:center}
-.trio img{width:100%;height:auto;aspect-ratio:2/3;object-fit:contain;display:block;mix-blend-mode:multiply}
-.trio figcaption{margin-top:4px;font-size:15px;font-weight:700}
-.pills{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
-.pills span{height:38px;padding:0 14px;display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:var(--soft);font-size:16px;font-weight:600}
-.pills b{color:var(--red)}
-.field{margin-top:22px}
-.field label{display:block;font-size:16px;font-weight:600;margin-bottom:8px}
-.field input{width:100%;height:56px;border-radius:16px;border:1.5px solid #D5DADF;padding:0 16px;font:500 19px 'Golos Text',sans-serif;color:var(--ink);background:#fff;outline:none}
-.field input:focus{border-color:var(--ink)}
-.field small{display:block;margin-top:6px;font-size:14px;color:var(--muted)}
-.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:60px;margin-top:22px;border:0;border-radius:18px;font:700 20px 'Golos Text',sans-serif;cursor:pointer;color:#fff;background:linear-gradient(180deg,#E01010,#B80000);box-shadow:0 8px 22px rgba(200,0,0,.22);transition:transform .12s,opacity .2s}
-.btn:active{transform:scale(.98)}
-.btn[disabled]{opacity:.35;box-shadow:none;cursor:default}
-.btn.ghost{background:var(--soft);color:var(--ink);box-shadow:none}
-.rules{margin-top:20px;display:grid;gap:12px}
-.rule{display:flex;gap:14px;align-items:flex-start;padding:16px;border-radius:18px;background:var(--soft)}
-.rule i{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:800 20px 'Golos Text',sans-serif;font-style:normal;color:#fff;background:var(--ink)}
-.rule:nth-child(2) i{background:var(--slate-d)}
-.rule:nth-child(3) i{background:var(--red)}
-.rule p{font-size:18px}
-.rule b{display:block;font-size:19px}
-.demo{margin-top:18px;padding:16px;border-radius:18px;border:1.5px dashed #C9CED4}
-.demo p{font-size:16px;color:var(--muted);margin-bottom:10px}
-/* вопрос */
-.qhead{display:flex;align-items:center;gap:12px}
-.back{flex:none;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:#fff;font-size:22px;cursor:pointer;color:var(--ink)}
-.prog{flex:1;height:8px;border-radius:999px;background:#ECEEF1;overflow:hidden}
-.prog i{display:block;height:100%;width:0;background:var(--ink);border-radius:999px;transition:width .3s}
-.qnum{font-size:15px;font-weight:700;color:var(--muted);min-width:46px;text-align:right}
-.qpart{margin-top:22px}
-.qtext{margin-top:8px;font-size:clamp(25px,6.6vw,31px);line-height:1.18;font-weight:700;letter-spacing:-.015em}
-.qhint{margin-top:10px;font-size:16px;color:var(--muted)}
-.opts{margin-top:20px;display:grid;gap:12px}
-.opt{position:relative;display:flex;gap:14px;align-items:center;width:100%;min-height:76px;padding:16px 16px 16px 14px;border-radius:18px;border:1.5px solid #D5DADF;background:#fff;text-align:left;font:500 19px/1.35 'Golos Text',sans-serif;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s,transform .12s}
-.opt:active{transform:scale(.99)}
-.opt .rk{flex:none;width:40px;height:40px;border-radius:50%;border:1.5px dashed #BFC5CC;display:grid;place-items:center;font:800 19px 'Golos Text',sans-serif;color:transparent}
-.opt.r1{border-color:var(--red);background:#FFF5F5}.opt.r1 .rk{background:var(--red);border:0;color:#fff}
-.opt.r2{border-color:var(--slate-d);background:#F3F7F8}.opt.r2 .rk{background:var(--slate-d);border:0;color:#fff}
-.opt.r3{border-color:#9AA1A9;background:#F6F7F8}.opt.r3 .rk{background:#9AA1A9;border:0;color:#fff}
-.reset{margin-top:12px;background:none;border:0;font:600 16px 'Golos Text',sans-serif;color:var(--muted);text-decoration:underline;cursor:pointer}
-.pair .opt{min-height:88px}
-/* заставка */
-.inter{text-align:center;padding-top:30px}
-.inter .big{font-size:64px}
-.inter h2{margin-top:10px}
-.inter p{margin-top:12px;font-size:20px;color:var(--muted)}
+@keyframes tIn { from { opacity: 0; translate: 0 22px; } to { opacity: 1; translate: 0 0; } }
+@keyframes tSway { 0%, 100% { translate: 0 0; rotate: 0deg; } 25% { translate: -5px -4px; rotate: -1.2deg; } 75% { translate: 5px -2px; rotate: 1.2deg; } }
+.t-names { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 8px; text-align: center; font-size: 15px; font-weight: 700; color: var(--g-ink); }
 /* результат */
-.res-hero{text-align:center}
-.res-hero img{width:min(78%,330px);height:auto;aspect-ratio:2/3;object-fit:contain;display:block;margin:6px auto 0}
-.res-hero .you{margin-top:4px;font-size:20px;color:var(--muted);font-weight:600}
-.res-hero h1{margin-top:2px}
-.res-hero .motto{margin-top:8px;font-size:24px;font-weight:700;color:var(--red)}
-.card{margin-top:16px;padding:20px 18px;border-radius:22px;background:var(--soft)}
-.card h3{font-size:22px;line-height:1.2;font-weight:700;display:flex;align-items:center;gap:10px}
-.card h3 em{font-style:normal;width:40px;height:40px;flex:none;border-radius:12px;display:grid;place-items:center;font-size:22px;background:#fff}
-.card p{margin-top:10px;font-size:19px}
-.card ul{list-style:none;margin-top:12px;display:grid;gap:10px}
-.card li{display:flex;gap:12px;align-items:flex-start;font-size:19px}
-.card li::before{content:"";flex:none;width:10px;height:10px;margin-top:9px;border-radius:50%;background:var(--red)}
-.card.dark{background:var(--ink);color:#fff}.card.dark p{color:#D6DCE0}.card.dark h3 em{background:rgba(255,255,255,.12)}
-.card.red{background:#FFF1F1}
-.bars{margin-top:14px;display:grid;gap:14px}
-.bar b{display:flex;justify-content:space-between;font-size:18px}
-.bar s{display:block;margin-top:6px;height:14px;border-radius:999px;background:#E6E9EC;overflow:hidden;text-decoration:none}
-.bar s i{display:block;height:100%;border-radius:999px;transition:width .8s ease}
-.rate{margin-top:14px;display:flex;justify-content:space-between;gap:6px}
-.rate button{flex:1;height:56px;border-radius:16px;border:1.5px solid #D5DADF;background:#fff;font:800 22px 'Golos Text',sans-serif;color:var(--ink);cursor:pointer}
-.rate button.on{background:var(--ink);border-color:var(--ink);color:#fff}
-.rate-l{margin-top:8px;display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
-textarea{width:100%;min-height:110px;margin-top:12px;border-radius:16px;border:1.5px solid #D5DADF;padding:14px 16px;font:500 18px/1.4 'Golos Text',sans-serif;color:var(--ink);resize:vertical;outline:none;background:#fff}
-textarea:focus{border-color:var(--ink)}
-.thanks{display:none;margin-top:12px;padding:14px 16px;border-radius:14px;background:#EAF4EC;font-size:17px;font-weight:600;color:#1E5A2B}
-.foot{margin-top:34px;text-align:center;font-size:13px;color:#9AA1A9}
+.t-res { text-align: center; }
+.t-res img { width: min(74%, 320px); height: auto; aspect-ratio: 2 / 3; object-fit: contain; display: block; margin: 4px auto 0; mix-blend-mode: multiply; }
+.t-res .t-you { margin-top: 4px; font-size: 18px; font-weight: 600; color: var(--g-muted); }
+.t-res h1 { margin-top: 2px; font-size: clamp(40px, 11vw, 56px); line-height: 1; font-weight: 700; letter-spacing: -.03em; color: var(--g-ink); }
+.t-res .t-motto { margin-top: 10px; font-size: 22px; font-weight: 700; color: #C60000; }
+.t-card { margin-top: 14px; padding: 20px 18px; border-radius: 20px; background: #F4F5F6; text-align: left; }
+.t-card h3 { display: flex; align-items: center; gap: 10px; font-size: 20px; line-height: 1.2; font-weight: 700; color: var(--g-ink); }
+.t-card h3 i { flex: none; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: #fff; color: var(--g-ink); font-style: normal; }
+.t-card h3 i svg { width: 20px; height: 20px; }
+.t-card p { margin-top: 10px; font-size: 18px; line-height: 1.5; color: var(--g-ink); }
+.t-card ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 10px; }
+.t-card li { display: flex; gap: 12px; align-items: flex-start; font-size: 18px; line-height: 1.45; color: var(--g-ink); }
+.t-card li::before { content: ""; flex: none; width: 9px; height: 9px; margin-top: 9px; border-radius: 50%; background: #C60000; }
+.t-card.dark { background: #1F2A33; } .t-card.dark h3, .t-card.dark p { color: #fff; } .t-card.dark p { color: #D6DCE0; } .t-card.dark h3 i { background: rgba(255,255,255,.12); color: #fff; }
+.t-card.red { background: #FFF1F1; } .t-card.red h3 i { color: #C60000; }
+.t-bars { margin-top: 14px; display: grid; gap: 14px; }
+.t-bar b { display: block; font-size: 17px; color: var(--g-ink); }
+.t-bar s { display: block; margin-top: 6px; height: 12px; border-radius: 999px; background: #E2E6EA; overflow: hidden; text-decoration: none; }
+.t-bar s i { display: block; height: 100%; width: 0; border-radius: 999px; transition: width .8s ease; }
+.t-rate { margin-top: 14px; display: flex; gap: 6px; }
+.t-rate button { flex: 1; height: 52px; border-radius: 50%; max-width: 52px; margin: 0 auto; border: 1.5px solid #D5DADF; background: #fff; font: 800 20px/1 'Golos Text', sans-serif; color: var(--g-ink); cursor: pointer; }
+.t-rate button.on { background: var(--g-ink); border-color: var(--g-ink); color: #fff; }
+.t-rate-l { margin-top: 8px; display: flex; justify-content: space-between; font-size: 14px; color: var(--g-muted); }
+.t-card textarea { width: 100%; min-height: 104px; margin-top: 12px; border-radius: 14px; border: 1.5px solid #D5DADF; padding: 12px 14px; font: 500 17px/1.4 'Golos Text', sans-serif; color: var(--g-ink); resize: vertical; outline: none; background: #fff; }
+.t-thanks { display: none; margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: #EAF4EC; font-size: 16px; font-weight: 600; color: #1E5A2B; }
+.t-inter { text-align: center; }
+.t-inter h2 { margin-top: 10px; font-size: clamp(26px, 7vw, 32px); line-height: 1.15; font-weight: 700; color: var(--g-ink); }
+.t-inter p { margin-top: 12px; font-size: 18px; color: var(--g-muted); }
 </style>
 </head>
-<body>
-<div class="wrap">
-  <div class="top"><img src="../assets/logo/impact-consulting.png" alt="Impact Consulting"><span>Training of Trainers</span></div>
-
-  <!-- 1. Старт -->
-  <section class="scr on" id="s-start">
-    <div class="eyebrow">Тест для участников ToT</div>
-    <h1>Определите свой архетип</h1>
-    <p class="sub">Кто вы в обучении людей:<br>Организатор, Тренер <span style="white-space:nowrap">или Наставник</span></p>
-    <div class="stage" id="stage" aria-label="Организатор, Тренер, Наставник">
-      <img class="st-p st-o" src="img/organizator.webp" alt="Организатор — бобр" draggable="false">
-      <img class="st-p st-n" src="img/nastavnik.webp" alt="Наставник — слон" draggable="false">
-      <img class="st-p st-t" src="img/trener.webp" alt="Тренер — попугай" draggable="false">
+<body class="ic ic-home g-light" data-theme-lock="light"><!-- 25.11 ToT v2: оформление как у «Бизнес-архетипа» -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
+</svg>
+<div class="topbar">
+  <header class="hdr">
+    <div class="wrap">
+      <a class="brand" href="./"><img class="brand-logo" src="../assets/logo/impact-consulting.png" alt="" width="34" height="34"><b>IMPACT CONSULTING</b><i></i><span>Training of Trainers</span></a>
     </div>
-    <div class="st-names"><span>Организатор</span><span>Тренер</span><span>Наставник</span></div>
-    <div class="pills"><span><b>18</b> вопросов</span><span><b>5</b> минут</span><span>Ваша роль и шаг роста</span></div>
-    <div class="field">
-      <label for="name">Как вас зовут?</label>
-      <input id="name" type="text" autocomplete="given-name" maxlength="40" placeholder="Например, Дильноза">
-      <small>Имя увидит только тренер в общей сводке группы.</small>
-    </div>
-    <button class="btn shine" id="go-rules">Начать</button>
-  </section>
-
-  <!-- 2. Правила -->
-  <section class="scr" id="s-rules">
-    <h2>Как отвечать</h2>
-    <div class="rules">
-      <div class="rule"><i>1</i><p><b>Сначала нажмите самый ваш ответ</b>Он получит номер 1.</p></div>
-      <div class="rule"><i>2</i><p><b>Потом — второй по близости</b>Он получит номер 2.</p></div>
-      <div class="rule"><i>3</i><p><b>Последний ответ — номер 3</b>Он встанет сам.</p></div>
-    </div>
-    <div class="card red">
-      <h3><em>💡</em>Выбирайте то, что нравится</h3>
-      <p>Не то, что уже умеете. Представьте, что у вас есть все навыки, время и деньги. Правильных ответов нет.</p>
-    </div>
-    <button class="btn shine" id="go-q">Понятно, поехали</button>
-  </section>
-
-  <!-- 3. Вопрос -->
-  <section class="scr" id="s-q">
-    <div class="qhead"><button class="back" id="q-back" aria-label="Назад">←</button><div class="prog"><i id="q-prog"></i></div><div class="qnum" id="q-num"></div></div>
-    <div class="qpart eyebrow" id="q-part"></div>
-    <div class="qtext" id="q-text"></div>
-    <div class="qhint" id="q-hint">Нажмите ответы по порядку: 1 — больше всего про вас</div>
-    <div class="opts" id="q-opts"></div>
-    <button class="reset" id="q-reset">Расставить заново</button>
-    <button class="btn" id="q-next" disabled>Дальше</button>
-  </section>
-
-  <!-- 4. Заставка перед вопросами об опыте -->
-  <section class="scr inter" id="s-inter">
-    <div class="big">🕰️</div>
-    <h2>Теперь вспомните,<br>как было на самом деле</h2>
-    <p>Ещё 3 вопроса. Здесь про ваш реальный опыт, а не про мечты.</p>
-    <button class="btn" id="go-exp">Дальше</button>
-  </section>
-
-  <!-- 5. Уточнение -->
-  <section class="scr" id="s-pair">
-    <div class="eyebrow">Уточняем</div>
-    <div class="qtext" id="p-text"></div>
-    <div class="qhint">Две роли у вас почти равны. Выберите один ответ.</div>
-    <div class="opts pair" id="p-opts"></div>
-  </section>
-
-  <!-- 6. Результат -->
-  <section class="scr" id="s-res">
-    <div class="res-hero">
-      <img id="r-img" alt="">
-      <div class="you" id="r-you">Вы —</div>
-      <h1 id="r-name"></h1>
-      <div class="motto" id="r-motto"></div>
-    </div>
-    <div class="card dark"><h3><em>🎯</em>Ваша суть</h3><p id="r-core"></p></div>
-    <div class="card"><h3><em>💪</em>Ваши сильные стороны</h3><ul id="r-strong"></ul></div>
-    <div class="card"><h3><em>🤝</em>Ваша пара ролей</h3><p id="r-pair"></p></div>
-    <div class="card"><h3><em>⭐</em>Где вы сияете на тренинге</h3><p id="r-shine"></p></div>
-    <div class="card"><h3><em>👀</em>На что обратить внимание</h3><p id="r-blind"></p></div>
-    <div class="card red"><h3><em>🚀</em>Шаг роста на эту неделю</h3><p id="r-step"></p></div>
-    <div class="card"><h3><em>📊</em>Ваши три роли</h3><div class="bars" id="r-bars"></div></div>
-    <div class="card">
-      <h3><em>✍️</em>Насколько это про вас?</h3>
-      <div class="rate" id="r-rate"><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button></div>
-      <div class="rate-l"><span>совсем не про меня</span><span>точно про меня</span></div>
-      <textarea id="r-comment" placeholder="Что совпало, а что нет? Напишите пару слов"></textarea>
-      <button class="btn" id="r-send" disabled>Отправить</button>
-      <div class="thanks" id="r-thanks">Спасибо! Ответ отправлен.</div>
-    </div>
-    <button class="btn ghost" id="r-again">Пройти ещё раз</button>
-  </section>
-
-  <div class="foot">Impact Consulting · Training of Trainers · тест-игра для самопознания, не психологический диагноз</div>
+  </header>
 </div>
-
+<main id="app" aria-live="polite"></main>
+<footer class="foot">
+  <div class="wrap"><span class="foot-c"><span>© 2026 Impact Consulting · Training of Trainers.</span><span>Тест-игра, а не диагноз.</span></span></div>
+</footer>
 <script src="config.js"></script>
 <script>
 (function(){
-var CFG = window.TOT_CONFIG || {SCRIPT_URL:"",DEFAULT_GROUP:"tot"};
-var params = new URLSearchParams(location.search);
-var GROUP = (params.get('g') || CFG.DEFAULT_GROUP || 'tot').slice(0,40);
-
+'use strict';
+var CFG = window.TOT_CONFIG || {SCRIPT_URL:'',DEFAULT_GROUP:'tot'};
+var GROUP = (new URLSearchParams(location.search).get('g') || CFG.DEFAULT_GROUP || 'tot').slice(0,40);
+var APP = document.getElementById('app');
 // Роли
 var R = {
   O:{key:'O',name:'Организатор',img:'img/organizator.webp',animal:'бобр',color:'#4E6E7A',motto:'Я создаю условия',
@@ -287,135 +348,218 @@ var TIE = {
  'TN':[{t:'Что вам ближе?',a:{T:'Учить группу из 20 человек',N:'Говорить с человеком один на один'}},{t:'Что для вас важнее?',a:{T:'Человек научился за один день',N:'Человек изменился за год'}}]
 };
 
-var ans = []; // ans[i] = ['N','O','T'] порядок рангов
-var qi = 0, cur = [], order = [];
-var ties = [], ti = 0, tieAdd = {O:0,T:0,N:0};
-var resultId = 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
-var final = null, rating = 0;
 
-function $(id){return document.getElementById(id)}
-function show(id){document.querySelectorAll('.scr').forEach(function(s){s.classList.remove('on')});$(id).classList.add('on');window.scrollTo(0,0)}
-function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
-function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+// картинки к ситуациям (номер вопроса → файл), звери в костюмах на белом
+var SIT = {}; for (var si = 1; si <= 18; si++) SIT[si] = 'img/sit/q' + si + '.webp?v=1';
+var RANK_CAP = ['это про меня', 'похоже на меня', 'меньше всего про меня'];
+var RANK_HINT = ['Сначала нажмите ответ, который больше всего про вас', 'Теперь — тот, что похож на вас', 'Готово — последний ответ встал сам', 'Готово'];
+var ICO = {
+  spisok:'<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M9 12h6M9 16h6"/>',
+  chasy:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  rol:'<circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/>',
+  rost:'<path d="m22 7-8.5 8.5-5-5L2 17M16 7h6v6"/>',
+  tsel:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
+  sila:'<path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/>',
+  komanda:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
+  zvezda:'<path d="M11.5 2.8a.6.6 0 0 1 1 0l2.6 5.3 5.8.8a.6.6 0 0 1 .3 1l-4.2 4.1 1 5.8a.6.6 0 0 1-.9.6L12 17.7l-5.2 2.7a.6.6 0 0 1-.9-.6l1-5.8-4.2-4.1a.6.6 0 0 1 .3-1l5.8-.8z"/>',
+  vnimanie:'<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  grafik:'<path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
+  ruchka:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>'
+};
+function ipic(n){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICO[n] + '</svg>'; }
+function arrow(){ return '<svg><use href="#i-right"/></svg>'; }
+function sec(inner){ return '<section class="ic-top g-scr"><div class="g-wrap">' + inner + '</div></section>'; }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function nb(t){ return t.replace(/(^|[\s«(])(и|а|в|на|с|к|у|о|не|но|за|по|из|от|до|он|вы|то|что|как) /gi, '$1$2\u00a0'); }
+function shuffle(a){ a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 
-$('go-rules').onclick=function(){show('s-rules')};
-$('go-q').onclick=function(){qi=0;renderQ();show('s-q')};
-$('go-exp').onclick=function(){renderQ();show('s-q')};
+var S = { i: 0, ans: [], ord: [], name: '', ties: [], ti: 0, tieAdd: {O:0,T:0,N:0}, final: null, rating: 0, id: 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2,7) };
+Q.forEach(function(q, i){ S.ord[i] = shuffle(['O','T','N']); });
 
-function renderQ(){
-  var q=Q[qi];
-  cur = ans[qi] ? ans[qi].slice() : [];
-  order = q._order || (q._order = shuffle(['O','T','N']));
-  $('q-prog').style.width = ((qi)/Q.length*100)+'%';
-  $('q-num').textContent = (qi+1)+' / '+Q.length;
-  $('q-part').textContent = q.exp ? 'Ваш реальный опыт' : 'Ситуация '+(qi+1);
-  $('q-text').textContent = q.t;
-  var box=$('q-opts'); box.innerHTML='';
-  order.forEach(function(k){
-    var b=document.createElement('button'); b.className='opt'; b.dataset.k=k;
-    b.innerHTML='<span class="rk"></span><span>'+esc(q.a[k])+'</span>';
-    b.onclick=function(){tap(k)};
-    box.appendChild(b);
+function howList(){
+  return '<ol class="g-how-list three"><li><i>1</i>это про меня</li><li><i>2</i>похоже на меня</li><li><i>3</i>меньше всего про меня</li></ol>';
+}
+function vStart(){
+  return sec(
+    '<div class="g-hero">' +
+      '<div class="eyebrow">ТЕСТ ДЛЯ УЧАСТНИКОВ · ToT</div>' +
+      '<h1>Определите свой архетип</h1>' +
+      '<p class="g-lead">Кто вы в обучении людей:<br>Организатор, Тренер <span style="white-space:nowrap">или Наставник</span></p>' +
+      '<div class="t-stage" id="tStage" aria-label="Организатор, Тренер, Наставник">' +
+        '<img class="t-p t-o" src="img/organizator.webp" alt="Организатор — бобр" draggable="false">' +
+        '<img class="t-p t-n" src="img/nastavnik.webp" alt="Наставник — слон" draggable="false">' +
+        '<img class="t-p t-t" src="img/trener.webp" alt="Тренер — попугай" draggable="false">' +
+      '</div>' +
+      '<div class="t-names"><span>Организатор</span><span>Тренер</span><span>Наставник</span></div>' +
+      '<ul class="g-facts"><li>' + ipic('spisok') + '<span>18 вопросов</span></li><li>' + ipic('chasy') + '<span>5 минут</span></li><li>' + ipic('rol') + '<span>Ваша роль</span></li><li>' + ipic('rost') + '<span>Шаг роста</span></li></ul>' +
+      '<div class="t-name"><label for="tName">Как вас зовут?</label><input id="tName" type="text" autocomplete="given-name" maxlength="40" placeholder="Например, Дильноза" value="' + esc(S.name) + '"><small>Имя увидит только тренер в общей сводке группы.</small></div>' +
+      '<span class="g-glow"><button type="button" class="btn btn--primary btn--shine btn--lg btn--block mt-14" data-act="start">Определить свой архетип' + arrow() + '</button></span>' +
+      '<div class="g-how"><b>Как отвечать</b><p>Представьте, что вы всё умеете и у вас есть время и деньги. Выбирайте то, что вам по душе, а не то, что уже получается. В каждом вопросе 3 ответа — нажимайте на них по порядку:</p>' + howList() + '</div>' +
+      '<p class="g-note">Это игра, а не научный тест. Она показывает, что вам ближе, но не оценивает способности.</p>' +
+    '</div>'
+  );
+}
+function pbar(){
+  var exp = S.i >= 15, n1 = Math.min(S.i, 15), n2 = Math.max(0, S.i - 15);
+  var seg = function(w, label, now){ return '<div class="g-pb-seg' + (now ? ' now' : w >= 100 ? ' done' : '') + '"><span class="g-pb-track"><i style="width:' + w + '%"></i></span><small>' + label + '</small></div>'; };
+  return '<div class="g-pb"><div class="g-pb-h"><b>' + (exp ? 'Часть 2 · Ваш реальный опыт' : 'Часть 1 · Ситуации') + '</b><span>' + (S.i + 1) + ' / ' + Q.length + '</span></div>' +
+    '<div class="g-pb-row two">' + seg(exp ? 100 : Math.max(4, Math.round(n1 / 15 * 100)), '1 · Ситуации', !exp) + seg(exp ? Math.max(4, Math.round(n2 / 3 * 100)) : 0, '2 · Опыт', exp) + '</div></div>';
+}
+function vQuiz(){
+  var q = Q[S.i], arr = S.ans[S.i] || [], full = arr.length >= 3;
+  var opts = S.ord[S.i].map(function(k){
+    var at = arr.indexOf(k);
+    return '<button type="button" class="opt opt--rank' + (at > -1 ? ' is-ranked r' + (at + 1) : '') + '" data-act="rank" data-v="' + k + '"><span class="g-em g-rk" aria-hidden="true">' + (at > -1 ? at + 1 : '') + '</span><span class="g-rk-t"><span>' + nb(esc(q.a[k])) + '</span><em class="g-rk-cap">' + (at > -1 ? RANK_CAP[at] : '') + '</em></span></button>';
+  }).join('');
+  return sec(
+    '<div class="g-panel">' + pbar() +
+      '<img class="g-sit" src="' + SIT[S.i + 1] + '" alt="" width="1024" height="688">' +
+      '<h2 class="g-q">' + nb(esc(q.t)) + '</h2>' +
+      (S.i === 0 && !arr.length ? '<div class="g-tip"><b>Как отвечать.</b> Нажимайте на ответы по порядку. Первым — тот, что больше всего про вас: он получит номер 1 «это про меня». Вторым — тот, что похож на вас: номер 2 «похоже на меня». Последний встанет сам: номер 3 «меньше всего про меня». Ошиблись — нажмите на ответ ещё раз.</div>' : '') +
+      '<p class="g-rank-how"><span><i>1</i>это про меня</span><span><i>3</i>меньше всего про меня</span></p>' +
+      '<div class="g-opts" role="group" aria-label="Ваш ответ">' + opts + '</div>' +
+      '<p class="g-hint" id="gRankHint" role="status">' + RANK_HINT[Math.min(arr.length, 3)] + '</p>' +
+      '<div class="g-foot"><button type="button" class="btn btn--sm" data-act="back">← Назад</button>' +
+        (full ? '<button type="button" class="btn btn--sm btn--primary" data-act="next">Дальше' + arrow() + '</button>' : '<button type="button" class="g-skip" data-act="reset">Расставить заново</button>') + '</div>' +
+    '</div>'
+  );
+}
+function vInter(){
+  return sec('<div class="g-panel t-inter">' + pbar() + '<div style="font-size:56px;margin-top:10px">🕰️</div><h2>Теперь вспомните,<br>как было на самом деле</h2><p>Ещё 3 вопроса — про ваш реальный опыт, а не про мечты.</p>' +
+    '<span class="g-glow"><button type="button" class="btn btn--primary btn--shine btn--lg btn--block mt-14" data-act="exp">Дальше' + arrow() + '</button></span></div>');
+}
+function vTie(){
+  var q = S.ties[S.ti];
+  var keys = Object.keys(q.a); if (S.ti % 2) keys.reverse();
+  return sec(
+    '<div class="g-panel">' +
+      '<div class="g-pb"><div class="g-pb-h"><b>Последнее уточнение</b><span>' + (S.ti + 1) + ' / ' + S.ties.length + '</span></div><div class="g-pb-row two"><div class="g-pb-seg done"><span class="g-pb-track"><i style="width:100%"></i></span><small>1 · Ситуации</small></div><div class="g-pb-seg done"><span class="g-pb-track"><i style="width:100%"></i></span><small>2 · Опыт</small></div></div></div>' +
+      '<p class="g-story g-story--big">Почти готово. Две роли у вас идут рядом — выберите, что ближе.</p>' +
+      '<h2 class="g-q">' + nb(esc(q.t)) + '</h2>' +
+      '<div class="g-opts" role="radiogroup" aria-label="Ваш ответ">' + keys.map(function(k, n){
+        return '<button type="button" class="opt" role="radio" aria-checked="false" data-act="tie" data-v="' + k + '"><span class="g-em" aria-hidden="true">' + 'АБ'.charAt(n) + '</span><span>' + esc(q.a[k]) + '</span></button>';
+      }).join('') + '</div>' +
+      '<div class="g-foot"><span></span><button type="button" class="g-skip" data-act="tieSkip">Одинаково</button></div>' +
+    '</div>'
+  );
+}
+function card(icon, title, body, cls){ return '<div class="t-card' + (cls ? ' ' + cls : '') + '"><h3><i>' + ipic(icon) + '</i>' + title + '</h3>' + body + '</div>'; }
+function vResult(){
+  var f = S.final, main = R[f.main], second = R[f.second], pair = PAIRS[pairKey(f.main, f.second)], s = f.scores;
+  var max = Math.max(s.O, s.T, s.N) || 1, rk = f.rk;
+  return sec(
+    '<div class="t-res">' +
+      '<div class="eyebrow">ВАШ АРХЕТИП</div>' +
+      '<img src="' + main.img + '" alt="' + main.name + ' — ' + main.animal + '">' +
+      '<div class="t-you">' + (f.universal ? 'Вы — Универсал. Чуть сильнее:' : 'Вы —') + '</div>' +
+      '<h1>' + main.name + '</h1><div class="t-motto">«' + main.motto + '»</div>' +
+    '</div>' +
+    card('tsel', 'Ваша суть', '<p>' + nb(esc(main.core)) + '</p>', 'dark') +
+    card('sila', 'Ваши сильные стороны', '<ul>' + main.strong.map(function(x){ return '<li>' + nb(esc(x)) + '</li>'; }).join('') + '</ul>') +
+    card('komanda', 'Ваша пара ролей', '<p>' + (f.universal ? '<b>Все три роли у вас почти равны.</b> Вы можете закрыть любую роль в обучении. Важно выбрать, на чём сделать упор сейчас. Вторая по силе роль — ' + esc(second.name.toLowerCase()) + '.' : '<b>' + main.name + ' + ' + second.name + ' = «' + pair.name + '».</b> ' + nb(esc(pair.text))) + '</p>') +
+    card('zvezda', 'Где вы сияете на тренинге', '<p>' + nb(esc(main.shine)) + '</p>') +
+    card('vnimanie', 'На что обратить внимание', '<p>' + nb(esc(main.blind)) + '</p>') +
+    card('rost', 'Шаг роста на эту неделю', '<p>' + nb(esc(main.step)) + '</p>', 'red') +
+    card('grafik', 'Ваши три роли', '<div class="t-bars">' + rk.map(function(k){ return '<div class="t-bar"><b>' + R[k].name + '</b><s><i style="background:' + R[k].color + '" data-w="' + Math.round(s[k] / max * 100) + '"></i></s></div>'; }).join('') + '</div>') +
+    card('ruchka', 'Насколько это про вас?',
+      '<div class="t-rate">' + [1,2,3,4,5].map(function(n){ return '<button type="button" data-act="rate" data-v="' + n + '"' + (S.rating === n ? ' class="on"' : '') + '>' + n + '</button>'; }).join('') + '</div>' +
+      '<div class="t-rate-l"><span>совсем не про меня</span><span>точно про меня</span></div>' +
+      '<textarea id="tComment" placeholder="Что совпало, а что нет? Напишите пару слов"></textarea>' +
+      '<span class="g-glow"><button type="button" class="btn btn--primary btn--lg btn--block mt-14" data-act="send"' + (S.rating ? '' : ' disabled') + '>Отправить</button></span>' +
+      '<div class="t-thanks" id="tThanks">Спасибо! Ответ отправлен.</div>') +
+    '<button type="button" class="btn btn--block mt-14" data-act="again">Пройти ещё раз</button>'
+  );
+}
+
+var view = 'start';
+function render(v){ view = v || view;
+  APP.innerHTML = view === 'start' ? vStart() : view === 'quiz' ? vQuiz() : view === 'inter' ? vInter() : view === 'tie' ? vTie() : vResult();
+  window.scrollTo(0, 0);
+  if (view === 'result') setTimeout(function(){ Array.prototype.forEach.call(APP.querySelectorAll('.t-bar i'), function(i){ i.style.width = i.getAttribute('data-w') + '%'; }); }, 150);
+}
+function paintRank(){
+  var arr = S.ans[S.i] || [];
+  Array.prototype.forEach.call(APP.querySelectorAll('[data-act="rank"]'), function(b){
+    var at = arr.indexOf(b.getAttribute('data-v'));
+    b.className = 'opt opt--rank' + (at > -1 ? ' is-ranked r' + (at + 1) : '');
+    b.querySelector('.g-rk').textContent = at > -1 ? at + 1 : '';
+    b.querySelector('.g-rk-cap').textContent = at > -1 ? RANK_CAP[at] : '';
   });
-  paint();
+  var h = document.getElementById('gRankHint'); if (h) h.textContent = RANK_HINT[Math.min(arr.length, 3)];
+  var t = APP.querySelector('.g-tip'); if (t && arr.length) t.style.display = 'none';
+  var foot = APP.querySelector('.g-foot');
+  if (foot) foot.lastElementChild.outerHTML = arr.length >= 3 ? '<button type="button" class="btn btn--sm btn--primary" data-act="next">Дальше' + arrow() + '</button>' : '<button type="button" class="g-skip" data-act="reset">Расставить заново</button>';
 }
-function tap(k){
-  var i=cur.indexOf(k);
-  if(i>=0){cur=cur.slice(0,i)} else {cur.push(k); if(cur.length===2){var left=['O','T','N'].filter(function(x){return cur.indexOf(x)<0}); cur.push(left[0]);}}
-  paint();
-  if(cur.length===3){ans[qi]=cur.slice(); setTimeout(function(){ if(ans[qi] && ans[qi].join()===cur.join() && $('s-q').classList.contains('on')) next(); },650);}
-}
-function paint(){
-  document.querySelectorAll('#q-opts .opt').forEach(function(b){
-    var r=cur.indexOf(b.dataset.k); b.className='opt'+(r>=0?' r'+(r+1):''); b.querySelector('.rk').textContent=r>=0?(r+1):'';
-  });
-  $('q-next').disabled = cur.length<3;
-}
-$('q-reset').onclick=function(){cur=[];ans[qi]=null;paint()};
-$('q-next').onclick=next;
-$('q-back').onclick=function(){ if(qi===0){show('s-rules');return} qi--; renderQ(); };
-var advancing=false;
+var auto = null;
 function next(){
-  if(advancing||cur.length<3) return; advancing=true; setTimeout(function(){advancing=false},400);
-  ans[qi]=cur.slice();
-  if(qi===14 && !Q[15]._seen){Q[15]._seen=1; qi=15; show('s-inter'); return;}
-  if(qi<Q.length-1){qi++;renderQ();return;}
+  clearTimeout(auto);
+  if ((S.ans[S.i] || []).length < 3) return;
+  if (S.i === 14) { S.i = 15; render('inter'); return; }
+  if (S.i < Q.length - 1) { S.i++; render('quiz'); return; }
   finish();
 }
-
 function baseScores(){
-  var s={O:0,T:0,N:0};
-  ans.forEach(function(a,i){ if(!a) return; var w=Q[i].exp?1.5:1; a.forEach(function(k,r){ s[k]+= (2-r)*w; }); });
+  var s = {O:0,T:0,N:0};
+  S.ans.forEach(function(a, i){ if (!a || a.length < 3) return; var w = Q[i].exp ? 1.5 : 1; a.forEach(function(k, r){ s[k] += (2 - r) * w; }); });
   return s;
 }
-function ranked(s){return ['O','T','N'].sort(function(a,b){return s[b]-s[a] || 'OTN'.indexOf(a)-'OTN'.indexOf(b)})}
+function ranked(s){ return ['O','T','N'].sort(function(a, b){ return s[b] - s[a] || 'OTN'.indexOf(a) - 'OTN'.indexOf(b); }); }
 function finish(){
-  var s=baseScores(), rk=ranked(s);
-  var spread=s[rk[0]]-s[rk[2]];
-  if(spread>3 && s[rk[0]]-s[rk[1]]<=2){ ties=TIE[pairKey(rk[0],rk[1])]; ti=0; renderTie(); show('s-pair'); return; }
+  var s = baseScores(), rk = ranked(s);
+  if (s[rk[0]] - s[rk[2]] > 3 && s[rk[0]] - s[rk[1]] <= 2) { S.ties = TIE[pairKey(rk[0], rk[1])]; S.ti = 0; render('tie'); return; }
   result();
 }
-function renderTie(){
-  var q=ties[ti]; $('p-text').textContent=q.t; var box=$('p-opts'); box.innerHTML='';
-  shuffle(Object.keys(q.a)).forEach(function(k){
-    var b=document.createElement('button'); b.className='opt'; b.innerHTML='<span class="rk"></span><span>'+esc(q.a[k])+'</span>';
-    b.onclick=function(){ b.className='opt r1'; b.querySelector('.rk').textContent='✓'; tieAdd[k]+=2;
-      setTimeout(function(){ ti++; if(ti<ties.length){renderTie()} else {result()} },500); };
-    box.appendChild(b);
-  });
-}
 function result(){
-  var s=baseScores(); ['O','T','N'].forEach(function(k){s[k]+=tieAdd[k]});
-  var rk=ranked(s), main=R[rk[0]], second=R[rk[1]];
-  var universal = (s[rk[0]]-s[rk[2]])<=3;
-  var pk=pairKey(rk[0],rk[1]), pair=PAIRS[pk];
-  final={main:rk[0],second:rk[1],universal:universal,scores:s,pair:pair.name};
-  $('r-img').src=main.img; $('r-img').alt=main.name+' — '+main.animal;
-  $('r-you').textContent = universal ? 'Вы — Универсал. Чуть сильнее:' : 'Вы —';
-  $('r-name').textContent=main.name;
-  $('r-motto').textContent='«'+main.motto+'»';
-  $('r-core').textContent=main.core;
-  $('r-strong').innerHTML=main.strong.map(function(x){return '<li>'+esc(x)+'</li>'}).join('');
-  $('r-pair').innerHTML = universal
-    ? '<b>Все три роли у вас почти равны.</b> Вы можете закрыть любую роль в обучении. Важно выбрать, на чём сделать упор сейчас. Вторая по силе роль — '+esc(second.name.toLowerCase())+'.'
-    : '<b>'+esc(main.name)+' + '+esc(second.name)+' = «'+esc(pair.name)+'».</b> '+esc(pair.text);
-  $('r-shine').textContent=main.shine;
-  $('r-blind').textContent=main.blind;
-  $('r-step').textContent=main.step;
-  var max=Math.max(s.O,s.T,s.N)||1;
-  $('r-bars').innerHTML=rk.map(function(k){return '<div class="bar"><b><span>'+R[k].name+'</span></b><s><i style="width:0;background:'+R[k].color+'" data-w="'+Math.round(s[k]/max*100)+'"></i></s></div>'}).join('');
-  show('s-res');
-  setTimeout(function(){document.querySelectorAll('#r-bars i').forEach(function(i){i.style.width=i.dataset.w+'%'})},150);
-  send();
+  var s = baseScores(); ['O','T','N'].forEach(function(k){ s[k] += S.tieAdd[k]; });
+  var rk = ranked(s);
+  S.final = { main: rk[0], second: rk[1], rk: rk, universal: (s[rk[0]] - s[rk[2]]) <= 3, scores: s };
+  render('result'); send();
 }
-
-// Оценка
-document.querySelectorAll('#r-rate button').forEach(function(b){
-  b.onclick=function(){ rating=+b.textContent; document.querySelectorAll('#r-rate button').forEach(function(x){x.classList.toggle('on',x===b)}); $('r-send').disabled=false; };
-});
-$('r-send').onclick=function(){ send(); $('r-send').disabled=true; $('r-thanks').style.display='block'; };
-$('r-again').onclick=function(){ location.reload(); };
-
 function send(){
-  if(!final) return;
-  var payload={id:resultId,group:GROUP,name:($('name').value||'').trim().slice(0,40),main:R[final.main].name,second:R[final.second].name,
-    pair:final.universal?'Универсал':final.pair,o:final.scores.O,t:final.scores.T,n:final.scores.N,rating:rating||'',
-    comment:($('r-comment').value||'').trim().slice(0,1000),answers:ans.map(function(a){return a?a.join(''):''}).join(' '),ua:navigator.userAgent.slice(0,120)};
-  try{localStorage.setItem('tot_last',JSON.stringify(payload))}catch(e){}
-  if(!CFG.SCRIPT_URL) return;
-  try{ fetch(CFG.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}); }catch(e){}
+  var f = S.final; if (!f) return;
+  var c = document.getElementById('tComment');
+  var payload = { id: S.id, group: GROUP, name: S.name.slice(0,40), main: R[f.main].name, second: R[f.second].name,
+    pair: f.universal ? 'Универсал' : PAIRS[pairKey(f.main, f.second)].name, o: f.scores.O, t: f.scores.T, n: f.scores.N,
+    rating: S.rating || '', comment: c ? c.value.trim().slice(0,1000) : '', answers: S.ans.map(function(a){ return a ? a.join('') : ''; }).join(' '), ua: navigator.userAgent.slice(0,120) };
+  try { localStorage.setItem('tot_last', JSON.stringify(payload)); } catch (e) {}
+  if (!CFG.SCRIPT_URL) return;
+  try { fetch(CFG.SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }); } catch (e) {}
 }
-})();
+
+APP.addEventListener('input', function(e){ if (e.target.id === 'tName') S.name = e.target.value.trim(); });
+APP.addEventListener('click', function(e){
+  var b = e.target.closest('[data-act]'); if (!b) return;
+  var act = b.getAttribute('data-act'), v = b.getAttribute('data-v');
+  if (act === 'start') { var n = document.getElementById('tName'); S.name = n ? n.value.trim() : ''; S.i = 0; render('quiz'); }
+  else if (act === 'rank') {
+    var arr = (S.ans[S.i] || []).slice(), at = arr.indexOf(v);
+    if (at > -1) arr = arr.slice(0, at); else { arr.push(v); if (arr.length === 2) arr.push(['O','T','N'].filter(function(x){ return arr.indexOf(x) < 0; })[0]); }
+    S.ans[S.i] = arr; paintRank(); clearTimeout(auto);
+    if (arr.length === 3) auto = setTimeout(next, 900);
+  }
+  else if (act === 'reset') { S.ans[S.i] = []; paintRank(); }
+  else if (act === 'next') next();
+  else if (act === 'exp') render('quiz');
+  else if (act === 'back') { clearTimeout(auto); if (S.i === 0) render('start'); else { S.i--; render('quiz'); } }
+  else if (act === 'tie' || act === 'tieSkip') { if (act === 'tie') S.tieAdd[v] += 2; S.ti++; if (S.ti < S.ties.length) render('tie'); else result(); }
+  else if (act === 'rate') { S.rating = +v; Array.prototype.forEach.call(APP.querySelectorAll('[data-act="rate"]'), function(x){ x.classList.toggle('on', x === b); }); var sb = APP.querySelector('[data-act="send"]'); if (sb) sb.disabled = false; }
+  else if (act === 'send') { send(); b.disabled = true; document.getElementById('tThanks').style.display = 'block'; }
+  else if (act === 'again') location.reload();
+});
+render('start');
+
 // сцена с героями двигается за мышкой, пальцем и наклоном телефона
 (function(){
-  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var tx=0,ty=0,cx=0,cy=0,run=false,st=document.getElementById('stage');
-  function set(x,y){tx=Math.max(-1,Math.min(1,x));ty=Math.max(-1,Math.min(1,y));if(!run){run=true;requestAnimationFrame(tick)}}
-  function tick(){cx+=(tx-cx)*.08;cy+=(ty-cy)*.08;st.style.setProperty('--mx',cx.toFixed(3));st.style.setProperty('--my',cy.toFixed(3));
-    if(Math.abs(tx-cx)+Math.abs(ty-cy)>.002)requestAnimationFrame(tick);else run=false}
-  window.addEventListener('pointermove',function(e){set(e.clientX/innerWidth*2-1,e.clientY/innerHeight*2-1)},{passive:true});
-  window.addEventListener('touchmove',function(e){var t=e.touches[0];if(t)set(t.clientX/innerWidth*2-1,t.clientY/innerHeight*2-1)},{passive:true});
-  window.addEventListener('deviceorientation',function(e){if(e.gamma==null)return;set(e.gamma/25,(e.beta-45)/25)},{passive:true});
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var tx = 0, ty = 0, cx = 0, cy = 0, run = false;
+  function set(x, y){ tx = Math.max(-1, Math.min(1, x)); ty = Math.max(-1, Math.min(1, y)); if (!run) { run = true; requestAnimationFrame(tick); } }
+  function tick(){ cx += (tx - cx) * .08; cy += (ty - cy) * .08; var st = document.getElementById('tStage');
+    if (st) { st.style.setProperty('--mx', cx.toFixed(3)); st.style.setProperty('--my', cy.toFixed(3)); }
+    if (Math.abs(tx - cx) + Math.abs(ty - cy) > .002) requestAnimationFrame(tick); else run = false; }
+  window.addEventListener('pointermove', function(e){ set(e.clientX / innerWidth * 2 - 1, e.clientY / innerHeight * 2 - 1); }, { passive: true });
+  window.addEventListener('touchmove', function(e){ var t = e.touches[0]; if (t) set(t.clientX / innerWidth * 2 - 1, t.clientY / innerHeight * 2 - 1); }, { passive: true });
+  window.addEventListener('deviceorientation', function(e){ if (e.gamma == null) return; set(e.gamma / 25, (e.beta - 45) / 25); }, { passive: true });
+})();
 })();
 </script>
 </body>
