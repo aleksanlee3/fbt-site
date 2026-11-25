@@ -63,7 +63,7 @@ body{font:500 18px/1.4 'Golos Text',-apple-system,Arial,sans-serif;color:var(--i
         <div class="role" data-k="Тренер"><img src="img/trener.webp" alt="Попугай"><h2>Тренер</h2><div class="n">0</div><div class="pct">0%</div><s><i style="background:#D90F0F"></i></s><div class="names"></div></div>
         <div class="role" data-k="Наставник"><img src="img/nastavnik.webp" alt="Слон"><h2>Наставник</h2><div class="n">0</div><div class="pct">0%</div><s><i style="background:#1F2A33"></i></s><div class="names"></div></div>
       </div>
-      <div class="meta"><span id="m-rate">Точность: —</span><span id="m-pairs">Пары: —</span></div>
+      <div class="meta"><span id="m-rate">Точность: —</span></div>
       <div class="note" id="note"></div>
     </div>
   </div>
@@ -90,8 +90,6 @@ function render(rows){
     el.querySelector('s i').style.width=pc+'%'; el.querySelector('.names').innerHTML=list.map(esc).join(', ');
   });
   document.getElementById('m-rate').textContent='Точность: '+(rs.length?(rs.reduce(function(a,b){return a+b},0)/rs.length).toFixed(1)+' из 5 ('+rs.length+' оценок)':'—');
-  var pk=Object.keys(pairs).sort(function(a,b){return pairs[b]-pairs[a]});
-  document.getElementById('m-pairs').textContent='Пары: '+(pk.length?pk.map(function(k){return k+' — '+pairs[k]}).join(' · '):'—');
 }
 function load(){
   if(!CFG.SCRIPT_URL){note('Таблица результатов ещё не подключена. Тест работает, но сводка появится после подключения Google Таблицы.');return;}

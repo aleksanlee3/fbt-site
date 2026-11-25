@@ -259,6 +259,18 @@ body.ic.ic-dark .g-gauge .g-meter i { background: rgba(255,255,255,.12); }
 .t-bar b { display: block; font-size: 17px; color: var(--g-ink); }
 .t-bar s { display: block; margin-top: 6px; height: 12px; border-radius: 999px; background: #E2E6EA; overflow: hidden; text-decoration: none; }
 .t-bar s i { display: block; height: 100%; width: 0; border-radius: 999px; transition: width .8s ease; }
+.t-donut { margin-top: 12px; display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 14px; align-items: center; }
+.t-donut svg { width: 140px; height: 140px; display: block; }
+.t-dn-p { font: 800 34px 'Golos Text', sans-serif; fill: #1F2A33; }
+.t-dn-l { font: 600 14px 'Golos Text', sans-serif; fill: #5D646D; }
+@media (prefers-reduced-motion: no-preference) { .t-arc { animation: tArc 1s cubic-bezier(.2,.8,.2,1) both; } }
+@keyframes tArc { from { stroke-dasharray: 0 999; } }
+.t-leg { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.t-card .t-leg li::before { display: none; }
+.t-card .t-leg li { display: grid; grid-template-columns: 12px minmax(0, 1fr) auto; gap: 8px; align-items: center; font-size: 16px; font-weight: 600; color: var(--g-ink); }
+.t-card .t-leg li i { width: 14px; height: 14px; border-radius: 4px; }
+.t-card .t-leg li b { font-size: 18px; font-weight: 800; }
+@media (max-width: 340px) { .t-donut { grid-template-columns: 1fr; justify-items: center; } .t-leg { width: 100%; } }
 .t-rate { margin-top: 14px; display: flex; gap: 6px; }
 .t-rate button { flex: 1; height: 52px; border-radius: 50%; max-width: 52px; margin: 0 auto; border: 1.5px solid #D5DADF; background: #fff; font: 800 20px/1 'Golos Text', sans-serif; color: var(--g-ink); cursor: pointer; }
 .t-rate button.on { background: var(--g-ink); border-color: var(--g-ink); color: #fff; }
@@ -444,6 +456,18 @@ function vTie(){
   );
 }
 function card(icon, title, body, cls){ return '<div class="t-card' + (cls ? ' ' + cls : '') + '"><h3><i>' + ipic(icon) + '</i>' + title + '</h3>' + body + '</div>'; }
+function pcts(s, rk){
+  var tot = (s.O + s.T + s.N) || 1, p = {}, sum = 0;
+  rk.forEach(function(k){ p[k] = Math.round(s[k] / tot * 100); sum += p[k]; });
+  p[rk[0]] += 100 - sum; return p;
+}
+function donut(s, rk){
+  var p = pcts(s, rk), r = 70, c = 2 * Math.PI * r, off = 0, arcs = '';
+  rk.forEach(function(k){ var len = c * p[k] / 100; if (len > 0) arcs += '<circle class="t-arc" r="' + r + '" cx="90" cy="90" fill="none" stroke="' + R[k].color + '" stroke-width="26" stroke-dasharray="' + Math.max(0, len - 3).toFixed(2) + ' ' + c.toFixed(2) + '" stroke-dashoffset="' + (-off).toFixed(2) + '"/>'; off += len; });
+  return '<div class="t-donut"><svg viewBox="0 0 180 180" aria-hidden="true"><circle r="' + r + '" cx="90" cy="90" fill="none" stroke="#E6E9EC" stroke-width="26"/><g transform="rotate(-90 90 90)">' + arcs + '</g>' +
+    '<text x="90" y="88" text-anchor="middle" class="t-dn-p">' + p[rk[0]] + '%</text><text x="90" y="112" text-anchor="middle" class="t-dn-l">' + R[rk[0]].name.toLowerCase() + '</text></svg>' +
+    '<ul class="t-leg">' + rk.map(function(k){ return '<li><i style="background:' + R[k].color + '"></i><span>' + R[k].name + '</span><b>' + p[k] + '%</b></li>'; }).join('') + '</ul></div>';
+}
 function vResult(){
   var f = S.final, main = R[f.main], second = R[f.second], pair = PAIRS[pairKey(f.main, f.second)], s = f.scores;
   var max = Math.max(s.O, s.T, s.N) || 1, rk = f.rk;
@@ -451,16 +475,15 @@ function vResult(){
     '<div class="t-res">' +
       '<div class="eyebrow">ВАШ АРХЕТИП</div>' +
       '<img src="' + main.img + '" alt="' + main.name + ' — ' + main.animal + '">' +
-      '<div class="t-you">' + (f.universal ? 'Вы — Универсал. Чуть сильнее:' : 'Вы —') + '</div>' +
+      '<div class="t-you">' + (f.universal ? 'Все три роли у вас почти равны. Чуть сильнее:' : 'Вы —') + '</div>' +
       '<h1>' + main.name + '</h1><div class="t-motto">«' + main.motto + '»</div>' +
     '</div>' +
     card('tsel', 'Ваша суть', '<p>' + nb(esc(main.core)) + '</p>', 'dark') +
     card('sila', 'Ваши сильные стороны', '<ul>' + main.strong.map(function(x){ return '<li>' + nb(esc(x)) + '</li>'; }).join('') + '</ul>') +
-    card('komanda', 'Ваша пара ролей', '<p>' + (f.universal ? '<b>Все три роли у вас почти равны.</b> Вы можете закрыть любую роль в обучении. Важно выбрать, на чём сделать упор сейчас. Вторая по силе роль — ' + esc(second.name.toLowerCase()) + '.' : '<b>' + main.name + ' + ' + second.name + ' = «' + pair.name + '».</b> ' + nb(esc(pair.text))) + '</p>') +
     card('zvezda', 'Где вы сияете на тренинге', '<p>' + nb(esc(main.shine)) + '</p>') +
     card('vnimanie', 'На что обратить внимание', '<p>' + nb(esc(main.blind)) + '</p>') +
     card('rost', 'Шаг роста на эту неделю', '<p>' + nb(esc(main.step)) + '</p>', 'red') +
-    card('grafik', 'Ваши три роли', '<div class="t-bars">' + rk.map(function(k){ return '<div class="t-bar"><b>' + R[k].name + '</b><s><i style="background:' + R[k].color + '" data-w="' + Math.round(s[k] / max * 100) + '"></i></s></div>'; }).join('') + '</div>') +
+    card('grafik', 'Ваши три роли', donut(s, rk)) +
     card('ruchka', 'Насколько это про вас?',
       '<div class="t-rate">' + [1,2,3,4,5].map(function(n){ return '<button type="button" data-act="rate" data-v="' + n + '"' + (S.rating === n ? ' class="on"' : '') + '>' + n + '</button>'; }).join('') + '</div>' +
       '<div class="t-rate-l"><span>совсем не про меня</span><span>точно про меня</span></div>' +
@@ -475,7 +498,6 @@ var view = 'start';
 function render(v){ view = v || view;
   APP.innerHTML = view === 'start' ? vStart() : view === 'quiz' ? vQuiz() : view === 'inter' ? vInter() : view === 'tie' ? vTie() : vResult();
   window.scrollTo(0, 0);
-  if (view === 'result') setTimeout(function(){ Array.prototype.forEach.call(APP.querySelectorAll('.t-bar i'), function(i){ i.style.width = i.getAttribute('data-w') + '%'; }); }, 150);
 }
 function paintRank(){
   var arr = S.ans[S.i] || [];
