@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Кто вы в обучении людей? — тест ToT · Impact Consulting</title>
+<title>Определите свой архетип — тест ToT · Impact Consulting</title>
 <meta name="description" content="Организатор, Тренер или Наставник? 18 вопросов, 5 минут. Узнайте свою сильную роль в обучении людей.">
-<meta property="og:title" content="Кто вы в обучении людей? Организатор, Тренер или Наставник">
+<meta property="og:title" content="Определите свой архетип: Организатор, Тренер или Наставник">
 <meta property="og:description" content="18 вопросов, 5 минут. Ваша сильная роль, пара ролей и шаг роста.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="robots" content="noindex">
@@ -31,6 +31,27 @@ h1{font-size:clamp(36px,10vw,52px);line-height:1.02;font-weight:700;letter-spaci
 h1 span{display:block;color:var(--slate-d)}
 h2{font-size:clamp(26px,7vw,34px);line-height:1.12;font-weight:700;letter-spacing:-.02em}
 .lead{margin-top:14px;font-size:20px;color:var(--muted)}
+.sub{margin-top:12px;font-size:clamp(19px,5vw,22px);line-height:1.35;font-weight:600;color:var(--muted)}
+/* сцена с героями: покачиваются сами + двигаются за пальцем, мышкой и наклоном телефона */
+.stage{--mx:0;--my:0;position:relative;width:100%;aspect-ratio:5/4;margin:18px auto 0;user-select:none}
+.stage::after{content:"";position:absolute;left:8%;right:8%;bottom:-1%;height:7%;border-radius:50%;background:radial-gradient(closest-side,rgba(31,42,51,.14),rgba(31,42,51,0))}
+.st-p{position:absolute;bottom:0;height:90%;width:auto;mix-blend-mode:multiply;pointer-events:none;will-change:transform}
+.st-o{left:18%;z-index:1;transform:translate(calc(-50% + var(--mx)*-12px),calc(var(--my)*-4px))}
+.st-n{left:83%;z-index:3;transform:translate(calc(-50% + var(--mx)*-12px),calc(var(--my)*-4px))}
+.st-t{left:48%;z-index:2;height:96%;transform:translate(calc(-50% + var(--mx)*20px),calc(var(--my)*7px))}
+@media (prefers-reduced-motion:no-preference){
+  .st-p{animation:stIn .7s cubic-bezier(.2,.8,.2,1) both,stSway 5s ease-in-out .8s infinite}
+  .st-n{animation-delay:.08s,1.6s}.st-t{animation-delay:.16s,1.2s;animation-duration:.7s,4.2s}
+}
+@keyframes stIn{from{opacity:0;translate:0 22px}to{opacity:1;translate:0 0}}
+@keyframes stSway{0%,100%{translate:0 0;rotate:0deg}25%{translate:-5px -4px;rotate:-1.2deg}75%{translate:5px -2px;rotate:1.2deg}}
+.st-names{display:grid;grid-template-columns:repeat(3,1fr);margin-top:10px;text-align:center;font-size:16px;font-weight:700}
+/* красная кнопка с бликом и мягким свечением — как в «Бизнес-архетипе» */
+.btn.shine{position:relative;overflow:hidden;isolation:isolate}
+.btn.shine::after{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:-60%;width:45%;background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 100%);transform:skewX(-20deg);pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.btn.shine{animation:glow 2.4s ease-in-out infinite}.btn.shine::after{animation:shine 2.8s ease-in-out infinite}}
+@keyframes shine{0%{left:-60%}55%,100%{left:130%}}
+@keyframes glow{0%,100%{box-shadow:0 10px 30px rgba(198,0,0,.32),0 0 0 0 rgba(198,0,0,.40)}50%{box-shadow:0 12px 36px rgba(198,0,0,.48),0 0 0 8px rgba(198,0,0,0)}}
 .trio{margin:22px -6px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;align-items:end}
 .trio figure{text-align:center}
 .trio img{width:100%;height:auto;aspect-ratio:2/3;object-fit:contain;display:block;mix-blend-mode:multiply}
@@ -115,19 +136,21 @@ textarea:focus{border-color:var(--ink)}
   <!-- 1. Старт -->
   <section class="scr on" id="s-start">
     <div class="eyebrow">Тест для участников ToT</div>
-    <h1>Кто вы в обучении людей?<span>Организатор, Тренер или Наставник</span></h1>
-    <div class="trio">
-      <figure><img src="img/organizator.webp" alt="Организатор — бобр"><figcaption>Организатор</figcaption></figure>
-      <figure><img src="img/trener.webp" alt="Тренер — попугай"><figcaption>Тренер</figcaption></figure>
-      <figure><img src="img/nastavnik.webp" alt="Наставник — слон"><figcaption>Наставник</figcaption></figure>
+    <h1>Определите свой архетип</h1>
+    <p class="sub">Кто вы в обучении людей:<br>Организатор, Тренер <span style="white-space:nowrap">или Наставник</span></p>
+    <div class="stage" id="stage" aria-label="Организатор, Тренер, Наставник">
+      <img class="st-p st-o" src="img/organizator.webp" alt="Организатор — бобр" draggable="false">
+      <img class="st-p st-n" src="img/nastavnik.webp" alt="Наставник — слон" draggable="false">
+      <img class="st-p st-t" src="img/trener.webp" alt="Тренер — попугай" draggable="false">
     </div>
+    <div class="st-names"><span>Организатор</span><span>Тренер</span><span>Наставник</span></div>
     <div class="pills"><span><b>18</b> вопросов</span><span><b>5</b> минут</span><span>Ваша роль и шаг роста</span></div>
     <div class="field">
       <label for="name">Как вас зовут?</label>
       <input id="name" type="text" autocomplete="given-name" maxlength="40" placeholder="Например, Дильноза">
       <small>Имя увидит только тренер в общей сводке группы.</small>
     </div>
-    <button class="btn" id="go-rules">Начать</button>
+    <button class="btn shine" id="go-rules">Начать</button>
   </section>
 
   <!-- 2. Правила -->
@@ -142,7 +165,7 @@ textarea:focus{border-color:var(--ink)}
       <h3><em>💡</em>Выбирайте то, что нравится</h3>
       <p>Не то, что уже умеете. Представьте, что у вас есть все навыки, время и деньги. Правильных ответов нет.</p>
     </div>
-    <button class="btn" id="go-q">Понятно, поехали</button>
+    <button class="btn shine" id="go-q">Понятно, поехали</button>
   </section>
 
   <!-- 3. Вопрос -->
@@ -382,6 +405,17 @@ function send(){
   if(!CFG.SCRIPT_URL) return;
   try{ fetch(CFG.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}); }catch(e){}
 }
+})();
+// сцена с героями двигается за мышкой, пальцем и наклоном телефона
+(function(){
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var tx=0,ty=0,cx=0,cy=0,run=false,st=document.getElementById('stage');
+  function set(x,y){tx=Math.max(-1,Math.min(1,x));ty=Math.max(-1,Math.min(1,y));if(!run){run=true;requestAnimationFrame(tick)}}
+  function tick(){cx+=(tx-cx)*.08;cy+=(ty-cy)*.08;st.style.setProperty('--mx',cx.toFixed(3));st.style.setProperty('--my',cy.toFixed(3));
+    if(Math.abs(tx-cx)+Math.abs(ty-cy)>.002)requestAnimationFrame(tick);else run=false}
+  window.addEventListener('pointermove',function(e){set(e.clientX/innerWidth*2-1,e.clientY/innerHeight*2-1)},{passive:true});
+  window.addEventListener('touchmove',function(e){var t=e.touches[0];if(t)set(t.clientX/innerWidth*2-1,t.clientY/innerHeight*2-1)},{passive:true});
+  window.addEventListener('deviceorientation',function(e){if(e.gamma==null)return;set(e.gamma/25,(e.beta-45)/25)},{passive:true});
 })();
 </script>
 </body>
