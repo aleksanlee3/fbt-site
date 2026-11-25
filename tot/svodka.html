@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сводка группы — тест ToT · Impact Consulting</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/logo/favicon-64.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<style>
+/* ToT · сводка группы для экрана тренера · v1 (25.11.2026, Claude) */
+:root{--ink:#1F2A33;--muted:#5D646D;--soft:#F4F5F6;--slate-d:#4E6E7A;--red:#D90F0F}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:500 18px/1.4 'Golos Text',-apple-system,Arial,sans-serif;color:var(--ink);background:#fff}
+.wrap{max-width:1280px;margin:0 auto;padding:24px 28px 40px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.top img{height:30px}
+.top .g{font-size:15px;font-weight:600;color:var(--muted)}
+.grid{margin-top:20px;display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:28px;align-items:start}
+.qr{padding:24px;border-radius:28px;background:var(--soft);text-align:center}
+.qr h1{font-size:34px;line-height:1.05;font-weight:800;letter-spacing:-.02em}
+.qr p{margin-top:8px;font-size:18px;color:var(--muted)}
+#qr{margin:18px auto 0;width:100%;max-width:320px;aspect-ratio:1;background:#fff;border-radius:18px;padding:14px}
+#qr img,#qr svg{width:100%;height:100%;display:block}
+.qr .url{margin-top:12px;font-size:15px;font-weight:600;word-break:break-all}
+.total{font-size:22px;font-weight:700}
+.total b{font-size:56px;color:var(--red);letter-spacing:-.03em;margin-right:8px}
+.roles{margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.role{border-radius:26px;background:var(--soft);padding:14px 14px 18px;text-align:center}
+.role img{width:100%;max-height:300px;aspect-ratio:2/3;object-fit:contain;display:block;mix-blend-mode:multiply}
+.role h2{margin-top:6px;font-size:26px;font-weight:800}
+.role .n{font-size:64px;font-weight:800;line-height:1;letter-spacing:-.03em}
+.role .pct{font-size:18px;color:var(--muted);font-weight:600}
+.role s{display:block;margin-top:10px;height:12px;border-radius:999px;background:#E2E6EA;overflow:hidden;text-decoration:none}
+.role s i{display:block;height:100%;width:0;border-radius:999px;transition:width .8s}
+.names{margin-top:12px;font-size:16px;color:var(--ink);line-height:1.5;min-height:24px}
+.meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
+.meta span{padding:10px 16px;border-radius:999px;background:var(--soft);font-size:17px;font-weight:600}
+.note{margin-top:16px;padding:14px 18px;border-radius:16px;background:#FFF1F1;font-size:17px;display:none}
+.pairs{margin-top:10px;font-size:16px;color:var(--muted)}
+@media (max-width:860px){.grid{grid-template-columns:1fr}.roles{grid-template-columns:1fr}.role img{max-height:220px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><img src="../assets/logo/impact-consulting.png" alt="Impact Consulting"><div class="g">Группа: <b id="g-name"></b> · обновляется сама</div></div>
+  <div class="grid">
+    <div class="qr">
+      <h1>Кто вы в обучении людей?</h1>
+      <p>Наведите камеру телефона на код</p>
+      <div id="qr"></div>
+      <div class="url" id="url"></div>
+    </div>
+    <div>
+      <div class="total"><b id="total">0</b>прошли тест</div>
+      <div class="roles">
+        <div class="role" data-k="Организатор"><img src="img/organizator.webp" alt="Бобр"><h2>Организатор</h2><div class="n">0</div><div class="pct">0%</div><s><i style="background:#4E6E7A"></i></s><div class="names"></div></div>
+        <div class="role" data-k="Тренер"><img src="img/trener.webp" alt="Попугай"><h2>Тренер</h2><div class="n">0</div><div class="pct">0%</div><s><i style="background:#D90F0F"></i></s><div class="names"></div></div>
+        <div class="role" data-k="Наставник"><img src="img/nastavnik.webp" alt="Слон"><h2>Наставник</h2><div class="n">0</div><div class="pct">0%</div><s><i style="background:#1F2A33"></i></s><div class="names"></div></div>
+      </div>
+      <div class="meta"><span id="m-rate">Точность: —</span><span id="m-pairs">Пары: —</span></div>
+      <div class="note" id="note"></div>
+    </div>
+  </div>
+</div>
+<script src="config.js"></script>
+<script>
+(function(){
+var CFG=window.TOT_CONFIG||{SCRIPT_URL:''};
+var p=new URLSearchParams(location.search), g=p.get('g');
+if(!g){var d=new Date();g='tot-'+('0'+d.getDate()).slice(-2)+('0'+(d.getMonth()+1)).slice(-2);p.set('g',g);history.replaceState(null,'',location.pathname+'?'+p.toString());}
+document.getElementById('g-name').textContent=g;
+var testUrl=location.origin+location.pathname.replace(/svodka\.html$/,'')+'?g='+encodeURIComponent(g);
+document.getElementById('url').textContent=testUrl.replace(/^https?:\/\//,'');
+try{var qr=qrcode(0,'M');qr.addData(testUrl);qr.make();document.getElementById('qr').innerHTML=qr.createSvgTag({cellSize:8,margin:0,scalable:true});}catch(e){document.getElementById('qr').textContent='QR не загрузился — используйте ссылку ниже';}
+function note(t){var n=document.getElementById('note');n.style.display=t?'block':'none';n.textContent=t||''}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function render(rows){
+  var total=rows.length, cnt={'Организатор':[],'Тренер':[],'Наставник':[]}, pairs={}, rs=[];
+  rows.forEach(function(r){ if(cnt[r.main]) cnt[r.main].push(r.name||'без имени'); if(r.pair) pairs[r.pair]=(pairs[r.pair]||0)+1; if(+r.rating) rs.push(+r.rating); });
+  document.getElementById('total').textContent=total;
+  document.querySelectorAll('.role').forEach(function(el){
+    var list=cnt[el.dataset.k]||[], n=list.length, pc=total?Math.round(n/total*100):0;
+    el.querySelector('.n').textContent=n; el.querySelector('.pct').textContent=pc+'%';
+    el.querySelector('s i').style.width=pc+'%'; el.querySelector('.names').innerHTML=list.map(esc).join(', ');
+  });
+  document.getElementById('m-rate').textContent='Точность: '+(rs.length?(rs.reduce(function(a,b){return a+b},0)/rs.length).toFixed(1)+' из 5 ('+rs.length+' оценок)':'—');
+  var pk=Object.keys(pairs).sort(function(a,b){return pairs[b]-pairs[a]});
+  document.getElementById('m-pairs').textContent='Пары: '+(pk.length?pk.map(function(k){return k+' — '+pairs[k]}).join(' · '):'—');
+}
+function load(){
+  if(!CFG.SCRIPT_URL){note('Таблица результатов ещё не подключена. Тест работает, но сводка появится после подключения Google Таблицы.');return;}
+  fetch(CFG.SCRIPT_URL+'?g='+encodeURIComponent(g)+'&t='+Date.now()).then(function(r){return r.json()}).then(function(d){note('');render(d.rows||[])}).catch(function(){note('Нет связи с таблицей. Пробую ещё раз…')});
+}
+load(); setInterval(load,8000);
+})();
+</script>
+</body>
+</html>

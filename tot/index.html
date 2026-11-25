@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Кто вы в обучении людей? — тест ToT · Impact Consulting</title>
+<meta name="description" content="Организатор, Тренер или Наставник? 18 вопросов, 5 минут. Узнайте свою сильную роль в обучении людей.">
+<meta property="og:title" content="Кто вы в обучении людей? Организатор, Тренер или Наставник">
+<meta property="og:description" content="18 вопросов, 5 минут. Ваша сильная роль, пара ролей и шаг роста.">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/logo/favicon-64.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ToT · тест «Организатор, Тренер, Наставник» · v1 (25.11.2026, Claude). Стиль — как «Бизнес-архетип»: белый фон, графит, один красный акцент. */
+:root{--ink:#1F2A33;--muted:#5D646D;--line:#E3E5E8;--soft:#F4F5F6;--slate:#A2C3CD;--slate-d:#4E6E7A;--red:#D90F0F;--red-d:#A80000;--o:#4E6E7A;--t:#D90F0F;--n:#1F2A33}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font:500 18px/1.45 'Golos Text',-apple-system,Arial,sans-serif;color:var(--ink);background:#fff;min-height:100vh}
+.wrap{max-width:560px;margin:0 auto;padding:16px 18px 48px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0 14px}
+.top img{height:26px;width:auto}
+.top span{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.scr{display:none;animation:fade .35s ease}
+.scr.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+h1{font-size:clamp(36px,10vw,52px);line-height:1.02;font-weight:700;letter-spacing:-.03em;margin-top:10px}
+h1 span{display:block;color:var(--slate-d)}
+h2{font-size:clamp(26px,7vw,34px);line-height:1.12;font-weight:700;letter-spacing:-.02em}
+.lead{margin-top:14px;font-size:20px;color:var(--muted)}
+.trio{margin:22px -6px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;align-items:end}
+.trio figure{text-align:center}
+.trio img{width:100%;height:auto;aspect-ratio:2/3;object-fit:contain;display:block;mix-blend-mode:multiply}
+.trio figcaption{margin-top:4px;font-size:15px;font-weight:700}
+.pills{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pills span{height:38px;padding:0 14px;display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:var(--soft);font-size:16px;font-weight:600}
+.pills b{color:var(--red)}
+.field{margin-top:22px}
+.field label{display:block;font-size:16px;font-weight:600;margin-bottom:8px}
+.field input{width:100%;height:56px;border-radius:16px;border:1.5px solid #D5DADF;padding:0 16px;font:500 19px 'Golos Text',sans-serif;color:var(--ink);background:#fff;outline:none}
+.field input:focus{border-color:var(--ink)}
+.field small{display:block;margin-top:6px;font-size:14px;color:var(--muted)}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:60px;margin-top:22px;border:0;border-radius:18px;font:700 20px 'Golos Text',sans-serif;cursor:pointer;color:#fff;background:linear-gradient(180deg,#E01010,#B80000);box-shadow:0 8px 22px rgba(200,0,0,.22);transition:transform .12s,opacity .2s}
+.btn:active{transform:scale(.98)}
+.btn[disabled]{opacity:.35;box-shadow:none;cursor:default}
+.btn.ghost{background:var(--soft);color:var(--ink);box-shadow:none}
+.rules{margin-top:20px;display:grid;gap:12px}
+.rule{display:flex;gap:14px;align-items:flex-start;padding:16px;border-radius:18px;background:var(--soft)}
+.rule i{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:800 20px 'Golos Text',sans-serif;font-style:normal;color:#fff;background:var(--ink)}
+.rule:nth-child(2) i{background:var(--slate-d)}
+.rule:nth-child(3) i{background:var(--red)}
+.rule p{font-size:18px}
+.rule b{display:block;font-size:19px}
+.demo{margin-top:18px;padding:16px;border-radius:18px;border:1.5px dashed #C9CED4}
+.demo p{font-size:16px;color:var(--muted);margin-bottom:10px}
+/* вопрос */
+.qhead{display:flex;align-items:center;gap:12px}
+.back{flex:none;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:#fff;font-size:22px;cursor:pointer;color:var(--ink)}
+.prog{flex:1;height:8px;border-radius:999px;background:#ECEEF1;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--ink);border-radius:999px;transition:width .3s}
+.qnum{font-size:15px;font-weight:700;color:var(--muted);min-width:46px;text-align:right}
+.qpart{margin-top:22px}
+.qtext{margin-top:8px;font-size:clamp(25px,6.6vw,31px);line-height:1.18;font-weight:700;letter-spacing:-.015em}
+.qhint{margin-top:10px;font-size:16px;color:var(--muted)}
+.opts{margin-top:20px;display:grid;gap:12px}
+.opt{position:relative;display:flex;gap:14px;align-items:center;width:100%;min-height:76px;padding:16px 16px 16px 14px;border-radius:18px;border:1.5px solid #D5DADF;background:#fff;text-align:left;font:500 19px/1.35 'Golos Text',sans-serif;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s,transform .12s}
+.opt:active{transform:scale(.99)}
+.opt .rk{flex:none;width:40px;height:40px;border-radius:50%;border:1.5px dashed #BFC5CC;display:grid;place-items:center;font:800 19px 'Golos Text',sans-serif;color:transparent}
+.opt.r1{border-color:var(--red);background:#FFF5F5}.opt.r1 .rk{background:var(--red);border:0;color:#fff}
+.opt.r2{border-color:var(--slate-d);background:#F3F7F8}.opt.r2 .rk{background:var(--slate-d);border:0;color:#fff}
+.opt.r3{border-color:#9AA1A9;background:#F6F7F8}.opt.r3 .rk{background:#9AA1A9;border:0;color:#fff}
+.reset{margin-top:12px;background:none;border:0;font:600 16px 'Golos Text',sans-serif;color:var(--muted);text-decoration:underline;cursor:pointer}
+.pair .opt{min-height:88px}
+/* заставка */
+.inter{text-align:center;padding-top:30px}
+.inter .big{font-size:64px}
+.inter h2{margin-top:10px}
+.inter p{margin-top:12px;font-size:20px;color:var(--muted)}
+/* результат */
+.res-hero{text-align:center}
+.res-hero img{width:min(78%,330px);height:auto;aspect-ratio:2/3;object-fit:contain;display:block;margin:6px auto 0}
+.res-hero .you{margin-top:4px;font-size:20px;color:var(--muted);font-weight:600}
+.res-hero h1{margin-top:2px}
+.res-hero .motto{margin-top:8px;font-size:24px;font-weight:700;color:var(--red)}
+.card{margin-top:16px;padding:20px 18px;border-radius:22px;background:var(--soft)}
+.card h3{font-size:22px;line-height:1.2;font-weight:700;display:flex;align-items:center;gap:10px}
+.card h3 em{font-style:normal;width:40px;height:40px;flex:none;border-radius:12px;display:grid;place-items:center;font-size:22px;background:#fff}
+.card p{margin-top:10px;font-size:19px}
+.card ul{list-style:none;margin-top:12px;display:grid;gap:10px}
+.card li{display:flex;gap:12px;align-items:flex-start;font-size:19px}
+.card li::before{content:"";flex:none;width:10px;height:10px;margin-top:9px;border-radius:50%;background:var(--red)}
+.card.dark{background:var(--ink);color:#fff}.card.dark p{color:#D6DCE0}.card.dark h3 em{background:rgba(255,255,255,.12)}
+.card.red{background:#FFF1F1}
+.bars{margin-top:14px;display:grid;gap:14px}
+.bar b{display:flex;justify-content:space-between;font-size:18px}
+.bar s{display:block;margin-top:6px;height:14px;border-radius:999px;background:#E6E9EC;overflow:hidden;text-decoration:none}
+.bar s i{display:block;height:100%;border-radius:999px;transition:width .8s ease}
+.rate{margin-top:14px;display:flex;justify-content:space-between;gap:6px}
+.rate button{flex:1;height:56px;border-radius:16px;border:1.5px solid #D5DADF;background:#fff;font:800 22px 'Golos Text',sans-serif;color:var(--ink);cursor:pointer}
+.rate button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.rate-l{margin-top:8px;display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
+textarea{width:100%;min-height:110px;margin-top:12px;border-radius:16px;border:1.5px solid #D5DADF;padding:14px 16px;font:500 18px/1.4 'Golos Text',sans-serif;color:var(--ink);resize:vertical;outline:none;background:#fff}
+textarea:focus{border-color:var(--ink)}
+.thanks{display:none;margin-top:12px;padding:14px 16px;border-radius:14px;background:#EAF4EC;font-size:17px;font-weight:600;color:#1E5A2B}
+.foot{margin-top:34px;text-align:center;font-size:13px;color:#9AA1A9}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><img src="../assets/logo/impact-consulting.png" alt="Impact Consulting"><span>Training of Trainers</span></div>
+
+  <!-- 1. Старт -->
+  <section class="scr on" id="s-start">
+    <div class="eyebrow">Тест для участников ToT</div>
+    <h1>Кто вы в обучении людей?<span>Организатор, Тренер или Наставник</span></h1>
+    <div class="trio">
+      <figure><img src="img/organizator.webp" alt="Организатор — бобр"><figcaption>Организатор</figcaption></figure>
+      <figure><img src="img/trener.webp" alt="Тренер — попугай"><figcaption>Тренер</figcaption></figure>
+      <figure><img src="img/nastavnik.webp" alt="Наставник — слон"><figcaption>Наставник</figcaption></figure>
+    </div>
+    <div class="pills"><span><b>18</b> вопросов</span><span><b>5</b> минут</span><span>Ваша роль и шаг роста</span></div>
+    <div class="field">
+      <label for="name">Как вас зовут?</label>
+      <input id="name" type="text" autocomplete="given-name" maxlength="40" placeholder="Например, Дильноза">
+      <small>Имя увидит только тренер в общей сводке группы.</small>
+    </div>
+    <button class="btn" id="go-rules">Начать</button>
+  </section>
+
+  <!-- 2. Правила -->
+  <section class="scr" id="s-rules">
+    <h2>Как отвечать</h2>
+    <div class="rules">
+      <div class="rule"><i>1</i><p><b>Сначала нажмите самый ваш ответ</b>Он получит номер 1.</p></div>
+      <div class="rule"><i>2</i><p><b>Потом — второй по близости</b>Он получит номер 2.</p></div>
+      <div class="rule"><i>3</i><p><b>Последний ответ — номер 3</b>Он встанет сам.</p></div>
+    </div>
+    <div class="card red">
+      <h3><em>💡</em>Выбирайте то, что нравится</h3>
+      <p>Не то, что уже умеете. Представьте, что у вас есть все навыки, время и деньги. Правильных ответов нет.</p>
+    </div>
+    <button class="btn" id="go-q">Понятно, поехали</button>
+  </section>
+
+  <!-- 3. Вопрос -->
+  <section class="scr" id="s-q">
+    <div class="qhead"><button class="back" id="q-back" aria-label="Назад">←</button><div class="prog"><i id="q-prog"></i></div><div class="qnum" id="q-num"></div></div>
+    <div class="qpart eyebrow" id="q-part"></div>
+    <div class="qtext" id="q-text"></div>
+    <div class="qhint" id="q-hint">Нажмите ответы по порядку: 1 — больше всего про вас</div>
+    <div class="opts" id="q-opts"></div>
+    <button class="reset" id="q-reset">Расставить заново</button>
+    <button class="btn" id="q-next" disabled>Дальше</button>
+  </section>
+
+  <!-- 4. Заставка перед вопросами об опыте -->
+  <section class="scr inter" id="s-inter">
+    <div class="big">🕰️</div>
+    <h2>Теперь вспомните,<br>как было на самом деле</h2>
+    <p>Ещё 3 вопроса. Здесь про ваш реальный опыт, а не про мечты.</p>
+    <button class="btn" id="go-exp">Дальше</button>
+  </section>
+
+  <!-- 5. Уточнение -->
+  <section class="scr" id="s-pair">
+    <div class="eyebrow">Уточняем</div>
+    <div class="qtext" id="p-text"></div>
+    <div class="qhint">Две роли у вас почти равны. Выберите один ответ.</div>
+    <div class="opts pair" id="p-opts"></div>
+  </section>
+
+  <!-- 6. Результат -->
+  <section class="scr" id="s-res">
+    <div class="res-hero">
+      <img id="r-img" alt="">
+      <div class="you" id="r-you">Вы —</div>
+      <h1 id="r-name"></h1>
+      <div class="motto" id="r-motto"></div>
+    </div>
+    <div class="card dark"><h3><em>🎯</em>Ваша суть</h3><p id="r-core"></p></div>
+    <div class="card"><h3><em>💪</em>Ваши сильные стороны</h3><ul id="r-strong"></ul></div>
+    <div class="card"><h3><em>🤝</em>Ваша пара ролей</h3><p id="r-pair"></p></div>
+    <div class="card"><h3><em>⭐</em>Где вы сияете на тренинге</h3><p id="r-shine"></p></div>
+    <div class="card"><h3><em>👀</em>На что обратить внимание</h3><p id="r-blind"></p></div>
+    <div class="card red"><h3><em>🚀</em>Шаг роста на эту неделю</h3><p id="r-step"></p></div>
+    <div class="card"><h3><em>📊</em>Ваши три роли</h3><div class="bars" id="r-bars"></div></div>
+    <div class="card">
+      <h3><em>✍️</em>Насколько это про вас?</h3>
+      <div class="rate" id="r-rate"><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button></div>
+      <div class="rate-l"><span>совсем не про меня</span><span>точно про меня</span></div>
+      <textarea id="r-comment" placeholder="Что совпало, а что нет? Напишите пару слов"></textarea>
+      <button class="btn" id="r-send" disabled>Отправить</button>
+      <div class="thanks" id="r-thanks">Спасибо! Ответ отправлен.</div>
+    </div>
+    <button class="btn ghost" id="r-again">Пройти ещё раз</button>
+  </section>
+
+  <div class="foot">Impact Consulting · Training of Trainers · тест-игра для самопознания, не психологический диагноз</div>
+</div>
+
+<script src="config.js"></script>
+<script>
+(function(){
+var CFG = window.TOT_CONFIG || {SCRIPT_URL:"",DEFAULT_GROUP:"tot"};
+var params = new URLSearchParams(location.search);
+var GROUP = (params.get('g') || CFG.DEFAULT_GROUP || 'tot').slice(0,40);
+
+// Роли
+var R = {
+  O:{key:'O',name:'Организатор',img:'img/organizator.webp',animal:'бобр',color:'#4E6E7A',motto:'Я создаю условия',
+     core:'Вы превращаете хаос в план. Думаете про сроки, людей, место и результат группы. Без вас обучение просто не состоится.',
+     strong:['Порядок и надёжность: всё вовремя и без накладок','Видите всю картину целиком','Доводите дело до конца'],
+     shine:'Руководитель программы, продюсер курса, куратор потока. Вы собираете обучение, в котором тренеру и участникам удобно.',
+     blind:'Можно стать слишком сухим: люди превращаются в пункты плана. Не забывайте про живой контакт.',
+     step:'Раз в неделю проведите 15 минут живого разговора с одним участником — без повестки и плана.'},
+  T:{key:'T',name:'Тренер',img:'img/trener.webp',animal:'попугай',color:'#D90F0F',motto:'Я учу и зажигаю',
+     core:'Вы объясняете сложное простыми словами и держите внимание зала. С вами люди быстро начинают делать то, чего не умели утром.',
+     strong:['Энергия: зал оживает рядом с вами','Объясняете понятно, на примерах','Быстро учите целую группу'],
+     shine:'Ведущий занятий, спикер, автор упражнений и игр. Вы делаете обучение живым.',
+     blind:'Яркое шоу ещё не значит результат. И одному человеку может не хватить вашего личного внимания.',
+     step:'После каждого занятия проверьте, что люди реально умеют, а не только «понравилось». Дайте им сделать это при вас.'},
+  N:{key:'N',name:'Наставник',img:'img/nastavnik.webp',animal:'слон',color:'#1F2A33',motto:'Я веду человека',
+     core:'Вы видите человека целиком и ведёте его долго. Слушаете, задаёте вопросы, делитесь опытом. С вами человек растёт сам.',
+     strong:['Вам доверяют: с вами можно говорить о главном','Видите в человеке то, чего он сам не видит','Поддерживаете долго, а не один день'],
+     shine:'Наставник потока, разборы один на один, сопровождение участников между занятиями.',
+     blind:'Работа идёт медленно, и с большой группой бывает трудно. Не берите чужие проблемы целиком на себя.',
+     step:'Проведите один короткий групповой разбор на 3–5 человек. Так вы поможете сразу нескольким.'}
+};
+var PAIRS = {
+  'OT':{name:'Ведущий программы',text:'Вы сами собираете обучение и сами его проводите. Редкое сочетание: и порядок, и энергия.'},
+  'ON':{name:'Куратор',text:'Вы держите порядок и заботитесь о каждом. Люди знают: с вами ничего не потеряется и никто не останется один.'},
+  'TN':{name:'Тренер-наставник',text:'Вы учите группу и ведёте отдельных людей. Сначала зажигаете зал, потом помогаете каждому дойти до результата.'}
+};
+function pairKey(a,b){return [a,b].sort(function(x,y){return 'OTN'.indexOf(x)-'OTN'.indexOf(y)}).join('');}
+
+// Вопросы: 15 ситуаций + 3 об опыте (вес 1.5)
+var Q = [
+ {t:'Вам поручили провести обучение для 20 человек через месяц. С чего начнёте?',a:{O:'Составлю план: даты, место, кто за что отвечает.',T:'Придумаю упражнения, чтобы на занятии было живо.',N:'Сначала поговорю с участниками: что у них болит, чего они хотят.'}},
+ {t:'На тренинге один участник сидит грустный и молчит. Что сделаете?',a:{O:'Проверю, всё ли ему удобно: место, материалы, понятно ли задание.',T:'Подключу его к упражнению, дам маленькую роль.',N:'В перерыве подойду и спокойно спрошу, что случилось.'}},
+ {t:'Что вас больше всего радует после обучения?',a:{O:'Всё прошло по плану, без накладок и вовремя.',T:'Зал горел, люди смеялись и с интересом делали задания.',N:'Через полгода человек пишет: «Я изменился благодаря вам».'}},
+ {t:'Друг просит научить его вести Инстаграм. Как поможете?',a:{O:'Дам ему пошаговый план со сроками и буду проверять.',T:'Сяду рядом, покажу на примере, потом он повторит.',N:'Спрошу, зачем ему это и где он хочет быть через год.'}},
+ {t:'Вам дали команду из 5 новичков. Что сделаете первым?',a:{O:'Распределю роли и задачи, введу понятный порядок.',T:'Проведу для них обучение, чтобы все умели одно и то же.',N:'Займусь каждым отдельно: узнаю сильные стороны и цели.'}},
+ {t:'На семинаре всё пошло не так: проектор сломался, половина группы опаздывает.',a:{O:'Быстро перестрою расписание и решу, чем заменить проектор.',T:'Проведу занятие без слайдов: игра, работа в парах.',N:'Пока ждём, поговорю с теми, кто пришёл: с чем они пришли.'}},
+ {t:'Какая похвала вам приятнее всего?',a:{O:'«С тобой всё работает как часы».',T:'«Ты так объясняешь, что сразу понятно».',N:'«С тобой можно поговорить о главном».'}},
+ {t:'Какая работа вам больше по душе?',a:{O:'Готовить мероприятие за кулисами и следить, чтобы всё сложилось.',T:'Стоять перед группой и вести её три часа.',N:'Встречаться с одним человеком раз в неделю много месяцев.'}},
+ {t:'Ученик сделал ошибку в задании. Ваша реакция?',a:{O:'Найду, где сбой в процессе, и поправлю инструкцию для всех.',T:'Покажу правильный способ и дам попробовать ещё раз.',N:'Спрошу, как он сам видит ошибку и что из неё поймёт.'}},
+ {t:'Вы делаете новый курс. Что возьмёте на себя?',a:{O:'Программу, расписание, бюджет и команду.',T:'Сами занятия: упражнения, примеры, подачу.',N:'Сопровождение участников между занятиями.'}},
+ {t:'На встрече с друзьями вы обычно…',a:{O:'Договариваюсь, где и когда встречаемся, бронирую стол.',T:'Рассказываю истории, и все слушают.',N:'Сижу с кем-то в стороне и говорю по душам.'}},
+ {t:'Как вы поймёте, что обучение прошло хорошо?',a:{O:'Все пришли, всё по времени, задачи выполнены.',T:'Вечером люди умеют то, чего не умели утром.',N:'Человек сам ставит себе цель и идёт к ней.'}},
+ {t:'Сотрудник хочет уволиться. Что сделаете?',a:{O:'Проверю, что не так в работе: нагрузка, график, задачи.',T:'Предложу обучение, чтобы ему стало легче справляться.',N:'Поговорю с ним лично: чего он хочет от жизни и работы.'}},
+ {t:'Если бы вы писали книгу, то о чём?',a:{O:'Как провести любое мероприятие без хаоса: чек-листы и шаги.',T:'Сборник игр и упражнений для обучения.',N:'Истории людей, которых я вёл, и что им помогло.'}},
+ {t:'Чем бы вы гордились больше?',a:{O:'Запустил проект на 10 человек, и всё сделали в срок.',T:'Научил группу новому навыку за один день.',N:'Помог одному человеку найти своё дело.'}},
+ {t:'За что вас чаще всего благодарили за последний год?',exp:1,a:{O:'Всё организовал, обо всём договорился.',T:'Понятно объяснил, научил.',N:'Поддержал, выслушал, дал совет.'}},
+ {t:'Что вы делали сами, без просьбы, просто потому что хотелось?',exp:1,a:{O:'Брал на себя поездки, праздники, встречи.',T:'Показывал другим, как что-то сделать.',N:'Был рядом с близкими в трудный момент.'}},
+ {t:'Когда вы теряете счёт времени?',exp:1,a:{O:'Когда составляю план и раскладываю всё по полочкам.',T:'Когда объясняю что-то и вижу, что людям интересно.',N:'Когда говорю с человеком о его жизни и целях.'}}
+];
+// Уточняющие вопросы: по 2 на пару
+var TIE = {
+ 'OT':[{t:'Вам больше нравится…',a:{O:'Готовить сцену для выступления',T:'Выступать на сцене'}},{t:'Что приятнее?',a:{O:'Всё прошло без единого сбоя',T:'Зал аплодирует'}}],
+ 'ON':[{t:'Что вам ближе?',a:{O:'Вести проект для 50 человек',N:'Вести одного человека целый год'}},{t:'Что приятнее?',a:{O:'У всех есть понятный план',N:'У одного человека появилась своя цель'}}],
+ 'TN':[{t:'Что вам ближе?',a:{T:'Учить группу из 20 человек',N:'Говорить с человеком один на один'}},{t:'Что для вас важнее?',a:{T:'Человек научился за один день',N:'Человек изменился за год'}}]
+};
+
+var ans = []; // ans[i] = ['N','O','T'] порядок рангов
+var qi = 0, cur = [], order = [];
+var ties = [], ti = 0, tieAdd = {O:0,T:0,N:0};
+var resultId = 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+var final = null, rating = 0;
+
+function $(id){return document.getElementById(id)}
+function show(id){document.querySelectorAll('.scr').forEach(function(s){s.classList.remove('on')});$(id).classList.add('on');window.scrollTo(0,0)}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+$('go-rules').onclick=function(){show('s-rules')};
+$('go-q').onclick=function(){qi=0;renderQ();show('s-q')};
+$('go-exp').onclick=function(){renderQ();show('s-q')};
+
+function renderQ(){
+  var q=Q[qi];
+  cur = ans[qi] ? ans[qi].slice() : [];
+  order = q._order || (q._order = shuffle(['O','T','N']));
+  $('q-prog').style.width = ((qi)/Q.length*100)+'%';
+  $('q-num').textContent = (qi+1)+' / '+Q.length;
+  $('q-part').textContent = q.exp ? 'Ваш реальный опыт' : 'Ситуация '+(qi+1);
+  $('q-text').textContent = q.t;
+  var box=$('q-opts'); box.innerHTML='';
+  order.forEach(function(k){
+    var b=document.createElement('button'); b.className='opt'; b.dataset.k=k;
+    b.innerHTML='<span class="rk"></span><span>'+esc(q.a[k])+'</span>';
+    b.onclick=function(){tap(k)};
+    box.appendChild(b);
+  });
+  paint();
+}
+function tap(k){
+  var i=cur.indexOf(k);
+  if(i>=0){cur=cur.slice(0,i)} else {cur.push(k); if(cur.length===2){var left=['O','T','N'].filter(function(x){return cur.indexOf(x)<0}); cur.push(left[0]);}}
+  paint();
+  if(cur.length===3){ans[qi]=cur.slice(); setTimeout(function(){ if(ans[qi] && ans[qi].join()===cur.join() && $('s-q').classList.contains('on')) next(); },650);}
+}
+function paint(){
+  document.querySelectorAll('#q-opts .opt').forEach(function(b){
+    var r=cur.indexOf(b.dataset.k); b.className='opt'+(r>=0?' r'+(r+1):''); b.querySelector('.rk').textContent=r>=0?(r+1):'';
+  });
+  $('q-next').disabled = cur.length<3;
+}
+$('q-reset').onclick=function(){cur=[];ans[qi]=null;paint()};
+$('q-next').onclick=next;
+$('q-back').onclick=function(){ if(qi===0){show('s-rules');return} qi--; renderQ(); };
+var advancing=false;
+function next(){
+  if(advancing||cur.length<3) return; advancing=true; setTimeout(function(){advancing=false},400);
+  ans[qi]=cur.slice();
+  if(qi===14 && !Q[15]._seen){Q[15]._seen=1; qi=15; show('s-inter'); return;}
+  if(qi<Q.length-1){qi++;renderQ();return;}
+  finish();
+}
+
+function baseScores(){
+  var s={O:0,T:0,N:0};
+  ans.forEach(function(a,i){ if(!a) return; var w=Q[i].exp?1.5:1; a.forEach(function(k,r){ s[k]+= (2-r)*w; }); });
+  return s;
+}
+function ranked(s){return ['O','T','N'].sort(function(a,b){return s[b]-s[a] || 'OTN'.indexOf(a)-'OTN'.indexOf(b)})}
+function finish(){
+  var s=baseScores(), rk=ranked(s);
+  var spread=s[rk[0]]-s[rk[2]];
+  if(spread>3 && s[rk[0]]-s[rk[1]]<=2){ ties=TIE[pairKey(rk[0],rk[1])]; ti=0; renderTie(); show('s-pair'); return; }
+  result();
+}
+function renderTie(){
+  var q=ties[ti]; $('p-text').textContent=q.t; var box=$('p-opts'); box.innerHTML='';
+  shuffle(Object.keys(q.a)).forEach(function(k){
+    var b=document.createElement('button'); b.className='opt'; b.innerHTML='<span class="rk"></span><span>'+esc(q.a[k])+'</span>';
+    b.onclick=function(){ b.className='opt r1'; b.querySelector('.rk').textContent='✓'; tieAdd[k]+=2;
+      setTimeout(function(){ ti++; if(ti<ties.length){renderTie()} else {result()} },500); };
+    box.appendChild(b);
+  });
+}
+function result(){
+  var s=baseScores(); ['O','T','N'].forEach(function(k){s[k]+=tieAdd[k]});
+  var rk=ranked(s), main=R[rk[0]], second=R[rk[1]];
+  var universal = (s[rk[0]]-s[rk[2]])<=3;
+  var pk=pairKey(rk[0],rk[1]), pair=PAIRS[pk];
+  final={main:rk[0],second:rk[1],universal:universal,scores:s,pair:pair.name};
+  $('r-img').src=main.img; $('r-img').alt=main.name+' — '+main.animal;
+  $('r-you').textContent = universal ? 'Вы — Универсал. Чуть сильнее:' : 'Вы —';
+  $('r-name').textContent=main.name;
+  $('r-motto').textContent='«'+main.motto+'»';
+  $('r-core').textContent=main.core;
+  $('r-strong').innerHTML=main.strong.map(function(x){return '<li>'+esc(x)+'</li>'}).join('');
+  $('r-pair').innerHTML = universal
+    ? '<b>Все три роли у вас почти равны.</b> Вы можете закрыть любую роль в обучении. Важно выбрать, на чём сделать упор сейчас. Вторая по силе роль — '+esc(second.name.toLowerCase())+'.'
+    : '<b>'+esc(main.name)+' + '+esc(second.name)+' = «'+esc(pair.name)+'».</b> '+esc(pair.text);
+  $('r-shine').textContent=main.shine;
+  $('r-blind').textContent=main.blind;
+  $('r-step').textContent=main.step;
+  var max=Math.max(s.O,s.T,s.N)||1;
+  $('r-bars').innerHTML=rk.map(function(k){return '<div class="bar"><b><span>'+R[k].name+'</span></b><s><i style="width:0;background:'+R[k].color+'" data-w="'+Math.round(s[k]/max*100)+'"></i></s></div>'}).join('');
+  show('s-res');
+  setTimeout(function(){document.querySelectorAll('#r-bars i').forEach(function(i){i.style.width=i.dataset.w+'%'})},150);
+  send();
+}
+
+// Оценка
+document.querySelectorAll('#r-rate button').forEach(function(b){
+  b.onclick=function(){ rating=+b.textContent; document.querySelectorAll('#r-rate button').forEach(function(x){x.classList.toggle('on',x===b)}); $('r-send').disabled=false; };
+});
+$('r-send').onclick=function(){ send(); $('r-send').disabled=true; $('r-thanks').style.display='block'; };
+$('r-again').onclick=function(){ location.reload(); };
+
+function send(){
+  if(!final) return;
+  var payload={id:resultId,group:GROUP,name:($('name').value||'').trim().slice(0,40),main:R[final.main].name,second:R[final.second].name,
+    pair:final.universal?'Универсал':final.pair,o:final.scores.O,t:final.scores.T,n:final.scores.N,rating:rating||'',
+    comment:($('r-comment').value||'').trim().slice(0,1000),answers:ans.map(function(a){return a?a.join(''):''}).join(' '),ua:navigator.userAgent.slice(0,120)};
+  try{localStorage.setItem('tot_last',JSON.stringify(payload))}catch(e){}
+  if(!CFG.SCRIPT_URL) return;
+  try{ fetch(CFG.SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}); }catch(e){}
+}
+})();
+</script>
+</body>
+</html>
