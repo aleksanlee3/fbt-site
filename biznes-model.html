@@ -123,6 +123,19 @@ textarea::placeholder{color:#8a9199}
 .btn--main{animation:pulse 2.8s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 8px 22px rgba(216,58,52,.30)}50%{box-shadow:0 10px 30px rgba(216,58,52,.55)}}
 @media(prefers-reduced-motion:reduce){.start::after,.btn--main::after,.btn--main{animation:none}}
+/* 26.11: голосовой ввод */
+.mic{width:44px;height:44px;border-radius:50%;border:1.5px solid #d5d9de;background:#fff;color:var(--ink);display:grid;place-items:center;flex:none}
+.mic svg{width:22px;height:22px}
+.mic:hover{background:var(--soft)}
+.mic.is-rec{background:var(--accent);border-color:var(--accent);color:#fff;animation:micpulse 1.4s ease-in-out infinite}
+.mic.is-wait{opacity:.5;pointer-events:none}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(216,58,52,.45)}50%{box-shadow:0 0 0 9px rgba(216,58,52,0)}}
+.rec{display:none;flex:1;align-items:center;gap:10px;padding:9px 0;font-size:17px;white-space:nowrap;font-weight:600;color:var(--accent)}
+.box.is-rec .rec{display:flex}
+.box.is-rec textarea{display:none}
+.rec-dot{width:10px;height:10px;border-radius:50%;background:var(--accent);animation:blink 1s infinite}
+.box.is-wait .rec{color:var(--muted)}
+.box.is-wait .rec-dot{background:var(--muted)}
 /* 20.11 v2: ответы кнопками (без ИИ) */
 .msg.still{animation:none}
 .qhint{display:block;font-size:16px;color:var(--muted);margin-top:4px}
@@ -147,6 +160,8 @@ textarea::placeholder{color:#8a9199}
   <symbol id="i-gift" viewBox="0 0 24 24"><g fill="none" stroke="#1f2a33" stroke-width="2" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M12 9s-4-.5-4-3a2 2 0 014 0 2 2 0 014 0c0 2.5-4 3-4 3z"/></g></symbol>
   <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="#1f2a33" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4z"/></symbol>
   <symbol id="i-tg" viewBox="0 0 24 24"><path fill="currentColor" d="M21.5 3.6L2.9 10.8c-1.3.5-1.3 1.2-.2 1.6l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.5-1.4zM9.3 13.6l8.6-5.4c.4-.3.8-.1.5.2l-7.1 6.4-.3 3.2z"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0013 0M12 17.5V21"/></g></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2.5" fill="currentColor"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
 </svg>
 
@@ -204,6 +219,8 @@ textarea::placeholder{color:#8a9199}
     </div>
     <form class="box" id="form" autocomplete="off">
       <textarea id="input" rows="1" maxlength="2000" placeholder="Напишите ответ…" data-clarity-mask="true"></textarea>
+      <div class="rec" id="rec" aria-live="polite"><span class="rec-dot"></span><span id="recTxt">Говорите… 0:00</span></div>
+      <button class="mic" id="mic" type="button" aria-label="Сказать голосом" hidden><svg><use href="#i-mic"/></svg></button>
       <button class="send" id="send" type="submit" aria-label="Отправить" disabled><svg><use href="#i-up"/></svg></button>
     </form>
     <div class="foot" id="foot">Ответы видит только ИИ-консультант. Куратору они уйдут, только если вы сами нажмёте «Отправить».</div>
@@ -595,8 +612,116 @@ textarea::placeholder{color:#8a9199}
   input.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && window.matchMedia('(min-width: 700px)').matches) { e.preventDefault(); ask(input.value); }
   });
-  form.addEventListener('submit', function (e) { e.preventDefault(); ask(input.value); });
+  form.addEventListener('submit', function (e) { e.preventDefault(); if (box.classList.contains('is-rec') || sr) return; ask(input.value); });
   chips.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) ask(b.textContent); });
+
+  /* ---------- 26.11: голосовой ввод. 1) запись → /api/bm-voice (Whisper в Cloudflare); 2) если его нет — распознавание браузера ---------- */
+  var mic = $('mic'), box = form, recTxt = $('recTxt');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var canRecord = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+  var voiceMode = '';            // 'server' | 'browser' | ''
+  var rec = null, chunks = [], stream = null, timer = null, t0 = 0, sr = null, srBase = '';
+  var MAX_SEC = 120;
+
+  function chooseVoice(serverOk) {
+    voiceMode = serverOk && canRecord ? 'server' : (SR ? 'browser' : '');
+    mic.hidden = !voiceMode;
+  }
+  fetch('/api/bm-voice').then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; })
+    .then(function (d) { chooseVoice(!!(d && d.ai)); });
+
+  function setRec(on, label) {
+    box.classList.toggle('is-rec', on);
+    mic.classList.toggle('is-rec', on && !label);
+    mic.classList.toggle('is-wait', !!label);
+    box.classList.toggle('is-wait', !!label);
+    mic.innerHTML = '<svg><use href="#i-' + (on && !label ? 'stop' : 'mic') + '"/></svg>';
+    mic.setAttribute('aria-label', on ? 'Остановить запись' : 'Сказать голосом');
+    if (label) recTxt.textContent = label;
+  }
+  function tick() {
+    var sec = Math.floor((Date.now() - t0) / 1000);
+    recTxt.textContent = 'Говорите… ' + Math.floor(sec / 60) + ':' + ('0' + sec % 60).slice(-2) + ' · ■ стоп';
+    if (sec >= MAX_SEC) stopVoice();
+  }
+  function putText(t) {
+    t = String(t || '').trim();
+    if (!t) return;
+    input.value = (input.value.trim() ? input.value.trim() + ' ' : '') + t;
+    autosize(); updateSend(); input.focus();
+  }
+  function voiceError(msg) {
+    setRec(false); input.placeholder = msg;
+    setTimeout(function () { input.placeholder = S.result ? 'Спросите про свой результат…' : 'Напишите ответ…'; }, 5000);
+  }
+
+  function startVoice() {
+    if (busy) return;
+    track('bm_voice_start', { mode: voiceMode });
+    if (voiceMode === 'browser') return startBrowser();
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function (st) {
+      stream = st; chunks = [];
+      var mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg'].filter(function (m) { return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m); })[0];
+      rec = mime ? new MediaRecorder(st, { mimeType: mime }) : new MediaRecorder(st);
+      rec.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
+      rec.onstop = sendAudio;
+      rec.start(500);
+      t0 = Date.now(); setRec(true); tick(); timer = setInterval(tick, 500);
+    }).catch(function () { voiceError('Нет доступа к микрофону — разрешите его в браузере или напишите текстом'); });
+  }
+
+  function stopVoice() {
+    clearInterval(timer);
+    if (sr) { try { sr.stop(); } catch (e) {} return; }
+    if (rec && rec.state !== 'inactive') rec.stop();
+    if (stream) stream.getTracks().forEach(function (t) { t.stop(); });
+  }
+
+  function sendAudio() {
+    var type = (rec && rec.mimeType) || 'audio/webm';
+    var blob = new Blob(chunks, { type: type });
+    rec = null; stream = null;
+    if (blob.size < 2000) return voiceError('Не расслышал — попробуйте ещё раз');
+    setRec(true, 'Расшифровываю…');
+    var fr = new FileReader();
+    fr.onload = function () {
+      fetch('/api/bm-voice', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ audio: String(fr.result), mime: type }) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (!r.ok) throw d; return d; }); })
+        .then(function (d) {
+          setRec(false);
+          if (!d.text) return voiceError('Не расслышал — попробуйте ещё раз или напишите текстом');
+          putText(d.text); track('bm_voice_ok', { sec: Math.round((Date.now() - t0) / 1000) });
+        })
+        .catch(function (d) {
+          if (d && d.error === 'no_ai' && SR) { chooseVoice(false); return voiceError('Нажмите микрофон ещё раз и говорите'); }
+          voiceError('Не получилось расшифровать — напишите текстом'); track('bm_voice_error', { kind: (d && d.error) || 'fail' });
+        });
+    };
+    fr.readAsDataURL(blob);
+  }
+
+  function startBrowser() {
+    sr = new SR();
+    sr.lang = 'ru-RU'; sr.continuous = true; sr.interimResults = true;
+    srBase = input.value.trim() ? input.value.trim() + ' ' : '';
+    sr.onresult = function (e) {
+      var fin = '', tmp = '';
+      for (var i = 0; i < e.results.length; i++) { if (e.results[i].isFinal) fin += e.results[i][0].transcript; else tmp += e.results[i][0].transcript; }
+      input.value = srBase + (fin + ' ' + tmp).replace(/\s+/g, ' ').trim(); autosize(); updateSend();
+    };
+    sr.onerror = function (e) { if (e.error === 'not-allowed' || e.error === 'service-not-allowed') voiceError('Нет доступа к микрофону — напишите текстом'); };
+    sr.onend = function () { sr = null; clearInterval(timer); box.classList.remove('is-rec'); setRec(false); input.focus(); };
+    try { sr.start(); } catch (e) { sr = null; return voiceError('Голосовой ввод не сработал — напишите текстом'); }
+    // в режиме браузера текст виден сразу, поэтому строку ввода не прячем
+    t0 = Date.now(); setRec(true); box.classList.remove('is-rec'); mic.classList.add('is-rec'); timer = setInterval(function () { if ((Date.now() - t0) / 1000 > MAX_SEC) stopVoice(); }, 1000);
+    input.placeholder = 'Говорите — текст появится здесь…';
+  }
+
+  mic.addEventListener('click', function () {
+    if (mic.classList.contains('is-rec')) stopVoice(); else startVoice();
+  });
+
   $('startBtn').addEventListener('click', function () { start(); });
   $('restart').addEventListener('click', function () {
     if (!confirm('Начать диагностику заново? Текущие ответы удалятся.')) return;
