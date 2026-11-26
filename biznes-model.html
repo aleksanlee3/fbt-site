@@ -126,6 +126,8 @@ textarea::placeholder{color:#8a9199}
 /* 26.11: предупреждение «только один раз» */
 .once{max-width:440px;margin:18px auto 0;padding:14px 18px;border-radius:16px;background:#fff4f3;border:1.5px solid #f3c6c3;color:var(--ink);font-size:18px;line-height:1.4}
 .once b{color:var(--accent)}
+.agree{font-size:15px;color:var(--muted);margin:12px auto 0;max-width:340px;line-height:1.45}
+.agree a{color:#34506b;text-decoration:underline}
 /* 26.11: голосовой ввод */
 .mic{width:44px;height:44px;border-radius:50%;border:1.5px solid #d5d9de;background:#fff;color:var(--ink);display:grid;place-items:center;flex:none}
 .mic svg{width:22px;height:22px}
@@ -193,6 +195,7 @@ textarea::placeholder{color:#8a9199}
       <g stroke="#103B31" stroke-width="2"><circle cx="150" cy="57" r="7" fill="#FF6676"/><circle cx="220" cy="98" r="7" fill="#50B5FF"/><circle cx="220" cy="178" r="7" fill="#AA70F8"/><circle cx="150" cy="192" r="7" fill="#32E2CC"/><circle cx="80" cy="165" r="7" fill="#F7C94C"/><circle cx="104" cy="111" r="7" fill="#19C6AE"/></g>
     </svg>
     <button type="button" class="start" id="startBtn"><svg><use href="#i-play"/></svg>Начать диагностику</button>
+    <p class="agree">Нажимая «Начать диагностику», вы соглашаетесь с <a href="biznes-model-privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a></p>
     <ul class="facts">
       <li><svg><use href="#i-time"/></svg>7–10 минут</li>
       <li><svg><use href="#i-chat"/></svg>Пишите своими словами</li>
@@ -342,7 +345,7 @@ textarea::placeholder{color:#8a9199}
     if (S.messages.length) return;
     S.messages.push({ role: 'assistant', content: FIRST });
     save(); render();
-    track('bm_start', { demo: DEMO ? 1 : 0 });
+    track('bm_start', { demo: DEMO ? 1 : 0, consent: 'privacy-2026-11-26' });
     if (firstAnswer) ask(firstAnswer); else input.focus();
   }
 
