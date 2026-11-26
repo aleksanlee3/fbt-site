@@ -123,6 +123,9 @@ textarea::placeholder{color:#8a9199}
 .btn--main{animation:pulse 2.8s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 8px 22px rgba(216,58,52,.30)}50%{box-shadow:0 10px 30px rgba(216,58,52,.55)}}
 @media(prefers-reduced-motion:reduce){.start::after,.btn--main::after,.btn--main{animation:none}}
+/* 26.11: предупреждение «только один раз» */
+.once{max-width:440px;margin:18px auto 0;padding:14px 18px;border-radius:16px;background:#fff4f3;border:1.5px solid #f3c6c3;color:var(--ink);font-size:18px;line-height:1.4}
+.once b{color:var(--accent)}
 /* 26.11: голосовой ввод */
 .mic{width:44px;height:44px;border-radius:50%;border:1.5px solid #d5d9de;background:#fff;color:var(--ink);display:grid;place-items:center;flex:none}
 .mic svg{width:22px;height:22px}
@@ -169,7 +172,6 @@ textarea::placeholder{color:#8a9199}
   <div class="top-in">
     <div class="brand"><img class="brand-logo" src="assets/logo/impact-consulting.png" alt="Impact Consulting" width="34" height="34"><b>IMPACT CONSULTING</b><em></em><small>FBT Online</small></div>
     <div class="grow"></div>
-    <button type="button" class="restart" id="restart">Заново</button>
   </div>
   <div class="prog" id="prog"><span id="progTxt">Вопрос 1 из 14</span><div class="bar"><b id="progBar"></b></div></div>
 </header>
@@ -196,15 +198,8 @@ textarea::placeholder{color:#8a9199}
       <li><svg><use href="#i-chat"/></svg>Пишите своими словами</li>
       <li><svg><use href="#i-gift"/></svg>Бесплатно</li>
     </ul>
+    <p class="once"><b>Отвечайте внимательно:</b> пройти диагностику можно только один&nbsp;раз.</p>
     <p class="note">После карты можно бесплатно получить разбор от куратора в Telegram.</p>
-    <div class="zones">
-      <div><span style="background:#FF6676"></span>Клиент</div>
-      <div><span style="background:#50B5FF"></span>Почему выбирают вас</div>
-      <div><span style="background:#AA70F8"></span>Спрос</div>
-      <div><span style="background:#32E2CC"></span>Продажи</div>
-      <div><span style="background:#F7C94C"></span>Экономика</div>
-      <div><span style="background:#19C6AE"></span>Выполнение заказов</div>
-    </div>
   </section>
 
   <section class="chat" id="chat" data-clarity-mask="true" aria-live="polite"></section>
@@ -212,11 +207,6 @@ textarea::placeholder{color:#8a9199}
 
 <div class="dock is-off" id="dock">
   <div class="dock-in">
-    <div class="chips" id="chips">
-      <button type="button">Не знаю</button>
-      <button type="button">Ещё не было</button>
-      <button type="button">Не считал(а)</button>
-    </div>
     <form class="box" id="form" autocomplete="off">
       <textarea id="input" rows="1" maxlength="2000" placeholder="Напишите ответ…" data-clarity-mask="true"></textarea>
       <div class="rec" id="rec" aria-live="polite"><span class="rec-dot"></span><span id="recTxt">Говорите… 0:00</span></div>
@@ -259,7 +249,7 @@ textarea::placeholder{color:#8a9199}
 
   /* ---------- состояние ---------- */
   var $ = function (id) { return document.getElementById(id); };
-  var chat = $('chat'), hero = $('hero'), input = $('input'), send = $('send'), form = $('form'), chips = $('chips');
+  var chat = $('chat'), hero = $('hero'), input = $('input'), send = $('send'), form = $('form');
   function load() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   function fresh() { return { messages: [], result: null, sent: false, demo: DEMO }; }
@@ -323,7 +313,7 @@ textarea::placeholder{color:#8a9199}
   function showChat() {
     hero.classList.add('is-off'); chat.classList.add('is-on');
     $('dock').classList.remove('is-off');
-    $('restart').classList.add('is-on'); $('top').classList.add('is-on'); $('foot').classList.add('is-off');
+    $('top').classList.add('is-on'); $('foot').classList.add('is-off');
     if (S.demo && !chat.querySelector('.demo-bar')) {
       var d = document.createElement('div'); d.className = 'demo-bar';
       d.textContent = 'Показ без ИИ: вопросы идут по списку, ответы не разбираются, карта — пример. С ключом здесь будет живой ИИ-консультант.';
@@ -343,8 +333,7 @@ textarea::placeholder{color:#8a9199}
       if (i === resIdx) finish(false);
     });
     setProgress();
-    chips.classList.toggle('is-off', !!S.result);
-    input.placeholder = S.result ? 'Спросите про свой результат…' : 'Напишите ответ…';
+    input.placeholder = S.result ? 'Вопрос по результату…' : 'Напишите ответ…';
     scrollDown();
   }
 
@@ -395,8 +384,7 @@ textarea::placeholder{color:#8a9199}
       addMsg('assistant', reply, !!res);
       if (res) finish(true);
       setProgress();
-      chips.classList.toggle('is-off', !!S.result);
-      if (S.result) input.placeholder = 'Спросите про свой результат…';
+      if (S.result) input.placeholder = 'Вопрос по результату…';
       if (!res) scrollDown();
     }).catch(function (e) {
       t.remove();
@@ -613,7 +601,6 @@ textarea::placeholder{color:#8a9199}
     if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && window.matchMedia('(min-width: 700px)').matches) { e.preventDefault(); ask(input.value); }
   });
   form.addEventListener('submit', function (e) { e.preventDefault(); if (box.classList.contains('is-rec') || sr) return; ask(input.value); });
-  chips.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) ask(b.textContent); });
 
   /* ---------- 26.11: голосовой ввод. 1) запись → /api/bm-voice (Whisper в Cloudflare); 2) если его нет — распознавание браузера ---------- */
   var mic = $('mic'), box = form, recTxt = $('recTxt');
@@ -652,7 +639,7 @@ textarea::placeholder{color:#8a9199}
   }
   function voiceError(msg) {
     setRec(false); input.placeholder = msg;
-    setTimeout(function () { input.placeholder = S.result ? 'Спросите про свой результат…' : 'Напишите ответ…'; }, 5000);
+    setTimeout(function () { input.placeholder = S.result ? 'Вопрос по результату…' : 'Напишите ответ…'; }, 5000);
   }
 
   function startVoice() {
@@ -723,10 +710,7 @@ textarea::placeholder{color:#8a9199}
   });
 
   $('startBtn').addEventListener('click', function () { start(); });
-  $('restart').addEventListener('click', function () {
-    if (!confirm('Начать диагностику заново? Текущие ответы удалятся.')) return;
-    S = fresh(); save(); render(); start();
-  });
+
 
   /* ---------- Meta Pixel и Clarity (ID из config.js) ---------- */
   if (C.metaPixel && !TEST) {
